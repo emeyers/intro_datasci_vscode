@@ -20,6 +20,10 @@ jobs:
           version: pre-release
           tinytex: true
 
+      - name: Install Jupyter and dependencies
+        run: |
+          python3 -m pip install jupyter
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
