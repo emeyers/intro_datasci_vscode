@@ -1,0 +1,42 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to Data Science",
+    "section": "",
+    "text": "Figure 1: Book cover image",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to Data Science</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "2  Introduction",
+    "section": "",
+    "text": "2.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 2.1).\nData and methods are discussed in Section 2.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{2.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 2.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 2.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nHere is a cover image of the book genderated by chatGPT (Figure 1).\nFigure 2.2 shows the location of recent Earthquakes on La Palma.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#conclusion",
+    "href": "intro.html#conclusion",
+    "title": "2  Introduction",
+    "section": "2.2 Conclusion",
+    "text": "2.2 Conclusion",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#references",
+    "href": "intro.html#references",
+    "title": "2  Introduction",
+    "section": "References",
+    "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares,\nAntonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the\nDevelopment of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The\nExample of La Palma (Canary\nIslands).” Journal of Applied Volcanology 8\n(July). https://doi.org/10.1186/s13617-019-0085-5.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  }
+]
