@@ -1,17 +1,22 @@
 project:
-  type: manuscript
+  type: book
 
-execute:
-  freeze: auto
+book:
+  title: "Introduction to Data Science"
+  author: "Ethan Meyers"
+  chapters:
+    - index.qmd
+    - intro.qmd
+
+bibliography: references.bib
 
 format:
   html:
-    toc: true
-    comments:
-      hypothesis: true
-  docx: default
-  jats: default
-  agu-pdf: default
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    documentclass: scrreprt
 
 
 
