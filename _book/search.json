@@ -74,7 +74,7 @@
     "href": "python_basics.html",
     "title": "2  Python basics",
     "section": "",
-    "text": "2.1 Data types\nNow that we have discussed what data science is, let’s learn some of the basics of the Python programming language so we can begin to learn how to analyze data.\nIn this chapter we will discuss the basic syntax of programming in Python, along with some of key data structures that are part of the Pythong programming language.\n=&gt; Need to have a chapter describing the basics of using Jupyter notebooks, what packages are, etc. Can have the instructions for installing Jupyter (or using google colabs) in the appendix.\nCould potentially skip this…",
+    "text": "2.1 Data types\nNow that we have discussed what data science is, let’s learn some of the basics of the Python programming language so we can begin to learn how to analyze data.\nIn this chapter we will discuss the basic syntax of programming in Python, along with some of key data structures that are part of the Pythong programming language.\n=&gt; Need to have a chapter describing the basics of using Jupyter notebooks, what packages are, etc. Can have the instructions for installing Jupyter (or using google colabs) in the appendix.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]
@@ -124,7 +124,7 @@
     "href": "array_computations.html#references",
     "title": "3  Array computations",
     "section": "References",
-    "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares, Antonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the Development of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The Example of La Palma (Canary Islands).” Journal of Applied Volcanology 8 (July). https://doi.org/10.1186/s13617-019-0085-5.",
+    "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares,\nAntonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the\nDevelopment of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The\nExample of La Palma (Canary\nIslands).” Journal of Applied Volcanology 8\n(July). https://doi.org/10.1186/s13617-019-0085-5.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Array computations</span>"
     ]
@@ -215,6 +215,36 @@
     "title": "2  Python basics",
     "section": "2.3 Statements",
     "text": "2.3 Statements\nA Python statement is a line of code that performs an action. It tells Python to do something, such as assigning a value, calling a function, controlling the flow (e.g., if/for/while), or defining a function/class.\nIf Python can evaluate it to a value, it’s an expression. If it’s doing something (like a loop, a function definition, or an assignment), it’s a statement.\nSo, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.\n\nx = 5\n\n\n\n\n\n\n\n\n\nTerm\nDescription\nExample\n\n\n\n\nExpression\nReturns a value\n2 + 2\n\n\nStatement\nPerforms an action (e.g., assignment, loop, etc.)\nx = 2 + 2",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#data-types",
+    "href": "python_basics.html#data-types",
+    "title": "2  Python basics",
+    "section": "",
+    "text": "2.1.1 Numbers\nInts and floats\n\n\n2.1.2 Character strings\n\n\n2.1.3 Booleans",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#functions",
+    "href": "python_basics.html#functions",
+    "title": "2  Python basics",
+    "section": "2.2 Functions",
+    "text": "2.2 Functions",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#expressions-and-statements",
+    "href": "python_basics.html#expressions-and-statements",
+    "title": "2  Python basics",
+    "section": "2.3 Expressions and Statements",
+    "text": "2.3 Expressions and Statements\nCould potentially skip this…\n\n2.3.1 Expressions\nA Python expression is any piece of code that produces a value.\nFor example, the following is an expression that simply creates the number 21.\n\n21\n\n21\n\n\nSimilarly, an expression could be a series of mathematical operations that evaluate to number, for example:\n\n6 * (5 + 2) \n\n42\n\n\nWe will see many other expressions throughout this book that evaluate to numbers and other types of data.\n\n\n2.3.2 Statements\nA Python statement is a line of code that performs an action. It tells Python to do something, such as assigning a value, calling a function, controlling the flow (e.g., if/for/while), or defining a function/class.\nIf Python can evaluate it to a value, it’s an expression. If it’s doing something (like a loop, a function definition, or an assignment), it’s a statement.\nSo, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.\n\nx = 5\n\n\n\n\n\n\n\n\n\nTerm\nDescription\nExample\n\n\n\n\nExpression\nReturns a value\n2 + 2\n\n\nStatement\nPerforms an action (e.g., assignment, loop, etc.)\nx = 2 + 2",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]
