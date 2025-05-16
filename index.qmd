@@ -1,28 +1,11 @@
----
-title: Introduction to Data Science
-author:
-  - name: Ethan Meyers
-    orcid: 0000-0001-5088-6098
-    corresponding: true
-    email: Ethan.Meyers@yale.edu
-    roles []:
-    affiliations:
-      - Yale University
-keywords:
-  - Data Science
-  - Python
-abstract: |
-  This book is gives an introduction to Data Science using the Python programming language...
-plain-language-summary: |
-  This book is gives an introduction to Data Science using the Python programming language...
-key-points:
-  - Data Science is a field that uses computational and statistical methods to analyze questions in a particular field of interest. 
-  - There are several useful packages in Python that are useful for analyzing data.
-date: last-modified
-bibliography: references.bib
-number-sections: true
-jupyter: python3
----
 
-![Book cover image](images/cover_img.png){#fig-cover_image}
+# Welcome {.unnumbered}
+
+![](images/cover_img.png){width="300px"}
+
+This book gives an introduction to Data Science using the Python programming langauge. 
+
+
+
+
 

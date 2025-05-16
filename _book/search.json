@@ -4,39 +4,219 @@
     "href": "index.html",
     "title": "Introduction to Data Science",
     "section": "",
-    "text": "Figure 1: Book cover image",
+    "text": "Welcome\n\nThis book gives an introduction to Data Science using the Python programming langauge.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to Data Science</span>"
+      "Welcome"
     ]
   },
   {
     "objectID": "intro.html",
     "href": "intro.html",
-    "title": "2  Introduction",
+    "title": "1  Introduction",
     "section": "",
-    "text": "2.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 2.1).\nData and methods are discussed in Section 2.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{2.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 2.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 2.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nHere is a cover image of the book genderated by chatGPT (Figure 1).\nFigure 2.2 shows the location of recent Earthquakes on La Palma.",
+    "text": "1.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 1.1).\nData and methods are discussed in Section 1.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{1.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 1.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 1.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nHere is a cover image of the book genderated by chatGPT (?fig-cover_image).\nFigure 1.2 shows the location of recent Earthquakes on La Palma.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
   },
   {
     "objectID": "intro.html#conclusion",
     "href": "intro.html#conclusion",
-    "title": "2  Introduction",
-    "section": "2.2 Conclusion",
-    "text": "2.2 Conclusion",
+    "title": "1  Introduction",
+    "section": "1.2 Conclusion",
+    "text": "1.2 Conclusion",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
   },
   {
     "objectID": "intro.html#references",
     "href": "intro.html#references",
-    "title": "2  Introduction",
+    "title": "1  Introduction",
     "section": "References",
     "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares,\nAntonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the\nDevelopment of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The\nExample of La Palma (Canary\nIslands).” Journal of Applied Volcanology 8\n(July). https://doi.org/10.1186/s13617-019-0085-5.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "1.1 What is Data Science?\nIn this chapter we will discuss what the field of Data Science is, and give a brief history of how the field developed.\nThis book is your guide to understanding the exciting and increasingly influential field of data science. Whether you’re curious about how data shapes our world or are looking to explore the possibilities of data-driven insights, this book will provide you with a foundational understanding of what data science is and why it matters.\nData science is a dynamic and interdisciplinary field that combines techniques and theories from statistics, computer science, and specialized knowledge in various areas to extract valuable knowledge and insights from data [Chapter 1]. This data can come in many forms, whether neatly organized in databases or existing as unstructured information like text or images.\nAt its core, data science follows a systematic process for analyzing data. This includes a range of crucial steps, starting with data collection and ensuring the data is in a usable state through data cleaning. Once prepared, the data is explored to uncover initial patterns and relationships (data exploration). Data scientists then apply various modeling techniques to identify deeper insights, which need to be carefully interpreted to draw meaningful conclusions. Finally, the findings are communicated effectively to inform decisions and understanding [Chapter 1].\nThe field of data science has experienced remarkable growth in recent years This surge in prominence can be attributed to several key factors: - The explosion in the amount of data being generated across all sectors, from social media to scientific research. - Significant advancements in computing power, enabling the processing and analysis of these vast datasets. - The development of increasingly sophisticated analytical tools and techniques that allow for more complex and insightful data exploration.\nBy delving into data science, you can gain practical analytical skills that are applicable across a wide array of fields [Chapter 1, 62]. You’ll learn how to approach real-world data, identify key questions, and use data-driven methods to find answers and understand the world around us [Chapter 1, 62]. As a lighthearted starting point, you might hear the quip that “A Data Scientist is a Statistician who lives in San Francisco” [Chapter 1, 11]. While humorous, this simple definition hints at the combination of statistical thinking with the technological innovation often associated with data science. Throughout this book, we will move beyond simplistic definitions to explore the rich and multifaceted nature of this vital field.\nKey points - Despite the fact that humans have been collecting data for millenia, and doing sophisticated analyses of data for centuries, the field of data science” (or at least the name) is relatively new. -",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "introduction.html#conclusion",
+    "href": "introduction.html#conclusion",
+    "title": "1  What is Data Science?",
+    "section": "1.2 Conclusion",
+    "text": "1.2 Conclusion",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>What is Data Science?</span>"
+    ]
+  },
+  {
+    "objectID": "introduction.html#references",
+    "href": "introduction.html#references",
+    "title": "1  What is Data Science?",
+    "section": "References",
+    "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares, Antonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the Development of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The Example of La Palma (Canary Islands).” Journal of Applied Volcanology 8 (July). https://doi.org/10.1186/s13617-019-0085-5.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>What is Data Science?</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html",
+    "href": "python_basics.html",
+    "title": "2  Python basics",
+    "section": "",
+    "text": "2.1 Data types\nNow that we have discussed what data science is, let’s learn some of the basics of the Python programming language so we can begin to learn how to analyze data.\nIn this chapter we will discuss the basic syntax of programming in Python, along with some of key data structures that are part of the Pythong programming language.\n=&gt; Need to have a chapter describing the basics of using Jupyter notebooks, what packages are, etc. Can have the instructions for installing Jupyter (or using google colabs) in the appendix.\nCould potentially skip this…",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#conclusion",
+    "href": "python_basics.html#conclusion",
+    "title": "2  Python basics",
+    "section": "2.2 Conclusion",
+    "text": "2.2 Conclusion",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#references",
+    "href": "python_basics.html#references",
+    "title": "2  Python basics",
+    "section": "References",
+    "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares,\nAntonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the\nDevelopment of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The\nExample of La Palma (Canary\nIslands).” Journal of Applied Volcanology 8\n(July). https://doi.org/10.1186/s13617-019-0085-5.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "array_computations.html",
+    "href": "array_computations.html",
+    "title": "3  Array computations",
+    "section": "",
+    "text": "3.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 5.1).\nData and methods are discussed in Section 5.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{3.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 5.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 5.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 5.2 shows the location of recent Earthquakes on La Palma.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Array computations</span>"
+    ]
+  },
+  {
+    "objectID": "array_computations.html#conclusion",
+    "href": "array_computations.html#conclusion",
+    "title": "3  Array computations",
+    "section": "3.2 Conclusion",
+    "text": "3.2 Conclusion",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Array computations</span>"
+    ]
+  },
+  {
+    "objectID": "array_computations.html#references",
+    "href": "array_computations.html#references",
+    "title": "3  Array computations",
+    "section": "References",
+    "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares, Antonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the Development of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The Example of La Palma (Canary Islands).” Journal of Applied Volcanology 8 (July). https://doi.org/10.1186/s13617-019-0085-5.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Array computations</span>"
+    ]
+  },
+  {
+    "objectID": "data_tables.html",
+    "href": "data_tables.html",
+    "title": "4  Data tables",
+    "section": "",
+    "text": "4.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 5.1).\nData and methods are discussed in Section 5.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{4.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 5.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 5.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 5.2 shows the location of recent Earthquakes on La Palma.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data tables</span>"
+    ]
+  },
+  {
+    "objectID": "data_tables.html#conclusion",
+    "href": "data_tables.html#conclusion",
+    "title": "4  Data tables",
+    "section": "4.2 Conclusion",
+    "text": "4.2 Conclusion",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data tables</span>"
+    ]
+  },
+  {
+    "objectID": "data_tables.html#references",
+    "href": "data_tables.html#references",
+    "title": "4  Data tables",
+    "section": "References",
+    "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares, Antonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the Development of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The Example of La Palma (Canary Islands).” Journal of Applied Volcanology 8 (July). https://doi.org/10.1186/s13617-019-0085-5.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data tables</span>"
+    ]
+  },
+  {
+    "objectID": "data_visualization.html",
+    "href": "data_visualization.html",
+    "title": "5  Data visualization",
+    "section": "",
+    "text": "5.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 5.1).\nData and methods are discussed in Section 5.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{5.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 5.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 5.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 5.2 shows the location of recent Earthquakes on La Palma.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data visualization</span>"
+    ]
+  },
+  {
+    "objectID": "data_visualization.html#conclusion",
+    "href": "data_visualization.html#conclusion",
+    "title": "5  Data visualization",
+    "section": "5.2 Conclusion",
+    "text": "5.2 Conclusion",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data visualization</span>"
+    ]
+  },
+  {
+    "objectID": "data_visualization.html#references",
+    "href": "data_visualization.html#references",
+    "title": "5  Data visualization",
+    "section": "References",
+    "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares, Antonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the Development of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The Example of La Palma (Canary Islands).” Journal of Applied Volcanology 8 (July). https://doi.org/10.1186/s13617-019-0085-5.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data visualization</span>"
+    ]
+  },
+  {
+    "objectID": "introduction.html#a-brief-history-of-data-science",
+    "href": "introduction.html#a-brief-history-of-data-science",
+    "title": "1  Introduction",
+    "section": "1.2 A brief history of Data Science",
+    "text": "1.2 A brief history of Data Science\n\n1.2.1 A brief history of data\n\n\n1.2.2 A brief history of Statistics\n\n\n1.2.3 A brief history of computation\nComputational devices also have a long history.\n\n\n1.2.4 The creation of the field of Data Science",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#expressions",
+    "href": "python_basics.html#expressions",
+    "title": "2  Python basics",
+    "section": "2.2 Expressions",
+    "text": "2.2 Expressions\nA Python expression is any piece of code that produces a value.\nFor example, the following is an expression that simply creates the number 21.\n\n21\n\n21\n\n\nSimilarly, an expression could be a series of mathematical operations that evaluate to number, for example:\n\n6 * (5 + 2) \n\n42\n\n\nWe will see many other expressions throughout this book that evaluate to numbers and other types of data.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#statements",
+    "href": "python_basics.html#statements",
+    "title": "2  Python basics",
+    "section": "2.3 Statements",
+    "text": "2.3 Statements\nA Python statement is a line of code that performs an action. It tells Python to do something, such as assigning a value, calling a function, controlling the flow (e.g., if/for/while), or defining a function/class.\nIf Python can evaluate it to a value, it’s an expression. If it’s doing something (like a loop, a function definition, or an assignment), it’s a statement.\nSo, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.\n\nx = 5\n\n\n\n\n\n\n\n\n\nTerm\nDescription\nExample\n\n\n\n\nExpression\nReturns a value\n2 + 2\n\n\nStatement\nPerforms an action (e.g., assignment, loop, etc.)\nx = 2 + 2",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]
   }
 ]

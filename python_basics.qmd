@@ -1,0 +1,82 @@
+# Python basics
+
+Now that we have discussed what data science is, let's learn some of the basics of the Python programming language so we can begin to learn how to analyze data.
+
+In this chapter we will discuss the basic syntax of programming in Python, along with some of key data structures that are part of the Pythong programming language.
+
+
+=> Need to have a chapter describing the basics of using Jupyter notebooks, what packages are, etc. Can have the instructions for installing Jupyter (or using google colabs) in the appendix. 
+
+
+
+## Data types
+
+
+### Numbers
+
+Ints and floats
+
+
+### Character strings
+
+
+
+### Booleans
+
+
+
+## Functions
+
+
+
+
+
+
+## Expressions and Statements
+
+Could potentially skip this...
+
+### Expressions
+
+A **Python expression** is **any piece of code that produces a value.**
+
+For example, the following is an expression that simply creates the number 21.
+
+```{python}
+21
+```
+
+Similarly, an expression could be a series of mathematical operations that evaluate to number, for example:  
+
+```{python}
+
+6 * (5 + 2) 
+
+```
+
+
+We will see many other expressions throughout this book that evaluate to numbers and other types of data. 
+
+
+
+### Statements
+
+A Python statement is a line of code that performs an action. It tells Python to do something, such as assigning a value, calling a function, controlling the flow (e.g., if/for/while), or defining a function/class.
+
+
+If Python can evaluate it to a value, it's an expression. If it's doing something (like a loop, a function definition, or an assignment), it's a statement.
+
+So, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.
+
+```{python}
+x = 5
+
+```
+
+
+| Term           | Description                                       | Example     |
+| -------------- | ------------------------------------------------- | ----------- |
+| **Expression** | Returns a value                                   | `2 + 2`     |
+| **Statement**  | Performs an action (e.g., assignment, loop, etc.) | `x = 2 + 2` |
+
+

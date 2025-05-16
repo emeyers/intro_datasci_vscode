@@ -1,4 +1,4 @@
-# Introduction
+# Data visualization
 
 This is a book created from markdown and executable code.
 
@@ -58,8 +58,6 @@ where $\lambda$ is the rate of eruptions per year. Using @eq-poisson, the probab
 
 @tbl-history summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.
 
-
-Here is a cover image of the book genderated by chatGPT (@fig-cover_image).
 
 {{< embed notebooks/data-screening.qmd#fig-spatial-plot >}}
 

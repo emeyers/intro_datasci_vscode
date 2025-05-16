@@ -6,7 +6,11 @@ book:
   author: "Ethan Meyers"
   chapters:
     - index.qmd
-    - intro.qmd
+    - introduction.qmd
+    - python_basics.qmd
+    - array_computations.qmd
+    - data_tables.qmd
+    - data_visualization.qmd
 
 bibliography: references.bib
 
@@ -14,7 +18,7 @@ format:
   html:
     theme:
       - cosmo
-      - brand
+      
   pdf:
     documentclass: scrreprt
 

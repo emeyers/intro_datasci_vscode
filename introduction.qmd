@@ -1,0 +1,50 @@
+# Introduction
+
+In this chapter we will discuss what the field of Data Science is, and give a brief history of how the field developed. 
+
+
+This book is your guide to understanding the exciting and increasingly influential field of data science. Whether you're curious about how data shapes our world or are looking to explore the possibilities of data-driven insights, this book will provide you with a foundational understanding of what data science is and why it matters.
+
+
+## What is Data Science?
+
+Data science is a dynamic and interdisciplinary field that combines techniques and theories from statistics, computer science, and specialized knowledge in various areas to extract valuable knowledge and insights from data [Chapter 1]. This data can come in many forms, whether neatly organized in databases or existing as unstructured information like text or images.
+
+At its core, data science follows a systematic process for analyzing data. This includes a range of crucial steps, starting with data collection and ensuring the data is in a usable state through data cleaning. Once prepared, the data is explored to uncover initial patterns and relationships (data exploration). Data scientists then apply various modeling techniques to identify deeper insights, which need to be carefully interpreted to draw meaningful conclusions. Finally, the findings are communicated effectively to inform decisions and understanding [Chapter 1].
+
+The field of data science has experienced remarkable growth in recent years This surge in prominence can be attributed to several key factors:
+- The explosion in the amount of data being generated across all sectors, from social media to scientific research.
+- Significant advancements in computing power, enabling the processing and analysis of these vast datasets.
+- The development of increasingly sophisticated analytical tools and techniques that allow for more complex and insightful data exploration.
+
+By delving into data science, you can gain practical analytical skills that are applicable across a wide array of fields [Chapter 1, 62]. You'll learn how to approach real-world data, identify key questions, and use data-driven methods to find answers and understand the world around us [Chapter 1, 62].
+As a lighthearted starting point, you might hear the quip that "A Data Scientist is a Statistician who lives in San Francisco" [Chapter 1, 11]. While humorous, this simple definition hints at the combination of statistical thinking with the technological innovation often associated with data science. Throughout this book, we will move beyond simplistic definitions to explore the rich and multifaceted nature of this vital field.
+
+Key points
+- Despite the fact that humans have been collecting data for millenia, and doing sophisticated analyses of data for centuries, the field of data science" (or at least the name) is relatively new. 
+- 
+
+
+
+## A brief history of Data Science
+
+
+### A brief history of data
+
+
+
+### A brief history of Statistics
+
+
+
+### A brief history of computation 
+
+Computational devices also have a long history. 
+
+
+### The creation of the field of Data Science
+
+
+
+
+
