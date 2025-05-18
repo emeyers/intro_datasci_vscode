@@ -2,10 +2,146 @@
 
 Now that we have discussed what data science is, let's learn some of the basics of the Python programming language so we can begin to learn how to analyze data.
 
-In this chapter we will discuss the basic syntax of programming in Python, along with some of key data structures that are part of the Pythong programming language.
+In this chapter we will discuss:
+- The basic syntax of programming in Python that is needed to write Python code that can run.
+- Common type of data, such as numbers and character strings, that we frequently use.
+- Key data structures that we can use to store data. 
 
 
-=> Need to have a chapter describing the basics of using Jupyter notebooks, what packages are, etc. Can have the instructions for installing Jupyter (or using google colabs) in the appendix. 
+
+## Expressions and Statements
+
+
+### Expressions
+
+A **Python expression** is **any piece of code that produces a value.**. For example, the following is an expression that simply creates the number 21.
+
+```{python}
+21
+```
+
+Similarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:  
+
+```{python}
+
+6 * (5 + 2) 
+
+```
+
+As mentioned above, the defining features of a *python expression* is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book. 
+
+
+### Syntax 
+
+**Syntax** is the set of rules that defines how Python code **must** be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it **must** use the correct syntax. If incorrect syntax is used, then one will get a "syntax error", and the code will not run. 
+
+To illustrate this, let's calculate the value of 3 squared ($8^2$) which hopefully you remember is equal to the value of 64. In Python, if we want to take a value `x` to the power `y` (i.e., to calculate $x^y$) we use the syntax `x**y`. So, if we wanted to calculate $8^2$ we would write the following Python code: 
+
+```{python}
+
+8**2
+
+```
+
+Since we have written the correct syntax, the code runs and the result of 64 is calculated as expected. 
+
+However, if we accidentially put an extra space between the two `*` symbols, Python will not know how to interpret the expression and we will get a syntax error as shown below:
+
+```{python}
+#| error: true
+
+8* *2
+
+```
+
+We there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a `^` symbol. As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
+
+The ability to be able to spot and fix syntax errors is a fundamental skill you will develop as become proficient in analyzing data in Python. 
+
+
+
+### Statements
+
+A Python statement is a line of code that performs an action; i.e., it tells Python that it should do something other than just calculating a value. 
+
+One of the most fundamental statement types is an *assignment statement*, where we have Python store a value in a named **variable**. For example, the following code assigns the value `10` to the variable `a`:
+
+```{python}
+
+a = 10
+
+```
+
+We can then refer back to the variable `a` later in our code to retrive the stored value. For example, if we just write `a` on a line by itself, it will print out the value stored in `a`. 
+
+```{python}
+a
+```
+
+As we can see, the value printed out is `10` which is the value we had previously stored in the name `a`. 
+
+If we then assigne the name `a` to another value, it will overwrite the previously stored value and `a` will store the new value.
+
+```{python}
+a = 21
+a
+```
+
+We an also do mathematical operations on values stored in variables, such as adding and multiplying variables together. For example, we can assign the variable `h` to store the value 24, and the variable `d` to store the value 7, and then we can multiple these together and store the result in the variable `t`.
+
+```{python}
+h = 24
+d = 7
+t = h * d
+t
+```
+
+
+
+#### Variable names
+
+Must start with a character
+Should be meaningful name (`a` bad variable name). 
+
+The first is a law (syntax error). The second is good style to make code readible (like wearing sweatpants to class). 
+
+```{python}
+hours = 24
+days = 7
+total_hours_in_a_week = hours * days
+total_hours_in_a_week
+```
+
+**Exercise**: Calculate CT yearly wage if making minimum wage...
+
+
+
+So far we have only described "assignment statements". However, later in this book will see many other types of statements, such as "for loops" and "conditional statements" which us to do more complex processing in Python. 
+
+
+
+### The difference between expressions and statements
+
+
+
+If Python can evaluate it to a value, it's an expression. If it's doing something (like a loop, a function definition, or an assignment), it's a statement.
+
+So, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.
+
+```{python}
+x = 5
+
+```
+
+
+| Term           | Description                                       | Example     |
+| -------------- | ------------------------------------------------- | ----------- |
+| **Expression** | Returns a value                                   | `2 + 2`     |
+| **Statement**  | Performs an action (e.g., assignment, loop, etc.) | `x = 2 + 2` |
+
+
+
+
 
 
 
@@ -28,55 +164,5 @@ Ints and floats
 ## Functions
 
 
-
-
-
-
-## Expressions and Statements
-
-Could potentially skip this...
-
-### Expressions
-
-A **Python expression** is **any piece of code that produces a value.**
-
-For example, the following is an expression that simply creates the number 21.
-
-```{python}
-21
-```
-
-Similarly, an expression could be a series of mathematical operations that evaluate to number, for example:  
-
-```{python}
-
-6 * (5 + 2) 
-
-```
-
-
-We will see many other expressions throughout this book that evaluate to numbers and other types of data. 
-
-
-
-### Statements
-
-A Python statement is a line of code that performs an action. It tells Python to do something, such as assigning a value, calling a function, controlling the flow (e.g., if/for/while), or defining a function/class.
-
-
-If Python can evaluate it to a value, it's an expression. If it's doing something (like a loop, a function definition, or an assignment), it's a statement.
-
-So, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.
-
-```{python}
-x = 5
-
-```
-
-
-| Term           | Description                                       | Example     |
-| -------------- | ------------------------------------------------- | ----------- |
-| **Expression** | Returns a value                                   | `2 + 2`     |
-| **Statement**  | Performs an action (e.g., assignment, loop, etc.) | `x = 2 + 2` |
 
 
