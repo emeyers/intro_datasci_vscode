@@ -54,7 +54,7 @@ However, if we accidentially put an extra space between the two `*` symbols, Pyt
 
 ```
 
-We there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a `^` symbol. As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
+We there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a ^ symbol. As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
 
 The ability to be able to spot and fix syntax errors is a fundamental skill you will develop as become proficient in analyzing data in Python. 
 
