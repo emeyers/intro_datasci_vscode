@@ -74,7 +74,7 @@
     "href": "array_computations.html",
     "title": "3  Array computations",
     "section": "",
-    "text": "3.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 5.1).\nData and methods are discussed in Section 5.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{3.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 5.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 5.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 5.2 shows the location of recent Earthquakes on La Palma.",
+    "text": "3.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 5.1).\nData and methods are discussed in Section 3.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{3.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 5.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 5.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 5.2 shows the location of recent Earthquakes on La Palma.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Array computations</span>"
     ]
@@ -104,17 +104,7 @@
     "href": "data_tables.html",
     "title": "4  Data tables",
     "section": "",
-    "text": "4.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 5.1).\nData and methods are discussed in Section 5.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{4.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 5.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 5.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 5.2 shows the location of recent Earthquakes on La Palma.",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data tables</span>"
-    ]
-  },
-  {
-    "objectID": "data_tables.html#conclusion",
-    "href": "data_tables.html#conclusion",
-    "title": "4  Data tables",
-    "section": "4.2 Conclusion",
-    "text": "4.2 Conclusion",
+    "text": "4.1 Conclusion\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 5.1).\nData and methods are discussed in Section 3.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{4.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 5.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 5.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 5.2 shows the location of recent Earthquakes on La Palma.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data tables</span>"
     ]
@@ -134,17 +124,7 @@
     "href": "data_visualization.html",
     "title": "5  Data visualization",
     "section": "",
-    "text": "5.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 5.1).\nData and methods are discussed in Section 5.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{5.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 5.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 5.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 5.2 shows the location of recent Earthquakes on La Palma.",
-    "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data visualization</span>"
-    ]
-  },
-  {
-    "objectID": "data_visualization.html#conclusion",
-    "href": "data_visualization.html#conclusion",
-    "title": "5  Data visualization",
-    "section": "5.2 Conclusion",
-    "text": "5.2 Conclusion",
+    "text": "5.1 Conclusion\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 5.1).\nData and methods are discussed in Section 3.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\n\\[\np(x) = \\frac{e^{-\\lambda} \\lambda^{x}}{x !}\n\\tag{5.1}\\]\nwhere \\(\\lambda\\) is the rate of eruptions per year. Using Equation 5.1, the probability of an eruption in the next \\(t\\) years can be calculated.\nTable 5.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 5.2 shows the location of recent Earthquakes on La Palma.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data visualization</span>"
     ]

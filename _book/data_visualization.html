@@ -237,8 +237,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-data-methods" id="toc-sec-data-methods" class="nav-link active" data-scroll-target="#sec-data-methods"><span class="header-section-number">5.1</span> Data &amp; Methods</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5.2</span> Conclusion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link active" data-scroll-target="#conclusion"><span class="header-section-number">5.1</span> Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -266,7 +265,7 @@ window.Quarto = {
 
 
 <p>This is a book created from markdown and executable code.</p>
-<div id="4430709a" class="cell" data-execution_count="1">
+<div id="982cde12" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>eruptions <span class="op">=</span> [<span class="dv">1492</span>, <span class="dv">1585</span>, <span class="dv">1646</span>, <span class="dv">1677</span>, <span class="dv">1712</span>, <span class="dv">1949</span>, <span class="dv">1971</span>, <span class="dv">2021</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -290,14 +289,14 @@ Figure&nbsp;5.1: Timeline of recent earthquakes on La Palma
 </div>
 </div>
 </div>
-<div id="1ccae810" class="cell" data-execution_count="3">
+<div id="b8196742" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>avg_years_between_eruptions <span class="op">=</span> np.mean(np.diff(eruptions[:<span class="op">-</span><span class="dv">1</span>]))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>avg_years_between_eruptions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Based on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.</p>
 <p>Studies of the magma systems feeding the volcano, such as <span class="citation" data-cites="marrero2019">Marrero et al. (<a href="array_computations.html#ref-marrero2019" role="doc-biblioref">2019</a>)</span>, have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).</p>
 <p>Eight eruptions have been recorded since the late 1400s (<a href="#fig-timeline" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>).</p>
-<p>Data and methods are discussed in <a href="#sec-data-methods" class="quarto-xref"><span>Section 5.1</span></a>.</p>
+<p>Data and methods are discussed in <a href="array_computations.html#sec-data-methods" class="quarto-xref"><span>Section 3.1</span></a>.</p>
 <p>Let <span class="math inline">\(x\)</span> denote the number of eruptions in a year. Then, <span class="math inline">\(x\)</span> can be modeled by a Poisson distribution</p>
 <p><span id="eq-poisson"><span class="math display">\[
 p(x) = \frac{e^{-\lambda} \lambda^{x}}{x !}
@@ -372,11 +371,8 @@ Figure&nbsp;5.2: Locations of earthquakes on La Palma since 2017.
 </div>
 </div>
 <p><a href="#fig-spatial-plot" class="quarto-xref">Figure&nbsp;<span>5.2</span></a> shows the location of recent Earthquakes on La Palma.</p>
-<section id="sec-data-methods" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="sec-data-methods"><span class="header-section-number">5.1</span> Data &amp; Methods</h2>
-</section>
-<section id="conclusion" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5.2</span> Conclusion</h2>
+<section id="conclusion" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5.1</span> Conclusion</h2>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>

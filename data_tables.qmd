@@ -64,7 +64,6 @@ where $\lambda$ is the rate of eruptions per year. Using @eq-poisson, the probab
 
 @fig-spatial-plot shows the location of recent Earthquakes on La Palma.
 
-## Data & Methods {#sec-data-methods}
 
 ## Conclusion
 
