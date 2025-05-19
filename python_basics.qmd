@@ -9,15 +9,15 @@ In this chapter we will discuss:
 
 
 
-## Expressions and Statements
+## Expressions 
 
-
-### Expressions
 
 A **Python expression** is **any piece of code that produces a value.**. For example, the following is an expression that simply creates the number 21.
 
 ```{python}
+
 21
+
 ```
 
 Similarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:  
@@ -31,7 +31,27 @@ Similarly, an expression could be a series of mathematical operations that evalu
 As mentioned above, the defining features of a *python expression* is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book. 
 
 
-### Syntax 
+
+
+
+
+### Mathematical expressions
+
+The expressions shown above were all "mathematical expressions" because they involve calculating numeric quantities. We can also write statements that will do operations on text and other types of data which we will describe more below. But first, let's explore mathematical expressions a bit more. Below is a table of some of the mathematical operations that are part of
+
+
+| Operation        | Symbol | Example     | Result |
+|------------------|--------|-------------|--------|
+| Addition         |   +    | 5 + 3       |   8    |
+| Subtraction      |   -    | 10 - 4      |   6    |
+| Multiplication   |   *    | 7 * 2       |  14    |
+| Division         |   /    | 12 / 5      |   2.4  |
+| Exponentiation   |   **   | 3 ** 2      |   9    |
+| Remainder        |   %    | 10 % 3      |   1    |
+
+
+
+## Syntax 
 
 **Syntax** is the set of rules that defines how Python code **must** be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it **must** use the correct syntax. If incorrect syntax is used, then one will get a "syntax error", and the code will not run. 
 
@@ -60,11 +80,10 @@ The ability to be able to spot and fix syntax errors is a fundamental skill you 
 
 
 
-### Statements
+## Assignment statements
 
-A Python statement is a line of code that performs an action; i.e., it tells Python that it should do something other than just calculating a value. 
 
-One of the most fundamental statement types is an *assignment statement*, where we have Python store a value in a named **variable**. For example, the following code assigns the value `10` to the variable `a`:
+An *assignment statement* is a line of code that is used to store a value in a named **variable**. We can then refer back to this variable name to retrieve the value we have stored. For example, the following code assigns the value `10` to the variable `a`:
 
 ```{python}
 
@@ -72,7 +91,7 @@ a = 10
 
 ```
 
-We can then refer back to the variable `a` later in our code to retrive the stored value. For example, if we just write `a` on a line by itself, it will print out the value stored in `a`. 
+We can then refer back to the variable `a` later in our code to retrive the stored value. For example, if we just write `a` by itself on the last line of our Python code cell, it will print out the value stored in `a`. 
 
 ```{python}
 a
@@ -98,7 +117,7 @@ t
 
 
 
-#### Variable names
+## Variable names
 
 Must start with a character
 Should be meaningful name (`a` bad variable name). 
@@ -113,34 +132,6 @@ total_hours_in_a_week
 ```
 
 **Exercise**: Calculate CT yearly wage if making minimum wage...
-
-
-
-So far we have only described "assignment statements". However, later in this book will see many other types of statements, such as "for loops" and "conditional statements" which us to do more complex processing in Python. 
-
-
-
-### The difference between expressions and statements
-
-
-
-If Python can evaluate it to a value, it's an expression. If it's doing something (like a loop, a function definition, or an assignment), it's a statement.
-
-So, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.
-
-```{python}
-x = 5
-
-```
-
-
-| Term           | Description                                       | Example     |
-| -------------- | ------------------------------------------------- | ----------- |
-| **Expression** | Returns a value                                   | `2 + 2`     |
-| **Statement**  | Performs an action (e.g., assignment, loop, etc.) | `x = 2 + 2` |
-
-
-
 
 
 
