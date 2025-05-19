@@ -35,7 +35,7 @@ As mentioned above, the defining features of a *python expression* is that it pr
 
 **Syntax** is the set of rules that defines how Python code **must** be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it **must** use the correct syntax. If incorrect syntax is used, then one will get a "syntax error", and the code will not run. 
 
-To illustrate this, let's calculate the value of 3 squared (8^2) which hopefully you remember is equal to the value of 64. In Python, if we want to take a value `x` to the power `y` (i.e., to calculate x^y) we use the syntax `x**y`. So, if we wanted to calculate 8^2 we would write the following Python code: 
+To illustrate this, let's calculate the value of 3 squared (8caret2) which hopefully you remember is equal to the value of 64. In Python, if we want to take a value `x` to the power `y` (i.e., to calculate xcarety) we use the syntax `x**y`. So, if we wanted to calculate 8care2 we would write the following Python code: 
 
 ```{python}
 

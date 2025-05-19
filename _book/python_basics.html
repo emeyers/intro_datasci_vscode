@@ -232,14 +232,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="expressions" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="expressions"><span class="header-section-number">2.1.1</span> Expressions</h3>
 <p>A <strong>Python expression</strong> is <strong>any piece of code that produces a value.</strong>. For example, the following is an expression that simply creates the number 21.</p>
-<div id="d8768353" class="cell" data-execution_count="1">
+<div id="6db83465" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>21</code></pre>
 </div>
 </div>
 <p>Similarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:</p>
-<div id="298a6f4a" class="cell" data-execution_count="2">
+<div id="7b595b75" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">+</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>42</code></pre>
@@ -250,8 +250,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="syntax" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="syntax"><span class="header-section-number">2.1.2</span> Syntax</h3>
 <p><strong>Syntax</strong> is the set of rules that defines how Python code <strong>must</strong> be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it <strong>must</strong> use the correct syntax. If incorrect syntax is used, then one will get a “syntax error”, and the code will not run.</p>
-<p>To illustrate this, let’s calculate the value of 3 squared (8^2) which hopefully you remember is equal to the value of 64. In Python, if we want to take a value <code>x</code> to the power <code>y</code> (i.e., to calculate x^y) we use the syntax <code>x**y</code>. So, if we wanted to calculate 8^2 we would write the following Python code:</p>
-<div id="ea1af717" class="cell" data-execution_count="3">
+<p>To illustrate this, let’s calculate the value of 3 squared (8caret2) which hopefully you remember is equal to the value of 64. In Python, if we want to take a value <code>x</code> to the power <code>y</code> (i.e., to calculate xcarety) we use the syntax <code>x**y</code>. So, if we wanted to calculate 8care2 we would write the following Python code:</p>
+<div id="b234d115" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span><span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>64</code></pre>
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Since we have written the correct syntax, the code runs and the result of 64 is calculated as expected.</p>
 <p>However, if we accidentially put an extra space between the two <code>*</code> symbols, Python will not know how to interpret the expression and we will get a syntax error as shown below:</p>
-<div id="65c16046" class="cell" data-execution_count="4">
+<div id="41632cf2" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span><span class="op">*</span> <span class="op">*</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
@@ -278,11 +278,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="statements"><span class="header-section-number">2.1.3</span> Statements</h3>
 <p>A Python statement is a line of code that performs an action; i.e., it tells Python that it should do something other than just calculating a value.</p>
 <p>One of the most fundamental statement types is an <em>assignment statement</em>, where we have Python store a value in a named <strong>variable</strong>. For example, the following code assigns the value <code>10</code> to the variable <code>a</code>:</p>
-<div id="14eb3a62" class="cell" data-execution_count="5">
+<div id="73e45695" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can then refer back to the variable <code>a</code> later in our code to retrive the stored value. For example, if we just write <code>a</code> on a line by itself, it will print out the value stored in <code>a</code>.</p>
-<div id="797c66c8" class="cell" data-execution_count="6">
+<div id="b680b875" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>10</code></pre>
@@ -290,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>As we can see, the value printed out is <code>10</code> which is the value we had previously stored in the name <code>a</code>.</p>
 <p>If we then assigne the name <code>a</code> to another value, it will overwrite the previously stored value and <code>a</code> will store the new value.</p>
-<div id="9e679956" class="cell" data-execution_count="7">
+<div id="dcb9b8bc" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">21</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -298,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We an also do mathematical operations on values stored in variables, such as adding and multiplying variables together. For example, we can assign the variable <code>h</code> to store the value 24, and the variable <code>d</code> to store the value 7, and then we can multiple these together and store the result in the variable <code>t</code>.</p>
-<div id="3b0db915" class="cell" data-execution_count="8">
+<div id="e9996616" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="dv">24</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">7</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> h <span class="op">*</span> d</span>
@@ -311,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 data-number="2.1.3.1" class="anchored" data-anchor-id="variable-names"><span class="header-section-number">2.1.3.1</span> Variable names</h4>
 <p>Must start with a character Should be meaningful name (<code>a</code> bad variable name).</p>
 <p>The first is a law (syntax error). The second is good style to make code readible (like wearing sweatpants to class).</p>
-<div id="98bc3c9d" class="cell" data-execution_count="9">
+<div id="8aa15211" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>hours <span class="op">=</span> <span class="dv">24</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> <span class="dv">7</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>total_hours_in_a_week <span class="op">=</span> hours <span class="op">*</span> days</span>
@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="2.1.4" class="anchored" data-anchor-id="the-difference-between-expressions-and-statements"><span class="header-section-number">2.1.4</span> The difference between expressions and statements</h3>
 <p>If Python can evaluate it to a value, it’s an expression. If it’s doing something (like a loop, a function definition, or an assignment), it’s a statement.</p>
 <p>So, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.</p>
-<div id="d5f54a17" class="cell" data-execution_count="10">
+<div id="51ed2ac8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <table class="caption-top table">
