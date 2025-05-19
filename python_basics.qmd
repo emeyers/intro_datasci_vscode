@@ -50,7 +50,7 @@ However, if we accidentially put an extra space between the two `*` symbols, Pyt
 ```{python}
 #| error: true
 
-8* *2
+8**2
 
 ```
 
