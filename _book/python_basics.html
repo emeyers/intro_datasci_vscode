@@ -103,6 +103,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -186,20 +215,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#expressions-and-statements" id="toc-expressions-and-statements" class="nav-link active" data-scroll-target="#expressions-and-statements"><span class="header-section-number">2.1</span> Expressions and Statements</a>
+  <li><a href="#expressions" id="toc-expressions" class="nav-link active" data-scroll-target="#expressions"><span class="header-section-number">2.1</span> Expressions</a>
   <ul class="collapse">
-  <li><a href="#expressions" id="toc-expressions" class="nav-link" data-scroll-target="#expressions"><span class="header-section-number">2.1.1</span> Expressions</a></li>
-  <li><a href="#syntax" id="toc-syntax" class="nav-link" data-scroll-target="#syntax"><span class="header-section-number">2.1.2</span> Syntax</a></li>
-  <li><a href="#statements" id="toc-statements" class="nav-link" data-scroll-target="#statements"><span class="header-section-number">2.1.3</span> Statements</a></li>
-  <li><a href="#the-difference-between-expressions-and-statements" id="toc-the-difference-between-expressions-and-statements" class="nav-link" data-scroll-target="#the-difference-between-expressions-and-statements"><span class="header-section-number">2.1.4</span> The difference between expressions and statements</a></li>
+  <li><a href="#mathematical-expressions" id="toc-mathematical-expressions" class="nav-link" data-scroll-target="#mathematical-expressions"><span class="header-section-number">2.1.1</span> Mathematical expressions</a></li>
   </ul></li>
-  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"><span class="header-section-number">2.2</span> Data types</a>
+  <li><a href="#syntax" id="toc-syntax" class="nav-link" data-scroll-target="#syntax"><span class="header-section-number">2.2</span> Syntax</a></li>
+  <li><a href="#assignment-statements" id="toc-assignment-statements" class="nav-link" data-scroll-target="#assignment-statements"><span class="header-section-number">2.3</span> Assignment statements</a></li>
+  <li><a href="#variable-names" id="toc-variable-names" class="nav-link" data-scroll-target="#variable-names"><span class="header-section-number">2.4</span> Variable names</a></li>
+  <li><a href="#functions-call-expressions" id="toc-functions-call-expressions" class="nav-link" data-scroll-target="#functions-call-expressions"><span class="header-section-number">2.5</span> Functions (call expressions)</a></li>
+  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"><span class="header-section-number">2.6</span> Data types</a>
   <ul class="collapse">
-  <li><a href="#numbers" id="toc-numbers" class="nav-link" data-scroll-target="#numbers"><span class="header-section-number">2.2.1</span> Numbers</a></li>
-  <li><a href="#character-strings" id="toc-character-strings" class="nav-link" data-scroll-target="#character-strings"><span class="header-section-number">2.2.2</span> Character strings</a></li>
-  <li><a href="#booleans" id="toc-booleans" class="nav-link" data-scroll-target="#booleans"><span class="header-section-number">2.2.3</span> Booleans</a></li>
+  <li><a href="#numbers" id="toc-numbers" class="nav-link" data-scroll-target="#numbers"><span class="header-section-number">2.6.1</span> Numbers</a></li>
+  <li><a href="#character-strings" id="toc-character-strings" class="nav-link" data-scroll-target="#character-strings"><span class="header-section-number">2.6.2</span> Character strings</a></li>
+  <li><a href="#booleans" id="toc-booleans" class="nav-link" data-scroll-target="#booleans"><span class="header-section-number">2.6.3</span> Booleans</a></li>
   </ul></li>
-  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions"><span class="header-section-number">2.3</span> Functions</a></li>
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="header-section-number">2.7</span> Lists</a></li>
+  <li><a href="#other-data-structures" id="toc-other-data-structures" class="nav-link" data-scroll-target="#other-data-structures"><span class="header-section-number">2.8</span> Other data structures</a>
+  <ul class="collapse">
+  <li><a href="#tuples" id="toc-tuples" class="nav-link" data-scroll-target="#tuples"><span class="header-section-number">2.8.1</span> Tuples</a></li>
+  <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link" data-scroll-target="#dictionaries"><span class="header-section-number">2.8.2</span> Dictionaries</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -225,151 +260,245 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Now that we have discussed what data science is, let’s learn some of the basics of the Python programming language so we can begin to learn how to analyze data.</p>
-<p>In this chapter we will discuss: - The basic syntax of programming in Python that is needed to write Python code that can run. - Common type of data, such as numbers and character strings, that we frequently use. - Key data structures that we can use to store data.</p>
-<section id="expressions-and-statements" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="expressions-and-statements"><span class="header-section-number">2.1</span> Expressions and Statements</h2>
-<section id="expressions" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="expressions"><span class="header-section-number">2.1.1</span> Expressions</h3>
+<p>Now that we have discussed what data science is, let’s learn some of the basics of the Python programming language. Once we have learned some of these Python basics we can begin to analyze data!</p>
+<section id="expressions" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="expressions"><span class="header-section-number">2.1</span> Expressions</h2>
 <p>A <strong>Python expression</strong> is <strong>any piece of code that produces a value.</strong>. For example, the following is an expression that simply creates the number 21.</p>
-<div id="f8ccbad0" class="cell" data-execution_count="1">
+<div id="6a7e1328" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>21</code></pre>
 </div>
 </div>
 <p>Similarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:</p>
-<div id="6defbb9d" class="cell" data-execution_count="2">
+<div id="bde6db12" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">+</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>42</code></pre>
 </div>
 </div>
 <p>As mentioned above, the defining features of a <em>python expression</em> is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book.</p>
-</section>
-<section id="syntax" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="syntax"><span class="header-section-number">2.1.2</span> Syntax</h3>
-<p><strong>Syntax</strong> is the set of rules that defines how Python code <strong>must</strong> be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it <strong>must</strong> use the correct syntax. If incorrect syntax is used, then one will get a “syntax error”, and the code will not run.</p>
-<p>To illustrate this, let’s calculate the value of 3 squared (8caret2) which hopefully you remember is equal to the value of 64. In Python, if we want to take a value <code>x</code> to the power <code>y</code> (i.e., to calculate xcarety) we use the syntax <code>x**y</code>. So, if we wanted to calculate 8care2 we would write the following Python code:</p>
-<div id="323c122c" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span><span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Exercise</strong>: What would happen if we remove the parenthesis from the expression we ran above and instead run <code>6 * 5 + 2</code>. See if you can predict what the result will be and then try it out in Python by running the code in a code cell and see if you get the result you predicted.</p>
+<p><strong>Answer</strong>:</p>
+<div id="32f547ac" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>32</code></pre>
+</div>
+</div>
+<p>The result is 32, which makes sense because in the standard order of mathematical operations, multiplication occurs before addition so we multiple 6 * 5 and get 30, and then we add 2 to get 32.</p>
+<section id="mathematical-expressions" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="mathematical-expressions"><span class="header-section-number">2.1.1</span> Mathematical expressions</h3>
+<p>The expressions shown above were all “mathematical expressions” because they involve calculating numeric quantities. We can also write statements that will do operations on text and other types of data which we will describe more below. But first, let’s explore mathematical expressions a bit more. Below is a table of some of the mathematical operations that are part of</p>
+<div id="tbl-math-ops" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-math-ops-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.1: Python mathematical operators
+</figcaption>
+<div aria-describedby="tbl-math-ops-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Symbol</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Addition</td>
+<td>+</td>
+<td>5 + 3</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>Subtraction</td>
+<td>-</td>
+<td>10 - 4</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>Multiplication</td>
+<td>*</td>
+<td>7 * 2</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td>Division</td>
+<td>/</td>
+<td>12 / 5</td>
+<td>2.4</td>
+</tr>
+<tr class="odd">
+<td>Exponentiation</td>
+<td>**</td>
+<td>3 ** 2</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>Remainder</td>
+<td>%</td>
+<td>10 % 3</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><strong>Exercise</strong>: What is the remainder from dividing 365 by 7? Please write some Python code that produces the answer.</p>
+<p><strong>Answer</strong>:</p>
+<div id="3b1e5f20" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">365</span> <span class="op">%</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>1</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="syntax" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="syntax"><span class="header-section-number">2.2</span> Syntax</h2>
+<p><strong>Syntax</strong> is the set of rules that defines how Python code <strong>must</strong> be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it <strong>must</strong> use the correct syntax. If incorrect syntax is used, then one will get a “syntax error”, and the code will not run.</p>
+<p>To illustrate this, let’s calculate the value of 8 squared (<span class="math inline">\(8^2\)</span>) which hopefully you remember is equal to the value of 64. As shown <a href="#tbl-math-ops" class="quarto-xref">Table&nbsp;<span>2.1</span></a>, if we want to take a value <code>x</code> to the power <code>y</code> (i.e., to calculate <span class="math inline">\(x^y\)</span>) we use the syntax <code>x**y</code>. So, if we wanted to calculate <span class="math inline">\(8^2\)</span> we would write the following Python code:</p>
+<div id="f1e8aa33" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span><span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>64</code></pre>
 </div>
 </div>
 <p>Since we have written the correct syntax, the code runs and the result of 64 is calculated as expected.</p>
 <p>However, if we accidentially put an extra space between the two <code>*</code> symbols, Python will not know how to interpret the expression and we will get a syntax error as shown below:</p>
-<div id="baf15769" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span><span class="op">**</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>64</code></pre>
+<div id="97f5f154" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span><span class="op">*</span> <span class="op">*</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre>  <span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[6]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-red-fg">    </span><span class="ansi-red-fg">8* *2</span>
+       ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
+</pre>
 </div>
 </div>
-<p>We there is a syntax error, Python will print out <code>SyntaxError</code> and give you an indication where the syntax error has occurred using a caret symbol (should replace “caret” with the actual symbol but this is causing an error when compiling the book on GithHub). As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols.</p>
+</div>
+<p>When there is a syntax error, Python will print out <code>SyntaxError</code> and give you an indication where the syntax error has occurred using a caret symbol (should replace “caret” with the actual symbol but this is causing an error when compiling the book on GithHub). As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols.</p>
 <p>The ability to be able to spot and fix syntax errors is a fundamental skill you will develop as become proficient in analyzing data in Python.</p>
 </section>
-<section id="statements" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="statements"><span class="header-section-number">2.1.3</span> Statements</h3>
-<p>A Python statement is a line of code that performs an action; i.e., it tells Python that it should do something other than just calculating a value.</p>
-<p>One of the most fundamental statement types is an <em>assignment statement</em>, where we have Python store a value in a named <strong>variable</strong>. For example, the following code assigns the value <code>10</code> to the variable <code>a</code>:</p>
-<div id="5b19c3b1" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="assignment-statements" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="assignment-statements"><span class="header-section-number">2.3</span> Assignment statements</h2>
+<p>An <em>assignment statement</em> is a line of code that is used to store a value in a named <strong>variable</strong>. We can then refer back to this variable name to retrieve the value we have stored.</p>
+<p>To assign a value to a variable we use the <code>=</code> symbol. For example, the following code assigns the value <code>10</code> to the variable <code>a</code>:</p>
+<div id="658c1d18" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can then refer back to the variable <code>a</code> later in our code to retrive the stored value. For example, if we just write <code>a</code> on a line by itself, it will print out the value stored in <code>a</code>.</p>
-<div id="30427930" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<p>We can then refer back to the variable <code>a</code> later in our code to retrive the stored value. For example, if we just write <code>a</code> by itself on the last line of our Python code cell, it will print out the value stored in <code>a</code>.</p>
+<div id="adfbc01c" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>10</code></pre>
 </div>
 </div>
 <p>As we can see, the value printed out is <code>10</code> which is the value we had previously stored in the name <code>a</code>.</p>
-<p>If we then assigne the name <code>a</code> to another value, it will overwrite the previously stored value and <code>a</code> will store the new value.</p>
-<div id="bb8c6b2e" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">21</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<p>If we were to assign the name <code>a</code> to another value, it will overwrite the previously stored value and <code>a</code> will store the new value.</p>
+<div id="41ba8a0f" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">21</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>21</code></pre>
 </div>
 </div>
 <p>We an also do mathematical operations on values stored in variables, such as adding and multiplying variables together. For example, we can assign the variable <code>h</code> to store the value 24, and the variable <code>d</code> to store the value 7, and then we can multiple these together and store the result in the variable <code>t</code>.</p>
-<div id="555b5ffc" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="dv">24</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">7</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> h <span class="op">*</span> d</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div id="4542e84c" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="dv">24</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> h <span class="op">*</span> d</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>168</code></pre>
 </div>
 </div>
-<section id="variable-names" class="level4" data-number="2.1.3.1">
-<h4 data-number="2.1.3.1" class="anchored" data-anchor-id="variable-names"><span class="header-section-number">2.1.3.1</span> Variable names</h4>
-<p>Must start with a character Should be meaningful name (<code>a</code> bad variable name).</p>
-<p>The first is a law (syntax error). The second is good style to make code readible (like wearing sweatpants to class).</p>
-<div id="2cb7713c" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>hours <span class="op">=</span> <span class="dv">24</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> <span class="dv">7</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>total_hours_in_a_week <span class="op">=</span> hours <span class="op">*</span> days</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>total_hours_in_a_week</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<p><strong>Exercise</strong>: In the above code we calculated <code>t = h * d</code>. Which of the following do you think will happen to the value stored in <code>t</code> if we change the value of h to 3? I.e., if we run the following code, what do you think it will print out?</p>
+<div id="3b6492eb" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="a">
+<li>The value of <code>t</code> will be change to be 21 (i.e., 7 * 3).</li>
+<li>The value of <code>t</code> will not change and will still contain 168.</li>
+<li>Something else will happen (e.g., Python will give an error).</li>
+</ol>
+<p><strong>Answer</strong></p>
+<div id="80242e71" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>168</code></pre>
 </div>
 </div>
-<p><strong>Exercise</strong>: Calculate CT yearly wage if making minimum wage…</p>
-<p>So far we have only described “assignment statements”. However, later in this book will see many other types of statements, such as “for loops” and “conditional statements” which us to do more complex processing in Python.</p>
+<p>As you can see, the value of <code>t</code> did not change. This illustrates an important point that once a value is calculated and stored in a variable it will not change if the variable that were used as part of the calculation are updated!</p>
 </section>
-</section>
-<section id="the-difference-between-expressions-and-statements" class="level3" data-number="2.1.4">
-<h3 data-number="2.1.4" class="anchored" data-anchor-id="the-difference-between-expressions-and-statements"><span class="header-section-number">2.1.4</span> The difference between expressions and statements</h3>
-<p>If Python can evaluate it to a value, it’s an expression. If it’s doing something (like a loop, a function definition, or an assignment), it’s a statement.</p>
-<p>So, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.</p>
-<div id="db4a334a" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="variable-names" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="variable-names"><span class="header-section-number">2.4</span> Variable names</h2>
+<p>Variable names in Python must follow certain rules:</p>
+<ul>
+<li>Must start with a letter (a-z, A-Z) or an underscore (_), but not a number.</li>
+<li>Can contain letters, numbers, and underscores.</li>
+<li>Cannot contain spaces or special characters (like <code>@</code>, <code>#</code>, <code>$</code>, etc.).</li>
+<li>Cannot be a reserved Python keyword that are part of the Python language (like <code>for</code>, <code>if</code>, <code>class</code>, etc.).</li>
+</ul>
+<p>If these rules are not followed, Python will produce a syntax error</p>
+<p>It’s also important to use meaningful variable names. For example, <code>t</code> is technically a valid variable name but it is not descriptive, while <code>total_hours</code> is much clearer. Using meaningful names makes your code easier to read and understand.</p>
+<p><strong>Exercise</strong>: The minimum wage in the United States in 2025 is 7.25. If someone works 40 hours per week for all 52 weeks in a year, what would there yearly earnings be? Please calculate by creating <em>meaningful</em> variable names for 1) the minimum wage amount, 2) the number of hours in a week, and 3) the number of weeks in a year. Then calculate the total yearly wage and store this result in another meaningful variable name, and print out the value stored in this last variable name. Hint: Using underscores <code>_</code> in your variable names is highly encouraged to make them more readible.</p>
+<p><strong>Answer</strong></p>
+<div id="89e9dcd7" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>hours <span class="op">=</span> <span class="dv">24</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>total_hours_in_a_week <span class="op">=</span> hours <span class="op">*</span> days</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>total_hours_in_a_week</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>168</code></pre>
 </div>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 18%">
-<col style="width: 66%">
-<col style="width: 14%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Term</th>
-<th>Description</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Expression</strong></td>
-<td>Returns a value</td>
-<td><code>2 + 2</code></td>
-</tr>
-<tr class="even">
-<td><strong>Statement</strong></td>
-<td>Performs an action (e.g., assignment, loop, etc.)</td>
-<td><code>x = 2 + 2</code></td>
-</tr>
-</tbody>
-</table>
+</div>
+</section>
+<section id="functions-call-expressions" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="functions-call-expressions"><span class="header-section-number">2.5</span> Functions (call expressions)</h2>
+<p>Could do functions first before donig data types. That way I can use the <code>type()</code> function and the <code>int()</code> and <code>float()</code> functions. Could then go into more detail with functions on strings (perhaps in the string section). OK, do it!</p>
+</section>
+<section id="data-types" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="data-types"><span class="header-section-number">2.6</span> Data types</h2>
+<p>Python is able to process many different types of data (referred to as “data types”). So, far we have only explored numeric data. Let’s continue exploring numerical data in a little more detial and then we will go on to examine other types of data.</p>
+<section id="numbers" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="numbers"><span class="header-section-number">2.6.1</span> Numbers</h3>
+<p>Python uses two different formats to stores numerica data known as “integers” and “floating-point numbers”.</p>
+<ul>
+<li><strong>Integers</strong> (<code>int</code>): Whole numbers without a decimal point, such as <code>5</code>, <code>-3</code>, or <code>1000</code>.</li>
+<li><strong>Floating-point numbers</strong> (<code>float</code>): Numbers that have a decimal point, such as <code>3.14</code>, <code>-0.5</code>, or <code>2.0</code>.</li>
+</ul>
+<p>We can tell if a number is a floating point number (i.e., a “float”) by seeing if there is a decimal point at the end of the number when we print out the number.</p>
+<p>When analyzing the data, usually it does not matter if Python is storing a number as an integer or a floating point number, so usually it will not affect our code or our analyses. However, under the hood, Python is actually representing these number is quite different ways.</p>
+<p>More imporantly is to know that there are some limitations to the way Python stores both integers and floats. First, and most obviously,</p>
+</section>
+<section id="character-strings" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="character-strings"><span class="header-section-number">2.6.2</span> Character strings</h3>
+</section>
+<section id="booleans" class="level3" data-number="2.6.3">
+<h3 data-number="2.6.3" class="anchored" data-anchor-id="booleans"><span class="header-section-number">2.6.3</span> Booleans</h3>
+<p>You can check the type of a value in Python using the <code>type()</code> function:</p>
 </section>
 </section>
-<section id="data-types" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="data-types"><span class="header-section-number">2.2</span> Data types</h2>
-<section id="numbers" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="numbers"><span class="header-section-number">2.2.1</span> Numbers</h3>
-<p>Ints and floats</p>
+<section id="lists" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="lists"><span class="header-section-number">2.7</span> Lists</h2>
 </section>
-<section id="character-strings" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="character-strings"><span class="header-section-number">2.2.2</span> Character strings</h3>
+<section id="other-data-structures" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="other-data-structures"><span class="header-section-number">2.8</span> Other data structures</h2>
+<section id="tuples" class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="tuples"><span class="header-section-number">2.8.1</span> Tuples</h3>
 </section>
-<section id="booleans" class="level3" data-number="2.2.3">
-<h3 data-number="2.2.3" class="anchored" data-anchor-id="booleans"><span class="header-section-number">2.2.3</span> Booleans</h3>
-</section>
-</section>
-<section id="functions" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="functions"><span class="header-section-number">2.3</span> Functions</h2>
+<section id="dictionaries" class="level3" data-number="2.8.2">
+<h3 data-number="2.8.2" class="anchored" data-anchor-id="dictionaries"><span class="header-section-number">2.8.2</span> Dictionaries</h3>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

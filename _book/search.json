@@ -34,17 +34,57 @@
     "href": "python_basics.html",
     "title": "2  Python basics",
     "section": "",
-    "text": "2.1 Expressions and Statements\nNow that we have discussed what data science is, let’s learn some of the basics of the Python programming language so we can begin to learn how to analyze data.\nIn this chapter we will discuss: - The basic syntax of programming in Python that is needed to write Python code that can run. - Common type of data, such as numbers and character strings, that we frequently use. - Key data structures that we can use to store data.",
+    "text": "2.1 Expressions\nNow that we have discussed what data science is, let’s learn some of the basics of the Python programming language. Once we have learned some of these Python basics we can begin to analyze data!\nA Python expression is any piece of code that produces a value.. For example, the following is an expression that simply creates the number 21.\n21\n\n21\nSimilarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:\n6 * (5 + 2) \n\n42\nAs mentioned above, the defining features of a python expression is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book.\nExercise: What would happen if we remove the parenthesis from the expression we ran above and instead run 6 * 5 + 2. See if you can predict what the result will be and then try it out in Python by running the code in a code cell and see if you get the result you predicted.\nAnswer:\n6 * 5 + 2\n\n32\nThe result is 32, which makes sense because in the standard order of mathematical operations, multiplication occurs before addition so we multiple 6 * 5 and get 30, and then we add 2 to get 32.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]
   },
   {
-    "objectID": "python_basics.html#expressions-and-statements",
-    "href": "python_basics.html#expressions-and-statements",
+    "objectID": "python_basics.html#expressions",
+    "href": "python_basics.html#expressions",
     "title": "2  Python basics",
     "section": "",
-    "text": "2.1.1 Expressions\nA Python expression is any piece of code that produces a value.. For example, the following is an expression that simply creates the number 21.\n\n21\n\n21\n\n\nSimilarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:\n\n6 * (5 + 2) \n\n42\n\n\nAs mentioned above, the defining features of a python expression is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book.\n\n\n2.1.2 Syntax\nSyntax is the set of rules that defines how Python code must be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it must use the correct syntax. If incorrect syntax is used, then one will get a “syntax error”, and the code will not run.\nTo illustrate this, let’s calculate the value of 3 squared (8caret2) which hopefully you remember is equal to the value of 64. In Python, if we want to take a value x to the power y (i.e., to calculate xcarety) we use the syntax x**y. So, if we wanted to calculate 8care2 we would write the following Python code:\n\n8**2\n\n64\n\n\nSince we have written the correct syntax, the code runs and the result of 64 is calculated as expected.\nHowever, if we accidentially put an extra space between the two * symbols, Python will not know how to interpret the expression and we will get a syntax error as shown below:\n\n8**2\n\n64\n\n\nWe there is a syntax error, Python will print out SyntaxError and give you an indication where the syntax error has occurred using a caret symbol (should replace “caret” with the actual symbol but this is causing an error when compiling the book on GithHub). As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols.\nThe ability to be able to spot and fix syntax errors is a fundamental skill you will develop as become proficient in analyzing data in Python.\n\n\n2.1.3 Statements\nA Python statement is a line of code that performs an action; i.e., it tells Python that it should do something other than just calculating a value.\nOne of the most fundamental statement types is an assignment statement, where we have Python store a value in a named variable. For example, the following code assigns the value 10 to the variable a:\n\na = 10\n\nWe can then refer back to the variable a later in our code to retrive the stored value. For example, if we just write a on a line by itself, it will print out the value stored in a.\n\na\n\n10\n\n\nAs we can see, the value printed out is 10 which is the value we had previously stored in the name a.\nIf we then assigne the name a to another value, it will overwrite the previously stored value and a will store the new value.\n\na = 21\na\n\n21\n\n\nWe an also do mathematical operations on values stored in variables, such as adding and multiplying variables together. For example, we can assign the variable h to store the value 24, and the variable d to store the value 7, and then we can multiple these together and store the result in the variable t.\n\nh = 24\nd = 7\nt = h * d\nt\n\n168\n\n\n\n2.1.3.1 Variable names\nMust start with a character Should be meaningful name (a bad variable name).\nThe first is a law (syntax error). The second is good style to make code readible (like wearing sweatpants to class).\n\nhours = 24\ndays = 7\ntotal_hours_in_a_week = hours * days\ntotal_hours_in_a_week\n\n168\n\n\nExercise: Calculate CT yearly wage if making minimum wage…\nSo far we have only described “assignment statements”. However, later in this book will see many other types of statements, such as “for loops” and “conditional statements” which us to do more complex processing in Python.\n\n\n\n2.1.4 The difference between expressions and statements\nIf Python can evaluate it to a value, it’s an expression. If it’s doing something (like a loop, a function definition, or an assignment), it’s a statement.\nSo, 2 + 2 is an expression, but x = 2 + 2 is a statement that contains an expression.\n\nx = 5\n\n\n\n\n\n\n\n\n\nTerm\nDescription\nExample\n\n\n\n\nExpression\nReturns a value\n2 + 2\n\n\nStatement\nPerforms an action (e.g., assignment, loop, etc.)\nx = 2 + 2",
+    "text": "2.1.1 Mathematical expressions\nThe expressions shown above were all “mathematical expressions” because they involve calculating numeric quantities. We can also write statements that will do operations on text and other types of data which we will describe more below. But first, let’s explore mathematical expressions a bit more. Below is a table of some of the mathematical operations that are part of\n\n\n\nTable 2.1: Python mathematical operators\n\n\n\n\n\nOperation\nSymbol\nExample\nResult\n\n\n\n\nAddition\n+\n5 + 3\n8\n\n\nSubtraction\n-\n10 - 4\n6\n\n\nMultiplication\n*\n7 * 2\n14\n\n\nDivision\n/\n12 / 5\n2.4\n\n\nExponentiation\n**\n3 ** 2\n9\n\n\nRemainder\n%\n10 % 3\n1\n\n\n\n\n\n\nExercise: What is the remainder from dividing 365 by 7? Please write some Python code that produces the answer.\nAnswer:\n\n365 % 7\n\n1",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#syntax",
+    "href": "python_basics.html#syntax",
+    "title": "2  Python basics",
+    "section": "2.2 Syntax",
+    "text": "2.2 Syntax\nSyntax is the set of rules that defines how Python code must be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it must use the correct syntax. If incorrect syntax is used, then one will get a “syntax error”, and the code will not run.\nTo illustrate this, let’s calculate the value of 8 squared (\\(8^2\\)) which hopefully you remember is equal to the value of 64. As shown Table 2.1, if we want to take a value x to the power y (i.e., to calculate \\(x^y\\)) we use the syntax x**y. So, if we wanted to calculate \\(8^2\\) we would write the following Python code:\n\n8**2\n\n64\n\n\nSince we have written the correct syntax, the code runs and the result of 64 is calculated as expected.\nHowever, if we accidentially put an extra space between the two * symbols, Python will not know how to interpret the expression and we will get a syntax error as shown below:\n\n8* *2\n\n\n  Cell In[6], line 1\n    8* *2\n       ^\nSyntaxError: invalid syntax\n\n\n\n\nWhen there is a syntax error, Python will print out SyntaxError and give you an indication where the syntax error has occurred using a caret symbol (should replace “caret” with the actual symbol but this is causing an error when compiling the book on GithHub). As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols.\nThe ability to be able to spot and fix syntax errors is a fundamental skill you will develop as become proficient in analyzing data in Python.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#assignment-statements",
+    "href": "python_basics.html#assignment-statements",
+    "title": "2  Python basics",
+    "section": "2.3 Assignment statements",
+    "text": "2.3 Assignment statements\nAn assignment statement is a line of code that is used to store a value in a named variable. We can then refer back to this variable name to retrieve the value we have stored.\nTo assign a value to a variable we use the = symbol. For example, the following code assigns the value 10 to the variable a:\n\na = 10\n\nWe can then refer back to the variable a later in our code to retrive the stored value. For example, if we just write a by itself on the last line of our Python code cell, it will print out the value stored in a.\n\na\n\n10\n\n\nAs we can see, the value printed out is 10 which is the value we had previously stored in the name a.\nIf we were to assign the name a to another value, it will overwrite the previously stored value and a will store the new value.\n\na = 21\na\n\n21\n\n\nWe an also do mathematical operations on values stored in variables, such as adding and multiplying variables together. For example, we can assign the variable h to store the value 24, and the variable d to store the value 7, and then we can multiple these together and store the result in the variable t.\n\nh = 24\nd = 7\nt = h * d\nt\n\n168\n\n\nExercise: In the above code we calculated t = h * d. Which of the following do you think will happen to the value stored in t if we change the value of h to 3? I.e., if we run the following code, what do you think it will print out?\n\nh = 3\nt\n\n\nThe value of t will be change to be 21 (i.e., 7 * 3).\nThe value of t will not change and will still contain 168.\nSomething else will happen (e.g., Python will give an error).\n\nAnswer\n\nh = 3\nt\n\n168\n\n\nAs you can see, the value of t did not change. This illustrates an important point that once a value is calculated and stored in a variable it will not change if the variable that were used as part of the calculation are updated!",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#variable-names",
+    "href": "python_basics.html#variable-names",
+    "title": "2  Python basics",
+    "section": "2.4 Variable names",
+    "text": "2.4 Variable names\nVariable names in Python must follow certain rules:\n\nMust start with a letter (a-z, A-Z) or an underscore (_), but not a number.\nCan contain letters, numbers, and underscores.\nCannot contain spaces or special characters (like @, #, $, etc.).\nCannot be a reserved Python keyword that are part of the Python language (like for, if, class, etc.).\n\nIf these rules are not followed, Python will produce a syntax error\nIt’s also important to use meaningful variable names. For example, t is technically a valid variable name but it is not descriptive, while total_hours is much clearer. Using meaningful names makes your code easier to read and understand.\nExercise: The minimum wage in the United States in 2025 is 7.25. If someone works 40 hours per week for all 52 weeks in a year, what would there yearly earnings be? Please calculate by creating meaningful variable names for 1) the minimum wage amount, 2) the number of hours in a week, and 3) the number of weeks in a year. Then calculate the total yearly wage and store this result in another meaningful variable name, and print out the value stored in this last variable name. Hint: Using underscores _ in your variable names is highly encouraged to make them more readible.\nAnswer\n\nhours = 24\ndays = 7\ntotal_hours_in_a_week = hours * days\ntotal_hours_in_a_week\n\n168",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#functions-call-expressions",
+    "href": "python_basics.html#functions-call-expressions",
+    "title": "2  Python basics",
+    "section": "2.5 Functions (call expressions)",
+    "text": "2.5 Functions (call expressions)\nCould do functions first before donig data types. That way I can use the type() function and the int() and float() functions. Could then go into more detail with functions on strings (perhaps in the string section). OK, do it!",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]
@@ -53,18 +93,28 @@
     "objectID": "python_basics.html#data-types",
     "href": "python_basics.html#data-types",
     "title": "2  Python basics",
-    "section": "2.2 Data types",
-    "text": "2.2 Data types\n\n2.2.1 Numbers\nInts and floats\n\n\n2.2.2 Character strings\n\n\n2.2.3 Booleans",
+    "section": "2.6 Data types",
+    "text": "2.6 Data types\nPython is able to process many different types of data (referred to as “data types”). So, far we have only explored numeric data. Let’s continue exploring numerical data in a little more detial and then we will go on to examine other types of data.\n\n2.6.1 Numbers\nPython uses two different formats to stores numerica data known as “integers” and “floating-point numbers”.\n\nIntegers (int): Whole numbers without a decimal point, such as 5, -3, or 1000.\nFloating-point numbers (float): Numbers that have a decimal point, such as 3.14, -0.5, or 2.0.\n\nWe can tell if a number is a floating point number (i.e., a “float”) by seeing if there is a decimal point at the end of the number when we print out the number.\nWhen analyzing the data, usually it does not matter if Python is storing a number as an integer or a floating point number, so usually it will not affect our code or our analyses. However, under the hood, Python is actually representing these number is quite different ways.\nMore imporantly is to know that there are some limitations to the way Python stores both integers and floats. First, and most obviously,\n\n\n2.6.2 Character strings\n\n\n2.6.3 Booleans\nYou can check the type of a value in Python using the type() function:",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]
   },
   {
-    "objectID": "python_basics.html#functions",
-    "href": "python_basics.html#functions",
+    "objectID": "python_basics.html#lists",
+    "href": "python_basics.html#lists",
     "title": "2  Python basics",
-    "section": "2.3 Functions",
-    "text": "2.3 Functions",
+    "section": "2.7 Lists",
+    "text": "2.7 Lists",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#other-data-structures",
+    "href": "python_basics.html#other-data-structures",
+    "title": "2  Python basics",
+    "section": "2.8 Other data structures",
+    "text": "2.8 Other data structures\n\n2.8.1 Tuples\n\n\n2.8.2 Dictionaries",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]

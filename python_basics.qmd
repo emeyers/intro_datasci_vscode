@@ -1,16 +1,10 @@
 # Python basics
 
-Now that we have discussed what data science is, let's learn some of the basics of the Python programming language so we can begin to learn how to analyze data.
-
-In this chapter we will discuss:
-- The basic syntax of programming in Python that is needed to write Python code that can run.
-- Common type of data, such as numbers and character strings, that we frequently use.
-- Key data structures that we can use to store data. 
+Now that we have discussed what data science is, let's learn some of the basics of the Python programming language. Once we have learned some of these Python basics we can begin to analyze data! 
 
 
 
 ## Expressions 
-
 
 A **Python expression** is **any piece of code that produces a value.**. For example, the following is an expression that simply creates the number 21.
 
@@ -31,6 +25,18 @@ Similarly, an expression could be a series of mathematical operations that evalu
 As mentioned above, the defining features of a *python expression* is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book. 
 
 
+**Exercise**: What would happen if we remove the parenthesis from the expression we ran above and instead run `6 * 5 + 2`. See if you can predict what the result will be and then try it out in Python by running the code in a code cell and see if you get the result you predicted. 
+
+
+**Answer**: 
+
+```{python}
+
+6 * 5 + 2
+
+```
+
+The result is 32, which makes sense because in the standard order of mathematical operations, multiplication occurs before addition so we multiple 6 * 5 and get 30, and then we add 2 to get 32. 
 
 
 
@@ -38,7 +44,6 @@ As mentioned above, the defining features of a *python expression* is that it pr
 ### Mathematical expressions
 
 The expressions shown above were all "mathematical expressions" because they involve calculating numeric quantities. We can also write statements that will do operations on text and other types of data which we will describe more below. But first, let's explore mathematical expressions a bit more. Below is a table of some of the mathematical operations that are part of
-
 
 | Operation        | Symbol | Example     | Result |
 |------------------|--------|-------------|--------|
@@ -49,13 +54,26 @@ The expressions shown above were all "mathematical expressions" because they inv
 | Exponentiation   |   **   | 3 ** 2      |   9    |
 | Remainder        |   %    | 10 % 3      |   1    |
 
+: Python mathematical operators {#tbl-math-ops}
+
+
+**Exercise**: What is the remainder from dividing 365 by 7? Please write some Python code that produces the answer.
+
+**Answer**: 
+
+```{python}
+
+365 % 7
+
+```
+
 
 
 ## Syntax 
 
 **Syntax** is the set of rules that defines how Python code **must** be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it **must** use the correct syntax. If incorrect syntax is used, then one will get a "syntax error", and the code will not run. 
 
-To illustrate this, let's calculate the value of 3 squared (8caret2) which hopefully you remember is equal to the value of 64. In Python, if we want to take a value `x` to the power `y` (i.e., to calculate xcarety) we use the syntax `x**y`. So, if we wanted to calculate 8care2 we would write the following Python code: 
+To illustrate this, let's calculate the value of 8 squared ($8^2$) which hopefully you remember is equal to the value of 64. As shown @tbl-math-ops, if we want to take a value `x` to the power `y` (i.e., to calculate $x^y$) we use the syntax `x**y`. So, if we wanted to calculate $8^2$ we would write the following Python code: 
 
 ```{python}
 
@@ -70,11 +88,11 @@ However, if we accidentially put an extra space between the two `*` symbols, Pyt
 ```{python}
 #| error: true
 
-8**2
+8* *2
 
 ```
 
-We there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a caret symbol (should replace "caret" with the actual symbol but this is causing an error when compiling the book on GithHub). As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
+When there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a caret symbol (should replace "caret" with the actual symbol but this is causing an error when compiling the book on GithHub). As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
 
 The ability to be able to spot and fix syntax errors is a fundamental skill you will develop as become proficient in analyzing data in Python. 
 
@@ -83,7 +101,9 @@ The ability to be able to spot and fix syntax errors is a fundamental skill you 
 ## Assignment statements
 
 
-An *assignment statement* is a line of code that is used to store a value in a named **variable**. We can then refer back to this variable name to retrieve the value we have stored. For example, the following code assigns the value `10` to the variable `a`:
+An *assignment statement* is a line of code that is used to store a value in a named **variable**. We can then refer back to this variable name to retrieve the value we have stored. 
+
+To assign a value to a variable we use the `=` symbol. For example, the following code assigns the value `10` to the variable `a`:
 
 ```{python}
 
@@ -99,7 +119,7 @@ a
 
 As we can see, the value printed out is `10` which is the value we had previously stored in the name `a`. 
 
-If we then assigne the name `a` to another value, it will overwrite the previously stored value and `a` will store the new value.
+If we were to assign the name `a` to another value, it will overwrite the previously stored value and `a` will store the new value.
 
 ```{python}
 a = 21
@@ -116,13 +136,50 @@ t
 ```
 
 
+**Exercise**: In the above code we calculated `t = h * d`. Which of the following do you think will happen to the value stored in `t` if we change the value of h to 3? I.e., if we run the following code, what do you think it will print out? 
+
+```{python}
+#| eval: false
+h = 3
+t
+```
+
+
+a. The value of `t` will be change to be 21  (i.e., 7 * 3).
+b. The value of `t` will not change and will still contain 168.
+c. Something else will happen (e.g., Python will give an error). 
+
+
+**Answer**
+
+```{python}
+h = 3
+t
+```
+
+As you can see, the value of `t` did not change. This illustrates an important point that once a value is calculated and stored in a variable it will not change if the variable that were used as part of the calculation are updated! 
+
+
+
 
 ## Variable names
 
-Must start with a character
-Should be meaningful name (`a` bad variable name). 
+Variable names in Python must follow certain rules:
 
-The first is a law (syntax error). The second is good style to make code readible (like wearing sweatpants to class). 
+- Must start with a letter (a-z, A-Z) or an underscore (_), but not a number.
+- Can contain letters, numbers, and underscores.
+- Cannot contain spaces or special characters (like `@`, `#`, `$`, etc.).
+- Cannot be a reserved Python keyword that are part of the Python language (like `for`, `if`, `class`, etc.).
+
+If these rules are not followed, Python will produce a syntax error
+
+It's also important to use meaningful variable names. For example, `t` is technically a valid variable name but it is not descriptive, while `total_hours` is much clearer. Using meaningful names makes your code easier to read and understand.
+
+
+**Exercise**: The minimum wage in the United States in 2025 is 7.25. If someone works 40 hours per week for all 52 weeks in a year, what would there yearly earnings be? Please calculate by creating *meaningful* variable names for 1) the minimum wage amount, 2) the number of hours in a week,  and 3) the number of weeks in a year. Then calculate the total yearly wage and store this result in another meaningful variable name, and print out the value stored in this last variable name. Hint: Using underscores `_` in your variable names is highly encouraged to make them more readible. 
+
+
+**Answer**
 
 ```{python}
 hours = 24
@@ -131,17 +188,42 @@ total_hours_in_a_week = hours * days
 total_hours_in_a_week
 ```
 
-**Exercise**: Calculate CT yearly wage if making minimum wage...
+
+
+## Functions (call expressions)
+
+Could do functions first before donig data types. That way I can use the `type()` function and the `int()` and `float()` functions. Could then go into more detail with functions on strings (perhaps in the string section). OK, do it!
+
+
 
 
 
 
 ## Data types
 
+Python is able to process many different types of data (referred to as "data types"). So, far we have only explored numeric data. Let's continue exploring numerical data in a little more detial and then we will go on to examine other types of data. 
+
 
 ### Numbers
 
-Ints and floats
+Python uses two different formats to stores numerica data known as "integers" and "floating-point numbers".
+
+- **Integers** (`int`): Whole numbers without a decimal point, such as `5`, `-3`, or `1000`.
+- **Floating-point numbers** (`float`): Numbers that have a decimal point, such as `3.14`, `-0.5`, or `2.0`.
+
+
+We can tell if a number is a floating point number (i.e., a "float") by seeing if there is a decimal point at the end of the number when we print out the number. 
+
+```{python}
+
+
+```
+
+
+When analyzing the data, usually it does not matter if Python is storing a number as an integer or a floating point number, so usually it will not affect our code or our analyses. However, under the hood, Python is actually representing these number is quite different ways. 
+
+More imporantly is to know that there are some limitations to the way Python stores both integers and floats. First, and most obviously, 
+
 
 
 ### Character strings
@@ -152,7 +234,23 @@ Ints and floats
 
 
 
-## Functions
+
+You can check the type of a value in Python using the `type()` function:
+
+
+
+## Lists
+
+
+
+
+## Other data structures
+
+
+### Tuples
+
+
+### Dictionaries
 
 
 
