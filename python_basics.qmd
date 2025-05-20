@@ -3,7 +3,6 @@
 Now that we have discussed what data science is, let's learn some of the basics of the Python programming language. Once we have learned some of these Python basics we can begin to analyze data! 
 
 
-
 ## Expressions 
 
 A **Python expression** is **any piece of code that produces a value.**. For example, the following is an expression that simply creates the number 21.
@@ -25,10 +24,15 @@ Similarly, an expression could be a series of mathematical operations that evalu
 As mentioned above, the defining features of a *python expression* is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book. 
 
 
-**Exercise**: What would happen if we remove the parenthesis from the expression we ran above and instead run `6 * 5 + 2`. See if you can predict what the result will be and then try it out in Python by running the code in a code cell and see if you get the result you predicted. 
+::: {.callout-tip title="Exercise" #exercise-python_basics-expressions}
 
 
-**Answer**: 
+What would happen if we remove the parenthesis from the expression we ran above and instead run `6 * 5 + 2`. See if you can predict what the result will be and then try it out in Python by running the code in a code cell and see if you get the result you predicted. 
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-python_basics-expressions collapse="true"}
 
 ```{python}
 
@@ -38,6 +42,7 @@ As mentioned above, the defining features of a *python expression* is that it pr
 
 The result is 32, which makes sense because in the standard order of mathematical operations, multiplication occurs before addition so we multiple 6 * 5 and get 30, and then we add 2 to get 32. 
 
+:::
 
 
 
@@ -57,15 +62,22 @@ The expressions shown above were all "mathematical expressions" because they inv
 : Python mathematical operators {#tbl-math-ops}
 
 
-**Exercise**: What is the remainder from dividing 365 by 7? Please write some Python code that produces the answer.
+::: {.callout-tip title="Exercise" #exercise-python-math_expression}
 
-**Answer**: 
+What is the remainder from dividing 365 by 7? Please write some Python code that produces the answer.
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-python-math_expression collapse="true"}
 
 ```{python}
 
 365 % 7
 
 ```
+
+:::
 
 
 
@@ -92,7 +104,7 @@ However, if we accidentially put an extra space between the two `*` symbols, Pyt
 
 ```
 
-When there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a caret symbol (should replace "caret" with the actual symbol but this is causing an error when compiling the book on GithHub). As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
+When there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a ^ symbol.^[The reason this is a syntax error is because Python inteprets a single `*` symbol as a multiplicaiton symbol. Thus it is trying to multiple 8 by another multiplication symbol `*`, which gives an error since one can only multiply two numbers together.] As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
 
 The ability to be able to spot and fix syntax errors is a fundamental skill you will develop as become proficient in analyzing data in Python. 
 
@@ -136,7 +148,10 @@ t
 ```
 
 
-**Exercise**: In the above code we calculated `t = h * d`. Which of the following do you think will happen to the value stored in `t` if we change the value of h to 3? I.e., if we run the following code, what do you think it will print out? 
+::: {.callout-tip title="Exercise" #exercise-python_basics-assignment_statements}
+
+
+In the above code we calculated `t = h * d`. Which of the following do you think will happen to the value stored in `t` if we change the value of h to 3? I.e., if we run the following code, what do you think it will print out? 
 
 ```{python}
 #| eval: false
@@ -145,12 +160,14 @@ t
 ```
 
 
-a. The value of `t` will be change to be 21  (i.e., 7 * 3).
-b. The value of `t` will not change and will still contain 168.
+a. The value of `t` will be change to be 21  (i.e., `7 * 3`).
+b. The value of `t` will not change and will still contain `168`.
 c. Something else will happen (e.g., Python will give an error). 
 
+:::
 
-**Answer**
+
+::: {.callout-note title="Solution" #solution--python_basics-assignment_statements collapse="true"}
 
 ```{python}
 h = 3
@@ -159,10 +176,10 @@ t
 
 As you can see, the value of `t` did not change. This illustrates an important point that once a value is calculated and stored in a variable it will not change if the variable that were used as part of the calculation are updated! 
 
+:::
 
 
-
-## Variable names
+### Variable names
 
 Variable names in Python must follow certain rules:
 
@@ -176,10 +193,20 @@ If these rules are not followed, Python will produce a syntax error
 It's also important to use meaningful variable names. For example, `t` is technically a valid variable name but it is not descriptive, while `total_hours` is much clearer. Using meaningful names makes your code easier to read and understand.
 
 
-**Exercise**: The minimum wage in the United States in 2025 is 7.25. If someone works 40 hours per week for all 52 weeks in a year, what would there yearly earnings be? Please calculate by creating *meaningful* variable names for 1) the minimum wage amount, 2) the number of hours in a week,  and 3) the number of weeks in a year. Then calculate the total yearly wage and store this result in another meaningful variable name, and print out the value stored in this last variable name. Hint: Using underscores `_` in your variable names is highly encouraged to make them more readible. 
+::: {.callout-tip title="Exercise" #exercise-python_basics-min_wage}
+
+ The minimum wage in the United States in 2025 is $7.25. If someone works 40 hours per week for all 52 weeks in a year, what would there yearly earnings be? Please calculate by creating *meaningful* variable names for:  
+  
+1. The minimum wage amount   
+2. The number of hours in a week    
+3. The number of weeks in a year   
+ 
+ Then calculate the total yearly wage and store this result in another meaningful variable name, and print out the value stored in this last variable. Hint: Using underscores `_` in your variable names is highly encouraged to make them more readible. 
+
+:::
 
 
-**Answer**
+::: {.callout-note title="Solution" #solution-python_basics-min_wage collapse="true"}
 
 ```{python}
 hours = 24
@@ -188,45 +215,241 @@ total_hours_in_a_week = hours * days
 total_hours_in_a_week
 ```
 
+:::
+
+
+
+
+## Comments
+
+Another very useful feature in Python is the ability to add **comments** to your code. Comments are lines in your code that are ignored by Python when your code runs. They are used to explain what your code is doing, make notes to yourself, or leave instructions for others who may read your code in the future.
+
+In Python, you create a comment by starting the line with the `#` symbol. Anything after the `#` on that line will be treated as a comment and not executed.
+
+For example:
+
+```{python}
+
+# The code below calculates the number of seconds in a day
+seconds_in_a_day = 60 * 60 * 24
+
+seconds_in_a_day
+
+```
+
+
+We will use comments extensively throughout this book to explain what code is doing and to make our code easier to understand. Adding clear comments is a good habit that will help both you and others who read your code in the future, so we strongly encourage you to add comments liberally for all code you write. 
+
 
 
 ## Functions (call expressions)
 
-Could do functions first before donig data types. That way I can use the `type()` function and the `int()` and `float()` functions. Could then go into more detail with functions on strings (perhaps in the string section). OK, do it!
+A **function** is a reusable piece of code that performs a specific task. You can think of a function as a "machine" that takes some input, does something with it, and then gives you an output. 
+
+Python comes with many built-in functions that you can use right away, and you can also load in additional functions in packages that other people have written. You can also write own functions, which is a topic we will discuss later in this book. 
+
+To use a function, you "call" it by writing its name followed by parentheses. If the function needs information to do its job, you put that information (called "arguments") inside the parentheses.
+
+For example, the `abs()` function take in a number and returns the absolute value of the number. 
+
+```{python}
+ 
+abs(-10)
+
+```
+
+Some functions can take in multiple arguments. When multiple arguments are provided, they are separated by commas within the parentheses. For example, the `min()` function can take several numbers and will return the smallest one:
+
+```{python}
+
+min(10, 2, 87, 5, 90)
+
+```
+
+Another useful function is the `print()` function for displaying multiple pieces of information in a single Jupyter notebook code cell. By default, Jupyter will only display the result of the last line in a code cell. If you want to display multiple values or add custom messages, you can use the `print()` function. 
+
+For example, the code below will print both the numbers `2` and `3` in the same code cell. If we did not use the `print()` function, only the number `3` would be printed since it is the last line in the cell, but the number 2 would not be printed because it is on the last line in the cell.
+
+```{python}
+
+
+# We need to call print() explicitly here to print the value of 
+# 2 since it is not on the last line of the code cell
+
+print(2)  
 
 
 
+# The value of 3 will be printed here without needing to call 
+# the print() function because it is the last line in the cell
 
+3
+
+
+```
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-print}
+
+Try using the `print()` function to display both a message and a value in the same output. For example, print the message "The answer is:" followed by the result of `6 * 7`. 
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-python_basics-print collapse="true"}
+
+```{python}
+
+print("The answer is:")
+6 * 7
+
+```
+
+
+```{python}
+
+# We can also print multiple pieces of text on a single line by 
+# passing multiple arguments to the print() function: 
+
+print("The answer is:", 6 * 7)
+
+```
+
+:::
 
 
 ## Data types
 
-Python is able to process many different types of data (referred to as "data types"). So, far we have only explored numeric data. Let's continue exploring numerical data in a little more detial and then we will go on to examine other types of data. 
+Python is able to process many different types of data, referred to as "data types".  So, far we have only explored numeric data. Let's continue exploring numerical data in a little more detial and then we will go on to examine other types of data. 
 
 
 ### Numbers
 
-Python uses two different formats to stores numerica data known as "integers" and "floating-point numbers".
+Python uses two different formats to store numerical data known as "integers" and "floating-point numbers".
 
 - **Integers** (`int`): Whole numbers without a decimal point, such as `5`, `-3`, or `1000`.
 - **Floating-point numbers** (`float`): Numbers that have a decimal point, such as `3.14`, `-0.5`, or `2.0`.
-
 
 We can tell if a number is a floating point number (i.e., a "float") by seeing if there is a decimal point at the end of the number when we print out the number. 
 
 ```{python}
 
+# This is an integer, which we can tell becaues there is no decimal point
+5
 
 ```
 
 
-When analyzing the data, usually it does not matter if Python is storing a number as an integer or a floating point number, so usually it will not affect our code or our analyses. However, under the hood, Python is actually representing these number is quite different ways. 
+```{python}
 
-More imporantly is to know that there are some limitations to the way Python stores both integers and floats. First, and most obviously, 
+# Although we are dividing two integers, the result is a floating point number
+# which we can tell becaues there is a decimal point
+
+10/2
+
+
+```
+
+We can also use the `type()` function to check if a number is an integer or a floating point number. 
+
+```{python}
+
+# This is a floating point number
+
+type(5.0)
+
+```
+
+
+When analyzing the data, usually it does not matter if Python is storing a number as an integer or a floating point number since Python does the math sensibly and converts between integers and floating point numbers as needed. However, internally Python is representing these number is quite different ways. 
+
+More imporantly is to know that there are some limitations to the way Python stores both integers and floats. In particular, both of these types of numbers are represented using a finite amount of memory, so there is a largest number integer that can be represented and a limit to the precision of floating-point numbers. For most practical purposes, these limits are very large, but you may encounter issues with extremely large numbers or with floating-point arithmetic where results are not exactly as expected due to rounding errors.
+
+For example, if we multiple intergers that are too long, we can get a `ValueError` which indicates that Python is running into problems representing an integer this large.
+
+```{python}
+#| error: true
+
+# There is a limited size to integers (although the size is pretty large)
+
+1234567 ** 890 
+
+
+```
+
+Simiarly, if we try to create a floating-point number with too many decimal points the number will be truncated, although no error is given, so one needs to be careful if very high precision is needed in a calculation. 
+
+```{python}
+
+# There is a limited precision to floating point numbers (the last digits are trucated)
+
+.12345678901234567890123456789 
+
+
+```
+
+We can also convert numbers between integers and floating point numbers using the `int()` and `float()` functions. When converting from a floating point number to an integer using teh `int()` function, one needs to be aware that the decimal part of the number will be removed (i.e., rounded down to the closest integer)
+
+
+
+```{python}
+
+# Convert an integer to a floating point number.  We can see the conversion worked because the number is printed with a decimal point. 
+
+float(5)
+
+```
+
+
+
+```{python}
+
+# Convert a floating point number to an integer. Note that the decimal part of the number is removed
+
+int(3.14159)
+
+```
+
+
+Finally, one should be aware that Python sometimes prints out numbers using scientific notation. Scientific notation is a way of writing very large or very small numbers more compactly, using the letter `e` to indicate "times ten to the power of." For example, `2.5e6` means \(2.5 \times 10^{6}\), or `2,500,000`.  Similarly,  `3e-09` means \(3 \times 10^{-9}\), or `0.000000003`. Python will automatically use this notation when displaying numbers that are extremely large or small.
+
+
+```{python}
+
+# The output is in scientific notation
+30 / 4000000000 
+
+```
+
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-ints_and_floats}
+
+Take the square root of 12 and then square the result; i.e., calculate $(\sqrt{12})^2$. Does Python return the correct result? 
+
+Hint: Note that you can calculate the square root of a number by taking a number to the 1/2 power; i.e., $\sqrt{12} = 12^{0.5}$
+
+:::
+
+::: {.callout-note title="Solution" #solution-python_basics-ints_and_floats collapse="true"}
+
+```{python}
+
+(12**.5)**2
+
+```
+
+As you can see, there is slight imprecision here so we get a result of 11.999999999999998 rather than a value of 12. 
+
+:::
 
 
 
 ### Character strings
+
+A **character string** (or simply "string") in Python is a sequence of characters enclosed in either single quotes (`'...'`) or double quotes (`"..."`). Strings are used to represent text, such as words, sentences, or any other sequence of characters.
+
+For example, both of the following are valid strings in Python:
+
+
 
 
 

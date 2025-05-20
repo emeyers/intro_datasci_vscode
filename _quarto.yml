@@ -8,6 +8,7 @@ book:
     - index.qmd
     - introduction.qmd
     - python_basics.qmd
+    - descriptive_stats_and_plots.qmd
     - array_computations.qmd
     - data_tables.qmd
     - data_visualization.qmd
@@ -18,6 +19,8 @@ format:
   html:
     theme:
       - cosmo
+    callout:
+      collapse: true
       
   pdf:
     documentclass: scrreprt

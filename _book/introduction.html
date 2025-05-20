@@ -126,20 +126,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./descriptive_stats_and_plots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Descriptive statistics and plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./array_computations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Array computations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Array computations</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data_tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data tables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data tables</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data_visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data visualization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></span></a>
   </div>
 </li>
     </ul>
@@ -159,6 +165,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#a-brief-history-of-statistics" id="toc-a-brief-history-of-statistics" class="nav-link" data-scroll-target="#a-brief-history-of-statistics"><span class="header-section-number">1.2.2</span> A brief history of Statistics</a></li>
   <li><a href="#a-brief-history-of-computation" id="toc-a-brief-history-of-computation" class="nav-link" data-scroll-target="#a-brief-history-of-computation"><span class="header-section-number">1.2.3</span> A brief history of computation</a></li>
   <li><a href="#the-creation-of-the-field-of-data-science" id="toc-the-creation-of-the-field-of-data-science" class="nav-link" data-scroll-target="#the-creation-of-the-field-of-data-science"><span class="header-section-number">1.2.4</span> The creation of the field of Data Science</a></li>
+  </ul></li>
+  <li><a href="#literate-programming-and-reproducible-research" id="toc-literate-programming-and-reproducible-research" class="nav-link" data-scroll-target="#literate-programming-and-reproducible-research"><span class="header-section-number">2</span> Literate programming and reproducible research</a>
+  <ul class="collapse">
+  <li><a href="#jupyter-notebooks" id="toc-jupyter-notebooks" class="nav-link" data-scroll-target="#jupyter-notebooks"><span class="header-section-number">2.1</span> Jupyter notebooks</a>
+  <ul class="collapse">
+  <li><a href="#using-jupyter-notebooks" id="toc-using-jupyter-notebooks" class="nav-link" data-scroll-target="#using-jupyter-notebooks"><span class="header-section-number">2.1.1</span> Using Jupyter notebooks</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -209,8 +222,38 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="the-creation-of-the-field-of-data-science" class="level3" data-number="1.2.4">
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="the-creation-of-the-field-of-data-science"><span class="header-section-number">1.2.4</span> The creation of the field of Data Science</h3>
+</section>
+</section>
+<section id="literate-programming-and-reproducible-research" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Literate programming and reproducible research</h1>
+<p>The concept of reproducible research has a rich history, rooted in the broader scientific principle that results should be verifiable/reproducible by others. As science became increasingly computational in the late 20th century, the challenge of ensuring reproducibility grew. Early computational research often involved custom scripts, manual data manipulation, and undocumented workflows, making it difficult for others to replicate results—even when code and data were shared.</p>
+<p>A foundational influence was Donald Knuth’s idea of “literate programming” in the 1980s. Knuth advocated for writing code and documentation together, so that the logic and reasoning behind analyses were transparent and accessible. This philosophy inspired later tools that integrated narrative and computation.</p>
+<p>In the 1990s and early 2000s, as computational analyses became more central to fields like genomics, climate science, and economics, the limitations of traditional publishing became apparent. Researchers like Jon Claerbout and David Donoho were early advocates for reproducible computational research, arguing that published results should include the code and data necessary to regenerate all figures and analyses. This led to the development of reproducible research standards and the first “compendia”—bundled packages of code, data, and documentation.</p>
+<p>The emergence of tools such as Sweave (for R and LaTeX), Jupyter Notebooks (originally IPython), and RMarkdown in the 2000s and 2010s marked a turning point. These platforms allowed researchers to combine code, results, and explanatory text in a single, executable document. This integration made it much easier to share analyses and ensure that others could reproduce and build upon published work. More recently, Quarto has extended these ideas, supporting multiple programming languages and flexible publishing formats.</p>
+<p>Despite advances in computational tools, the scientific community has faced what is now known as the “reproducibility crisis.” Over the past decade, numerous studies have revealed that a significant proportion of published scientific findings cannot be independently reproduced or replicated. This crisis has affected a wide range of disciplines, from psychology and medicine to the natural and computational sciences. Contributing factors include selective reporting, lack of transparency in methods and data, insufficient documentation of code, and pressures to publish novel results quickly.</p>
+<p>The reproducibility crisis has highlighted the urgent need for more transparent and verifiable research practices. As science became increasingly computational in the late 20th century, ensuring reproducibility grew more challenging. Early computational research often involved custom scripts, manual data manipulation, and undocumented workflows, making it difficult for others to replicate results—even when code and data were shared.</p>
+<p>The reproducibility crisis has prompted widespread calls for reform. Funding agencies, journals, and professional societies now increasingly require that data and code be made available, and that research workflows be documented in detail. The adoption of version control systems like Git, preregistration of studies, and open peer review are among the practices being promoted to address these challenges.</p>
+<p>Today, reproducible research is a cornerstone of open science. The evolution of reproducible research reflects both technological advances and a growing recognition of the importance of openness, transparency, and trust in scientific discovery. By embracing reproducible practices, the scientific community aims to restore confidence in published results and accelerate the pace of reliable, cumulative knowledge.</p>
+<section id="jupyter-notebooks" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="jupyter-notebooks"><span class="header-section-number">2.1</span> Jupyter notebooks</h2>
+<p>In this book we will be using Jupyter notebooks to do our data analyses. These notebooks allow us to interleave “code cells” which contain Python code, with “Markdown cells” which contain written explanations for what our analyses are showing.</p>
+<p>Jupyter notebooks are a powerful tool for interactive computing and reproducible research. They provide an environment where you can write and execute code, visualize data, and document your workflow all in one place. This makes it easy to experiment with different analyses, see immediate results, and keep a clear record of your work.</p>
+<p>A typical Jupyter notebook consists of a sequence of cells. Code cells let you write and run code in languages such as Python, R, or Julia. When you run a code cell, the output—such as tables, plots, or text—is displayed directly below the cell. Markdown cells, on the other hand, are used for formatted text, explanations, equations (using LaTeX), and images. This combination supports a narrative style of analysis, where you can explain your reasoning alongside the code and results.</p>
+<p>Jupyter notebooks are widely used in data science, education, and research because they encourage transparency and reproducibility. You can share your notebooks with others, allowing them to rerun your analyses, modify code, and build upon your work. Notebooks can be exported to various formats, including HTML and PDF, making it easy to present your findings.</p>
+<p>Throughout this book, you will learn how to use Jupyter notebooks effectively: running code, documenting your process, visualizing data, and sharing your results. By mastering notebooks, you’ll gain a valuable skill for modern data science workflows.</p>
+<section id="using-jupyter-notebooks" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="using-jupyter-notebooks"><span class="header-section-number">2.1.1</span> Using Jupyter notebooks</h3>
+<p>To use Jupyter notebooks, you interact with two main types of cells: code cells and markdown cells.</p>
+<ul>
+<li><p><strong>Code cells</strong>: These contain executable code (such as Python). To run a code cell, click on it and press <code>Shift+Enter</code> (or click the “Run” button in the toolbar). The output will appear directly below the cell. You can edit and rerun code cells as often as you like.</p></li>
+<li><p><strong>Markdown cells</strong>: These are used for formatted text, explanations, equations, and images. To edit a markdown cell, double-click it. After editing, press <code>Shift+Enter</code> to render the formatted text.</p></li>
+</ul>
+<p><strong>Basic workflow:</strong> 1. Add a new cell using the “+” button or menu. 2. Choose the cell type (code or markdown) from the toolbar or menu. 3. Write your code or text. 4. Run the cell with <code>Shift+Enter</code>.</p>
+<p>You can rearrange cells by dragging them, and you can delete or duplicate cells using the cell menu. Notebooks automatically save your work, but you can also save manually (<code>Ctrl+S</code>).</p>
+<p>Jupyter notebooks support interactive features such as plotting, widgets, and inline visualizations, making them ideal for data exploration and analysis.</p>
 
 
+</section>
 </section>
 </section>
 

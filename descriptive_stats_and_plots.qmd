@@ -1,0 +1,3 @@
+# Descriptive statistics and plots
+
+Now that we have covered some of the basic Python syntax we are ready to start analyzing some data. 
