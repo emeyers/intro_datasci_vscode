@@ -445,9 +445,81 @@ As you can see, there is slight imprecision here so we get a result of 11.999999
 
 ### Character strings
 
-A **character string** (or simply "string") in Python is a sequence of characters enclosed in either single quotes (`'...'`) or double quotes (`"..."`). Strings are used to represent text, such as words, sentences, or any other sequence of characters.
+A **character string** (or simply "string") is a sequence of characters that are used to represent text, such as words, sentences, or any other sequence of characters. Strings in Pythong are enclosed in either single quotes (`'...'`) or double quotes (`"..."`). However, your string must start and end with the same quote type; i.e., if the string starts with a single quote tit also ends with a single quote, and the same for double quotes.
 
-For example, both of the following are valid strings in Python:
+The following are valid strings in Python:
+
+```{python}
+
+'This is a valid Python string with single quotes'
+
+"This is another valid Python string using double quotes."
+
+```
+
+While using single or double quotes gives the same result, there are cases where it is natural to use one over the other. For example, if your string contains an apostrophe (single quote), it's easier to use double quotes:
+
+```{python}
+
+"This string contains an apostrophe: it's easy to read."
+
+```
+
+And if your string contains double quotes, it is easier to single quotes when creating your string:
+
+```{python}
+
+'She said, "Hello, world!"'
+
+```
+
+
+We can also perform operations on strings, such as concatenation (joining strings together). For example, to join two strings together, you can use the `+` operator:
+
+```{python}
+
+"water" + "mellon"
+
+```
+
+
+Note that the `+` operator we have used to concatenate strings is the same `+` operator we used to add numbers. This illustrates an important principle that an operator can behave differently depending on the type of data it is used with. In Python, this is called "operator overloading." For numbers, `+` performs addition, while for strings, it performs concatenation (joining the strings together).
+
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-print}
+
+Above we have seen that the `+` operator can behave differently depending on whether it is operating on numbers or strings. We have also seen that `*` operator is used to multiple two numbers together. Do you think that the `*` operator will also work on strings? Please write down, or say outloud whether you think the  `*` operator will work on strings, then see if your prediction is correct by running the following code: 
+
+```{python}
+
+'ha' * 5
+
+```
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-python_basics-print collapse="true"}
+
+```{python}
+
+'ha' * 5
+
+```
+
+As you can see, the `*` operator works on strings by repeating the string the specified number of times. In this case, `'ha' * 5` produces `'hahahahaha'` (which is very amusing). 
+
+:::
+
+
+
+####  String conversions
+
+We can also convert strings into numbers and numbers into strings. 
+
+
+
+#### String functions and methods
 
 
 
@@ -463,6 +535,14 @@ You can check the type of a value in Python using the `type()` function:
 
 
 ## Lists
+
+
+
+### Sequences
+
+A sequence in Pythong is... 
+
+A list is also a squence
 
 
 

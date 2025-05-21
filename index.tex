@@ -229,15 +229,15 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 \makeatletter
+\definecolor{QuartoInternalColor1}{rgb}{0.15,0.56,0.56}
 \definecolor{QuartoInternalColor8}{rgb}{0.20,0.40,0.40}
-\definecolor{QuartoInternalColor3}{rgb}{0.00,0.45,0.15}
+\definecolor{QuartoInternalColor2}{rgb}{0,0,0}
 \definecolor{QuartoInternalColor7}{rgb}{0.60,0.00,1.00}
+\definecolor{QuartoInternalColor5}{rgb}{0.00,0.40,0.79}
+\definecolor{QuartoInternalColor3}{rgb}{0.00,0.45,0.15}
+\definecolor{QuartoInternalColor4}{rgb}{0.70,0.17,0.19}
 \definecolor{QuartoInternalColor6}{rgb}{0.00,0.40,0.00}
 \definecolor{QuartoInternalColor9}{rgb}{0.74,0.74,0.74}
-\definecolor{QuartoInternalColor4}{rgb}{0.70,0.17,0.19}
-\definecolor{QuartoInternalColor1}{rgb}{0.15,0.56,0.56}
-\definecolor{QuartoInternalColor5}{rgb}{0.00,0.40,0.79}
-\definecolor{QuartoInternalColor2}{rgb}{0,0,0}
 \makeatother
 
 \usepackage{bookmark}
@@ -533,7 +533,7 @@ is that it produces a value. Expressions are one of the fundamental
 building blocks of data analysis and they will appear frequently
 throughout this book.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-tip-color-frame, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, arc=.35mm, colback=white, toprule=.15mm]
 
 What would happen if we remove the parenthesis from the expression we
 ran above and instead run \texttt{6\ *\ 5\ +\ 2}. See if you can predict
@@ -542,7 +542,7 @@ code in a code cell and see if you get the result you predicted.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, arc=.35mm, colback=white, toprule=.15mm]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -590,14 +590,14 @@ Exponentiation & ** & 3 ** 2 & 9 \\
 Remainder & \% & 10 \% 3 & 1 \\
 \end{longtable}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-tip-color-frame, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, arc=.35mm, colback=white, toprule=.15mm]
 
 What is the remainder from dividing 365 by 7? Please write some Python
 code that produces the answer.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, arc=.35mm, colback=white, toprule=.15mm]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -738,7 +738,7 @@ and store the result in the variable \texttt{t}.
 168
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-tip-color-frame, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, arc=.35mm, colback=white, toprule=.15mm]
 
 In the above code we calculated \texttt{t\ =\ h\ *\ d}. Which of the
 following do you think will happen to the value stored in \texttt{t} if
@@ -767,7 +767,7 @@ do you think it will print out?
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, arc=.35mm, colback=white, toprule=.15mm]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -813,7 +813,7 @@ It's also important to use meaningful variable names. For example,
 descriptive, while \texttt{total\_hours} is much clearer. Using
 meaningful names makes your code easier to read and understand.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-tip-color-frame, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, arc=.35mm, colback=white, toprule=.15mm]
 
 The minimum wage in the United States in 2025 is \$7.25. If someone
 works 40 hours per week for all 52 weeks in a year, what would there
@@ -838,7 +838,7 @@ highly encouraged to make them more readible.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, arc=.35mm, colback=white, toprule=.15mm]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -967,7 +967,7 @@ is on the last line in the cell.
 3
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-tip-color-frame, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, arc=.35mm, colback=white, toprule=.15mm]
 
 Try using the \texttt{print()} function to display both a message and a
 value in the same output. For example, print the message ``The answer
@@ -975,7 +975,7 @@ is:'' followed by the result of \texttt{6\ *\ 7}.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, arc=.35mm, colback=white, toprule=.15mm]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1198,7 +1198,7 @@ are extremely large or small.
 7.5e-09
 \end{verbatim}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-tip-color-frame, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, arc=.35mm, colback=white, toprule=.15mm]
 
 Take the square root of 12 and then square the result; i.e., calculate
 \((\sqrt{12})^2\). Does Python return the correct result?
@@ -1208,7 +1208,7 @@ a number to the 1/2 power; i.e., \(\sqrt{12} = 12^{0.5}\)
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, toprule=.15mm, titlerule=0mm, coltitle=black, bottomtitle=1mm, rightrule=.15mm, breakable, toptitle=1mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, left=2mm, bottomrule=.15mm, arc=.35mm, colbacktitle=quarto-callout-note-color!10!white, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, arc=.35mm, colback=white, toprule=.15mm]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1227,13 +1227,125 @@ As you can see, there is slight imprecision here so we get a result of
 
 \subsection{Character strings}\label{character-strings}
 
-A \textbf{character string} (or simply ``string'') in Python is a
-sequence of characters enclosed in either single quotes
-(\texttt{\textquotesingle{}...\textquotesingle{}}) or double quotes
-(\texttt{"..."}). Strings are used to represent text, such as words,
-sentences, or any other sequence of characters.
+A \textbf{character string} (or simply ``string'') is a sequence of
+characters that are used to represent text, such as words, sentences, or
+any other sequence of characters. Strings in Pythong are enclosed in
+either single quotes (\texttt{\textquotesingle{}...\textquotesingle{}})
+or double quotes (\texttt{"..."}). However, your string must start and
+end with the same quote type; i.e., if the string starts with a single
+quote tit also ends with a single quote, and the same for double quotes.
 
-For example, both of the following are valid strings in Python:
+The following are valid strings in Python:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\textquotesingle{}This is a valid Python string with single quotes\textquotesingle{}}
+
+\CommentTok{"This is another valid Python string using double quotes."}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+'This is another valid Python string using double quotes.'
+\end{verbatim}
+
+While using single or double quotes gives the same result, there are
+cases where it is natural to use one over the other. For example, if
+your string contains an apostrophe (single quote), it's easier to use
+double quotes:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{"This string contains an apostrophe: it\textquotesingle{}s easy to read."}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+"This string contains an apostrophe: it's easy to read."
+\end{verbatim}
+
+And if your string contains double quotes, it is easier to single quotes
+when creating your string:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\textquotesingle{}She said, "Hello, world!"\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+'She said, "Hello, world!"'
+\end{verbatim}
+
+We can also perform operations on strings, such as concatenation
+(joining strings together). For example, to join two strings together,
+you can use the \texttt{+} operator:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{"water"} \OperatorTok{+} \StringTok{"mellon"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+'watermellon'
+\end{verbatim}
+
+Note that the \texttt{+} operator we have used to concatenate strings is
+the same \texttt{+} operator we used to add numbers. This illustrates an
+important principle that an operator can behave differently depending on
+the type of data it is used with. In Python, this is called ``operator
+overloading.'' For numbers, \texttt{+} performs addition, while for
+strings, it performs concatenation (joining the strings together).
+
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-tip-color-frame, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Exercise}, arc=.35mm, colback=white, toprule=.15mm]
+
+Above we have seen that the \texttt{+} operator can behave differently
+depending on whether it is operating on numbers or strings. We have also
+seen that \texttt{*} operator is used to multiple two numbers together.
+Do you think that the \texttt{*} operator will also work on strings?
+Please write down, or say outloud whether you think the \texttt{*}
+operator will work on strings, then see if your prediction is correct by
+running the following code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\textquotesingle{}ha\textquotesingle{}} \OperatorTok{*} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+'hahahahaha'
+\end{verbatim}
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, colbacktitle=quarto-callout-note-color!10!white, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, coltitle=black, left=2mm, opacitybacktitle=0.6, titlerule=0mm, bottomrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Solution}, arc=.35mm, colback=white, toprule=.15mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\textquotesingle{}ha\textquotesingle{}} \OperatorTok{*} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+'hahahahaha'
+\end{verbatim}
+
+As you can see, the \texttt{*} operator works on strings by repeating
+the string the specified number of times. In this case,
+\texttt{\textquotesingle{}ha\textquotesingle{}\ *\ 5} produces
+\texttt{\textquotesingle{}hahahahaha\textquotesingle{}} (which is very
+amusing).
+
+\end{tcolorbox}
+
+\subsubsection{String conversions}\label{string-conversions}
+
+We can also convert strings into numbers and numbers into strings.
+
+\subsubsection{String functions and
+methods}\label{string-functions-and-methods}
 
 \subsection{Booleans}\label{booleans}
 
@@ -1241,6 +1353,12 @@ You can check the type of a value in Python using the \texttt{type()}
 function:
 
 \section{Lists}\label{lists}
+
+\subsection{Sequences}\label{sequences}
+
+A sequence in Pythong is\ldots{}
+
+A list is also a squence
 
 \section{Other data structures}\label{other-data-structures}
 

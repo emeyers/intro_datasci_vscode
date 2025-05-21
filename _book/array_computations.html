@@ -273,7 +273,7 @@ window.Quarto = {
 
 
 <p>This is a book created from markdown and executable code.</p>
-<div id="f5e5b5d3" class="cell" data-execution_count="1">
+<div id="78a7ac30" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>eruptions <span class="op">=</span> [<span class="dv">1492</span>, <span class="dv">1585</span>, <span class="dv">1646</span>, <span class="dv">1677</span>, <span class="dv">1712</span>, <span class="dv">1949</span>, <span class="dv">1971</span>, <span class="dv">2021</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -297,14 +297,14 @@ Figure&nbsp;4.1: Timeline of recent earthquakes on La Palma
 </div>
 </div>
 </div>
-<div id="b576fbd1" class="cell" data-execution_count="3">
+<div id="cccf92cd" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>avg_years_between_eruptions <span class="op">=</span> np.mean(np.diff(eruptions[:<span class="op">-</span><span class="dv">1</span>]))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>avg_years_between_eruptions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Based on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.</p>
-<p>Studies of the magma systems feeding the volcano, such as <span class="citation" data-cites="marrero2019">Marrero et al. (<a href="#ref-marrero2019" role="doc-biblioref">2019</a>)</span>, have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).</p>
-<p>Eight eruptions have been recorded since the late 1400s (<a href="#fig-timeline" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-timeline</span></a>).</p>
-<p>Data and methods are discussed in <a href="#sec-data-methods" class="quarto-xref"><span class="quarto-unresolved-ref">sec-data-methods</span></a>.</p>
+<p>Studies of the magma systems feeding the volcano, such as <span class="citation" data-cites="marrero2019">Marrero et al. (<a href="array_computations.html#ref-marrero2019" role="doc-biblioref">2019</a>)</span>, have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).</p>
+<p>Eight eruptions have been recorded since the late 1400s (<a href="#fig-timeline" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>).</p>
+<p>Data and methods are discussed in <a href="#sec-data-methods" class="quarto-xref"><span>Section 4.1</span></a>.</p>
 <p>Let <span class="math inline">\(x\)</span> denote the number of eruptions in a year. Then, <span class="math inline">\(x\)</span> can be modeled by a Poisson distribution</p>
 <p>where <span class="math inline">\(\lambda\)</span> is the rate of eruptions per year.</p>
 <div id="tbl-history" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -358,7 +358,7 @@ Table&nbsp;4.1: Recent historic eruptions on La Palma
 </div>
 </figure>
 </div>
-<p><a href="#tbl-history" class="quarto-xref">Table&nbsp;<span class="quarto-unresolved-ref">tbl-history</span></a> summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.</p>
+<p><a href="#tbl-history" class="quarto-xref">Table&nbsp;<span>4.1</span></a> summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.</p>
 <div class="quarto-embed-nb-cell" data-notebook="C:\Users\em939\Desktop\git_repos\books_to_write\intro_datasci_vscode\notebooks\data-screening.qmd" data-notebook-title="Data Screening" data-notebook-cellid="cell-fig-spatial-plot">
 <div id="cell-fig-spatial-plot" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
@@ -375,7 +375,7 @@ Figure&nbsp;4.2: Locations of earthquakes on La Palma since 2017.
 </div>
 </div>
 </div>
-<p><a href="#fig-spatial-plot" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-spatial-plot</span></a> shows the location of recent Earthquakes on La Palma.</p>
+<p><a href="#fig-spatial-plot" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> shows the location of recent Earthquakes on La Palma.</p>
 <section id="sec-data-methods" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="sec-data-methods"><span class="header-section-number">4.1</span> Data &amp; Methods</h2>
 </section>
@@ -386,7 +386,12 @@ Figure&nbsp;4.2: Locations of earthquakes on La Palma since 2017.
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-marrero2019" class="csl-entry" role="listitem">
-Marrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares, Antonio Rodríguez-Losada, and R. Ortiz. 2019. <span>“Strategies for the Development of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The Example of <span>La</span> <span>Palma</span> (<span>Canary</span> <span>Islands</span>).”</span> <em>Journal of Applied Volcanology</em> 8 (July). <a href="https://doi.org/10.1186/s13617-019-0085-5">https://doi.org/10.1186/s13617-019-0085-5</a>.
+Marrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares,
+Antonio Rodríguez-Losada, and R. Ortiz. 2019. <span>“Strategies for the
+Development of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The
+Example of <span>La</span> <span>Palma</span> (<span>Canary</span>
+<span>Islands</span>).”</span> <em>Journal of Applied Volcanology</em> 8
+(July). <a href="https://doi.org/10.1186/s13617-019-0085-5">https://doi.org/10.1186/s13617-019-0085-5</a>.
 </div>
 </div>
 

@@ -1,0 +1,182 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to Data Science",
+    "section": "",
+    "text": "Welcome\n\nThis book gives an introduction to Data Science using the Python programming langauge.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "1.1 What is Data Science?\nIn this chapter we will discuss what the field of Data Science is, and give a brief history of how the field developed.\nThis book is your guide to understanding the exciting and increasingly influential field of data science. Whether you’re curious about how data shapes our world or are looking to explore the possibilities of data-driven insights, this book will provide you with a foundational understanding of what data science is and why it matters.\nData science is a dynamic and interdisciplinary field that combines techniques and theories from statistics, computer science, and specialized knowledge in various areas to extract valuable knowledge and insights from data [Chapter 1]. This data can come in many forms, whether neatly organized in databases or existing as unstructured information like text or images.\nAt its core, data science follows a systematic process for analyzing data. This includes a range of crucial steps, starting with data collection and ensuring the data is in a usable state through data cleaning. Once prepared, the data is explored to uncover initial patterns and relationships (data exploration). Data scientists then apply various modeling techniques to identify deeper insights, which need to be carefully interpreted to draw meaningful conclusions. Finally, the findings are communicated effectively to inform decisions and understanding [Chapter 1].\nThe field of data science has experienced remarkable growth in recent years This surge in prominence can be attributed to several key factors: - The explosion in the amount of data being generated across all sectors, from social media to scientific research. - Significant advancements in computing power, enabling the processing and analysis of these vast datasets. - The development of increasingly sophisticated analytical tools and techniques that allow for more complex and insightful data exploration.\nBy delving into data science, you can gain practical analytical skills that are applicable across a wide array of fields [Chapter 1, 62]. You’ll learn how to approach real-world data, identify key questions, and use data-driven methods to find answers and understand the world around us [Chapter 1, 62]. As a lighthearted starting point, you might hear the quip that “A Data Scientist is a Statistician who lives in San Francisco” [Chapter 1, 11]. While humorous, this simple definition hints at the combination of statistical thinking with the technological innovation often associated with data science. Throughout this book, we will move beyond simplistic definitions to explore the rich and multifaceted nature of this vital field.\nKey points - Despite the fact that humans have been collecting data for millenia, and doing sophisticated analyses of data for centuries, the field of data science” (or at least the name) is relatively new. -",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "introduction.html#a-brief-history-of-data-science",
+    "href": "introduction.html#a-brief-history-of-data-science",
+    "title": "1  Introduction",
+    "section": "1.2 A brief history of Data Science",
+    "text": "1.2 A brief history of Data Science\n\n1.2.1 A brief history of data\n\n\n1.2.2 A brief history of Statistics\n\n\n1.2.3 A brief history of computation\nComputational devices also have a long history.\n\n\n1.2.4 The creation of the field of Data Science",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "introduction.html#jupyter-notebooks",
+    "href": "introduction.html#jupyter-notebooks",
+    "title": "1  Introduction",
+    "section": "2.1 Jupyter notebooks",
+    "text": "2.1 Jupyter notebooks\nIn this book we will be using Jupyter notebooks to do our data analyses. These notebooks allow us to interleave “code cells” which contain Python code, with “Markdown cells” which contain written explanations for what our analyses are showing.\nJupyter notebooks are a powerful tool for interactive computing and reproducible research. They provide an environment where you can write and execute code, visualize data, and document your workflow all in one place. This makes it easy to experiment with different analyses, see immediate results, and keep a clear record of your work.\nA typical Jupyter notebook consists of a sequence of cells. Code cells let you write and run code in languages such as Python, R, or Julia. When you run a code cell, the output—such as tables, plots, or text—is displayed directly below the cell. Markdown cells, on the other hand, are used for formatted text, explanations, equations (using LaTeX), and images. This combination supports a narrative style of analysis, where you can explain your reasoning alongside the code and results.\nJupyter notebooks are widely used in data science, education, and research because they encourage transparency and reproducibility. You can share your notebooks with others, allowing them to rerun your analyses, modify code, and build upon your work. Notebooks can be exported to various formats, including HTML and PDF, making it easy to present your findings.\nThroughout this book, you will learn how to use Jupyter notebooks effectively: running code, documenting your process, visualizing data, and sharing your results. By mastering notebooks, you’ll gain a valuable skill for modern data science workflows.\n\n2.1.1 Using Jupyter notebooks\nTo use Jupyter notebooks, you interact with two main types of cells: code cells and markdown cells.\n\nCode cells: These contain executable code (such as Python). To run a code cell, click on it and press Shift+Enter (or click the “Run” button in the toolbar). The output will appear directly below the cell. You can edit and rerun code cells as often as you like.\nMarkdown cells: These are used for formatted text, explanations, equations, and images. To edit a markdown cell, double-click it. After editing, press Shift+Enter to render the formatted text.\n\nBasic workflow: 1. Add a new cell using the “+” button or menu. 2. Choose the cell type (code or markdown) from the toolbar or menu. 3. Write your code or text. 4. Run the cell with Shift+Enter.\nYou can rearrange cells by dragging them, and you can delete or duplicate cells using the cell menu. Notebooks automatically save your work, but you can also save manually (Ctrl+S).\nJupyter notebooks support interactive features such as plotting, widgets, and inline visualizations, making them ideal for data exploration and analysis.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html",
+    "href": "python_basics.html",
+    "title": "2  Python basics",
+    "section": "",
+    "text": "2.1 Expressions\nNow that we have discussed what data science is, let’s learn some of the basics of the Python programming language. Once we have learned some of these Python basics we can begin to analyze data!\nA Python expression is any piece of code that produces a value.. For example, the following is an expression that simply creates the number 21.\n21\n\n21\nSimilarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:\n6 * (5 + 2) \n\n42\nAs mentioned above, the defining features of a python expression is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#expressions",
+    "href": "python_basics.html#expressions",
+    "title": "2  Python basics",
+    "section": "",
+    "text": "Exercise\n\n\n\nWhat would happen if we remove the parenthesis from the expression we ran above and instead run 6 * 5 + 2. See if you can predict what the result will be and then try it out in Python by running the code in a code cell and see if you get the result you predicted.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n6 * 5 + 2\n\n32\n\n\nThe result is 32, which makes sense because in the standard order of mathematical operations, multiplication occurs before addition so we multiple 6 * 5 and get 30, and then we add 2 to get 32.\n\n\n\n\n2.1.1 Mathematical expressions\nThe expressions shown above were all “mathematical expressions” because they involve calculating numeric quantities. We can also write statements that will do operations on text and other types of data which we will describe more below. But first, let’s explore mathematical expressions a bit more. Below is a table of some of the mathematical operations that are part of\n\n\n\nTable 2.1: Python mathematical operators\n\n\n\n\n\nOperation\nSymbol\nExample\nResult\n\n\n\n\nAddition\n+\n5 + 3\n8\n\n\nSubtraction\n-\n10 - 4\n6\n\n\nMultiplication\n*\n7 * 2\n14\n\n\nDivision\n/\n12 / 5\n2.4\n\n\nExponentiation\n**\n3 ** 2\n9\n\n\nRemainder\n%\n10 % 3\n1\n\n\n\n\n\n\n\n\n\n\n\n\nExercise\n\n\n\nWhat is the remainder from dividing 365 by 7? Please write some Python code that produces the answer.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n365 % 7\n\n1",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#syntax",
+    "href": "python_basics.html#syntax",
+    "title": "2  Python basics",
+    "section": "2.2 Syntax",
+    "text": "2.2 Syntax\nSyntax is the set of rules that defines how Python code must be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it must use the correct syntax. If incorrect syntax is used, then one will get a “syntax error”, and the code will not run.\nTo illustrate this, let’s calculate the value of 8 squared (\\(8^2\\)) which hopefully you remember is equal to the value of 64. As shown Table 2.1, if we want to take a value x to the power y (i.e., to calculate \\(x^y\\)) we use the syntax x**y. So, if we wanted to calculate \\(8^2\\) we would write the following Python code:\n\n8**2\n\n64\n\n\nSince we have written the correct syntax, the code runs and the result of 64 is calculated as expected.\nHowever, if we accidentially put an extra space between the two * symbols, Python will not know how to interpret the expression and we will get a syntax error as shown below:\n\n8* *2\n\n\n  Cell In[6], line 1\n    8* *2\n       ^\nSyntaxError: invalid syntax\n\n\n\n\nWhen there is a syntax error, Python will print out SyntaxError and give you an indication where the syntax error has occurred using a ^ symbol.1 As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols.\nThe ability to be able to spot and fix syntax errors is a fundamental skill you will develop as become proficient in analyzing data in Python.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#assignment-statements",
+    "href": "python_basics.html#assignment-statements",
+    "title": "2  Python basics",
+    "section": "2.3 Assignment statements",
+    "text": "2.3 Assignment statements\nAn assignment statement is a line of code that is used to store a value in a named variable. We can then refer back to this variable name to retrieve the value we have stored.\nTo assign a value to a variable we use the = symbol. For example, the following code assigns the value 10 to the variable a:\n\na = 10\n\nWe can then refer back to the variable a later in our code to retrive the stored value. For example, if we just write a by itself on the last line of our Python code cell, it will print out the value stored in a.\n\na\n\n10\n\n\nAs we can see, the value printed out is 10 which is the value we had previously stored in the name a.\nIf we were to assign the name a to another value, it will overwrite the previously stored value and a will store the new value.\n\na = 21\na\n\n21\n\n\nWe an also do mathematical operations on values stored in variables, such as adding and multiplying variables together. For example, we can assign the variable h to store the value 24, and the variable d to store the value 7, and then we can multiple these together and store the result in the variable t.\n\nh = 24\nd = 7\nt = h * d\nt\n\n168\n\n\n\n\n\n\n\n\nExercise\n\n\n\nIn the above code we calculated t = h * d. Which of the following do you think will happen to the value stored in t if we change the value of h to 3? I.e., if we run the following code, what do you think it will print out?\n\nh = 3\nt\n\n\nThe value of t will be change to be 21 (i.e., 7 * 3).\nThe value of t will not change and will still contain 168.\nSomething else will happen (e.g., Python will give an error).\n\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\nh = 3\nt\n\n168\n\n\nAs you can see, the value of t did not change. This illustrates an important point that once a value is calculated and stored in a variable it will not change if the variable that were used as part of the calculation are updated!\n\n\n\n\n2.3.1 Variable names\nVariable names in Python must follow certain rules:\n\nMust start with a letter (a-z, A-Z) or an underscore (_), but not a number.\nCan contain letters, numbers, and underscores.\nCannot contain spaces or special characters (like @, #, $, etc.).\nCannot be a reserved Python keyword that are part of the Python language (like for, if, class, etc.).\n\nIf these rules are not followed, Python will produce a syntax error\nIt’s also important to use meaningful variable names. For example, t is technically a valid variable name but it is not descriptive, while total_hours is much clearer. Using meaningful names makes your code easier to read and understand.\n\n\n\n\n\n\nExercise\n\n\n\nThe minimum wage in the United States in 2025 is $7.25. If someone works 40 hours per week for all 52 weeks in a year, what would there yearly earnings be? Please calculate by creating meaningful variable names for:\n\nThe minimum wage amount\n\nThe number of hours in a week\n\nThe number of weeks in a year\n\nThen calculate the total yearly wage and store this result in another meaningful variable name, and print out the value stored in this last variable. Hint: Using underscores _ in your variable names is highly encouraged to make them more readible.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\nhours = 24\ndays = 7\ntotal_hours_in_a_week = hours * days\ntotal_hours_in_a_week\n\n168",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#comments",
+    "href": "python_basics.html#comments",
+    "title": "2  Python basics",
+    "section": "2.4 Comments",
+    "text": "2.4 Comments\nAnother very useful feature in Python is the ability to add comments to your code. Comments are lines in your code that are ignored by Python when your code runs. They are used to explain what your code is doing, make notes to yourself, or leave instructions for others who may read your code in the future.\nIn Python, you create a comment by starting the line with the # symbol. Anything after the # on that line will be treated as a comment and not executed.\nFor example:\n\n# The code below calculates the number of seconds in a day\nseconds_in_a_day = 60 * 60 * 24\n\nseconds_in_a_day\n\n86400\n\n\nWe will use comments extensively throughout this book to explain what code is doing and to make our code easier to understand. Adding clear comments is a good habit that will help both you and others who read your code in the future, so we strongly encourage you to add comments liberally for all code you write.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#functions-call-expressions",
+    "href": "python_basics.html#functions-call-expressions",
+    "title": "2  Python basics",
+    "section": "2.5 Functions (call expressions)",
+    "text": "2.5 Functions (call expressions)\nA function is a reusable piece of code that performs a specific task. You can think of a function as a “machine” that takes some input, does something with it, and then gives you an output.\nPython comes with many built-in functions that you can use right away, and you can also load in additional functions in packages that other people have written. You can also write own functions, which is a topic we will discuss later in this book.\nTo use a function, you “call” it by writing its name followed by parentheses. If the function needs information to do its job, you put that information (called “arguments”) inside the parentheses.\nFor example, the abs() function take in a number and returns the absolute value of the number.\n\nabs(-10)\n\n10\n\n\nSome functions can take in multiple arguments. When multiple arguments are provided, they are separated by commas within the parentheses. For example, the min() function can take several numbers and will return the smallest one:\n\nmin(10, 2, 87, 5, 90)\n\n2\n\n\nAnother useful function is the print() function for displaying multiple pieces of information in a single Jupyter notebook code cell. By default, Jupyter will only display the result of the last line in a code cell. If you want to display multiple values or add custom messages, you can use the print() function.\nFor example, the code below will print both the numbers 2 and 3 in the same code cell. If we did not use the print() function, only the number 3 would be printed since it is the last line in the cell, but the number 2 would not be printed because it is on the last line in the cell.\n\n# We need to call print() explicitly here to print the value of \n# 2 since it is not on the last line of the code cell\n\nprint(2)  \n\n\n\n# The value of 3 will be printed here without needing to call \n# the print() function because it is the last line in the cell\n\n3\n\n2\n\n\n3\n\n\n\n\n\n\n\n\nExercise\n\n\n\nTry using the print() function to display both a message and a value in the same output. For example, print the message “The answer is:” followed by the result of 6 * 7.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\nprint(\"The answer is:\")\n6 * 7\n\nThe answer is:\n\n\n42\n\n\n\n# We can also print multiple pieces of text on a single line by \n# passing multiple arguments to the print() function: \n\nprint(\"The answer is:\", 6 * 7)\n\nThe answer is: 42",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#data-types",
+    "href": "python_basics.html#data-types",
+    "title": "2  Python basics",
+    "section": "2.6 Data types",
+    "text": "2.6 Data types\nPython is able to process many different types of data, referred to as “data types”. So, far we have only explored numeric data. Let’s continue exploring numerical data in a little more detial and then we will go on to examine other types of data.\n\n2.6.1 Numbers\nPython uses two different formats to store numerical data known as “integers” and “floating-point numbers”.\n\nIntegers (int): Whole numbers without a decimal point, such as 5, -3, or 1000.\nFloating-point numbers (float): Numbers that have a decimal point, such as 3.14, -0.5, or 2.0.\n\nWe can tell if a number is a floating point number (i.e., a “float”) by seeing if there is a decimal point at the end of the number when we print out the number.\n\n# This is an integer, which we can tell becaues there is no decimal point\n5\n\n5\n\n\n\n# Although we are dividing two integers, the result is a floating point number\n# which we can tell becaues there is a decimal point\n\n10/2\n\n5.0\n\n\nWe can also use the type() function to check if a number is an integer or a floating point number.\n\n# This is a floating point number\n\ntype(5.0)\n\nfloat\n\n\nWhen analyzing the data, usually it does not matter if Python is storing a number as an integer or a floating point number since Python does the math sensibly and converts between integers and floating point numbers as needed. However, internally Python is representing these number is quite different ways.\nMore imporantly is to know that there are some limitations to the way Python stores both integers and floats. In particular, both of these types of numbers are represented using a finite amount of memory, so there is a largest number integer that can be represented and a limit to the precision of floating-point numbers. For most practical purposes, these limits are very large, but you may encounter issues with extremely large numbers or with floating-point arithmetic where results are not exactly as expected due to rounding errors.\nFor example, if we multiple intergers that are too long, we can get a ValueError which indicates that Python is running into problems representing an integer this large.\n\n# There is a limited size to integers (although the size is pretty large)\n\n1234567 ** 890 \n\n\n---------------------------------------------------------------------------\nValueError                                Traceback (most recent call last)\nFile c:\\Users\\em939\\Desktop\\git_repos\\books_to_write\\intro_datasci_vscode\\.venv\\Lib\\site-packages\\IPython\\core\\formatters.py:770, in PlainTextFormatter.__call__(self, obj)\n    763 stream = StringIO()\n    764 printer = pretty.RepresentationPrinter(stream, self.verbose,\n    765     self.max_width, self.newline,\n    766     max_seq_length=self.max_seq_length,\n    767     singleton_pprinters=self.singleton_printers,\n    768     type_pprinters=self.type_printers,\n    769     deferred_pprinters=self.deferred_printers)\n--&gt; 770 printer.pretty(obj)\n    771 printer.flush()\n    772 return stream.getvalue()\n\nFile c:\\Users\\em939\\Desktop\\git_repos\\books_to_write\\intro_datasci_vscode\\.venv\\Lib\\site-packages\\IPython\\lib\\pretty.py:386, in RepresentationPrinter.pretty(self, obj)\n    383 for cls in _get_mro(obj_class):\n    384     if cls in self.type_pprinters:\n    385         # printer registered in self.type_pprinters\n--&gt; 386         return self.type_pprinters[cls](obj, self, cycle)\n    387     else:\n    388         # deferred printer\n    389         printer = self._in_deferred_types(cls)\n\nFile c:\\Users\\em939\\Desktop\\git_repos\\books_to_write\\intro_datasci_vscode\\.venv\\Lib\\site-packages\\IPython\\lib\\pretty.py:786, in _repr_pprint(obj, p, cycle)\n    784 \"\"\"A pprint that just redirects to the normal repr function.\"\"\"\n    785 # Find newlines and replace them with p.break_()\n--&gt; 786 output = repr(obj)\n    787 lines = output.splitlines()\n    788 with p.group():\n\nValueError: Exceeds the limit (4300 digits) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit\n\n\n\nSimiarly, if we try to create a floating-point number with too many decimal points the number will be truncated, although no error is given, so one needs to be careful if very high precision is needed in a calculation.\n\n# There is a limited precision to floating point numbers (the last digits are trucated)\n\n.12345678901234567890123456789 \n\n0.12345678901234568\n\n\nWe can also convert numbers between integers and floating point numbers using the int() and float() functions. When converting from a floating point number to an integer using teh int() function, one needs to be aware that the decimal part of the number will be removed (i.e., rounded down to the closest integer)\n\n# Convert an integer to a floating point number.  We can see the conversion worked because the number is printed with a decimal point. \n\nfloat(5)\n\n5.0\n\n\n\n# Convert a floating point number to an integer. Note that the decimal part of the number is removed\n\nint(3.14159)\n\n3\n\n\nFinally, one should be aware that Python sometimes prints out numbers using scientific notation. Scientific notation is a way of writing very large or very small numbers more compactly, using the letter e to indicate “times ten to the power of.” For example, 2.5e6 means (2.5 ^{6}), or 2,500,000. Similarly, 3e-09 means (3 ^{-9}), or 0.000000003. Python will automatically use this notation when displaying numbers that are extremely large or small.\n\n# The output is in scientific notation\n30 / 4000000000 \n\n7.5e-09\n\n\n\n\n\n\n\n\nExercise\n\n\n\nTake the square root of 12 and then square the result; i.e., calculate \\((\\sqrt{12})^2\\). Does Python return the correct result?\nHint: Note that you can calculate the square root of a number by taking a number to the 1/2 power; i.e., \\(\\sqrt{12} = 12^{0.5}\\)\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n(12**.5)**2\n\n11.999999999999998\n\n\nAs you can see, there is slight imprecision here so we get a result of 11.999999999999998 rather than a value of 12.\n\n\n\n\n\n2.6.2 Character strings\nA character string (or simply “string”) is a sequence of characters that are used to represent text, such as words, sentences, or any other sequence of characters. Strings in Pythong are enclosed in either single quotes ('...') or double quotes (\"...\"). However, your string must start and end with the same quote type; i.e., if the string starts with a single quote tit also ends with a single quote, and the same for double quotes.\nThe following are valid strings in Python:\n\n'This is a valid Python string with single quotes'\n\n\"This is another valid Python string using double quotes.\"\n\n'This is another valid Python string using double quotes.'\n\n\nWhile using single or double quotes gives the same result, there are cases where it is natural to use one over the other. For example, if your string contains an apostrophe (single quote), it’s easier to use double quotes:\n\n\"This string contains an apostrophe: it's easy to read.\"\n\n\"This string contains an apostrophe: it's easy to read.\"\n\n\nAnd if your string contains double quotes, it is easier to single quotes when creating your string:\n\n'She said, \"Hello, world!\"'\n\n'She said, \"Hello, world!\"'\n\n\nWe can also perform operations on strings, such as concatenation (joining strings together). For example, to join two strings together, you can use the + operator:\n\n\"water\" + \"mellon\"\n\n'watermellon'\n\n\nNote that the + operator we have used to concatenate strings is the same + operator we used to add numbers. This illustrates an important principle that an operator can behave differently depending on the type of data it is used with. In Python, this is called “operator overloading.” For numbers, + performs addition, while for strings, it performs concatenation (joining the strings together).\n\n\n\n\n\n\nExercise\n\n\n\nAbove we have seen that the + operator can behave differently depending on whether it is operating on numbers or strings. We have also seen that * operator is used to multiple two numbers together. Do you think that the * operator will also work on strings? Please write down, or say outloud whether you think the * operator will work on strings, then see if your prediction is correct by running the following code:\n\n'ha' * 5\n\n'hahahahaha'\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n'ha' * 5\n\n'hahahahaha'\n\n\nAs you can see, the * operator works on strings by repeating the string the specified number of times. In this case, 'ha' * 5 produces 'hahahahaha' (which is very amusing).\n\n\n\n\n2.6.2.1 String conversions\nWe can also convert strings into numbers and numbers into strings.\n\n\n2.6.2.2 String functions and methods\n\n\n\n2.6.3 Booleans\nYou can check the type of a value in Python using the type() function:",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#lists",
+    "href": "python_basics.html#lists",
+    "title": "2  Python basics",
+    "section": "2.7 Lists",
+    "text": "2.7 Lists\n\n2.7.1 Sequences\nA sequence in Pythong is…\nA list is also a squence",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#other-data-structures",
+    "href": "python_basics.html#other-data-structures",
+    "title": "2  Python basics",
+    "section": "2.8 Other data structures",
+    "text": "2.8 Other data structures\n\n2.8.1 Tuples\n\n\n2.8.2 Dictionaries",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "python_basics.html#footnotes",
+    "href": "python_basics.html#footnotes",
+    "title": "2  Python basics",
+    "section": "",
+    "text": "The reason this is a syntax error is because Python inteprets a single * symbol as a multiplicaiton symbol. Thus it is trying to multiple 8 by another multiplication symbol *, which gives an error since one can only multiply two numbers together.↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
+    ]
+  },
+  {
+    "objectID": "descriptive_stats_and_plots.html",
+    "href": "descriptive_stats_and_plots.html",
+    "title": "3  Descriptive statistics and plots",
+    "section": "",
+    "text": "Now that we have covered some of the basic Python syntax we are ready to start analyzing some data.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Descriptive statistics and plots</span>"
+    ]
+  },
+  {
+    "objectID": "array_computations.html",
+    "href": "array_computations.html",
+    "title": "4  Array computations",
+    "section": "",
+    "text": "4.1 Data & Methods\nThis is a book created from markdown and executable code.\nBased on data up to and including 1971, eruptions on La Palma happen every 79.8 years on average.\nStudies of the magma systems feeding the volcano, such as Marrero et al. (2019), have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).\nEight eruptions have been recorded since the late 1400s (Figure 4.1).\nData and methods are discussed in Section 4.1.\nLet \\(x\\) denote the number of eruptions in a year. Then, \\(x\\) can be modeled by a Poisson distribution\nwhere \\(\\lambda\\) is the rate of eruptions per year.\nTable 4.1 summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.\nFigure 4.2 shows the location of recent Earthquakes on La Palma.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Array computations</span>"
+    ]
+  },
+  {
+    "objectID": "array_computations.html#conclusion",
+    "href": "array_computations.html#conclusion",
+    "title": "4  Array computations",
+    "section": "4.2 Conclusion",
+    "text": "4.2 Conclusion",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Array computations</span>"
+    ]
+  },
+  {
+    "objectID": "array_computations.html#references",
+    "href": "array_computations.html#references",
+    "title": "4  Array computations",
+    "section": "References",
+    "text": "References\n\n\nMarrero, José, Alicia García, Manuel Berrocoso, Ángeles Llinares,\nAntonio Rodríguez-Losada, and R. Ortiz. 2019. “Strategies for the\nDevelopment of Volcanic Hazard Maps in Monogenetic Volcanic Fields: The\nExample of La Palma (Canary\nIslands).” Journal of Applied Volcanology 8\n(July). https://doi.org/10.1186/s13617-019-0085-5.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Array computations</span>"
+    ]
+  }
+]

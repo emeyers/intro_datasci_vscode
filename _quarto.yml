@@ -22,8 +22,8 @@ format:
     callout:
       collapse: true
       
-  pdf:
-    documentclass: scrreprt
+  #pdf:
+  #  documentclass: scrreprt
 
 
 
