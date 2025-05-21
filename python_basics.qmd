@@ -486,7 +486,7 @@ We can also perform operations on strings, such as concatenation (joining string
 Note that the `+` operator we have used to concatenate strings is the same `+` operator we used to add numbers. This illustrates an important principle that an operator can behave differently depending on the type of data it is used with. In Python, this is called "operator overloading." For numbers, `+` performs addition, while for strings, it performs concatenation (joining the strings together).
 
 
-::: {.callout-tip title="Exercise" #exercise-python_basics-print}
+::: {.callout-tip title="Exercise" #exercise-python_basics-strings}
 
 Above we have seen that the `+` operator can behave differently depending on whether it is operating on numbers or strings. We have also seen that `*` operator is used to multiple two numbers together. Do you think that the `*` operator will also work on strings? Please write down, or say outloud whether you think the  `*` operator will work on strings, then see if your prediction is correct by running the following code: 
 
@@ -499,7 +499,7 @@ Above we have seen that the `+` operator can behave differently depending on whe
 :::
 
 
-::: {.callout-note title="Solution" #solution-python_basics-print collapse="true"}
+::: {.callout-note title="Solution" #solution-python_basics-strings collapse="true"}
 
 ```{python}
 
@@ -515,22 +515,175 @@ As you can see, the `*` operator works on strings by repeating the string the sp
 
 ####  String conversions
 
-We can also convert strings into numbers and numbers into strings. 
+We can also convert strings into numbers and numbers into strings. To convert strings into numbers we can again usie the `int()` and `float()` functions, but this time we are passing a string as the argument to these functions.  
+
+```{python}
+
+int("42")      # Converts the string "42" to the integer 42
+
+```
+
+
+```{python}
+
+float("3.14")  # Converts the string "3.14" to the float 3.14
+
+```
+
+We can see that the output from running these functions are numbers since the output is not in quotes.
+
+
+We can convert a number into a string using the `str()` function. 
+
+```{python}
+
+str(2.5)       # Converts the float 2.5 to the string "2.5"
+
+```
+
+We can see that the output from running this function is a string since the output is in quotes.
 
 
 
-#### String functions and methods
+::: {.callout-tip title="Exercise" #exercise-python_basics-string_conversion}
+
+Do the following two lines of code produce the same result? 
+
+- `10 + 20`
+- `int("10" + "20")`
+
+Explain your reasoning then try it in Python to verify your answer is correct.  
 
 
+:::
+
+
+::: {.callout-note title="Solution" #solution-python_basics-string_conversion collapse="true"}
+
+```{python}
+
+print(10 + 20)
+
+print(int("10" + "20"))
+
+```
+
+As we can see, the result of running these two pieces of code are different. The first line of code produce the value of 30 since we are simply adding the integers `10` and `20` together. 
+
+The second long of code first concatenates the strings `"10"` and `"20"` together to create the string `"1020"` and then converts it to the integer `1020`, which is clearly different from the integer `30`. 
+
+:::
+
+
+#### f-strings
+
+An **f-string** (short for "formatted string literal") is a way to embed the values of variables or expressions inside a string. To create an f-string, put the letter `f` before the opening quote, and then include curly braces `{}` around the variables or expressions you want to insert.
+
+For example:
+
+```{python}
+
+name = "Methuselah"
+age = 969
+
+f"My name is {name} and I am {age} years old."
+
+```
+
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-fstrings}
+
+Create three variables: `name`, `age`, and `favorite_color`, and assign them your own name, age and favorite color.
+Then, use an f-string to print a sentence like:  
+`"My name is <name>, I am <age> years old, and my favorite color is <favorite_color>."`
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-python_basics-print collapse="true"}
+
+My solution (at the time of writing this book) is below.
+
+```{python}
+
+name = "Ethan"
+age = 45
+favorite_color = "red"
+
+f"My name is {name}, I am {age} years old, and my favorite color is {favorite_color}."
+
+```
+
+
+:::
 
 
 
 ### Booleans
 
+A **Boolean** is a data type that can have only two possible values: `True` or `False`. Booleans are used to represent truth values and are very useful for making decisions in your code.
+
+You can create Boolean values directly by writing `True` or `False` (note the capital letters):
+
+```{python}
+
+# Create the Boolean True
+True
+
+```
 
 
+#### Comparisons
 
-You can check the type of a value in Python using the `type()` function:
+Comparison operators are used to compare values and produce Boolean results. For example, we can assess whether one number is greater than another number which will return a Boolean:
+
+```{python}
+
+5 > 3
+
+```
+
+If we want to compare whether two values are the same, we use two equal signs `==`. For example, we can see that indeed strings that are created using single quotes are the same as strings created using double quotes by running the following code. 
+
+```{python}
+
+"Octothorpe" == 'Octothorpe'
+
+```
+
+
+Here are some common comparison operators:
+
+| Operator | Description                  | Example      | Result   |
+|----------|------------------------------|--------------|----------|
+| ==       | Equal to                     | 5 == 5       | True     |
+| !=       | Not equal to                 | 5 != 3       | True     |
+| >        | Greater than                 | 7 > 2        | True     |
+| <        | Less than                    | 3 < 1        | False    |
+| >=       | Greater than or equal to     | 4 >= 4       | True     |
+| <=       | Less than or equal to        | 2 <= 5       | True     |
+
+: Python comparison operators
+
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-string_vs_int}
+
+Is the string `"99"` equal to the integer `99` in Python? Try using the equality operator (`==`) to compare them and see what result you get.
+
+:::
+
+::: {.callout-note title="Solution" #solution-python_basics-string_vs_int collapse="true"}
+
+```{python}
+
+"99" == 99
+
+```
+
+As we can see, these are not equal, once again showing strings and integers are not the same thing. 
+
+:::
+
 
 
 
@@ -540,9 +693,9 @@ You can check the type of a value in Python using the `type()` function:
 
 ### Sequences
 
-A sequence in Pythong is... 
+A sequence in Python is... 
 
-A list is also a squence
+A list is also a squence, so are strings
 
 
 

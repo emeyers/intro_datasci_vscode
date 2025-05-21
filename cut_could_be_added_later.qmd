@@ -1,0 +1,46 @@
+# Cut material
+
+
+#### String methods
+
+A **method** is a function that is attached to a piece of data ^[Or to be more precise, a method is a function attached to an object]. There are a number of "string methods" which allow you to perform specific operations on strings, such as changing their case, finding substrings, or replacing text.
+
+You call a method by writing the string (or variable containing a string), followed by a dot (`.`), the method name, and parentheses. For example, the `.upper()` method returns a copy of the string with all letters converted to uppercase:
+
+```{python}
+
+"hello".upper()
+
+```
+
+Here is a table of some particularly useful string methods.
+
+|   Method             | Example                     | Description                 | Result                |
+|----------------------|-----------------------------|-----------------------------|-----------------------|
+|   `.upper()`         | `"hello".upper()`         | Converts all characters to uppercase        | `'HELLO'`    |
+|   `.lower()`         | `"HELLO".lower()`         | Converts all characters to lowercase        | `'hello'`    |
+|   `.strip()`         | `"  hello  ".strip()`     | Removes leading and trailing whitespace     | `'hello'`    |
+|  `.replace(a, b)`    | `"ha".replace("a", "o")`  | Replace all occurrences of `a` with `b`    | `'ho'`        |
+|   `.count(x)`        | `"banana".count("a")`     | Counts the number of occurrences of `x`     | `3`          |
+|   `.zfill(n)`        | `"42".zfill(5)`           | Pads the string with zeros to reach length `n` | `'00042'` |
+
+: A few Python string methods {#tbl-string-methods}
+
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-string_methods}
+
+
+:::
+
+
+COULD PERHAPS MOVE THIS SECTION LATER IN A DATA CLEANING SECTION...
+
+
+
+
+
+| Method           | Example                   | Description                                 | Result                |
+|------------------|--------------------------|---------------------------------------------|-----------------------|
+| `.find(x)`       | `"hello".find("e")`       | Returns the index of the first occurrence of `x` | `1`              |
+| `.split()`       | `"a,b,c".split(",")`      | Splits string into a list by separator      | `['a', 'b', 'c']`     |
+| `.join(list)`    | `",".join(['a','b','c'])` | Joins list elements into a string           | `'a,b,c'`             |
