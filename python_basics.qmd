@@ -106,6 +106,7 @@ However, if we accidentially put an extra space between the two `*` symbols, Pyt
 
 ```{python}
 #| error: true
+#| eval: false
 
 8* *2
 
