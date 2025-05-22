@@ -400,7 +400,6 @@ For example, if we multiple intergers that are too long, we can get a `ValueErro
 
 ```{python}
 #| error: true
-#| eval: format == "html"
 
 # There is a limited size to integers (although the size is pretty large)
 
