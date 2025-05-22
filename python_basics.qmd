@@ -104,15 +104,35 @@ Since we have written the correct syntax, the code runs and the result of 64 is 
 
 However, if we accidentially put an extra space between the two `*` symbols, Python will not know how to interpret the expression and we will get a syntax error as shown below:
 
+
+::: {.content-visible when-format="html"}
+
+```{python}
+#| error: true
+
+8* *2
+
+```
+
+:::
+
+
+::: {.content-visible when-format="pdf"}
+
 ```{python}
 #| error: true
 #| eval: false
 
 8* *2
 
-# Note: I should get rid of the #| eval: false quarto comment to acutally show the output. However, there is a bug in quarto rendering the ^ from a Python error message, so if I evaluate this cell the book will not render to a pdf (although it will render to a website). 
-
 ```
+
+:::
+
+
+<!-- Note: The code above should always be evalauted to show the output error message (i.e., I should not use `#| eval: false`). However, there is a bug in quarto rendering the ^ from a Python error message, so if I evaluate this cell the book will not render to a pdf, although it will render to a website.  -->
+
+
 
 When there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a ^ symbol.^[The reason this is a syntax error is because Python inteprets a single `*` symbol as a multiplicaiton symbol. Thus it is trying to multiple 8 by another multiplication symbol `*`, which gives an error since one can only multiply two numbers together.] As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
 
@@ -376,8 +396,11 @@ More imporantly is to know that there are some limitations to the way Python sto
 
 For example, if we multiple intergers that are too long, we can get a `ValueError` which indicates that Python is running into problems representing an integer this large.
 
+::: {.content-visible when-format="html"}
+
 ```{python}
 #| error: true
+#| eval: format == "html"
 
 # There is a limited size to integers (although the size is pretty large)
 
@@ -385,6 +408,27 @@ For example, if we multiple intergers that are too long, we can get a `ValueErro
 
 
 ```
+
+:::
+
+
+::: {.content-visible when-format="pdf"}
+
+```{python}
+#| error: true
+#| eval: false
+
+# There is a limited size to integers (although the size is pretty large)
+
+1234567 ** 890 
+
+
+```
+
+:::
+
+<!-- Note: The code above should always be evalauted to show the output error message (i.e., I should not use `eval: format: false`). However, there is a bug in quarto rendering this to pdf on my Windows computer, so if I evaluate this cell the book will not render to a pdf, although it will render to a website and it will render to a pdf on my mac.  -->
+
 
 Simiarly, if we try to create a floating-point number with too many decimal points the number will be truncated, although no error is given, so one needs to be careful if very high precision is needed in a calculation. 
 
@@ -809,7 +853,7 @@ A list is also a squence, so are strings
 ## Exercises
 
 
-### Warm-ups
+### Warm-up exercises
 
 Try to predict which of the following lines of code produce errors, and try to explain why you believe they will produce errors. Then run these lines in Python to see if your predictions were correct. 
 
