@@ -632,16 +632,29 @@ True
 
 ```
 
+The Boolean `True` is also the same as the integer 1, the Boolean `False` is the same as the integer to 0. This means we can do arithmetic on Booleans such as:
 
-#### Comparisons
+```{python}
 
-Comparison operators are used to compare values and produce Boolean results. For example, we can assess whether one number is greater than another number which will return a Boolean:
+True + False + True
+
+```
+
+
+We will use the fact that Booleans can be treated the integers 1 and 0 later in some of our analyses. 
+
+
+
+## Comparisons
+
+Comparison operators are used to compare values and produce Boolean results. For example, we can assess whether one number is greater than another number:
 
 ```{python}
 
 5 > 3
 
 ```
+
 
 If we want to compare whether two values are the same, we use two equal signs `==`. For example, we can see that indeed strings that are created using single quotes are the same as strings created using double quotes by running the following code. 
 
@@ -668,7 +681,8 @@ Here are some common comparison operators:
 
 ::: {.callout-tip title="Exercise" #exercise-python_basics-string_vs_int}
 
-Is the string `"99"` equal to the integer `99` in Python? Try using the equality operator (`==`) to compare them and see what result you get.
+
+Is the string `"99"` equal to the integer `99` in Python? Also is `1` equal to `True`? Use the equal to operator (`==`) to do these comparisons and see what result you get.
 
 :::
 
@@ -676,11 +690,16 @@ Is the string `"99"` equal to the integer `99` in Python? Try using the equality
 
 ```{python}
 
-"99" == 99
+print("99" == 99)
+
+1 == True
+
 
 ```
 
-As we can see, these are not equal, once again showing strings and integers are not the same thing. 
+As we can see, the string `"99"` is not equal to the integer `99` which once again showing strings and integers are not the same thing. 
+
+Conversely, the integer `1` is equal to the Boolean `True` again showing that these are identical. 
 
 :::
 
