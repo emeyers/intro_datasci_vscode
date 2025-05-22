@@ -44,7 +44,7 @@
     "href": "python_basics.html",
     "title": "2  Python basics",
     "section": "",
-    "text": "2.1 Expressions\nNow that we have discussed what data science is, let’s learn some of the basics of the Python programming language. Once we have learned some of these Python basics we can begin to analyze data!\nA Python expression is any piece of code that produces a value.. For example, the following is an expression that simply creates the number 21.\n21\n\n21\nSimilarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:\n6 * (5 + 2) \n\n42\nAs mentioned above, the defining features of a python expression is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book.",
+    "text": "2.1 Expressions\nThis chapter introduces the fundamental concepts and basic syntax of the Python programming language. All the code covered here is part of the standard Python language and does not require any additional packages or libraries. Thus the Python discussed here forms the foundation for not only analyzing data in Python, but also for writing any kind of Python code.\nWhile the chapter covers several different key concepts and syntax of Python, we focus on a subset of features that are most central for data analysis, rather than covering the full range of Python’s capabilities. Becoming proficient in the basic Python covered in this chapter will be important as a basis for writing code in subsequent chapters, so make sure to practice and understand these concepts thoroughly.\nBy the end of this chapter, you should be comfortable with writing basic Python code, performing simple calculations, and understanding how Python represents and manipulates different types of data. These foundational skills will prepare you for more advanced topics in data analysis that are covered in the rest of the book.\nA Python expression is any piece of code that produces a value.. For example, the following is an expression that simply creates the number 21.\n21\n\n21\nSimilarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:\n6 * (5 + 2) \n\n42\nAs mentioned above, the defining features of a python expression is that it produces a value. Expressions are one of the fundamental building blocks of data analysis and they will appear frequently throughout this book.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]
@@ -120,21 +120,21 @@
     ]
   },
   {
-    "objectID": "python_basics.html#lists",
-    "href": "python_basics.html#lists",
+    "objectID": "python_basics.html#data-structures",
+    "href": "python_basics.html#data-structures",
     "title": "2  Python basics",
-    "section": "2.8 Lists",
-    "text": "2.8 Lists\n\n2.8.1 Sequences\nA sequence in Python is…\nA list is also a squence, so are strings",
+    "section": "2.8 Data structures",
+    "text": "2.8 Data structures\nPython provides several built-in data structures that allow you to store and organize collections of data. The most common ones are:\n\nLists: Ordered, mutable collections of items.\nTuples: Ordered, immutable collections of items.\nDictionaries: Unordered collections of key-value pairs.\n\nWe will introduce each of these data structures in the following sections.\n\n2.8.1 Lists\nA list is an ordered collection of items that can be changed. Lists can contain any type of data, including numbers, strings, or even other lists. Lists are created by placing items inside square brackets [], separated by commas.\nFor example:\n\nmy_list = [1, 2, 3, \"a\", \"b\", \"c\", True]\n\nmy_list\n\n[1, 2, 3, 'a', 'b', 'c', True]\n\n\nWe can access individual items in a list by their position (called the “index”) using square brackets. In Python, indexing starts at 0, so the first item is at index 0, the second at index 1, and so on.\nFor example, to get the first item in my_list, we would use:\n\nmy_list[0]\n\n1\n\n\nThis returns 1 since the first element in the list (i.e., the element at position 0) is the integer 1.\nLikewise, we can get the 6th element (remembering that indexing starts at 0) using:\n\nmy_list[5]\n\n'c'\n\n\nWe can also change the value of an item in a list by assigning a new value to a specific index. For example, my_list[0] = 100 will change the first item in the list to 100.\n\nmy_list[0] = 100\n\nmy_list\n\n[100, 2, 3, 'a', 'b', 'c', True]\n\n\nThe fact that we can change items of a list is what makes lists “mutable.” This means you can update, add, or remove elements after the list has been created.\nAnother example of how we can change a list is to use the append() method which adds new items to the end of a list.\n\nmy_list.append(\"zzz\")\n\nmy_list\n\n[100, 2, 3, 'a', 'b', 'c', True, 'zzz']\n\n\nHMMMM, mentioning a “method” here, so perhaps I should add back that part about string methods???\n\n\n2.8.2 Tuples\n\n\n2.8.3 Dictionaries\n\n\n2.8.4 Sequences\nA sequence in Python is…\nA list is also a squence, so are strings",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]
   },
   {
-    "objectID": "python_basics.html#other-data-structures",
-    "href": "python_basics.html#other-data-structures",
+    "objectID": "python_basics.html#exercises",
+    "href": "python_basics.html#exercises",
     "title": "2  Python basics",
-    "section": "2.9 Other data structures",
-    "text": "2.9 Other data structures\n\n2.9.1 Tuples\n\n\n2.9.2 Dictionaries",
+    "section": "2.9 Exercises",
+    "text": "2.9 Exercises\n\n2.9.1 Warm-ups\nTry to predict which of the following lines of code produce errors, and try to explain why you believe they will produce errors. Then run these lines in Python to see if your predictions were correct.\n5 &gt; = 2\nTrue**5\n`“The cat” == “The Cat”\nTry to predict which of these lines of code evaluate the the Boolean True. Then run these lines in Python to see if your predictions were correct.\n\nTrue + True + True == 3\n\nTrue\n\n\nMaybe 3 more exercises that involve writting 1-2 lines of code each\n\n\n2.9.2 Intermediate exercises\nCalculate how much money Elon Musk has made for every second he has been alive.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Python basics</span>"
     ]
