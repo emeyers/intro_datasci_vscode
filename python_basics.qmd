@@ -110,6 +110,8 @@ However, if we accidentially put an extra space between the two `*` symbols, Pyt
 
 8* *2
 
+# Note: I should get rid of the #| eval: false quarto comment to acutally show the output. However, there is a bug in quarto rendering the ^ from a Python error message, so if I evaluate this cell the book will not render to a pdf (although it will render to a website). 
+
 ```
 
 When there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a ^ symbol.^[The reason this is a syntax error is because Python inteprets a single `*` symbol as a multiplicaiton symbol. Thus it is trying to multiple 8 by another multiplication symbol `*`, which gives an error since one can only multiply two numbers together.] As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
