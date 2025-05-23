@@ -23,6 +23,8 @@ Here is a table of some particularly useful string methods.
 |  `.replace(a, b)`    | `"ha".replace("a", "o")`  | Replace all occurrences of `a` with `b`    | `'ho'`        |
 |   `.count(x)`        | `"banana".count("a")`     | Counts the number of occurrences of `x`     | `3`          |
 |   `.zfill(n)`        | `"42".zfill(5)`           | Pads the string with zeros to reach length `n` | `'00042'` |
+| `.find(x)`       | `"hello".find("e")`       | Returns the index of the first occurrence of `x` | `1`         |
+
 
 : A few Python string methods {#tbl-string-methods}
 
@@ -41,6 +43,5 @@ COULD PERHAPS MOVE THIS SECTION LATER IN A DATA CLEANING SECTION...
 
 | Method           | Example                   | Description                                 | Result                |
 |------------------|--------------------------|---------------------------------------------|-----------------------|
-| `.find(x)`       | `"hello".find("e")`       | Returns the index of the first occurrence of `x` | `1`              |
 | `.split()`       | `"a,b,c".split(",")`      | Splits string into a list by separator      | `['a', 'b', 'c']`     |
 | `.join(list)`    | `",".join(['a','b','c'])` | Joins list elements into a string           | `'a,b,c'`             |

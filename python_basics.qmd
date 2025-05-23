@@ -127,6 +127,9 @@ However, if we accidentially put an extra space between the two `*` symbols, Pyt
 
 ```
 
+<!-- If the failure to show the error message presists, I should insert an image that shows the error message. Alternatively, seems like if I check out a new template repo and add the files it might fix whatever is causing the problem.  -->
+
+
 :::
 
 
@@ -544,6 +547,7 @@ Note that the `+` operator we have used to concatenate strings is the same `+` o
 Above we have seen that the `+` operator can behave differently depending on whether it is operating on numbers or strings. We have also seen that `*` operator is used to multiple two numbers together. Do you think that the `*` operator will also work on strings? Please write down, or say outloud whether you think the  `*` operator will work on strings, then see if your prediction is correct by running the following code: 
 
 ```{python}
+#| eval: false
 
 'ha' * 5
 
@@ -653,7 +657,7 @@ Then, use an f-string to print a sentence like:
 :::
 
 
-::: {.callout-note title="Solution" #solution-python_basics-print collapse="true"}
+::: {.callout-note title="Solution" #solution-python_basics-fstrings collapse="true"}
 
 My solution (at the time of writing this book) is below.
 
@@ -669,6 +673,89 @@ f"My name is {name}, I am {age} years old, and my favorite color is {favorite_co
 
 
 :::
+
+
+#### String methods
+
+A **method** is a function that is attached to a piece of data ^[Or to be more precise, a method is a function attached to an object]. There are a number of "string methods" which allow you to perform specific operations on strings, such as changing their case, finding substrings, or replacing text.
+
+You call a method by writing the string (or variable containing a string), followed by a dot (`.`), the method name, and parentheses. For example, the `.upper()` method returns a copy of the string with all letters converted to uppercase:
+
+```{python}
+
+"hello".upper()
+
+```
+
+Here is a table of some particularly useful string methods. Each method returns a new string that is modified as described below. 
+
+|   Method             | Example                     | Description                 | Result                |
+|----------------------|-----------------------------|-----------------------------|-----------------------|
+|   `.upper()`         | `"hello".upper()`         | Converts all characters to uppercase        | `'HELLO'`    |
+|   `.lower()`         | `"HELLO".lower()`         | Converts all characters to lowercase        | `'hello'`    |
+|   `.strip()`         | `"  hello  ".strip()`     | Removes leading and trailing whitespace     | `'hello'`    |
+|  `.replace(a, b)`    | `"ha".replace("a", "o")`  | Replace all occurrences of `a` with `b`    | `'ho'`        |
+|   `.count(x)`        | `"banana".count("a")`     | Counts the number of occurrences of `x`     | `3`          |
+|   `.zfill(n)`        | `"42".zfill(5)`           | Pads the string with zeros to reach length `n` | `'00042'` |
+| `.find(x)`       | `"hello".find("e")`       | Returns the index of the first occurrence of `x` | `1`         |
+
+
+<!-- Could potentially move this section to a "data cleaning" part of the book to keep things simple when students are just starint out --> 
+
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-string_methods1}
+
+Suppose we have the string `my_sentence = "The quick brown fox jumps over the lazy dog"`. Please use string methods to do the following:
+1. Count how many times the letter `e` appears in this sentence. 
+2. Find the index of the first occurance of the letter `z`.
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-python_basics-string_methods1 collapse="true"}
+
+```{python}
+
+my_sentence = "The quick brown fox jumps over the lazy dog"
+
+print(my_sentence.count("e"))
+
+my_sentence.find("z")
+
+```
+
+
+:::
+
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-string_methods2}
+
+Suppose again we have the string `my_sentence = "The quick brown fox jumps over the lazy dog"`. Please use the `.replace()` method to replace the word "dog" with the word "canine". Does the string in the `my_sentence` variable change? If not, how could you update the string in the `my_sentence` variable to so that it contains the string "The quick brown fox jumps over the lazy canine"?  
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-python_basics-string_methods2 collapse="true"}
+
+```{python}
+
+my_sentence = "The quick brown fox jumps over the lazy dog"
+
+print(my_sentence.replace("dog", "canine"))
+
+# notice that the variable my_sentence still has the original string
+print(my_sentence)
+
+# to update the string in the variable my_sentence we can do the following
+my_sentence = my_sentence.replace("dog", "canine")
+
+print(my_sentence)
+
+```
+
+:::
+
+
 
 
 
@@ -827,15 +914,44 @@ my_list
 ```
 
 
-
-HMMMM, mentioning a "method" here, so perhaps I should add back that part about string methods???
-
-
-
 ### Tuples
+
+A **tuple** is similar to a list in that it is an ordered collection of items, but unlike lists, tuples are **immutable**—meaning their contents cannot be changed after creation. Tuples are created by placing items inside parentheses `()`, separated by commas.
+
+```{python}
+
+my_tuple = (8, 9, "y", "z", False)
+
+my_tuple
+
+```
+
+Similar to lists, we can access individual items in a tuple using square bracket indexing. For example, `my_tuple[2]` will return the third element of the tuple (remember, indexing starts at 0):
+
+```{python}
+
+my_tuple[2]
+
+```
+
+However, unlike lists, tuples are "immutable" meaning we can not cannot change the values stored in the tuple after they are created. In particular, if you try to assign a new value to an element of a tuple, Python will produce an error:
+
+```{python}
+#| error: true
+
+my_tuple[0] = 100
+
+```
+
+
+<!--- Should I mention tuple unpacking here? --> 
+
 
 
 ### Dictionaries
+
+
+
 
 
 
@@ -845,6 +961,13 @@ HMMMM, mentioning a "method" here, so perhaps I should add back that part about 
 A sequence in Python is... 
 
 A list is also a squence, so are strings
+
+
+
+## Summary
+
+
+In this chapter, we introduced the fundamental concepts and basic syntax of Python, focusing on the core features most relevant for data analysis. You learned about expressions, assignment statements, variable naming, comments, functions, and the main data types: numbers, strings, and Booleans. We also covered comparison operators and introduced basic data structures such as lists and tuples. Mastering these basics will provide a strong foundation for more advanced topics in Python and data science. We strongly encourage you to practice everything we covered in this chapter by completing the exercises that are in the text and the exercises below, and make sure that you understand all of the solutions that are given. We will use the material covered in this chapter throughout the rest of the book, so we highly recommend that you become comfortable with this material before preceeding to the rest of the book. 
 
 
 
@@ -873,7 +996,14 @@ True + True + True == 3
 ```
 
 
-Maybe 3 more exercises that involve writting 1-2 lines of code each
+If you run the code `"cat" > "dog"` it will return the value `True`. Why is this the case? Experiment with different strings and see if you can figure out what is happening. 
+
+Solution: alphabetical. We can see this if we compare "aardvark" > "zebra"
+
+
+
+Try to get about 5 warm-up exerciese total (i.e., 2 more). 
+
 
 
 
