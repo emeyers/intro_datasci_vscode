@@ -228,13 +228,15 @@ It's also important to use meaningful variable names. For example, `t` is techni
 
 ::: {.callout-tip title="Exercise" #exercise-python_basics-min_wage}
 
- The minimum wage in the United States in 2025 is $7.25. If someone works 40 hours per week for all 52 weeks in a year, what would there yearly earnings be? Please calculate by creating *meaningful* variable names for:  
+The minimum wage in the United States in 2025 is $7.25. If someone works 40 hours per week for all 52 weeks in a year, what would there yearly earnings be if they are being paid the minimum wage? Please calculate this quantity by creating *meaningful* (i.e., easy to understand) object names for:
   
 1. The minimum wage amount   
-2. The number of hours in a week    
+2. The number of hour worked in a week 
 3. The number of weeks in a year   
  
- Then calculate the total yearly wage and store this result in another meaningful variable name, and print out the value stored in this last variable. Hint: Using underscores `_` in your variable names is highly encouraged to make them more readible. 
+Then calculate the total yearly wage and store this result in another meaningful object name, and print out the value stored in this last object. 
+
+Hint: Using underscores `_` in your object names is highly encouraged to make them more meaningful/readable. 
 
 :::
 
@@ -242,10 +244,11 @@ It's also important to use meaningful variable names. For example, `t` is techni
 ::: {.callout-note title="Solution" #solution-python_basics-min_wage collapse="true"}
 
 ```{python}
-hours = 24
-days = 7
-total_hours_in_a_week = hours * days
-total_hours_in_a_week
+min_wage = 7.25
+hours_worked_in_a_week = 40
+weeks_in_a_year = 52 
+yearly_min_wage_earnings = min_wage * hours_worked_in_a_week * weeks_in_a_year
+yearly_min_wage_earnings
 ```
 
 :::
