@@ -20,7 +20,7 @@ A **Python expression** is **any piece of code that produces a value.**. For exa
 
 ```
 
-Similarly, an expression could be a series of mathematical operations that evaluate to number. For example, if want want to add 5 plus 2 and then multiple the result by 6 we can write:  
+Similarly, an expression could be a series of mathematical operations that evaluate to a number. For example, if we want to add 5 plus 2 and then multiply the result by 6 we can write:
 
 ```{python}
 
@@ -47,7 +47,7 @@ What would happen if we remove the parenthesis from the expression we ran above 
 
 ```
 
-The result is 32, which makes sense because in the standard order of mathematical operations, multiplication occurs before addition so we multiple 6 * 5 and get 30, and then we add 2 to get 32. 
+The result is 32, which makes sense because in the standard order of mathematical operations, multiplication occurs before addition so we multiply 6 * 5 and get 30, and then we add 2 to get 32.
 
 :::
 
@@ -55,7 +55,7 @@ The result is 32, which makes sense because in the standard order of mathematica
 
 ### Mathematical expressions
 
-The expressions shown above were all "mathematical expressions" because they involve calculating numeric quantities. We can also write statements that will do operations on text and other types of data which we will describe more below. But first, let's explore mathematical expressions a bit more. Below is a table of some of the mathematical operations that are part of
+The expressions shown above were all "mathematical expressions" because they involve calculating numeric quantities. We can also write statements that will do operations on text and other types of data which we will describe more below. But first, let's explore mathematical expressions a bit more. Below is a table of some of the mathematical operations that are part of Python:
 
 | Operation        | Symbol | Example     | Result |
 |------------------|--------|-------------|--------|
@@ -90,7 +90,7 @@ What is the remainder from dividing 365 by 7? Please write some Python code that
 
 ## Syntax 
 
-**Syntax** is the set of rules that defines how Python code **must** be written. One that think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it **must** use the correct syntax. If incorrect syntax is used, then one will get a "syntax error", and the code will not run. 
+**Syntax** is the set of rules that defines how Python code **must** be written. One can think of syntax as the grammar of the Python programming language. In order for Python to be able to run your code, it **must** use the correct syntax. If incorrect syntax is used, then one will get a "syntax error", and the code will not run.
 
 To illustrate this, let's calculate the value of 8 squared ($8^2$) which hopefully you remember is equal to the value of 64. As shown @tbl-math-ops, if we want to take a value `x` to the power `y` (i.e., to calculate $x^y$) we use the syntax `x**y`. So, if we wanted to calculate $8^2$ we would write the following Python code: 
 
@@ -127,17 +127,10 @@ However, if we accidentially put an extra space between the two `*` symbols, Pyt
 
 ```
 
-<!-- If the failure to show the error message presists, I should insert an image that shows the error message. Alternatively, seems like if I check out a new template repo and add the files it might fix whatever is causing the problem.  -->
-
-
 :::
 
 
-<!-- Note: The code above should always be evalauted to show the output error message (i.e., I should not use `#| eval: false`). However, there is a bug in quarto rendering the ^ from a Python error message, so if I evaluate this cell the book will not render to a pdf, although it will render to a website.  -->
-
-
-
-When there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a ^ symbol.^[The reason this is a syntax error is because Python inteprets a single `*` symbol as a multiplicaiton symbol. Thus it is trying to multiple 8 by another multiplication symbol `*`, which gives an error since one can only multiply two numbers together.] As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the * symbols. 
+When there is a syntax error, Python will print out `SyntaxError` and give you an indication where the syntax error has occurred using a `^` symbol.^[The reason this is a syntax error is because Python interprets a single `*` symbol as a multiplication symbol. Thus it is trying to multiply 8 by another multiplication symbol `*`, which gives an error since one can only multiply two numbers together.] As we can see here, Python is trying to show that the syntax error has occurred due to the extra space between the `*` symbols.
 
 The ability to be able to spot and fix syntax errors is a fundamental skill you will develop as become proficient in analyzing data in Python. 
 
@@ -171,7 +164,7 @@ a = 21
 a
 ```
 
-We an also do mathematical operations on values stored in variables, such as adding and multiplying variables together. For example, we can assign the variable `h` to store the value 24, and the variable `d` to store the value 7, and then we can multiple these together and store the result in the variable `t`.
+We can also do mathematical operations on values stored in variables, such as adding and multiplying variables together. For example, we can assign the variable `h` to store the value 24, and the variable `d` to store the value 7, and then we can multiply these together and store the result in the variable `t`.
 
 ```{python}
 h = 24
@@ -231,7 +224,7 @@ It's also important to use meaningful variable names. For example, `t` is techni
 The minimum wage in the United States in 2025 is $7.25. If someone works 40 hours per week for all 52 weeks in a year, what would there yearly earnings be if they are being paid the minimum wage? Please calculate this quantity by creating *meaningful* (i.e., easy to understand) object names for:
   
 1. The minimum wage amount   
-2. The number of hour worked in a week 
+2. The number of hours worked in a week
 3. The number of weeks in a year   
  
 Then calculate the total yearly wage and store this result in another meaningful object name, and print out the value stored in this last object. 
@@ -304,7 +297,7 @@ min(10, 2, 87, 5, 90)
 
 Another useful function is the `print()` function for displaying multiple pieces of information in a single Jupyter notebook code cell. By default, Jupyter will only display the result of the last line in a code cell. If you want to display multiple values or add custom messages, you can use the `print()` function. 
 
-For example, the code below will print both the numbers `2` and `3` in the same code cell. If we did not use the `print()` function, only the number `3` would be printed since it is the last line in the cell, but the number 2 would not be printed because it is on the last line in the cell.
+For example, the code below will print the number `2` because `print(2)` is called. The number `3` will also be displayed as output because it's the last expression in the cell. If `print(2)` was not used, only `3` would be displayed. The `print()` function is useful when you want to display multiple values from within a single cell or when you want to output values that are not on the last line.
 
 ```{python}
 
@@ -355,7 +348,7 @@ print("The answer is:", 6 * 7)
 
 ## Data types
 
-Python is able to process many different types of data, referred to as "data types".  So, far we have only explored numeric data. Let's continue exploring numerical data in a little more detial and then we will go on to examine other types of data. 
+Python is able to process many different types of data, referred to as "data types". So far, we have only explored numeric data. Let's continue exploring numerical data in a little more detail and then we will go on to examine other types of data.
 
 
 ### Numbers
@@ -396,11 +389,11 @@ type(5.0)
 ```
 
 
-When analyzing the data, usually it does not matter if Python is storing a number as an integer or a floating point number since Python does the math sensibly and converts between integers and floating point numbers as needed. However, internally Python is representing these number is quite different ways. 
+When analyzing the data, usually it does not matter if Python is storing a number as an integer or a floating point number since Python does the math sensibly and converts between integers and floating point numbers as needed. However, internally Python is representing these numbers in quite different ways.
 
-More imporantly is to know that there are some limitations to the way Python stores both integers and floats. In particular, both of these types of numbers are represented using a finite amount of memory, so there is a largest number integer that can be represented and a limit to the precision of floating-point numbers. For most practical purposes, these limits are very large, but you may encounter issues with extremely large numbers or with floating-point arithmetic where results are not exactly as expected due to rounding errors.
+More importantly, it is important to know that there are some limitations to the way Python stores both integers and floats. In particular, both of these types of numbers are represented using a finite amount of memory, so there is a largest number integer that can be represented and a limit to the precision of floating-point numbers. For most practical purposes, these limits are very large, but you may encounter issues with extremely large numbers or with floating-point arithmetic where results are not exactly as expected due to rounding errors.
 
-For example, if we multiple intergers that are too long, we can get a `ValueError` which indicates that Python is running into problems representing an integer this large.
+For example, if we multiply integers that are too long, we can get a `ValueError` which indicates that Python is running into problems representing an integer this large.
 
 ::: {.content-visible when-format="html"}
 
@@ -432,21 +425,18 @@ For example, if we multiple intergers that are too long, we can get a `ValueErro
 
 :::
 
-<!-- Note: The code above should always be evalauted to show the output error message (i.e., I should not use `eval: format: false`). However, there is a bug in quarto rendering this to pdf on my Windows computer, so if I evaluate this cell the book will not render to a pdf, although it will render to a website and it will render to a pdf on my mac.  -->
-
-
-Simiarly, if we try to create a floating-point number with too many decimal points the number will be truncated, although no error is given, so one needs to be careful if very high precision is needed in a calculation. 
+Similarly, if we try to create a floating-point number with too many decimal points the number will be truncated, although no error is given, so one needs to be careful if very high precision is needed in a calculation.
 
 ```{python}
 
-# There is a limited precision to floating point numbers (the last digits are trucated)
+# There is a limited precision to floating point numbers (the last digits are truncated)
 
 .12345678901234567890123456789 
 
 
 ```
 
-We can also convert numbers between integers and floating point numbers using the `int()` and `float()` functions. When converting from a floating point number to an integer using teh `int()` function, one needs to be aware that the decimal part of the number will be removed (i.e., rounded down to the closest integer)
+We can also convert numbers between integers and floating point numbers using the `int()` and `float()` functions. When converting from a floating point number to an integer using the `int()` function, one needs to be aware that the decimal part of the number will be removed (i.e., rounded down to the closest integer)
 
 
 
@@ -504,7 +494,7 @@ As you can see, there is slight imprecision here so we get a result of 11.999999
 
 ### Character strings
 
-A **character string** (or simply "string") is a sequence of characters that are used to represent text, such as words, sentences, or any other sequence of characters. Strings in Pythong are enclosed in either single quotes (`'...'`) or double quotes (`"..."`). However, your string must start and end with the same quote type; i.e., if the string starts with a single quote tit also ends with a single quote, and the same for double quotes.
+A **character string** (or simply "string") is a sequence of characters that are used to represent text, such as words, sentences, or any other sequence of characters. Strings in Python are enclosed in either single quotes (`'...'`) or double quotes (`"..."`). However, your string must start and end with the same quote type; i.e., if the string starts with a single quote it also ends with a single quote, and the same for double quotes.
 
 The following are valid strings in Python:
 
@@ -575,7 +565,7 @@ As you can see, the `*` operator works on strings by repeating the string the sp
 
 ####  String conversions
 
-We can also convert strings into numbers and numbers into strings. To convert strings into numbers we can again usie the `int()` and `float()` functions, but this time we are passing a string as the argument to these functions.  
+We can also convert strings into numbers and numbers into strings. To convert strings into numbers we can again use the `int()` and `float()` functions, but this time we are passing a string as the argument to these functions.
 
 ```{python}
 
@@ -630,7 +620,7 @@ print(int("10" + "20"))
 
 As we can see, the result of running these two pieces of code are different. The first line of code produce the value of 30 since we are simply adding the integers `10` and `20` together. 
 
-The second long of code first concatenates the strings `"10"` and `"20"` together to create the string `"1020"` and then converts it to the integer `1020`, which is clearly different from the integer `30`. 
+The second line of code first concatenates the strings `"10"` and `"20"` together to create the string `"1020"` and then converts it to the integer `1020`, which is clearly different from the integer `30`.
 
 :::
 
@@ -703,8 +693,6 @@ Here is a table of some particularly useful string methods. Each method returns 
 | `.find(x)`       | `"hello".find("e")`       | Returns the index of the first occurrence of `x` | `1`         |
 
 
-<!-- Could potentially move this section to a "data cleaning" part of the book to keep things simple when students are just starint out --> 
-
 
 ::: {.callout-tip title="Exercise" #exercise-python_basics-string_methods1}
 
@@ -775,7 +763,7 @@ True
 
 ```
 
-The Boolean `True` is also the same as the integer 1, the Boolean `False` is the same as the integer to 0. This means we can do arithmetic on Booleans such as:
+The Boolean `True` is also the same as the integer 1, the Boolean `False` is the same as the integer 0. This means we can do arithmetic on Booleans such as:
 
 ```{python}
 
@@ -947,11 +935,98 @@ my_tuple[0] = 100
 ```
 
 
-<!--- Should I mention tuple unpacking here? --> 
-
 
 
 ### Dictionaries
+
+A **dictionary** is an unordered collection of items where each item is a key-value pair. Dictionaries are mutable, meaning you can change them after they are created. They are useful for storing data in a way that allows you to quickly look up values based on a specific key.
+
+Keys in a dictionary must be unique and are typically strings or numbers. Values can be of any data type, including numbers, strings, lists, or even other dictionaries.
+
+You can create a dictionary by placing key-value pairs inside curly braces `{}`, with each key separated from its value by a colon `:`, and each pair separated by a comma.
+
+```python
+# Creating a dictionary
+my_dict = {"name": "Alice", "age": 30, "city": "New York"}
+print(my_dict)
+```
+
+**Accessing Values:**
+
+You can access the value associated with a key by using square brackets `[]` with the key inside:
+
+```python
+print(my_dict["name"])  # Output: Alice
+print(my_dict["age"])   # Output: 30
+```
+
+If you try to access a key that doesn't exist, Python will raise a `KeyError`.
+
+**Adding or Modifying Key-Value Pairs:**
+
+You can add a new key-value pair to a dictionary or modify an existing one by assigning a value to a key:
+
+```python
+# Adding a new key-value pair
+my_dict["occupation"] = "Engineer"
+print(my_dict)
+
+# Modifying an existing value
+my_dict["city"] = "San Francisco"
+print(my_dict)
+```
+
+**Illustrative Example:**
+
+Let's create a dictionary to store information about a student:
+
+```python
+student_info = {
+    "student_id": "S12345",
+    "name": "Bob",
+    "major": "Computer Science",
+    "courses": ["CS101", "Math202", "Physics103"]
+}
+
+# Print the student's name
+print(f"Student Name: {student_info['name']}")
+
+# Print the student's major
+print(f"Major: {student_info['major']}")
+
+# Add a GPA for the student
+student_info["gpa"] = 3.75
+print(f"GPA: {student_info['gpa']}")
+
+# Update the list of courses
+student_info["courses"].append("CS205") # Using the append() method for lists
+print(f"Updated Courses: {student_info['courses']}")
+```
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-dictionaries}
+Create a dictionary to store the number of legs for different animals (e.g., 'dog': 4, 'spider': 8, 'ant': 6).
+Then, add a new animal, 'cat', with 4 legs to the dictionary.
+Finally, print the number of legs for 'spider'.
+:::
+
+::: {.callout-note title="Solution" #solution-python_basics-dictionaries collapse="true"}
+```python
+# Create the animal_legs dictionary
+animal_legs = {
+    "dog": 4,
+    "spider": 8,
+    "ant": 6
+}
+print(f"Original dictionary: {animal_legs}")
+
+# Add 'cat' with 4 legs
+animal_legs["cat"] = 4
+print(f"Dictionary after adding 'cat': {animal_legs}")
+
+# Print the number of legs for 'spider'
+print(f"A spider has {animal_legs['spider']} legs.")
+```
+:::
 
 
 
@@ -961,16 +1036,87 @@ my_tuple[0] = 100
 
 ### Sequences
 
-A sequence in Python is... 
+In Python, a **sequence** is an ordered collection of items. This means that the items are stored in a specific order, and you can access them based on their position (index). Common built-in sequence types include strings, lists, and tuples. Many operations work consistently across these sequence types.
 
-A list is also a squence, so are strings
+**Common Sequence Operations:**
+
+Let's explore some operations that can be performed on any sequence. We'll use a list as an example, but these apply to strings and tuples as well.
+
+```python
+my_list_sequence = [10, 20, 30, 40, 50]
+my_string_sequence = "Hello"
+```
+
+1.  **Indexing**: Accessing an item by its position. Indexing starts from 0 for the first item.
+    ```python
+    print(my_list_sequence[0])  # Output: 10
+    print(my_string_sequence[1]) # Output: 'e'
+    ```
+
+2.  **Slicing**: Extracting a part of the sequence. Slicing `my_sequence[start:end]` extracts items from `start` up to (but not including) `end`.
+    ```python
+    print(my_list_sequence[1:3])  # Output: [20, 30] (items at index 1 and 2)
+    print(my_string_sequence[0:2]) # Output: 'He' (characters at index 0 and 1)
+    ```
+
+3.  **Length (`len()` function)**: Getting the number of items in a sequence.
+    ```python
+    print(len(my_list_sequence))  # Output: 5
+    print(len(my_string_sequence)) # Output: 5
+    ```
+
+4.  **Concatenation (`+` operator)**: Combining two sequences of the same type.
+    ```python
+    list1 = [1, 2]
+    list2 = [3, 4]
+    combined_list = list1 + list2
+    print(combined_list)  # Output: [1, 2, 3, 4]
+
+    string1 = "Py"
+    string2 = "thon"
+    combined_string = string1 + string2
+    print(combined_string) # Output: 'Python'
+    ```
+    *Note: You cannot concatenate sequences of different types directly (e.g., a list and a string).*
+
+5.  **Repetition (`*` operator)**: Repeating a sequence a certain number of times.
+    ```python
+    repeated_list = [0, 1] * 3
+    print(repeated_list)  # Output: [0, 1, 0, 1, 0, 1]
+
+    repeated_string = "Ha" * 4
+    print(repeated_string) # Output: 'HaHaHaHa'
+    ```
+
+These operations provide powerful ways to manipulate and work with ordered data in Python.
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-sequences}
+Given a list `numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`:
+1. Extract the sub-list `[3, 4, 5]` using slicing and store it in a variable called `sub_list`.
+2. Create a new list called `doubled_sub_list` by concatenating `sub_list` with itself.
+3. Print `sub_list` and `doubled_sub_list`.
+:::
+
+::: {.callout-note title="Solution" #solution-python_basics-sequences collapse="true"}
+```python
+numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# 1. Extract the sub-list [3, 4, 5]
+sub_list = numbers[3:6]
+print(f"Sub-list: {sub_list}")
+
+# 2. Create a new list by concatenating sub_list with itself
+doubled_sub_list = sub_list + sub_list
+print(f"Doubled sub-list: {doubled_sub_list}")
+```
+:::
 
 
 
 ## Summary
 
 
-In this chapter, we introduced the fundamental concepts and basic syntax of Python, focusing on the core features most relevant for data analysis. You learned about expressions, assignment statements, variable naming, comments, functions, and the main data types: numbers, strings, and Booleans. We also covered comparison operators and introduced basic data structures such as lists and tuples. Mastering these basics will provide a strong foundation for more advanced topics in Python and data science. We strongly encourage you to practice everything we covered in this chapter by completing the exercises that are in the text and the exercises below, and make sure that you understand all of the solutions that are given. We will use the material covered in this chapter throughout the rest of the book, so we highly recommend that you become comfortable with this material before preceeding to the rest of the book. 
+In this chapter, we introduced the fundamental concepts and basic syntax of Python, focusing on the core features most relevant for data analysis. You learned about expressions, assignment statements, variable naming, comments, functions, and the main data types: numbers, strings, and Booleans. We also covered comparison operators and introduced basic data structures such as lists, tuples, and dictionaries. Mastering these basics will provide a strong foundation for more advanced topics in Python and data science. We strongly encourage you to practice everything we covered in this chapter by completing the exercises that are in the text and the exercises below, and make sure that you understand all of the solutions that are given. We will use the material covered in this chapter throughout the rest of the book, so we highly recommend that you become comfortable with this material before preceeding to the rest of the book.
 
 
 
@@ -980,40 +1126,202 @@ In this chapter, we introduced the fundamental concepts and basic syntax of Pyth
 
 ### Warm-up exercises
 
-Try to predict which of the following lines of code produce errors, and try to explain why you believe they will produce errors. Then run these lines in Python to see if your predictions were correct. 
+::: {.callout-tip title="Exercise" #exercise-python_basics-warmup-predict-errors}
+Try to predict which of the following lines of code produce errors, and try to explain why you believe they will produce errors. Then run these lines in Python to see if your predictions were correct.
 
-`5 > = 2`
+1.  `5 > = 2`
+2.  `True**5`
+3.  `"The cat" == "The Cat"`
+:::
 
-`True**5`
+::: {.callout-note title="Solution" #solution-python_basics-warmup-predict-errors collapse="true"}
+1.  `5 > = 2` will produce a `SyntaxError`. The correct operator is `>=` (greater than or equal to), not `> =` with a space.
+    ```python
+    # 5 >= 2  # This would be True
+    ```
+2.  `True**5` will evaluate to `1`. `True` is treated as `1` in arithmetic operations, so `1**5` is `1`.
+    ```{python}
+    print(True**5)
+    ```
+3.  `"The cat" == "The Cat"` will evaluate to `False` because strings are case-sensitive. The 'c' in "cat" is lowercase, while 'C' in "Cat" is uppercase.
+    ```{python}
+    print("The cat" == "The Cat")
+    ```
+:::
 
-`"The cat" == "The Cat"
-
-
-
-
-Try to predict which of these lines of code evaluate the the Boolean `True`. Then run these lines in Python to see if your predictions were correct. 
-
+::: {.callout-tip title="Exercise" #exercise-python_basics-warmup-boolean-sum}
+Try to predict what the following line of code will evaluate to. Then run it in Python to see if your prediction was correct.
+Explain the result.
 ```{python}
+#| eval: false
 True + True + True == 3
-
 ```
+:::
 
+::: {.callout-note title="Solution" #solution-python_basics-warmup-boolean-sum collapse="true"}
+```{python}
+print(True + True + True == 3)
+```
+The code evaluates to `True`. In Python, `True` is equivalent to the integer `1` and `False` is equivalent to `0` in arithmetic contexts. So, `True + True + True` is the same as `1 + 1 + 1`, which is `3`. Then, `3 == 3` is `True`.
+:::
 
-If you run the code `"cat" > "dog"` it will return the value `True`. Why is this the case? Experiment with different strings and see if you can figure out what is happening. 
+::: {.callout-tip title="Exercise" #exercise-python_basics-warmup-string-comparison}
+If you run the code `"apple" > "banana"`, it will return `False`. Why is this the case? Experiment with different strings and see if you can figure out how string comparison works.
+:::
 
-Solution: alphabetical. We can see this if we compare "aardvark" > "zebra"
+::: {.callout-note title="Solution" #solution-python_basics-warmup-string-comparison collapse="true"}
+String comparison in Python is done lexicographically (alphabetical order). This means Python compares strings character by character based on their Unicode values (which for English letters correspond to their alphabetical order).
 
+In `"apple" > "banana"`:
+- Python first compares 'a' (from "apple") with 'b' (from "banana").
+- Since 'a' comes before 'b' alphabetically, "apple" is considered "less than" "banana".
+- Therefore, `"apple" > "banana"` is `False`.
 
+You can test this with other strings:
+```{python}
+print("cat" > "car")  # True, because 't' comes after 'r'
+print("Zebra" > "apple") # False, because uppercase 'Z' comes before lowercase 'a' in Unicode order.
+print("apple" == "apple") # True
+```
+This shows that string comparisons are case-sensitive as well.
+:::
 
-Try to get about 5 warm-up exerciese total (i.e., 2 more). 
+::: {.callout-tip title="Exercise" #exercise-python_basics-warmup-variable-arithmetic}
+1. Create two variables, `num1` and `num2`, and assign them the values `15` and `4` respectively.
+2. Calculate their sum, difference, product, and quotient (division). Store each result in a separate variable.
+3. Print the value of each result variable.
+:::
 
+::: {.callout-note title="Solution" #solution-python_basics-warmup-variable-arithmetic collapse="true"}
+```{python}
+# 1. Create variables
+num1 = 15
+num2 = 4
 
+# 2. Perform calculations
+sum_result = num1 + num2
+difference_result = num1 - num2
+product_result = num1 * num2
+quotient_result = num1 / num2
+
+# 3. Print results
+print(f"Sum: {sum_result}")
+print(f"Difference: {difference_result}")
+print(f"Product: {product_result}")
+print(f"Quotient: {quotient_result}")
+```
+The quotient will be a float (`3.75`) because division `/` always results in a float.
+:::
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-warmup-list-access}
+1. Create a list named `colors` containing the strings "red", "green", "blue", and "yellow".
+2. Print the second element of the list.
+3. Change the third element of the list to "purple".
+4. Print the entire updated list.
+:::
+
+::: {.callout-note title="Solution" #solution-python_basics-warmup-list-access collapse="true"}
+```{python}
+# 1. Create a list
+colors = ["red", "green", "blue", "yellow"]
+
+# 2. Print the second element (index 1)
+# Remember that list indexing starts from 0
+print(f"The second color is: {colors[1]}")
+
+# 3. Change the third element (index 2) to "purple"
+colors[2] = "purple"
+
+# 4. Print the updated list
+print(f"Updated list of colors: {colors}")
+```
+:::
 
 
 ### Intermediate exercises
 
+::: {.callout-tip title="Exercise" #exercise-python_basics-intermediate-user-profile}
+1. Create a dictionary named `user_profile` with the following key-value pairs:
+    - `"name"`: "Alex"
+    - `"age"`: 28
+    - `"hobbies"`: A list containing "reading", "hiking", and "coding"
+2. Add a new key `"city"` with the value "Toronto" to the `user_profile` dictionary.
+3. Access the user's name and their second hobby.
+4. Print a message using an f-string: "Alex's second hobby is hiking." using the values from the dictionary.
+:::
 
-Calculate how much money Elon Musk has made for every second he has been alive. 
+::: {.callout-note title="Solution" #solution-python_basics-intermediate-user-profile collapse="true"}
+```{python}
+# 1. Create the dictionary
+user_profile = {
+    "name": "Alex",
+    "age": 28,
+    "hobbies": ["reading", "hiking", "coding"]
+}
+
+# 2. Add city
+user_profile["city"] = "Toronto"
+print(f"Updated profile: {user_profile}")
+
+# 3. Access name and second hobby
+user_name = user_profile["name"]
+# Hobbies is a list, so we access its elements by index
+second_hobby = user_profile["hobbies"][1]
+
+# 4. Print the message
+print(f"{user_name}'s second hobby is {second_hobby}.")
+```
+:::
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-intermediate-string-format}
+You are given a string: `raw_data = "  Product_ID:12345, ProductName:SuperWidget, Price:0050.75  "`
+1. Remove the leading and trailing whitespace from `raw_data`.
+2. Extract the `Product_ID` (including the number), `ProductName` (including the name), and `Price` (including the number) into separate variables. You might need string slicing and/or the `.find()` method.
+3. Convert the `Price` to a floating-point number.
+4. Print the extracted information in a formatted way, like:
+   ```
+   Product ID: 12345
+   Product Name: SuperWidget
+   Price: $50.75
+   ```
+   (Hint: You might need to use `.replace()` or other string methods to clean up the extracted parts before printing.)
+:::
+
+::: {.callout-note title="Solution" #solution-python_basics-intermediate-string-format collapse="true"}
+```{python}
+raw_data = "  Product_ID:12345, ProductName:SuperWidget, Price:0050.75  "
+
+# 1. Remove whitespace
+cleaned_data = raw_data.strip()
+print(f"Cleaned data: '{cleaned_data}'")
+
+# 2. Extract parts
+# Find positions of commas and colons to help with slicing
+id_end = cleaned_data.find(",")
+product_id_full = cleaned_data[0:id_end] # "Product_ID:12345"
+
+name_start = id_end + 2 # Skip ", "
+name_end = cleaned_data.find(",", name_start)
+product_name_full = cleaned_data[name_start:name_end] # "ProductName:SuperWidget"
+
+price_start = name_end + 2 # Skip ", "
+price_full = cleaned_data[price_start:] # "Price:0050.75"
+
+# Further extract actual values
+product_id = product_id_full.split(":")[1]
+product_name = product_name_full.split(":")[1]
+price_str = price_full.split(":")[1]
+
+# 3. Convert price to float
+price_float = float(price_str)
+
+# 4. Print formatted
+print(f"Product ID: {product_id}")
+print(f"Product Name: {product_name}")
+print(f"Price: ${price_float:.2f}") # Format to 2 decimal places
+```
+This solution uses `split(':')` for simplicity after initial slicing. More robust parsing could use regular expressions, but that's beyond this chapter. The `.2f` in the f-string formats the float to two decimal places.
+:::
 
 
 
