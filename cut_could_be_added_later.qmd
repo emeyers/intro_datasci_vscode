@@ -45,3 +45,52 @@ COULD PERHAPS MOVE THIS SECTION LATER IN A DATA CLEANING SECTION...
 |------------------|--------------------------|---------------------------------------------|-----------------------|
 | `.split()`       | `"a,b,c".split(",")`      | Splits string into a list by separator      | `['a', 'b', 'c']`     |
 | `.join(list)`    | `",".join(['a','b','c'])` | Joins list elements into a string           | `'a,b,c'`             |
+
+
+
+
+::: {.callout-tip title="Exercise" #exercise-python_basics-warmup-dictionary}
+
+Please create a dictionary with the following information: 
+
+| Key         | Value                                 |
+|-------------|---------------------------------------|
+| student_id  | S12345                                |
+| name        | Bob                                   |
+| major       | Computer Science                      |
+| courses     | ["ECON 1590", "PSYC 1410", "AFAM 1700"]    |
+
+
+Then do the following:
+1. Print the student's name
+2. Add the student's GPA to the dictionary with a value of 3.5
+3. Add the class SDS 1230 to the list of cources the student is taking
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-python_basics-warmup-dictionary collapse="true"}
+
+
+```{python}
+student_info = {
+    "student_id": "S12345",
+    "name": "Bob",
+    "major": "Computer Science",
+    "courses": ["ECON 1590", "PSYC 1410:", "AFAM 1700"]
+}
+
+# Print the student's name
+print(f"Student Name: {student_info['name']}")
+
+
+# Add a GPA for the student
+student_info["gpa"] = 3.75
+print(f"GPA: {student_info['gpa']}")
+
+# Update the list of courses
+student_info["courses"].append("SDS 1230") # Using the append() method for lists
+print(f"Updated Courses: {student_info['courses']}")
+```
+
+:::
