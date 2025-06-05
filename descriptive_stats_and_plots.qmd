@@ -1,3 +1,116 @@
 # Descriptive statistics and plots
 
-Now that we have covered some of the basic Python syntax we are ready to start analyzing some data. 
+Now that we have covered some of the basic Python syntax we are ready to start analyzing some data. In this chapter we will discuss some of the basic plot types to visualize data and some of the statistics that are most commonly used to describe data. Later in the book, we will discuss data visualization in more detail with an emphasis on which plot types are most effective. 
+
+
+## Categorical and Quantitateive data
+
+Show a data table. Discuss what categorical and quantitative data is
+
+Discuss the definition of what a statistic is. Then say we will discuss the main statistics and plots for categorical and quantitative data below. We will only use base Python and Matplotlib in this chapter. 
+
+
+
+## Categorical data
+
+
+### Statistics for summarizing categorical data
+
+Discuss frequency tables.
+
+Discuss proportions
+
+
+
+### Visualizing categorical data
+
+Discuss bar graphs and pie charts. 
+
+
+#### Bar graphs
+
+Discuss bar graphs and how to create them in Python using Matplotlib. 
+
+
+#### Pie charts
+
+Discuss what a pie chart is, how to create one in Python, and what are some of the limiations of pie charts. 
+
+
+### Labeling axes
+
+Discuss the importance of labeling axes! 
+
+
+
+### Statistics for summarizing quantitative data
+
+
+#### Visualizing quantitative data with histograms
+
+Describe what a histogram is; i.e., cut-offs to bin the data. Create an example with a list of quantitative data of say 20 points. Show data in a table with counts and then show histogram. 
+
+Describe how to create a histogram in Matplotlib using plt.hist()
+
+Describe common shapes of histograms (right skewed, left skewed, symmetric and bell-shaped, symmetric but not bell-shaped)
+
+
+### Statistics for quantitative data
+
+
+#### The mean
+
+Discuss what it is. How to calculate it in Python using the statistics module in base python. 
+
+#### The standard deviation 
+
+Discuss what it is. How to calculate it in Python using the statistics module in base python. 
+
+
+#### The median
+
+Discuss what it is. How to calculate it in Python using the statistics module in base python. 
+
+
+#### Quartiles
+
+Discuss what it is. How to calculate it in Python using the statistics module in base python. 
+
+
+#### Five number summaries and the box plot
+
+Discuss what it is. How to calculate it in Python using the statistics module in base python. 
+
+
+#### Outliers
+
+Discuss outliers. How they can have a big impact on statistics. How one should try to account for what is causing the outlier (if mistake, remove it, if not try analyses with and without outliers). 
+
+
+
+#### Z-scores
+
+Discuss what they are (put everything on standard units). Discuss how to calculate z-scores in Python. 
+
+
+
+## Two quantitative variables
+
+
+### Scatter plots
+
+Discuss what it is. How to calculate it in Python using the statistics module in base python. 
+
+
+### The correlation statistic 
+
+Discuss what it is. How to calculate it in Python using the statistics module in base python. 
+
+
+### Time series and line plots
+
+Discuss what it is. How to calculate it in Python using the statistics module in base python. 
+
+
+
+
