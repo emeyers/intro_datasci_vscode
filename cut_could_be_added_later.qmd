@@ -94,3 +94,5 @@ print(f"Updated Courses: {student_info['courses']}")
 ```
 
 :::
+
+Can you see this Jules? 
