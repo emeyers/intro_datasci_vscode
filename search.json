@@ -164,7 +164,27 @@
     "href": "descriptive_stats_and_plots.html",
     "title": "3  Descriptive statistics and plots",
     "section": "",
-    "text": "Now that we have covered some of the basic Python syntax we are ready to start analyzing some data.",
+    "text": "3.1 Categorical and Quantitateive data\nNow that we have covered some of the basic Python syntax we are ready to start analyzing some data. In this chapter we will discuss some of the basic plot types to visualize data and some of the statistics that are most commonly used to describe data. Later in the book, we will discuss data visualization in more detail with an emphasis on which plot types are most effective.\nShow a data table. Discuss what categorical and quantitative data is\nDiscuss the definition of what a statistic is. Then say we will discuss the main statistics and plots for categorical and quantitative data below. We will only use base Python and Matplotlib in this chapter.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Descriptive statistics and plots</span>"
+    ]
+  },
+  {
+    "objectID": "descriptive_stats_and_plots.html#categorical-data",
+    "href": "descriptive_stats_and_plots.html#categorical-data",
+    "title": "3  Descriptive statistics and plots",
+    "section": "3.2 Categorical data",
+    "text": "3.2 Categorical data\n\n3.2.1 Statistics for summarizing categorical data\nDiscuss frequency tables.\nDiscuss proportions\n\n\n3.2.2 Visualizing categorical data\nDiscuss bar graphs and pie charts.\n\n3.2.2.1 Bar graphs\nDiscuss bar graphs and how to create them in Python using Matplotlib.\n\n\n3.2.2.2 Pie charts\nDiscuss what a pie chart is, how to create one in Python, and what are some of the limiations of pie charts.\n\n\n\n3.2.3 Labeling axes\nDiscuss the importance of labeling axes!\n\n\n3.2.4 Statistics for summarizing quantitative data\n\n3.2.4.1 Visualizing quantitative data with histograms\nDescribe what a histogram is; i.e., cut-offs to bin the data. Create an example with a list of quantitative data of say 20 points. Show data in a table with counts and then show histogram.\nDescribe how to create a histogram in Matplotlib using plt.hist()\nDescribe common shapes of histograms (right skewed, left skewed, symmetric and bell-shaped, symmetric but not bell-shaped)\n\n\n\n3.2.5 Statistics for quantitative data\n\n3.2.5.1 The mean\nDiscuss what it is. How to calculate it in Python using the statistics module in base python.\n\n\n3.2.5.2 The standard deviation\nDiscuss what it is. How to calculate it in Python using the statistics module in base python.\n\n\n3.2.5.3 The median\nDiscuss what it is. How to calculate it in Python using the statistics module in base python.\n\n\n3.2.5.4 Quartiles\nDiscuss what it is. How to calculate it in Python using the statistics module in base python.\n\n\n3.2.5.5 Five number summaries and the box plot\nDiscuss what it is. How to calculate it in Python using the statistics module in base python.\n\n\n3.2.5.6 Outliers\nDiscuss outliers. How they can have a big impact on statistics. How one should try to account for what is causing the outlier (if mistake, remove it, if not try analyses with and without outliers).\n\n\n3.2.5.7 Z-scores\nDiscuss what they are (put everything on standard units). Discuss how to calculate z-scores in Python.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Descriptive statistics and plots</span>"
+    ]
+  },
+  {
+    "objectID": "descriptive_stats_and_plots.html#two-quantitative-variables",
+    "href": "descriptive_stats_and_plots.html#two-quantitative-variables",
+    "title": "3  Descriptive statistics and plots",
+    "section": "3.3 Two quantitative variables",
+    "text": "3.3 Two quantitative variables\n\n3.3.1 Scatter plots\nDiscuss what it is. How to calculate it in Python using the statistics module in base python.\n\n\n3.3.2 The correlation statistic\nDiscuss what it is. How to calculate it in Python using the statistics module in base python.\n\n\n3.3.3 Time series and line plots\nDiscuss what it is. How to calculate it in Python using the statistics module in base python.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Descriptive statistics and plots</span>"
     ]
