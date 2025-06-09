@@ -21,7 +21,7 @@ You can read more about FiveThirtyEight's analysis and find the full dataset at:
 
 For illustrative purposes in this chapter, imagine we have loaded parts of this dataset into several Python lists. We'll use small subsets of these lists in our examples. Here are definitions of what these lists might look like, containing a few sample entries:
 
-```python
+```{python}
 # A list of movie titles (subset for illustration)
 movie_titles = [
     'Intolerance: Love\'s Struggle Throughout the Ages',
@@ -88,6 +88,7 @@ budget_2013_dollars = [
 ```
 
 These lists represent just a tiny fraction of the actual dataset but will serve as a concrete basis for some of the statistical and plotting examples you'll encounter. When you see these variable names (`movie_titles`, `bechdel_status`, `domestic_gross_2013_dollars`, etc.) in the chapter, you can refer back to these example definitions.
+
 
 ## Categorical and Quantitative data
 
@@ -161,7 +162,7 @@ Let's consider our `bechdel_reasons` list from the movie dataset subset. It cont
 
 To create a frequency table, we can count each unique reason. Python's `list.count()` method is handy for this:
 
-```python
+```{python}
 # Our sample bechdel_reasons list (as defined in "Example Dataset")
 bechdel_reasons_sample = ['men', 'notalk', 'notalk', 'men', 'notalk', 'men', 'notalk', 'men']
 
@@ -194,11 +195,14 @@ We can represent this as a table:
 
 If we were to analyze the `bechdel_status` list from our sample:
 `bechdel_status_sample = ['FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL']`
+
 The frequency table would be:
+
 | Status | Frequency |
 | :----- | :-------- |
 | FAIL   | 8         |
 | Total  | 8         |
+
 This isn't very interesting for our small sample as all movies fail, but with a larger, more diverse dataset (like the full FiveThirtyEight dataset), you'd see counts for 'PASS' (often coded as 'OK') as well.
 
 **Proportions**
@@ -234,7 +238,7 @@ A **bar graph** (or bar chart) is a chart that presents categorical data with re
 
 Let's create a bar graph for our `bechdel_reasons` sample from the movie dataset:
 
-```python
+```{python}
 import matplotlib.pyplot as plt
 
 # Sample data from our movie dataset subset (as defined in "Example Dataset")
@@ -290,26 +294,28 @@ Given the following list of preferred pets from a small survey:
 
 2.  **Bar Graph Code:**
 
-    ```python
-    import matplotlib.pyplot as plt
+```{python}
+import matplotlib.pyplot as plt
 
-    # Pet preference data
-    pets = ['Dog', 'Cat', 'Bird', 'Fish']
-    frequencies = [4, 2, 1, 1]
+# Pet preference data
+pets = ['Dog', 'Cat', 'Bird', 'Fish']
+frequencies = [4, 2, 1, 1]
 
-    # Create the bar graph
-    plt.figure(figsize=(7, 5))
-    plt.bar(pets, frequencies, color=['brown', 'grey', 'blue', 'cyan'])
+# Create the bar graph
+plt.figure(figsize=(7, 5))
+plt.bar(pets, frequencies, color=['brown', 'grey', 'blue', 'cyan'])
 
-    # Add labels and title
-    plt.xlabel("Pet Type")
-    plt.ylabel("Number of People")
-    plt.title("Pet Preferences Survey Results")
+# Add labels and title
+plt.xlabel("Pet Type")
+plt.ylabel("Number of People")
+plt.title("Pet Preferences Survey Results")
 
-    # Display the plot
-    plt.show()
-    ```
-    *(When you run this code, a bar graph image will be displayed showing the frequencies of pet preferences.)*
+# Display the plot
+plt.show()
+```
+
+*(When you run this code, a bar graph image will be displayed showing the frequencies of pet preferences.)*
+
 :::
 
 #### Pie charts
@@ -318,7 +324,7 @@ A **pie chart** is a circular statistical graphic, which is divided into slices 
 
 Let's create a pie chart for our `bechdel_reasons` sample from the movie dataset:
 
-```python
+```{python}
 import matplotlib.pyplot as plt
 
 # Sample data from our movie dataset subset (as defined in "Example Dataset")
@@ -361,20 +367,23 @@ Using the same pet preference data from the bar graph exercise (`['Dog', 'Cat', 
 
 1.  **Pie Chart Code:**
 
-    ```python
-    import matplotlib.pyplot as plt
+```{python}
 
-    # Pet preference data
-    pets = ['Dog', 'Cat', 'Bird', 'Fish']
-    frequencies = [4, 2, 1, 1]
-    colors = ['brown', 'grey', 'blue', 'cyan']
+import matplotlib.pyplot as plt
 
-    plt.figure(figsize=(8, 8))
-    plt.pie(frequencies, labels=pets, colors=colors, autopct='%1.1f%%', startangle=90)
-    plt.title("Pet Preferences Survey (Pie Chart)")
-    plt.axis('equal') # Ensures pie is drawn as a circle
-    plt.show()
-    ```
+# Pet preference data
+pets = ['Dog', 'Cat', 'Bird', 'Fish']
+frequencies = [4, 2, 1, 1]
+colors = ['brown', 'grey', 'blue', 'cyan']
+
+plt.figure(figsize=(8, 8))
+plt.pie(frequencies, labels=pets, colors=colors, autopct='%1.1f%%', startangle=90)
+plt.title("Pet Preferences Survey (Pie Chart)")
+plt.axis('equal') # Ensures pie is drawn as a circle
+plt.show()
+
+```
+
     *(When you run this code, a pie chart image will be displayed.)*
 
 2.  **Comparison:**
@@ -425,7 +434,7 @@ Many real-world datasets, like movie revenues, are often **right-skewed**, meani
 
 Matplotlib provides the `plt.hist()` function. Let's plot our `movie_revenues_sample`:
 
-```python
+```{python}
 import matplotlib.pyplot as plt
 
 # Sample movie revenues (in 2013 dollars)
@@ -451,7 +460,9 @@ plt.ylabel("Frequency (Number of Movies)")
 plt.ticklabel_format(style='plain', axis='x')
 plt.xticks(rotation=30) # Rotate ticks slightly
 plt.show()
+
 ```
+
 With this data, the histogram will likely show most values concentrated in the lower bins, with a tail extending to the right due to the one or two much larger revenue figures, indicating a right-skewed distribution.
 
 **Common Shapes of Histograms**
@@ -487,19 +498,22 @@ Given the following list of ages:
 **Solution: Ages Histogram**
 
 1.  **Histogram Code:**
-    ```python
-    import matplotlib.pyplot as plt
+```{python}
 
-    ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
+import matplotlib.pyplot as plt
 
-    plt.figure(figsize=(8, 6))
-    plt.hist(ages, bins=5, color='lightgreen', edgecolor='black')
+ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
 
-    plt.title("Distribution of Ages")
-    plt.xlabel("Age Group")
-    plt.ylabel("Frequency")
-    plt.show()
-    ```
+plt.figure(figsize=(8, 6))
+plt.hist(ages, bins=5, color='lightgreen', edgecolor='black')
+
+plt.title("Distribution of Ages")
+plt.xlabel("Age Group")
+plt.ylabel("Frequency")
+plt.show()
+    
+```
+
     *(This code will display a histogram of the ages.)*
 
 2.  **Shape Description:**
@@ -511,12 +525,14 @@ Given the following list of ages:
 
 Beyond visualizations, we use numerical summaries (statistics) to describe quantitative data. These statistics help us pinpoint the center of the data, understand its spread, and identify other important characteristics. We'll use our `movie_revenues_sample` for these examples.
 
-```python
+```{python}
+
 # Sample movie revenues (defined previously for histogram example)
 movie_revenues_sample = [
     376081.0, 752163.0, 11282440.0, 26209.0, 75216.0,
     6902034.0, 45000000.0, 150000000.0
 ]
+
 ```
 
 #### The mean
@@ -529,7 +545,7 @@ Mean = (Sum of all values) / (Number of values)
 **Python Calculation:**
 Python's built-in `statistics` module makes this easy.
 
-```python
+```{python}
 import statistics
 
 # Using our movie revenues sample
@@ -537,7 +553,9 @@ import statistics
 mean_revenue = statistics.mean(movie_revenues_sample)
 print(f"The mean revenue is: ${mean_revenue:,.2f}")
 # Using f-string formatting for currency
+
 ```
+
 The `:,` in the f-string formatting adds a comma as a thousands separator.
 
 ::: {.exercise}
@@ -550,7 +568,7 @@ Calculate the mean of the `ages` data from the histogram exercise using Python:
 ::: {.solution}
 **Solution: Calculate Mean Age**
 
-```python
+```{python}
 import statistics
 
 ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
@@ -569,7 +587,8 @@ The **standard deviation** is a measure of the amount of variation or dispersion
 
 **Python Calculation:**
 
-```python
+```{python}
+
 import statistics
 
 # Using our movie revenues sample
@@ -579,8 +598,11 @@ mean_revenue = statistics.mean(movie_revenues_sample) # Calculated earlier for c
 
 print(f"The mean revenue is: ${mean_revenue:,.2f}")
 print(f"The standard deviation of revenue is: ${std_dev_revenue:,.2f}")
+
 ```
+
 A large standard deviation, especially relative to the mean, often accompanies skewed data, indicating that data points are, on average, quite far from the mean.
+
 
 ::: {.exercise}
 **Exercise: Calculate Standard Deviation of Ages**
@@ -591,19 +613,26 @@ Calculate the standard deviation of the `ages` data:
 What does this value tell you about the spread of ages?
 :::
 
+
 ::: {.solution}
+
 **Solution: Calculate Standard Deviation of Ages**
 
-```python
+```{python}
+
 import statistics
 
 ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
 std_dev_ages = statistics.stdev(ages)
 print(f"The standard deviation of ages is: {std_dev_ages}")
+
 ```
+
+
 **Output:**
 ```
 The standard deviation of ages is: 12.638132019998793
+
 ```
 **Interpretation:**
 A standard deviation of approximately 12.64 years means that, on average, an individual's age in this dataset is about 12.64 years away from the mean age of 43.1 years. It indicates a moderate amount of spread in the ages. Some ages are quite close to the mean, while others (like 22 or 65) are further away.
@@ -621,7 +650,7 @@ The **median** is another measure of central tendency. It is the middle value in
 
 **Python Calculation:**
 
-```python
+```{python}
 import statistics
 import matplotlib.pyplot as plt # For plotting
 
@@ -648,6 +677,7 @@ plt.ticklabel_format(style='plain', axis='x')
 plt.xticks(rotation=30)
 plt.legend()
 plt.show()
+
 ```
 
 **Median vs. Mean:**
@@ -660,6 +690,7 @@ Consider this income data: `[30000, 32000, 35000, 40000, 1000000]`
 The mean is heavily influenced by the one very high income, while the median gives a more typical representation.
 
 ::: {.exercise}
+
 **Exercise: Calculate Median Age and Impact of Outlier**
 
 1.  Calculate the median of the `ages` data:
@@ -669,10 +700,13 @@ The mean is heavily influenced by the one very high income, while the median giv
 4.  How did the mean and median change? Which is more representative in the presence of the outlier?
 :::
 
+
 ::: {.solution}
+
 **Solution: Calculate Median Age and Impact of Outlier**
 
-```python
+```{python}
+
 import statistics
 
 ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
@@ -696,6 +730,7 @@ mean_age_original = statistics.mean(ages) # 43.1
 print(f"Original mean age: {mean_age_original}")
 ```
 
+
 **Output:**
 ```
 The original median age is: 43.5
@@ -713,6 +748,7 @@ Original mean age: 43.1
 *   **Median with Outlier (100):** Increased from 43.5 to 45.0 (a change of +1.5).
 
 The mean was pulled up more significantly by the single outlier value of 100. The median also increased, as expected since the new value is at the higher end, but its change was less drastic. In the presence of this outlier, the **median (45.0)** is likely a more representative measure of the "typical" age in the dataset than the **mean (45.81)**, as it is less influenced by the single very high age.
+
 :::
 
 
@@ -733,7 +769,7 @@ The IQR represents the range of the middle 50% of your data. It's a robust measu
 **Python Calculation:**
 The `statistics` module's `quantiles()` function can be used. Let's use our `movie_revenues_sample`.
 
-```python
+```{python}
 import statistics
 
 # Using our movie revenues sample (defined earlier)
@@ -754,6 +790,7 @@ print(f"Q1 (25th percentile): ${Q1:,.2f}")
 print(f"Median (Q2 - 50th percentile): ${median_q2:,.2f}") # Same as statistics.median()
 print(f"Q3 (75th percentile): ${Q3:,.2f}")
 print(f"IQR (Interquartile Range): ${iqr:,.2f}")
+
 ```
 
 ::: {.exercise}
@@ -770,31 +807,34 @@ Using the `ages` data:
 **Solution: Calculate and Interpret Quartiles for Ages**
 
 1.  **Python Code:**
-    ```python
-    import statistics
+```{python}
+import statistics
 
-    ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
-    ages.sort() # Good practice, though quantiles() handles it
+ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
+ages.sort() # Good practice, though quantiles() handles it
 
-    quartiles = statistics.quantiles(ages, n=4)
-    Q1 = quartiles[0]
-    Q3 = quartiles[2]
-    IQR = Q3 - Q1
+quartiles = statistics.quantiles(ages, n=4)
+Q1 = quartiles[0]
+Q3 = quartiles[2]
+IQR = Q3 - Q1
 
-    print(f"Q1: {Q1}")
-    print(f"Q3: {Q3}")
-    print(f"IQR: {IQR}")
+print(f"Q1: {Q1}")
+print(f"Q3: {Q3}")
+print(f"IQR: {IQR}")
 
-    # For reference, the median (Q2) is statistics.median(ages) or quartiles[1]
-    # Median is (42+45)/2 = 43.5
-    # Q1 is between 33 (5th) and 35 (6th) -> (33+35)/2 = 34 (using one common method for discrete data)
-    # Q3 is between 50 (15th) and 52 (16th) -> (50+52)/2 = 51
-    # The exact values from statistics.quantiles might differ slightly based on interpolation method used.
-    # statistics.quantiles(ages, n=4) method='exclusive' (default)
-    # Q1 = 34.25, Q2 (Median) = 43.5, Q3 = 50.5
-    # IQR = 50.5 - 34.25 = 16.25
-    ```
+# For reference, the median (Q2) is statistics.median(ages) or quartiles[1]
+# Median is (42+45)/2 = 43.5
+# Q1 is between 33 (5th) and 35 (6th) -> (33+35)/2 = 34 (using one common method for discrete data)
+# Q3 is between 50 (15th) and 52 (16th) -> (50+52)/2 = 51
+# The exact values from statistics.quantiles might differ slightly based on interpolation method used.
+# statistics.quantiles(ages, n=4) method='exclusive' (default)
+# Q1 = 34.25, Q2 (Median) = 43.5, Q3 = 50.5
+# IQR = 50.5 - 34.25 = 16.25
+    
+```
+
     **Output from `statistics.quantiles` (using default 'exclusive' method):**
+    
     ```
     Q1: 34.25
     Q3: 50.5
@@ -828,7 +868,8 @@ A **box plot** (or box-and-whisker plot) is a standardized way of visually displ
 **Python Code for Box Plot using Matplotlib:**
 Let's create a box plot for our `movie_revenues_sample`.
 
-```python
+```{python}
+
 import matplotlib.pyplot as plt
 # movie_revenues_sample defined earlier
 # movie_revenues_sample = [
@@ -857,6 +898,8 @@ plt.show()
 # Q3 = q_values[2]
 # print(f"Min: ${Min:,.0f}, Q1: ${Q1:,.0f}, Median: ${Median:,.0f}, Q3: ${Q3:,.0f}, Max: ${Max:,.0f}")
 ```
+
+
 The box plot for movie revenues will likely show a compact box (small IQR relative to the total range) and a long upper whisker, possibly with some points identified as outliers, visually confirming the right-skewness.
 
 ::: {.exercise}
@@ -872,37 +915,42 @@ The box plot for movie revenues will likely show a compact box (small IQR relati
 **Solution: Create and Interpret Box Plot for Ages**
 
 1.  **Box Plot Code:**
-    ```python
-    import matplotlib.pyplot as plt
-    import statistics
+```{python}
 
-    ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
-    ages.sort() # Sorting helps for easy min/max identification
+import matplotlib.pyplot as plt
+import statistics
 
-    plt.figure(figsize=(6, 8))
-    plt.boxplot(ages, patch_artist=True) # patch_artist=True allows filling the box with color
+ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
+ages.sort() # Sorting helps for easy min/max identification
 
-    plt.title("Box Plot of Ages Data")
-    plt.ylabel("Age (Years)")
-    plt.xticks([1], ['Ages']) # Relabel x-axis if desired
-    plt.grid(axis='y', linestyle='--') # Add horizontal grid lines for easier reading
-    plt.show()
+plt.figure(figsize=(6, 8))
+plt.boxplot(ages, patch_artist=True) # patch_artist=True allows filling the box with color
 
-    # For precise five-number summary:
-    min_age = min(ages)
-    max_age = max(ages)
-    q_values = statistics.quantiles(ages, n=4) # Uses 'exclusive' method by default
-    q1_age = q_values[0]
-    median_age = statistics.median(ages) # Or q_values[1]
-    q3_age = q_values[2]
+plt.title("Box Plot of Ages Data")
+plt.ylabel("Age (Years)")
+plt.xticks([1], ['Ages']) # Relabel x-axis if desired
+plt.grid(axis='y', linestyle='--') # Add horizontal grid lines for easier reading
+plt.show()
 
-    print(f"Five-Number Summary for Ages:")
-    print(f"  Min: {min_age}")      # Expected: 22
-    print(f"  Q1: {q1_age}")       # Expected: 34.25
-    print(f"  Median: {median_age}")# Expected: 43.5
-    print(f"  Q3: {q3_age}")       # Expected: 50.5
-    print(f"  Max: {max_age}")      # Expected: 65
-    ```
+# For precise five-number summary:
+min_age = min(ages)
+max_age = max(ages)
+q_values = statistics.quantiles(ages, n=4) # Uses 'exclusive' method by default
+q1_age = q_values[0]
+median_age = statistics.median(ages) # Or q_values[1]
+q3_age = q_values[2]
+
+print(f"Five-Number Summary for Ages:")
+print(f"  Min: {min_age}")      # Expected: 22
+print(f"  Q1: {q1_age}")       # Expected: 34.25
+print(f"  Median: {median_age}")# Expected: 43.5
+print(f"  Q3: {q3_age}")       # Expected: 50.5
+print(f"  Max: {max_age}")      # Expected: 65
+
+```
+
+
+
     *(The code will display a box plot.)*
 
 2.  **Identifying Five-Number Summary from Plot:**
@@ -947,7 +995,8 @@ Any data point that falls below the lower fence or above the upper fence is cons
 
 **Example (using our `movie_revenues_sample` data):**
 First, let's calculate Q1, Q3, and IQR for `movie_revenues_sample`.
-```python
+```{python}
+
 import statistics
 movie_revenues_sample = [
     376081.0, 752163.0, 11282440.0, 26209.0, 75216.0,
@@ -975,6 +1024,8 @@ else:
     print("No outliers in this specific sample based on 1.5xIQR rule.")
 
 ```
+
+
 For our `movie_revenues_sample`, the value $150,000,000 is likely to be identified as an outlier by this rule, as it's significantly higher than other values in this small illustrative list.
 *Self-correction during thought process: The upper fence calculation in the draft was `q3_rev - 1.5 * iqr_rev`, it should be `q3_rev + 1.5 * iqr_rev`. I will correct this in the actual replacement.*
 
@@ -1014,7 +1065,8 @@ Let's consider an example from the broader movie dataset. Suppose the average do
 
 Now, let's take a very high-grossing movie, "Star Wars: Episode VII - The Force Awakens" (2015). Its actual domestic gross was much higher, but for an illustrative 2013-adjusted example, let's imagine its adjusted revenue was **$863.6 million**.
 
-```python
+```{python}
+
 import statistics # Though not strictly needed here as we define mean/stdev
 
 # Values from the broader dataset context for illustration
@@ -1034,7 +1086,10 @@ metropolis_revenue = 26209.0
 z_score_metropolis = (metropolis_revenue - full_dataset_mean_revenue) / full_dataset_stdev_revenue
 print(f"The Z-score for Metropolis' revenue (using full dataset stats) is: {z_score_metropolis:.2f}")
 ```
+
+
 A Z-score like the one for Star Wars (which would be `(863.6M - 60.9M) / 110.9M ≈ 7.24`) is very high, indicating it's an extreme outlier, more than 7 standard deviations above the average movie's gross in that dataset. Metropolis, on the other hand, would have a negative Z-score (approx -0.55), indicating it grossed below the average, but not an extreme amount in terms of standard deviations.
+
 
 ::: {.exercise}
 **Exercise: Calculate and Interpret Z-scores for Ages**
@@ -1050,29 +1105,33 @@ Using the `ages` dataset:
 **Solution: Calculate and Interpret Z-scores for Ages**
 
 1.  **Python Code:**
-    ```python
-    import statistics
+```{python}
 
-    ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
-    mean_age = statistics.mean(ages)
-    stdev_age = statistics.stdev(ages)
+import statistics
 
-    min_age = min(ages) # 22
-    max_age = max(ages) # 65
+ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
+mean_age = statistics.mean(ages)
+stdev_age = statistics.stdev(ages)
 
-    z_score_min = (min_age - mean_age) / stdev_age
-    z_score_max = (max_age - mean_age) / stdev_age
+min_age = min(ages) # 22
+max_age = max(ages) # 65
 
-    print(f"Mean age: {mean_age:.2f}, Standard deviation: {stdev_age:.2f}")
-    print(f"Z-score for minimum age ({min_age}): {z_score_min:.2f}")
-    print(f"Z-score for maximum age ({max_age}): {z_score_max:.2f}")
-    ```
-    **Output:**
-    ```
-    Mean age: 43.10, Standard deviation: 12.64
-    Z-score for minimum age (22): -1.67
-    Z-score for maximum age (65): 1.73
-    ```
+z_score_min = (min_age - mean_age) / stdev_age
+z_score_max = (max_age - mean_age) / stdev_age
+
+print(f"Mean age: {mean_age:.2f}, Standard deviation: {stdev_age:.2f}")
+print(f"Z-score for minimum age ({min_age}): {z_score_min:.2f}")
+print(f"Z-score for maximum age ({max_age}): {z_score_max:.2f}")
+```
+**Output:**
+```
+Mean age: 43.10, Standard deviation: 12.64
+Z-score for minimum age (22): -1.67
+Z-score for maximum age (65): 1.73
+    
+```
+
+
 
 2.  **Interpretation:**
     *   **Z-score for minimum age (22) is -1.67:** This means the age of 22 is 1.67 standard deviations *below* the average age of 43.1 years. It's younger than average, but not extremely so (as it's within 2 standard deviations).
@@ -1088,7 +1147,8 @@ Using the `ages` dataset:
 So far, we've looked at describing and visualizing single variables (univariate analysis). Now, let's explore situations where we have pairs of quantitative variables and want to understand if and how they relate to each other (bivariate analysis). We'll use our sample movie `budget_2013_dollars` and `revenue_2013_dollars` for these examples.
 
 Remember our sample lists (first 8 entries from the dataset defined in the "Example Dataset" section):
-```python
+```{python}
+
 # From our "Example Dataset" section
 revenue_2013_dollars = [
     376081.0, 752163.0, 1504326.0, 300865.0, 75216.0,
@@ -1098,7 +1158,10 @@ budget_2013_dollars = [
     483120.0, 181036.0, 302060.0, 1504326.0, 300865.0,
     638000.0, 4785000.0, 1148000.0
 ]
+
 ```
+
+
 
 ### Scatter plots
 
@@ -1112,7 +1175,8 @@ When you have two quantitative variables, a **scatter plot** is an excellent fir
 **Python Code using Matplotlib:**
 Let's visualize the relationship between movie budgets and their domestic gross revenues using our sample data.
 
-```python
+```{python}
+
 import matplotlib.pyplot as plt
 
 # Sample data from our movie dataset subset
@@ -1136,7 +1200,10 @@ plt.ticklabel_format(style='plain', axis='both') # Show plain numbers
 plt.xticks(rotation=30)
 plt.grid(True)
 plt.show()
+
 ```
+
+
 
 **Interpreting Scatter Plots:**
 When examining a scatter plot, look for:
@@ -1175,21 +1242,25 @@ Consider the following data for the age of a car (in years) and its price (in th
 **Solution: Car Age and Price Scatter Plot**
 
 1.  **Scatter Plot Code:**
-    ```python
-    import matplotlib.pyplot as plt
+```{python}
 
-    car_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10]
-    car_price = [20, 18, 19, 15, 14, 12, 13, 10, 9, 8, 6]
+import matplotlib.pyplot as plt
 
-    plt.figure(figsize=(8, 6))
-    plt.scatter(car_age, car_price, color='green')
+car_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10]
+car_price = [20, 18, 19, 15, 14, 12, 13, 10, 9, 8, 6]
 
-    plt.title("Relationship between Car Age and Price")
-    plt.xlabel("Age of Car (Years)")
-    plt.ylabel("Price of Car (in $1000s)")
-    plt.grid(True)
-    plt.show()
-    ```
+plt.figure(figsize=(8, 6))
+plt.scatter(car_age, car_price, color='green')
+
+plt.title("Relationship between Car Age and Price")
+plt.xlabel("Age of Car (Years)")
+plt.ylabel("Price of Car (in $1000s)")
+plt.grid(True)
+plt.show()
+
+```
+
+
     *(This code will display the scatter plot.)*
 
 2.  **Description of Relationship:**
@@ -1213,7 +1284,8 @@ While scatter plots give us a visual sense of the relationship, the **correlatio
 **Python Calculation:**
 The `statistics` module (available in Python 3.10+) provides `statistics.correlation()`. Let's calculate it for our sample movie budgets and revenues.
 
-```python
+```{python}
+
 import statistics
 
 # Sample data from our movie dataset subset
@@ -1234,6 +1306,7 @@ else:
     print("Data lists must have equal length and at least two points to calculate correlation.")
 
 ```
+
 *Note: If you are using a Python version older than 3.10, `statistics.correlation()` might not be available. In such cases, or for more advanced statistical analysis, libraries like NumPy (`numpy.corrcoef()`) or SciPy (`scipy.stats.pearsonr()`) are commonly used, but they are beyond the scope of this chapter which focuses on base Python and Matplotlib.*
 
 **Important Caveat: Correlation Does Not Imply Causation!**
@@ -1259,22 +1332,25 @@ Using the car age and price data:
 **Solution: Calculate and Interpret Correlation**
 
 1.  **Python Code:**
-    ```python
-    import statistics
+```{python}
 
-    car_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10]
-    # Ensure car_price has float values if any calculations require it,
-    # though for correlation with lists of numbers, it's usually fine.
-    car_price = [20.0, 18.0, 19.0, 15.0, 14.0, 12.0, 13.0, 10.0, 9.0, 8.0, 6.0]
+import statistics
+
+car_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10]
+# Ensure car_price has float values if any calculations require it,
+# though for correlation with lists of numbers, it's usually fine.
+car_price = [20.0, 18.0, 19.0, 15.0, 14.0, 12.0, 13.0, 10.0, 9.0, 8.0, 6.0]
 
 
-    if len(car_age) == len(car_price) and len(car_age) >= 2:
-        correlation_cars = statistics.correlation(car_age, car_price)
-        print(f"Correlation coefficient for car age and price (r): {correlation_cars:.3f}")
-    else:
-        print("Data lists must be of equal length and have at least two points.")
+if len(car_age) == len(car_price) and len(car_age) >= 2:
+    correlation_cars = statistics.correlation(car_age, car_price)
+    print(f"Correlation coefficient for car age and price (r): {correlation_cars:.3f}")
+else:
+    print("Data lists must be of equal length and have at least two points.")
 
-    ```
+```
+
+
     **Output:**
     ```
     Correlation coefficient for car age and price (r): -0.980
@@ -1299,7 +1375,8 @@ A **line plot** (or line graph) is the most common way to visualize time series 
 **Python Code using Matplotlib:**
 Let's plot the average monthly temperature for a city over a year.
 
-```python
+```{python}
+
 import matplotlib.pyplot as plt
 
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -1315,7 +1392,10 @@ plt.ylabel("Average Temperature (°C)")
 plt.xticks(rotation=45) # Rotate x-axis labels if they overlap
 plt.grid(True)
 plt.show()
+
 ```
+
+
 In a line plot, the x-axis usually represents time, and the y-axis represents the value of the variable being measured.
 
 ::: {.exercise}
@@ -1334,24 +1414,28 @@ A company's annual sales (in thousands of dollars) over the last 5 years are:
 **Solution: Company Sales Line Plot**
 
 1.  **Line Plot Code:**
-    ```python
-    import matplotlib.pyplot as plt
+```{python}
 
-    years = [2018, 2019, 2020, 2021, 2022]
-    sales = [100, 110, 95, 120, 130] # Sales in thousands of dollars
+import matplotlib.pyplot as plt
 
-    plt.figure(figsize=(8, 5))
-    plt.plot(years, sales, marker='s', linestyle='--', color='purple') # 's' for square marker
+years = [2018, 2019, 2020, 2021, 2022]
+sales = [100, 110, 95, 120, 130] # Sales in thousands of dollars
 
-    plt.title("Annual Company Sales (2018-2022)")
-    plt.xlabel("Year")
-    plt.ylabel("Sales (in $1000s)")
-    plt.xticks(years) # Ensure all years are shown as ticks
-    plt.ylim(bottom=0) # Optional: make y-axis start at 0
-    plt.grid(True, linestyle=':', alpha=0.7) # Light, dotted grid
-    plt.show()
-    ```
-    *(This code will display the line plot.)*
+plt.figure(figsize=(8, 5))
+plt.plot(years, sales, marker='s', linestyle='--', color='purple') # 's' for square marker
+
+plt.title("Annual Company Sales (2018-2022)")
+plt.xlabel("Year")
+plt.ylabel("Sales (in $1000s)")
+plt.xticks(years) # Ensure all years are shown as ticks
+plt.ylim(bottom=0) # Optional: make y-axis start at 0
+plt.grid(True, linestyle=':', alpha=0.7) # Light, dotted grid
+plt.show()
+
+```
+
+
+ *(This code will display the line plot.)*
 
 2.  **Trend Description:**
     Looking at the line plot, the company's sales show an overall **upward trend** from 2018 to 2022. There was a slight dip in sales in 2020 (from 110 to 95), but sales recovered and grew in the subsequent years, reaching their highest point in 2022.
@@ -1416,7 +1500,9 @@ A small group of students reported the following data:
 ::: {.callout-note title="Solution" #solution-descriptive-final-1 collapse="true"}
 **Solution: Comprehensive Student Data Exploration**
 
-```python
+
+```{python}
+
 import matplotlib.pyplot as plt
 import statistics
 
@@ -1523,6 +1609,7 @@ print("- Strength: Quite strong, as the points cluster fairly closely around an 
 print(f"The correlation coefficient of {correlation_study_score:.3f} supports a strong positive linear relationship.")
 
 ```
+
 :::
 
 ::: {.callout-tip title="Exercise" #exercise-descriptive-final-2}
