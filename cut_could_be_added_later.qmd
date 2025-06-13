@@ -1,6 +1,8 @@
 # Cut material
 
 
+## Chapter 2
+
 #### String methods
 
 A **method** is a function that is attached to a piece of data ^[Or to be more precise, a method is a function attached to an object]. There are a number of "string methods" which allow you to perform specific operations on strings, such as changing their case, finding substrings, or replacing text.
@@ -94,3 +96,342 @@ print(f"Updated Courses: {student_info['courses']}")
 ```
 
 :::
+
+
+A list method that I removed because it is better if they use the `sorted()` function rather than the `.sort()` method; i.e., I typically don't want them changing the original list when they sort it. 
+
+| `.sort()`        | `my_list.sort()`         | Sorts the list in place                          | List is sorted                   |
+
+
+
+
+## Chapter 3
+
+
+As a running example throughout this chapter, we will analyze data related to the *Bechdel Test*. 
+
+that was originally compiled and analyzed by FiveThirtyEight
+
+
+
+```{python}
+# A list of movie titles (subset for illustration)
+movie_titles = [
+    'Intolerance: Love\'s Struggle Throughout the Ages',
+    'Over the Hill to the Poorhouse',
+    'The Big Parade',
+    'Metropolis',
+    'Pandora\'s Box',
+    'The Broadway Melody',
+    'Hell\'s Angels',
+    'A Farewell to Arms'
+]
+
+# Bechdel test status for each corresponding movie ('OK' means pass, 'FAIL' means fail)
+bechdel_status = [
+    'FAIL',
+    'FAIL',
+    'FAIL',
+    'FAIL',
+    'FAIL',
+    'FAIL',
+    'FAIL',
+    'FAIL'
+]
+
+# Reasons for failing the Bechdel test (simplified)
+# Common reasons might include 'men' (talk only about men),
+# 'notalk' (women don't talk to each other), 'nowomen' (too few women).
+bechdel_reasons = [
+    'men',
+    'notalk',
+    'notalk',
+    'men',
+    'notalk',
+    'men',
+    'notalk',
+    'men'
+]
+
+# Domestic gross revenue in 2013 dollars (subset for illustration)
+# These are numeric values (floats)
+domestic_gross_2013_dollars = [
+    376081.0,
+    752163.0,
+    1504326.0, # The Big Parade
+    300865.0,  # Metropolis
+    75216.0,   # Pandora's Box
+    10304216.0, # The Broadway Melody
+    10304216.0, # Hell's Angels - Note: Example data might have duplicates or placeholder if actual is unavailable for old films
+    5888123.0  # A Farewell to Arms
+]
+
+# Budget in 2013 dollars (subset for illustration)
+# These are numeric values (floats)
+budget_2013_dollars = [
+    483120.0,
+    181036.0,
+    302060.0,  # The Big Parade
+    1504326.0, # Metropolis
+    300865.0,  # Pandora's Box
+    638000.0,  # The Broadway Melody
+    4785000.0, # Hell's Angels
+    1148000.0  # A Farewell to Arms
+]
+```
+
+
+
+
+```{python}
+
+import pandas as pd
+
+bechdel_df = pd.read_csv("https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/bechdel/movies.csv")
+
+bechdel_df = bechdel_df[["imdb", "title", "year", "binary", "budget_2013$", "domgross_2013$", "intgross_2013$", "decade code"]]
+
+bechdel_df
+
+```
+
+- **imdb**: The IMDb ID for the movie (a unique identifier).
+- **title**: The title of the movie.
+- **year**: The year the movie was released.
+- **binary**: Whether the movie passes the Bechdel Test ("PASS"/"FAIL" or similar coding).
+- **budget_2013$**: The movie's production budget, adjusted to 2013 US dollars.
+- **domgross_2013$**: The domestic (US) box office gross, adjusted to 2013 US dollars.
+- **intgross_2013$**: The international box office gross, adjusted to 2013 US dollars.
+- **decade code**: The decade in which the movie was released (e.g., "1990s", "2000s").
+
+
+
+For illustrative purposes in this chapter, imagine we have loaded parts of this dataset into several Python lists. We'll use small subsets of these lists in our examples. Here are definitions of what these lists might look like, containing a few sample entries:
+
+These lists represent just a tiny fraction of the actual dataset but will serve as a concrete basis for some of the statistical and plotting examples you'll encounter. When you see these variable names (`movie_titles`, `bechdel_status`, `domestic_gross_2013_dollars`, etc.) in the chapter, you can refer back to these example definitions.
+
+
+
+
+
+When we work with data, we're essentially looking at different characteristics or attributes of things, people, or phenomena. These characteristics, often called variables, can generally be classified into two main types: categorical and quantitative. Understanding this distinction is the first step in choosing the right tools to describe and visualize your data.
+
+
+
+
+**Categorical Data**
+
+Categorical data, also known as qualitative data, represents characteristics that can be sorted into groups or categories. These categories are typically described by words or labels. You can't perform meaningful arithmetic operations (like addition or averaging) on these categories directly.
+
+Examples of categorical data include:
+
+*   **Gender:** Male, Female, Non-binary
+*   **Favorite Color:** Red, Blue, Green, Yellow
+*   **Type of Car:** Sedan, SUV, Truck, Hatchback
+*   **Yes/No Answers:** Yes, No
+*   **Education Level:** High School, Bachelor's, Master's, PhD
+
+**Quantitative Data**
+
+Quantitative data, on the other hand, represents characteristics that are measured on a numerical scale. These are numbers that you *can* perform meaningful arithmetic operations on.
+
+Examples of quantitative data include:
+
+*   **Height:** 175 cm, 160 cm
+*   **Temperature:** 25°C, 30.5°C
+*   **Number of Siblings:** 0, 1, 2, 3
+*   **Age:** 25 years, 42 years
+*   **Exam Score:** 85, 92
+
+Quantitative data can sometimes be further divided into:
+*   **Discrete Data:** Represents countable items. The values are often whole numbers. Examples: Number of siblings, number of cars in a parking lot.
+*   **Continuous Data:** Represents measurements that can take on any value within a range. Examples: Height, temperature, weight.
+
+**Illustrative Data Table**
+
+Let's look at a small, imaginary dataset to see these types in action:
+
+| Name  | Favorite Color | Age (Years) | Number of Pets |
+| :---- | :------------- | :---------- | :------------- |
+| Alice | Blue           | 30          | 1              |
+| Bob   | Red            | 24          | 0              |
+| Carol | Green          | 35          | 2              |
+| David | Blue           | 28          | 1              |
+
+In this table:
+*   'Name' and 'Favorite Color' are **categorical** variables.
+*   'Age (Years)' and 'Number of Pets' are **quantitative** variables. ('Number of Pets' is discrete, while 'Age' could be considered continuous depending on how precisely it's measured).
+
+
+
+
+
+
+# Our sample bechdel_reasons list (as defined in "Example Dataset")
+bechdel_reasons_sample = ['men', 'notalk', 'notalk', 'men', 'notalk', 'men', 'notalk', 'men']
+
+# Find unique reasons first
+unique_reasons = sorted(list(set(bechdel_reasons_sample)))
+
+print("Frequency Table for Bechdel Test Reasons (Sample Data):")
+for reason in unique_reasons:
+    count = bechdel_reasons_sample.count(reason)
+    print(f"- {reason}: {count}")
+total_count = len(bechdel_reasons_sample)
+print(f"- Total Movies Analyzed (in sample): {total_count}")
+```
+
+This would output:
+```
+Frequency Table for Bechdel Test Reasons (Sample Data):
+- men: 4
+- notalk: 4
+- Total Movies Analyzed (in sample): 8
+```
+
+We can represent this as a table:
+
+| Reason | Frequency |
+| :----- | :-------- |
+| men    | 4         |
+| notalk | 4         |
+| Total  | 8         |
+
+If we were to analyze the `bechdel_status` list from our sample:
+`bechdel_status_sample = ['FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL']`
+
+The frequency table would be:
+
+| Status | Frequency |
+| :----- | :-------- |
+| FAIL   | 8         |
+| Total  | 8         |
+
+This isn't very interesting for our small sample as all movies fail, but with a larger, more diverse dataset (like the full FiveThirtyEight dataset), you'd see counts for 'PASS' (often coded as 'OK') as well.
+
+
+
+
+# import the pyplot module to plot the data
+import matplotlib.pyplot as plt
+
+# Sample data from our movie dataset subset (as defined in "Example Dataset")
+bechdel_reasons_sample = ['men', 'notalk', 'notalk', 'men', 'notalk', 'men', 'notalk', 'men']
+
+# Calculate frequencies
+reason_categories = sorted(list(set(bechdel_reasons_sample))) # ['men', 'notalk']
+reason_counts = [bechdel_reasons_sample.count(reason) for reason in reason_categories] # [4, 4]
+
+# Create the bar graph
+plt.figure(figsize=(7, 5))
+plt.bar(reason_categories, reason_counts, color=['skyblue', 'lightcoral'])
+
+# Add labels and title
+plt.xlabel("Bechdel Test Reason")
+plt.ylabel("Number of Movies (in sample)")
+plt.title("Frequency of Bechdel Test Failure Reasons (Sample Data)")
+
+# Display the plot
+plt.show()
+
+
+
+
+
+**Sample Data and Manual Binning**
+
+Let's use a sample of our `domestic_gross_2013_dollars` data. For a clearer illustration of histogram shapes and statistics, we'll use a slightly augmented list here, imagining these are revenues in 2013 dollars for a selection of movies:
+`movie_revenues_sample = [376081.0, 752163.0, 11282440.0, 26209.0, 75216.0, 6902034.0, 45000000.0, 150000000.0]`
+
+Many real-world datasets, like movie revenues, are often **right-skewed**, meaning most movies make a modest amount, while a few blockbusters make a very large amount. Our small sample here also shows this tendency.
+
+**Creating Histograms with Matplotlib**
+
+Matplotlib provides the `plt.hist()` function. Let's plot our `movie_revenues_sample`:
+
+```{python}
+import matplotlib.pyplot as plt
+
+# Sample movie revenues (in 2013 dollars)
+movie_revenues_sample = [
+    376081.0,  # Intolerance
+    752163.0,  # Over the Hill...
+    11282440.0, # The Big Parade
+    26209.0,   # Metropolis
+    75216.0,   # Pandora's Box
+    6902034.0, # The Broadway Melody
+    45000000.0, # A more modern moderately successful movie
+    150000000.0 # A modern blockbuster
+]
+
+plt.figure(figsize=(8, 6))
+# Let's use 5 bins for this data. Edgecolor makes bins distinct.
+plt.hist(movie_revenues_sample, bins=5, color='skyblue', edgecolor='black')
+
+plt.title("Distribution of Sample Movie Revenues")
+plt.xlabel("Domestic Gross (2013 Dollars)")
+plt.ylabel("Frequency (Number of Movies)")
+# Optional: Format x-axis for better readability if numbers are very large
+plt.ticklabel_format(style='plain', axis='x')
+plt.xticks(rotation=30) # Rotate ticks slightly
+plt.show()
+
+```
+
+
+
+Some of the most frequently used statistics we will calculate using the `statistics` module are in the table below:
+
+| Statistic          | Description                                                                 |
+| :----------------- | :-------------------------------------------------------------------------- |        
+| Mean               | The average value of the dataset, calculated as the sum of all values divided by the number of values. |
+| Standard Deviation | A measure of the amount of variation or dispersion in a set of values. A low standard deviation indicates that the values tend to be close to the mean, while a high standard deviation indicates that the values are spread out over a wider range. |
+| Median             | The middle value in a dataset that has been sorted in ascending order. If the number of data points is odd, it is the value at position `(n+1)/2`. If even, it is the average of the two middle values at positions `n/2` and `(n/2) + 1`. |
+| Mode               | The value that appears most frequently in the dataset. If there are multiple modes, it is called multimodal. |
+| Range              | The difference between the maximum and minimum values in the dataset.     |  
+| Interquartile Range (IQR) | The range of the middle 50% of the data, calculated as the difference between the 75th percentile (Q3) and the 25th percentile (Q1). |
+| Variance           | The average of the squared differences from the mean, indicating how much the data points differ from the mean. |
+| Coefficient of Variation (CV) | A standardized measure of dispersion, calculated as the ratio of the standard deviation to the mean, often expressed as a percentage. |
+
+
+
+
+
+
+::: {.exercise}
+**Exercise: Calculate Standard Deviation of Ages**
+
+Calculate the standard deviation of the `ages` data:
+`ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]`
+
+What does this value tell you about the spread of ages?
+:::
+
+
+::: {.solution}
+
+**Solution: Calculate Standard Deviation of Ages**
+
+```{python}
+
+import statistics
+
+ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
+std_dev_ages = statistics.stdev(ages)
+print(f"The standard deviation of ages is: {std_dev_ages}")
+
+```
+
+
+**Output:**
+```
+The standard deviation of ages is: 12.638132019998793
+
+```
+**Interpretation:**
+A standard deviation of approximately 12.64 years means that, on average, an individual's age in this dataset is about 12.64 years away from the mean age of 43.1 years. It indicates a moderate amount of spread in the ages. Some ages are quite close to the mean, while others (like 22 or 65) are further away.
+
+:::
+
+
+

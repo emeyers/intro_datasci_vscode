@@ -1,267 +1,1551 @@
 # Descriptive statistics and plots
 
-Welcome to the world of data exploration! Now that you've got a handle on Python basics, we're ready to dive into the exciting realm of understanding data. This chapter is all about introducing you to fundamental methods for visualizing and summarizing the information hidden within your datasets.
+Now that you've got a handle on Python basics, we're ready to being to learn the basics of analyzing data. 
+We will focus on some of the basic ways to plot data in order to see patterns, and on descriptive statistics, which are numerical summaries of data.
 
-We'll be focusing on descriptive statistics, which are like trusty tools that help us paint a clear picture of our data. We'll explore how to describe both categorical data (think types and labels) and quantitative data (think numbers and measurements).
+In this chapter we will be using base Python, much of which we discussed in the previous chapter, along with the Matplotlib library to create plots of the data. In later chapters we will learn more advanced ways to visual data using Matplotlib and other data visualization packages. 
 
-Throughout this chapter, we'll be using base Python along with the popular Matplotlib library to create insightful plots and calculate key statistics. Don't worry if you're new to these – we'll walk through examples step-by-step, keeping things accessible and encouraging, just like in our Python basics journey. By the end of this chapter, you'll be equipped to take raw data and begin to uncover its stories through visuals and summaries!
+By the end of this chapter, you should be equipped to take in lists of data, and create basic visualizations and summary statistics that can give insight into questions of interest.
 
-## Example Dataset: The Bechdel Test Movies
 
-Throughout this chapter, while many examples use generic data lists for simplicity, we'll also draw conceptual inspiration and some sample data snippets from a real-world dataset concerning movies. This dataset, originally compiled and analyzed by FiveThirtyEight, examines movies based on whether they pass the Bechdel Test, alongside their financial performance and other characteristics.
 
-The Bechdel Test asks three simple questions about a work of fiction:
-1.  Does it have at least two [named] women in it?
-2.  Who talk to each other?
-3.  About something besides a man?
+## An Example Dataset: The Bechdel Test Movies
 
-You can read more about FiveThirtyEight's analysis and find the full dataset at:
-*   Article: [The Dollar-And-Cents Case Against Hollywood's Exclusion of Women](https://fivethirtyeight.com/features/the-dollar-and-cents-case-against-hollywoods-exclusion-of-women/)
-*   Data Repository: [FiveThirtyEight Bechdel Test Data on GitHub](https://github.com/fivethirtyeight/data/tree/master/bechdel)
+In order to understand the descriptive statistics and plots discussed in this chapter, we will analyze data from the *Bechdel Test* dataset. This dataset, originally compiled and analyzed by FiveThirtyEight, examines movies based on whether they pass the Bechdel Test, along financial performance and other characteristics of particular movies.
 
-For illustrative purposes in this chapter, imagine we have loaded parts of this dataset into several Python lists. We'll use small subsets of these lists in our examples. Here are definitions of what these lists might look like, containing a few sample entries:
+The "Bechdel Test" is based on comic strip *Dykes to Watch Out For* written by Alison Bechdel and refers to the particular comic called ["The Rule"](https://lithub.com/read-the-1985-comic-strip-that-inspired-the-bechdel-test/). In this comic, a character describes three criteria movies must meet in order to pass, what is now called the "Bechdel Test". These criteria are:
+
+1.  The movies must have at least two named women in it.
+2.  These women must talk to each other.
+3.  And what they talk about must be something besides a man.
+
+You can read more about FiveThirtyEight's analysis of the data in the artucle [The Dollar-And-Cents Case Against Hollywood's Exclusion of Women](https://fivethirtyeight.com/features/the-dollar-and-cents-case-against-hollywoods-exclusion-of-women/) and the data can be downloaded from [FiveThirtyEight Bechdel Test Data on GitHub](https://github.com/fivethirtyeight/data/tree/master/bechdel).
+
+![The comic "The rule" written by Alison Bechdel](https://s26162.pcdn.co/wp-content/uploads/2021/09/bechdeltestcartoon.jpeg)
+
+
+Below we load in the data into a Pandas DataFrame and displays the first few rows of the data. We will discuss the Pandas package later in this book so for now you should ignore what this code is doing for now. 
 
 ```{python}
-# A list of movie titles (subset for illustration)
-movie_titles = [
-    'Intolerance: Love\'s Struggle Throughout the Ages',
-    'Over the Hill to the Poorhouse',
-    'The Big Parade',
-    'Metropolis',
-    'Pandora\'s Box',
-    'The Broadway Melody',
-    'Hell\'s Angels',
-    'A Farewell to Arms'
-]
 
-# Bechdel test status for each corresponding movie ('OK' means pass, 'FAIL' means fail)
-bechdel_status = [
-    'FAIL',
-    'FAIL',
-    'FAIL',
-    'FAIL',
-    'FAIL',
-    'FAIL',
-    'FAIL',
-    'FAIL'
-]
+import pandas as pd
 
-# Reasons for failing the Bechdel test (simplified)
-# Common reasons might include 'men' (talk only about men),
-# 'notalk' (women don't talk to each other), 'nowomen' (too few women).
-bechdel_reasons = [
-    'men',
-    'notalk',
-    'notalk',
-    'men',
-    'notalk',
-    'men',
-    'notalk',
-    'men'
-]
+# Read in the Bechdel movie data and remove all rows with missing values
+bechdel_df = pd.read_csv("https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/bechdel/movies.csv")
 
-# Domestic gross revenue in 2013 dollars (subset for illustration)
-# These are numeric values (floats)
-domestic_gross_2013_dollars = [
-    376081.0,
-    752163.0,
-    1504326.0, # The Big Parade
-    300865.0,  # Metropolis
-    75216.0,   # Pandora's Box
-    10304216.0, # The Broadway Melody
-    10304216.0, # Hell's Angels - Note: Example data might have duplicates or placeholder if actual is unavailable for old films
-    5888123.0  # A Farewell to Arms
-]
+# Get only the columns we are interested in
+bechdel_df = bechdel_df[["title", "year", "clean_test", "binary", "budget_2013$", "domgross_2013$", "intgross_2013$"]]
 
-# Budget in 2013 dollars (subset for illustration)
-# These are numeric values (floats)
-budget_2013_dollars = [
-    483120.0,
-    181036.0,
-    302060.0,  # The Big Parade
-    1504326.0, # Metropolis
-    300865.0,  # Pandora's Box
-    638000.0,  # The Broadway Melody
-    4785000.0, # Hell's Angels
-    1148000.0  # A Farewell to Arms
-]
+# Remove rows with missing values
+bechdel_df = bechdel_df.dropna()
+
+display(bechdel_df.head())
+
+movie_titles = bechdel_df["title"].tolist()
+
+bechdel_status = bechdel_df["binary"].tolist()
+
+bechdel_reason = bechdel_df["clean_test"].tolist()
+
+budget_2013_dollars = bechdel_df["budget_2013$"].tolist()
+
+domestic_gross_2013_dollars = bechdel_df["domgross_2013$"].tolist()
+
+int_gross_2013_dollars = bechdel_df["intgross_2013$"].tolist()
+
 ```
 
-These lists represent just a tiny fraction of the actual dataset but will serve as a concrete basis for some of the statistical and plotting examples you'll encounter. When you see these variable names (`movie_titles`, `bechdel_status`, `domestic_gross_2013_dollars`, etc.) in the chapter, you can refer back to these example definitions.
+The code above also extracts four lists from the Pandas DataFrame. We will analyze the data in these four lists throughout this chapter. These lists are: 
+
+- `movie_titles`: The titles of the movies.
+
+- `bechdel_status`: Whether each movie passes or fails the Bechdel Test.
+
+- `bechdel_reason`: The reason a movie failed the Bechdel Test. The reasons are:
+    - `'ok'`: The movie passed the Bechdel test
+    - `'dubious'`: The movie's Bechdel Test result is uncertain or ambiguous.
+    - `'men'`: The only conversations between women are about men.
+    - `'notalk'`: There are at least two named women, but they do not talk to each other.
+    - `'nowomen'`: There are fewer than two named women in the movie.
+
+- `budget_2013_dollars`: The production budget for each movie (in 2013 dollars).
+
+- `domestic_gross_2013_dollars`: The domestic box office gross for each movie (in 2013 dollars).
+
+- `int_gross_2013_dollars`: The international box office gross for each movie (in 2013 dollars).
+
+
+
+We could have created these lists using the square brackets as we did in the previous chapter (e.g., `budget_2013_dollars = [13000000, 45658735, 20000000, ...]`). However, given that there are 1794 movies in each of these lists, entering this data manually would be very inconvenient. 
+
+Since these are just ordinary lists, we can use the list operations we discussed in the previous chapter. For example, we can extract a subset of elements from the list using slicing, and we can get the number of elements in the list using the `len()` function: 
+
+```{python}
+
+# print out the budgets of the first 5 movies in the data
+print(budget_2013_dollars[0:5])
+
+
+# print out the number of elements in the budget_2013_dollars list 
+# (i.e., the number of movies in our data set)
+print(len(budget_2013_dollars))
+
+```
+
+From looking out the output, we can see that there are 1794 movies in our data set.
+
+Importantly for our analyses, the data in four lists all ordered the same way such that information about particular movie is at the same index in all the lists.  For example, the code below prints out information about the 11th movie in our list ^[remember, Python starts index counts at 0, so to get information about the 11th movie, we use index number 10].
+
+```{python}
+
+
+print(movie_titles[10])
+
+print(bechdel_status[10])
+
+print(bechdel_reason[10])
+
+print(budget_2013_dollars[10])
+
+print(domestic_gross_2013_dollars[10])
+
+```
+
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-list_data}
+
+Create a variable called `index_number` that refers to the index number of a particular movie. Then modify the code above so that it print out information about the movie at the index that `index_number` is set to (e.g., if `index_number = 10` it will print out information about the 11th movie). 
+
+Also, try to use f-strings, as discussed in the previous chapter, to print out the text that describes what each value refers to along with the value. For example, the output for the 11th movie should be: 
+
+```{python}
+#| echo: false
+
+index_number = 10
+
+print(f"index: {index_number}")
+
+print(f"title: {movie_titles[index_number]}")
+
+print(f"bechdel status: {bechdel_status[index_number]}")
+
+print(f"bechdel reason: {bechdel_reason[index_number]}")
+
+print(f"budget: {budget_2013_dollars[index_number]}")
+
+print(f"gross dollars: {domestic_gross_2013_dollars[index_number]}")
+
+```
+
+Finally, explore the data at different index values to get a sense of what is contained in the data set. 
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-list_data collapse="true"}
+
+```{python}
+
+index_number = 10
+
+print(f"index: {index_number}")
+
+print(f"title: {movie_titles[index_number]}")
+
+print(f"bechdel status: {bechdel_status[index_number]}")
+
+print(f"bechdel reason: {bechdel_reason[index_number]}")
+
+print(f"budget: {budget_2013_dollars[index_number]}")
+
+print(f"gross dollars: {domestic_gross_2013_dollars[index_number]}")
+
+```
+
+
+:::
+
+
+## Questions of interest
+
+Before diving into the data, it's very useful to have a clear idea of what questions we want to answer. This will guide our analysis and help us focus on the most relevant statistics and visualizations. From the Bechdel Test dataset, we might be interested in questions like:
+
+-   What proportion of movies pass the Bechdel Test?
+-   What are the most common reasons movies fail the Bechdel Test?
+-   What are typical budgets of movies?
+-   Is there a relationship between a movie's budget and its domestic gross revenue?
+
+These types of questions help to determine which statistics and visualizations to create, and how to interpret the results. Below we will explore how to answer these questions using descriptive statistics and visualizations.
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-questions}
+
+What other questions could we ask about the Bechdel Test dataset? Think of at least two additional questions that could be answered using the data.
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-questions collapse="true"}
+
+Some additional questions we could ask about the Bechdel Test dataset include:
+
+-  Which movie in the dataset had the highest domestic gross revenue?
+-  How does the average budget of movies that pass the Bechdel Test compare to those that fail?
+-  What is the distribution of domestic gross revenue for movies that pass versus those that fail the Bechdel Test?
+
+:::
+
+
 
 
 ## Categorical and Quantitative data
 
-When we work with data, we're essentially looking at different characteristics or attributes of things, people, or phenomena. These characteristics, often called variables, can generally be classified into two main types: categorical and quantitative. Understanding this distinction is the first step in choosing the right tools to describe and visualize your data.
+Statisticians often divide data into two broad types: categorical data and quantitative data. Categorical data is data that can be sorted into groups or categories, such as gender, color, or type. In Python, categorical data is often represented as character strings. 
 
-**Categorical Data**
+Quantitative data, on the other hand, consists of numerical values that represent counts or measurements, such as age, height, or income. In Python, quantitateive data is almost always represented as integers or floating point numbers. 
 
-Categorical data, also known as qualitative data, represents characteristics that can be sorted into groups or categories. These categories are typically described by words or labels. You can't perform meaningful arithmetic operations (like addition or averaging) on these categories directly.
+Recognizing the difference between these two types of data is important because it determines which statistical methods and visualizations are appropriate for analysis.  
 
-Examples of categorical data include:
 
-*   **Gender:** Male, Female, Non-binary
-*   **Favorite Color:** Red, Blue, Green, Yellow
-*   **Type of Car:** Sedan, SUV, Truck, Hatchback
-*   **Yes/No Answers:** Yes, No
-*   **Education Level:** High School, Bachelor's, Master's, PhD
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-categorical}
 
-**Quantitative Data**
+Looking at the lists `bechdel_status`, `budget_2013_dollars` and `domestic_gross_2013_dollars`, which contain list(s) categorical data, and which contain quantitative data? 
 
-Quantitative data, on the other hand, represents characteristics that are measured on a numerical scale. These are numbers that you *can* perform meaningful arithmetic operations on.
+:::
 
-Examples of quantitative data include:
 
-*   **Height:** 175 cm, 160 cm
-*   **Temperature:** 25°C, 30.5°C
-*   **Number of Siblings:** 0, 1, 2, 3
-*   **Age:** 25 years, 42 years
-*   **Exam Score:** 85, 92
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-categorical collapse="true"}
 
-Quantitative data can sometimes be further divided into:
-*   **Discrete Data:** Represents countable items. The values are often whole numbers. Examples: Number of siblings, number of cars in a parking lot.
-*   **Continuous Data:** Represents measurements that can take on any value within a range. Examples: Height, temperature, weight.
+- `bechdel_status`: categorical
+- `bechdel_reason`: categorical
+- `budget_2013_dollars`: quantitative
+- `domestic_gross_2013_dollars`: quantitative
 
-**Illustrative Data Table**
+:::
 
-Let's look at a small, imaginary dataset to see these types in action:
 
-| Name  | Favorite Color | Age (Years) | Number of Pets |
-| :---- | :------------- | :---------- | :------------- |
-| Alice | Blue           | 30          | 1              |
-| Bob   | Red            | 24          | 0              |
-| Carol | Green          | 35          | 2              |
-| David | Blue           | 28          | 1              |
-
-In this table:
-*   'Name' and 'Favorite Color' are **categorical** variables.
-*   'Age (Years)' and 'Number of Pets' are **quantitative** variables. ('Number of Pets' is discrete, while 'Age' could be considered continuous depending on how precisely it's measured).
 
 **What is a Statistic?**
 
-As we explore our data, we'll often want to summarize its key features. This is where statistics come in. A **statistic** is a single number that describes or summarizes some characteristic of a dataset. For example, the average age of the people in our table, or the most common favorite color, would both be statistics.
+As we explore our data, we will often want to create numerical summaries of key features of the data. A **statistic** is a single number that describes or summarizes some characteristic of a dataset. For example, the average budget of the movies in the `budget_2013_dollars` list would both be a statistic. In the sections that follow, we will delve into the common statistics and plot types used for both categorical and quantitative data. 
 
-Now that we understand the basic types of data and what a statistic is, we're ready to explore specific methods for summarizing and visualizing them. In the sections that follow, we will delve into the common statistics and plot types used for both categorical and quantitative data. We will be using base Python and the Matplotlib library for our examples.
+
+
+**Visualizing data with Matplotlib**
+
+To visualize data we will use the `pyplot` module in the Matplotlib library. As we discussed in the previous chapter, to use a library we first need to install it (if it is not already installed). Once the library has been installed (which we only need to do once), we can load using an `import` statement. To use `Matplotlib` it is standard practice to import the `pyplot` module into the name `plt` using the following code.
+
+```{python}
+
+import matplotlib.pyplot as plt
+
+```
+
+Once this module has been imported, we can access functions within the module. For example (and as we discuss in more detail below) we can create bar graphs using `plt.bar()` and pie charts using `plt.pie()`. 
+
 
 
 
 ## Categorical data
 
-Categorical data, as we've learned, deals with labels and categories. Now, let's explore how we can summarize and visualize this type of data to draw meaningful insights.
+Categorical data, as we've learned, deals data that falls into different groups. Now, let's explore how we can summarize and visualize this type of data to draw meaningful insights.
 
 ### Statistics for summarizing categorical data
 
 The most common way to summarize categorical data is by counting how often each category appears.
 
-**Frequency Tables**
+#### Frequency Tables
 
 A **frequency table** is a simple table that shows each category and the number of times it appears in your dataset (its frequency).
 
-Let's consider our `bechdel_reasons` list from the movie dataset subset. It contains reasons why a movie might fail the Bechdel test.
-(Referencing `bechdel_reasons = ['men', 'notalk', 'notalk', 'men', 'notalk', 'men', 'notalk', 'men']` from the "Example Dataset" section.)
+Let's consider our `bechdel_reason` list, which contains the reason each movie passed or failed the Bechdel test. To create a frequency table, we can count how many movies fall into each category: `'ok'`, `'dubious'`, `'men'`, `'notalk'`, and `'nowomen'`. Python's `list.count()` method is handy for this. For example, if we want to count how many movies failed the Bechdel test because there weren't two named women in the movie we could use `bechdel_reason.count("nowomen")`. 
 
-To create a frequency table, we can count each unique reason. Python's `list.count()` method is handy for this:
+To create a full frequency table, we just need to count how many items there are in each of the category levels. We can then store these results in a list: 
 
 ```{python}
-# Our sample bechdel_reasons list (as defined in "Example Dataset")
-bechdel_reasons_sample = ['men', 'notalk', 'notalk', 'men', 'notalk', 'men', 'notalk', 'men']
 
-# Find unique reasons first
-unique_reasons = sorted(list(set(bechdel_reasons_sample)))
+reason_counts = [bechdel_reason.count("notalk"),
+    bechdel_reason.count("men"),
+    bechdel_reason.count("nowomen"),
+    bechdel_reason.count("dubious"),
+    bechdel_reason.count("ok")]
 
-print("Frequency Table for Bechdel Test Reasons (Sample Data):")
-for reason in unique_reasons:
-    count = bechdel_reasons_sample.count(reason)
-    print(f"- {reason}: {count}")
-total_count = len(bechdel_reasons_sample)
-print(f"- Total Movies Analyzed (in sample): {total_count}")
+reason_counts    
+
 ```
 
-This would output:
+| Reason   | Frequency |
+| :------- | :-------- |
+| notalk   | 510       |
+| men      | 193       |
+| nowomen  | 138       |
+| dubious  | 141       |
+| ok       | 794       |
+| **Total**| 1776      |
+
+
+
+Let's consider our `bechdel_status` list that contains whether a movie passed the Bechdel test. To create a frequency table, we can count how many of the movies passed the Bechdel test and how many failed. Python's `list.count()` method is handy for this:
+
+
+
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-freq_table}
+
+Use Python code to calculate the frequency table for the number of movies that passed and failed the Bechdel test. 
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-freq_table collapse="true"}
+
+```{python}
+
+num_passed = bechdel_status.count("PASS")
+num_failed = bechdel_status.count("FAIL")
+
+
+# put the resulting numbers into a list to print them
+[num_passed, num_failed]
+
 ```
-Frequency Table for Bechdel Test Reasons (Sample Data):
-- men: 4
-- notalk: 4
-- Total Movies Analyzed (in sample): 8
-```
-
-We can represent this as a table:
-
-| Reason | Frequency |
-| :----- | :-------- |
-| men    | 4         |
-| notalk | 4         |
-| Total  | 8         |
-
-If we were to analyze the `bechdel_status` list from our sample:
-`bechdel_status_sample = ['FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL', 'FAIL']`
-
-The frequency table would be:
 
 | Status | Frequency |
 | :----- | :-------- |
-| FAIL   | 8         |
-| Total  | 8         |
+| PASS   | 784       |
+| FAIL   | 982       |
+| Total  | 1776      |
 
-This isn't very interesting for our small sample as all movies fail, but with a larger, more diverse dataset (like the full FiveThirtyEight dataset), you'd see counts for 'PASS' (often coded as 'OK') as well.
+:::
 
-**Proportions**
+
+
+#### Proportions
 
 While frequencies are useful, sometimes we want to know the **proportion** (or relative frequency) of each category. A proportion is the fraction of the total dataset that each category represents.
 
-You calculate it by dividing the frequency of a category by the total number of data points.
+You calculate it by dividing the frequency of a category by the total number of data points. We can do this in Python using: 
 
-Using our `bechdel_reasons_sample` example:
-*   Total items = 8
-*   Frequency of 'men': 4
-*   Frequency of 'notalk': 4
+```{python}
 
-Proportions:
-*   Proportion of 'men': `4 / 8 = 0.5`
-*   Proportion of 'notalk': `4 / 8 = 0.5`
+reason_proportions = [bechdel_reason.count("notalk")/1776,
+    bechdel_reason.count("men")/1776,
+    bechdel_reason.count("nowomen")/1776,
+    bechdel_reason.count("dubious")/1776,
+    bechdel_reason.count("ok")/1776]
 
-Proportions are often expressed as decimals or percentages (e.g., 0.5 is 50%).
+reason_proportions
 
-| Reason | Frequency | Proportion |
-| :----- | :-------- | :--------- |
-| men    | 4         | 0.50       |
-| notalk | 4         | 0.50       |
-| Total  | 8         | 1.00       |
+```
+
+| Reason   | Proportion |
+| :------- | :--------- |
+| notalk   | 0.287 |
+| men      | 0.109 |
+| nowomen  | 0.078 |
+| dubious  | 0.079 |
+| ok       | 0.447 |
+| **Total**| 1 |
+
+
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-proportions}
+
+Use Python code to calculate the frequency table for the number of movies that passed and failed the Bechdel test. 
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-proportions collapse="true"}
+
+```{python}
+
+prop_passed = bechdel_status.count("PASS")/1776
+prop_failed = bechdel_status.count("FAIL")/1776
+
+
+# put the resulting numbers into a list to print them
+[prop_passed, prop_failed]
+
+```
+
+| Status | Frequency |
+| :----- | :-------- |
+| PASS   | 0.447     |
+| FAIL   | 0.553     |
+| Total  | 1         |
+
+:::
+
+
 
 ### Visualizing categorical data
 
-Visualizations can make the patterns in categorical data much easier to grasp than just looking at numbers. Bar graphs and pie charts are common choices.
+Visualizations can make the patterns in categorical data much easier to grasp than just looking at numbers. Bar graphs and pie charts are common choices for visualizing categorical data
+
 
 #### Bar graphs
 
-A **bar graph** (or bar chart) is a chart that presents categorical data with rectangular bars. The height (or length if horizontal) of each bar is proportional to the frequency or proportion of the category it represents. Bar graphs are excellent for comparing the sizes of different categories.
+A **bar graph** is a chart that presents categorical data with rectangular bars. The height (or length if horizontal) of each bar is proportional to the frequency or proportion of the category it represents. 
 
-Let's create a bar graph for our `bechdel_reasons` sample from the movie dataset:
+We can create bar graphs in Python using  Matplotlib's `plt.bar()` function. This function takes two arguments: 
+
+- a list of category names (x-axis labels)
+- a list of counts or frequencies for each category (y-axis values)
+
+For example, to plot the reasons that movies failed the Bechdel test, we can create a list of strings called `reason_names` which has all the names of the reasons why movies passed or failed the Bechdel test. We can then use this list, along with the `reason_counts` list we created above, to create the bar graph:
+
 
 ```{python}
+
+# import the pyplot module to plot the data
 import matplotlib.pyplot as plt
 
-# Sample data from our movie dataset subset (as defined in "Example Dataset")
-bechdel_reasons_sample = ['men', 'notalk', 'notalk', 'men', 'notalk', 'men', 'notalk', 'men']
+reason_names = ["Didn't talk", "Talked men", "<2 women", "Dubious", "Passed"]
 
-# Calculate frequencies
-reason_categories = sorted(list(set(bechdel_reasons_sample))) # ['men', 'notalk']
-reason_counts = [bechdel_reasons_sample.count(reason) for reason in reason_categories] # [4, 4]
+plt.bar(reason_names, reason_counts);
 
-# Create the bar graph
-plt.figure(figsize=(7, 5))
-plt.bar(reason_categories, reason_counts, color=['skyblue', 'lightcoral'])
 
-# Add labels and title
-plt.xlabel("Bechdel Test Reason")
-plt.ylabel("Number of Movies (in sample)")
-plt.title("Frequency of Bechdel Test Failure Reasons (Sample Data)")
-
-# Display the plot
-plt.show()
 ```
 
-This code will produce a bar graph showing two bars of equal height for 'men' and 'notalk', representing the reasons for Bechdel test failure in our sample.
+As we can see, the largest category is movies that passed the Bechdel test, followed by movies that failed because there weren't too women in the movie who spoke to each other about something other than a man. 
+
+Note: when we call Matplotlib functions, we often end each function call with a semicolon (`;`). This is optional in Python, but in Jupyter notebooks, adding a semicolon at the end of a plotting command suppresses the extra output (such as the matplotlib object representation) which keeps the output cleaner by displaying only the plot.
+
+
+#### Pie charts
+
+A **pie chart** is another statistical graphic that can be used to display proportions. In a pie chart, a circle is divided into slices, where the arc length of each slice (and consequently its central angle and area), is proportional to the proportion of data points in each category.
+
+We can create a pie chart using Matplotlib's `plt.pie()` function.  Let's create a pie chart displaying the proportions of reasons why movies did not pass the Bechdel test using the `reason_counts` list we created above. 
+```{python}
+
+plt.pie(reason_counts);
+
+```
+
+While this chart looks interesting, clearly it is hard to gain any insights from it because each slice is not labeled with the category name. We can add the category name to each slice using the the `labels` argument, which we can set to the `reason_names` we created above. 
+
+
+```{python}
+
+plt.pie(reason_counts, labels = reason_names);
+
+```
+
+
+**Limitations of Pie Charts:**
+
+While pie charts can might be popular in business settings, statisticians often have a negative view of pie charts for the following reasons: 
+
+*   **Hard to compare slices:** It can be difficult for the human eye to accurately compare the sizes of slices, especially when the differences are small or when there are many slices.
+
+*   **Not ideal for many categories:** Pie charts become cluttered and hard to read if you have more than a few categories.
+
+*   **Less effective for showing exact values:** While percentages can be added to each slice of a pie chart (by using the `autopct` argument), bar charts are generally better for showing precise frequencies or making direct comparisons.
+
+*   **Misleading if not used for parts of a whole:** Pie charts should only be used when you are representing parts of a whole (i.e., proportions that sum to 100%).
+
+For these reasons, many data visualization experts recommend using bar charts instead of pie charts in most situations.
+
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-bar_and_pie}
+
+Create a bar graph showing the number of movies that passed and failed the Bechdel test and a pie chart showing the proportion of movies that passed and failed the Bechdel test. 
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-bar_and_pie collapse="true"}
+
+
+```{python}
+
+num_passed = bechdel_status.count("PASS")
+num_failed = bechdel_status.count("FAIL")
+
+bechdel_counts = [num_passed, num_failed]
+bechdel_names = ["Passed", "Failed"]
+
+plt.bar(bechdel_names, bechdel_counts);
+
+```
+
+```{python}
+
+plt.pie(bechdel_counts, labels = bechdel_names);
+
+```
+
+:::
+
+
+
+## Labeling axes
+
+As we saw with our first pie chart, in order for a graph to be interpretable it is very important to always label your plots clearly! For many graphs, this means including:
+
+*   **X-axis label:** What do the values on the horizontal axis represent? This can be done in Python using `plt.xlabel()`. 
+
+*   **Y-axis label:** What do the values on the vertical axis represent?  This can be done in Python using `plt.ylabel()`.
+
+*   A **Title:** What does the plot represent?  This can be done in Python using `plt.title()`.
+
+Without these labels, your plot is just a collection of shapes and colors, and its meaning can be lost or misinterpreted. 
+
+As an illustration, let's improve on our bar chart of the reasons movies fail the Bechdel test by adding the appropriate labels. 
+
+
+```{python}
+
+plt.bar(reason_names, reason_counts);
+
+plt.xlabel("Reason for Bechdel Test Result");
+plt.ylabel("Number of Movies");
+plt.title("Reasons Movies Passed or Failed the Bechdel Test");
+
+```
+
+
+
+
+## Visualizing quantitative data
+
+Now that we have discussed how to visualize categorical data, let's turn our attention to quantitative data! 
+
+
+
+### Histograms
+
+One of the most useful ways to visualize quantitative data is through a **histogram**. A histogram allows us to see the "distribution" of numerical data, meaning it shows us how often different ranges of values occur. This is particularly useful for understanding the shape of the data, such as whether most of the data clusters symmetrically around a central value, or whether there tends to be a skew where most values are higher or lower than the central value. 
+
+More specifically, a **histogram** is similar to a bar graph, but for quantitative data, where the "categories" are numerical intervals, called **bins**. The height of each bar in a histogram represents how many of data points falling within that particular bin.
+
+**Creating Bins**
+
+To create a histogram, we first need to define these bins. For example, if you have movie budgets (in millions of dollars) from $0 to $200 million, you might create bins like:
+*   $0M - $50M
+*   $50M - $100M
+*   $100M - $150M
+*   $150M - $200M
+*   $150M - $200M+
+
+Then, you count how many movie revenues fall into each bin to create a frequency table as shown below:
+
+```{python}
+
+#| eval: false
+#| echo: false
+#| results: false
+
+import numpy as np
+
+# Define the budget bins
+bin_edges = [0, 50000000, 100000000, 150000000, 200000000, 250000000, float('inf')]
+
+# Count the number of movies in each bin
+budget_bins = np.histogram(budget_2013_dollars, bins=bin_edges)
+
+budget_bins
+
+```
+
+
+| Domestic Gross Bin | Frequency |
+|:-------------------|----------:|
+| $0-50M             |   1056    |
+| $50-100M           |   409    |
+| $100-150M          |   179    |
+| $150-200M          |    79    |
+| $200-250M          |    38    |
+| $250M+             |    15    |
+| **Total**          |   1776   |
+
+A histogram would then plot these bins on the x-axis and the frequency of movies in each bin on the y-axis.
+
+We can create histograms in Python using the `plt.hist()` function from Matplotlib. This function automatically creates bins for us, but we can also specify the number of bins, or the bin edges, if we want more control over how the data is grouped using the `bins` argument.
+
+
+```{python}
+
+# Define the bin edges for the histogram (matching the edges in our table above)
+bin_edges = [0, 50000000, 100000000, 150000000, 200000000, 250000000, float('inf')]
+
+# Plot the histogram of movie budgets in 2013 dollars
+# (also make the edges of the bars black for better visibility)
+plt.hist(budget_2013_dollars, bins = bin_edges, edgecolor='black');
+
+# Label the axes and title
+plt.xlabel("Budget (2013 Dollars)");
+plt.ylabel("Number of Movies");
+plt.title("Distribution of Movie Budgets (2013 Dollars)");
+
+```
+
+From looking at this histogram, we can see that most movies have budgets in the lower bins, with a few movies having much larger budgets that extend into the higher bins. This indicates a right-skewed distribution, where most values are clustered at the lower end, with a tail extending to the right due to the presence of a few high-budget movies.
+
+**Choosing Bins in a Histogram**
+
+In the above code we set the `bins` argument to a list of bin edges. This allows us to define custom bins for the histogram. However more frequently, we set the `bins` argument to an integer value, which tells Matplotlib how many bins to create, and Matplotlib will automatically create a set of equally spaced bins across the range of our data. For example, we could have used `bins=10` to create 10 equally spaced bins across the range of our data. In this case, Matplotlib would automatically determine the bin edges based on the minimum and maximum values in our data. 
+
+Choosing the number of bins is important because it can affect how well we can see the distribution of the data. If too few bins are used, we might miss important details in the data. If too many bins are used, the histogram can become noisy it is hard to see underlying patterns. Generally, the choice of the number of bins depends on the amount of data we have, so that when we have a lot of data, we can use more bins to see more detail, and when we have less data, we should use fewer bins. Often starting with the default number of bins (which is usually around 10) is a good idea, and then adjusting based on how the data looks is a good approach.
+
+
+
+**Common Shapes of Histograms**
+
+Histograms can reveal the underlying shape of your data's distribution. Common shapes for data distributions include:
+
+*   **Right-skewed:** The tail on the right side of the distribution is longer than the left side. Most data points are concentrated on the left. This of income data, where many people have lower to moderate incomes, and a few have very high incomes.
+
+*   **Left-skewed:** The tail on the left side is longer than the right. Most data points are concentrated on the right. Think of retirement ages, where most people retire in their 60s or 70s, but a few retire much earlier.
+
+*   **Symmetric and Bell-Shaped (Normal Distribution):** The data is symmetrically distributed around a central value, forming a bell shape. Many natural phenomena follow this pattern (e.g., heights of people).
+
+*   **Symmetric but Not Bell-Shaped:** The data is symmetric but doesn't form a bell.
+    *   **Uniform Distribution:** All bins have roughly the same frequency. (e.g., rolling a fair die many times, each number has an equal chance).
+    *   **Bimodal Distribution:** Has two peaks. This might indicate two different groups in your data.
+
+
+```{python}
+
+#| echo: false
+
+# Plot common shapes of histograms
+import numpy as np
+
+num_points = 10000
+
+# Create sample data for different distributions
+np.random.seed(0)  # For reproducibility
+right_skewed_data = np.random.exponential(scale=1, size=num_points)  # Right-skewed
+left_skewed_data = -np.random.exponential(scale=1, size=num_points)  # Left-skewed
+symmetric_data = np.random.normal(loc=0, scale=1, size=num_points)  # Symmetric (Normal)
+uniform_data = np.random.uniform(low=0, high=10, size=num_points)  # Uniform
+bimodal_data = np.concatenate([np.random.normal(loc=-2, scale=0.5, size=500), 
+                                np.random.normal(loc=3, scale=0.5, size=500)])  # Bimodal
+
+# Create subplots for each distribution (2 rows, 3 columns)
+fig, axs = plt.subplots(2, 3, figsize=(15, 8))
+
+axs[0, 0].hist(right_skewed_data, bins=30, color='lightblue', edgecolor='black')
+axs[0, 0].set_title("Right-Skewed Distribution")
+axs[0, 0].set_xlabel("Value")
+axs[0, 0].set_ylabel("Frequency")
+
+axs[0, 1].hist(left_skewed_data, bins=30, color='lightcoral', edgecolor='black')
+axs[0, 1].set_title("Left-Skewed Distribution")
+axs[0, 1].set_xlabel("Value")
+axs[0, 1].set_ylabel("Frequency")
+
+axs[0, 2].hist(symmetric_data, bins=30, color='lightgreen', edgecolor='black')
+axs[0, 2].set_title("Symmetric (Normal) Distribution")
+axs[0, 2].set_xlabel("Value")
+axs[0, 2].set_ylabel("Frequency")
+
+axs[1, 0].hist(uniform_data, bins=30, color='lightyellow', edgecolor='black')
+axs[1, 0].set_title("Uniform Distribution")
+axs[1, 0].set_xlabel("Value")
+axs[1, 0].set_ylabel("Frequency")
+
+axs[1, 1].hist(bimodal_data, bins=30, color='purple', edgecolor='black')
+axs[1, 1].set_title("Bimodal Distribution")
+axs[1, 1].set_xlabel("Value")
+axs[1, 1].set_ylabel("Frequency")
+
+axs[1, 2].axis('off')  # Hide the empty subplot
+
+plt.tight_layout()
+plt.show()
+
+```
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-histograms}
+
+Create a histogram of the domestic gross revenue of movies in the `domestic_gross_2013_dollars` list. Set the argument `bins` equal to 10 to create a histogram with 10 bins, and label the x-axis as "Domestic Gross (2013 Dollars)", the y-axis as "Number of Movies", and give the plot a title of "Distribution of Domestic Gross Revenue (2013 Dollars)". Then change the bin argument to `bins=100` and see how the histogram changes. Report whether you think 10 or 100 bins best captures the distribution of the data.
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-histograms collapse="true"}
+
+```{python}
+
+plt.hist(domestic_gross_2013_dollars, bins=10, edgecolor='black');
+plt.xlabel("Domestic Gross (2013 Dollars)");
+plt.ylabel("Number of Movies");
+plt.title("Distribution of Domestic Gross Revenue (2013 Dollars)");
+plt.show()
+
+plt.hist(domestic_gross_2013_dollars, bins=100, edgecolor='black');
+plt.xlabel("Domestic Gross (2013 Dollars)");
+plt.ylabel("Number of Movies");
+plt.title("Distribution of Domestic Gross Revenue (2013 Dollars)");
+
+```
+
+Given the large number of data points, I belive using 100 bins provides a more detailed view of the distribution, allowing us to see the finer details of how domestic gross revenues are distributed. However, one could be argue that using 100 bins make the histogram look more cluttered so using a smaller number could also be a reasonable choice. Overall, there is not one right answer to this question, and one should experiment with different numbers of bins to see which gives the most insight from the data.
+
+
+:::
+
+
+
+
+## Statistics for quantitative data
+
+Beyond visualizations, we use numerical summaries (statistics) to describe quantitative data. These statistics help us quantify values that characterize the center of the data and how the data is spread, as well as identify other important characteristics of the data. 
+
+To calculate these statistics, we will use the `statistics` module in Python, which provides functions for calculating common statistics. To use this module, we first need to import it:
+
+```{python}
+
+import statistics
+
+```
+
+
+
+### Measure of central tendency 1: The mean
+
+The **mean**, often called the average, is the most common measure of central tendency.
+
+**Calculation:** It's calculated by summing all the values in a dataset and then dividing by the number of values:
+`Mean = (Sum of all values) / (Number of values)`. 
+
+In Python, we can calculate the mean using the `statistics.mean()` function.
+
+
+```{python}
+
+# Calculating the mean by taking the sum of all values and dividing by the number of values
+mean_budget_manual = sum(budget_2013_dollars) / len(budget_2013_dollars)
+
+# Calculating the mean using the statistics module
+mean_budget = statistics.mean(budget_2013_dollars)
+
+
+# Using f-string formatting for currency
+print(f"The mean budget is: ${mean_budget:,.2f}")
+print(f"The mean budget (calculated manually) is: ${mean_budget_manual:,.2f}")
+
+```
+
+Note: We are able to use extra arguments to f-strings to print dollar amount with nicer formatting.  In particular we used `{mean_budget:,.2f}` where the `:,.2f` part formats the number with commas (given by the `,`) and two decimal places (given by the `.2f`). This means that the number will be displayed with commas and two decimal places, which is a common way to represent currency in the US.
+
+
+
+### Measure of central tendency 2: The median
+
+The **median** is another measure of central tendency. It is the middle value in a dataset that has been sorted in ascending order. 
+
+**Calculation:**
+1.  Sort the data from smallest to largest.
+2.  If the number of data points (n) is **odd**, the median is the middle value at position `(n+1)/2`.
+3.  If the number of data points (n) is **even**, the median is the average of the two middle values at positions `n/2` and `(n/2) + 1`.
+
+In Python, we can calculate the median using the `statistics.median()` function.
+
+```{python}
+
+# Use the sorted function to sort the data and return a new list with the sorted values
+sorted_data = sorted(budget_2013_dollars)
+
+# Find the index of the middle value
+data_middle_index = int(len(sorted_data) / 2)
+
+# Since there is an even number of data points, we take the average of the two middle values to get the median
+median_budget_manual = (sorted_data[data_middle_index - 1] + sorted_data[data_middle_index])/2
+
+
+# Calculating the median using the statistics module
+median_budget = statistics.median(budget_2013_dollars)
+
+
+print(f"The median budget is: ${median_budget:,.2f}")
+print(f"The median budget (calculated manually) is: ${median_budget_manual:,.2f}")
+
+```
+
+
+
+
+
+###  Median vs. Mean:
+
+The median is often a better measure of central tendency when your data has **outliers** (extremely high or low values) or is **skewed**.
+For our `budget_2013_dollars`, which is right-skewed (a few movies make much more than most), you'll notice the mean is significantly higher than the median. The mean is pulled upwards by the high-grossing movies, while the median provides a better sense of the "typical" movie's budget in this sample.
+
+Consider this income data: `[30000, 32000, 35000, 40000, 1000000]`
+*   Mean:  `$227,400`  =   `(30000+32000+35000+40000+1000000) / 5`
+*   Median: `$35,000`  =   middle value after sorting: `[30000, 32000, 35000, 40000, 1000000]`
+
+The mean is heavily influenced by the one very high income, while the median gives a more typical representation.
+
+Let's visualize the mean and median on a histogram of our movie budgets to see how they compare visually.
+
+
+```{python}
+
+# Visualizing Mean vs. Median on a Histogram
+
+plt.hist(budget_2013_dollars, bins=30, color='skyblue', edgecolor='black', alpha=0.7)
+
+# Adding vertical lines for mean and median budgets
+plt.axvline(mean_budget, color='red', linestyle='dashed', label='Mean')
+plt.axvline(median_budget, color='green', linestyle='dashed', label='Median')
+
+
+plt.title("Distribution of Sample Movie Budgets with Mean and Median")
+plt.xlabel("Domestic Gross (2013 Dollars)")
+plt.ylabel("Frequency")
+plt.ticklabel_format(style='plain', axis='x')
+plt.xticks(rotation=30)
+plt.legend()
+plt.show()
+
+
+```
+
+As we can see, the mean (red dashed line) is pulled to the right by the high-budget movies, while the median (green dashed line) is closer to the center of the distribution, providing a better representation of a "typical" movie budget in this dataset.
+
+
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-mean_and_median}
+
+**Exercise: Calculate Median Age and Impact of Outlier**
+
+1.  Calculate the median of the `ages` data:
+    `ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]`
+2.  Now, add an outlier: a person aged 100, to this list: `ages_with_outlier = ages + [100]`
+3.  Calculate both the mean and median for `ages_with_outlier`.
+4.  How did the mean and median change? Which is more representative in the presence of the outlier?
+
+:::
+
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-mean_and_median collapse="true"}
+
+**Solution: Calculate Median Age and Impact of Outlier**
+
+```{python}
+
+ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
+
+# 1. Median of original ages
+median_age_original = statistics.median(ages)
+mean_age_original = statistics.mean(ages)
+
+# 2. Add outlier
+ages_with_outlier = ages + [100]
+
+# 3. Calculate mean and median for the new list
+mean_age_outlier = statistics.mean(ages_with_outlier)
+median_age_outlier = statistics.median(ages_with_outlier)
+
+print(f"Original mean age: {mean_age_original}")
+print(f"Mean age with outlier: {mean_age_outlier}")
+
+print(f"Original median age: {median_age_original}")
+print(f"Median age with outlier: {median_age_outlier}")
+
+```
+
+
+
+**4. How did the mean and median change?**
+
+*   **Original Mean:** 42.7
+*   **Original Median:** 43.5
+
+*   **Mean with Outlier:** Increased from 42.7 to approximately 45.42 (a change of +2.73).
+*   **Median with Outlier:** Increased from 43.5 to 45.0 (a change of +1.5).
+
+The mean was pulled up more by the single outlier value of 100. The median also increased, as expected since the new value is at the higher end, but its change was less drastic. In the presence of this outlier, the **median (45.0)** is likely a more representative measure of the "typical" age in the dataset than the **mean (45.81)**, as it is less influenced by the single very high age.
+
+:::
+
+
+
+
+### Measure of spread 1: The standard deviation
+
+The **standard deviation** is a measure of the amount of variation or dispersion in a set of values. A low standard deviation indicates that the values tend to be close to the mean, while a high standard deviation indicates that the values are spread out over a wider range.
+
+**Calculation:**
+
+The standard deviation is calculated as follows:
+
+1.  Calculate the mean of the dataset.
+2.  For each data point, calculate the difference from the mean and square it.
+3.  Calculate the average of these squared differences.
+4.  Take the square root of this average to get the standard deviation.
+
+We can write this out mathematically as follows:
+
+$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2}$
+
+
+where $x_i$ represents each data point, $\bar{x}$ is the average of the data points, and $n$ is the number of data points.
+
+We can calculate the standard deviation in Python using the `statistics.stdev()` function from the `statistics` module. 
+
+```{python}
+
+# Calculate the standard deviation using the statistics module
+std_dev_budget = statistics.stdev(budget_2013_dollars)
+
+print(f"The standard deviation of budget is: ${std_dev_budget:,.2f}")
+```
+
+The output will show the standard deviation of the movie budgets tells us how much the budgets vary from the mean budget. A higher standard deviation indicates that the budgets are more spread out, while a lower standard deviation indicates that they are closer to the mean. 
+
+The standard deviation of the movie budgets is approximately $50,000,000, which indicates movie budgets typically vary by about $50 million from the mean budget of approximately $100 million. This suggests a significant spread in the budgets of movies in this dataset, with some movies having much higher or lower budgets than the average (although care should be taken when interpreting this value, as the distribution of budgets is right-skewed, meaning that a few very high-budget movies can disproportionately affect the standard deviation).
+
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-stdev}
+
+Compare the standard deviation of movie budgets (in `budget_2013_dollars`) to the standard deviation of movie revenues (in `domestic_gross_2013_dollars`). Which one has a higher standard deviation? What does this tell you about the spread of movie budgets compared to the spread of movie revenues in this dataset?  Is this what you would expect? Why or why not?
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-stdev collapse="true"}
+
+```{python}
+# Calculate the standard deviation of movie budgets
+stdev_budget = statistics.stdev(budget_2013_dollars)
+
+# Calculate the standard deviation of movie revenues    
+stdev_revenue = statistics.stdev(domestic_gross_2013_dollars)
+print(f"The standard deviation of movie budgets is: ${stdev_budget:,.2f}")
+print(f"The standard deviation of movie revenues is: ${stdev_revenue:,.2f}")
+
+
+```
+
+The standard deviation of movie budgets is approximately 55 million dollars, while the standard deviation of movie revenues is approximately 100 million dollars. This indicates that movie revenues tend to be more spread out than movie budgets in this dataset. This is expected, as movie revenues can vary widely due to factors like box office performance, marketing, and audience reception, while budgets are often more constrained by production costs. The higher standard deviation in revenues suggests that while most movies have similar budgets, their financial success can vary significantly.
+
+
+
+:::
+
+
+
+
+### Quartiles
+
+Quartiles are values that divide your sorted data into four equal parts. Like the standard deviation, they give are another way to quantify the spread of how data points are distributed. Quartiles are particularly useful for understanding the distribution of data when it is skewed or has outliers (i.e., extreme values in the data set). They help us identify the range in which the middle 50% of the data lies.
+
+**Quartiles:**
+
+*   **Q1 (First Quartile):** This is the 25th percentile. 25% of the data points are below Q1, and 75% are above it.
+
+*   **Q2 (Second Quartile):** This is the 50th percentile, which is also the **median** of the dataset. 50% of the data is below Q2, and 50% is above.
+
+*   **Q3 (Third Quartile or Upper Quartile):** This is the 75th percentile. 75% of the data points are below Q3, and 25% are above it.
+
+
+**Interquartile Range (IQR)**
+
+The **Interquartile Range (IQR)** is the difference between the third quartile (Q3) and the first quartile (Q1):
+`IQR = Q3 - Q1`. The IQR represents the range of the middle 50% of your data. It's a robust measure of spread because it's not affected by outliers.
+
+**Python Calculation:**
+The `statistics` module's `quantiles()` function can be used. Let's use our `budget_2013_dollars`.
+
+```{python}
+
+# Get the quartiles using the statistics module
+quartile_values = statistics.quantiles(budget_2013_dollars, n=4)
+Q1 = quartile_values[0]
+median_q2 = quartile_values[1]
+Q3 = quartile_values[2]
+iqr = Q3 - Q1
+
+print(f"Q1 (25th percentile): ${Q1:,.2f}")
+print(f"Median (Q2 - 50th percentile): ${median_q2:,.2f}") # Same as statistics.median()
+print(f"Q3 (75th percentile): ${Q3:,.2f}")
+print(f"IQR (Interquartile Range): ${iqr:,.2f}")
+
+```
+
+We can interpret these quartiles as follows:
+
+*   **Q1 (First Quartile):** 25% of the movies in this dataset have budgets below ~$16 million, and 75% have budgets above it.
+
+*   **Q2 (Median):** 50% of the movies have budgets below ~$38 million, and 50% have budgets above it.
+
+*   **Q3 (Third Quartile):** 75% of the movies have budgets below ~$84 million, and 25% have budgets above it.
+
+*   **IQR (Interquartile Range):** The middle 50% of the movie budgets fall within the range from ~$16 to ~$84 million, which gives us a measure of the spread of the central portion of the data,.
+
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-IQR}
+
+**Exercise: Compare measures of spread for movie revenues**
+
+Calculate the interquartile range (IQR) for the movie revenues in `domestic_gross_2013_dollars` and compare it to the standard deviation. Which would you expect to by larger? Do the results match your expectations? 
+:::
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-IRQ collapse="true"}
+
+```{python}
+# Calculate the quartiles for movie revenues
+quartile_values_revenue = statistics.quantiles(domestic_gross_2013_dollars, n=4)
+Q1_revenue = quartile_values_revenue[0]
+Q3_revenue = quartile_values_revenue[2]
+iqr_revenue = Q3_revenue - Q1_revenue
+
+print(f"IQR (Interquartile Range) for revenues: ${iqr_revenue:,.2f}")
+
+stdev_revenue = statistics.stdev(domestic_gross_2013_dollars)
+print(f"Standard Deviation for revenues: ${stdev_revenue:,.2f}")
+
+```
+
+The interquartile range (IQR) for movie revenues is approximately $93 million, while the standard deviation is approximately $99 million. This indicates that the IQR is smaller than the standard deviation, which is expected because the IQR focuses on the middle 50% of the data and is less affected by extreme values (outliers). The standard deviation, on the other hand, takes into account all data points and can be influenced by outliers, leading to a larger value in this case.
+
+:::
+
+
+
+
+
+#### Five number summaries and the box plot
+
+The **five-number summary** is a set of descriptive statistics that provides a concise overview of the distribution of a dataset. It consists of:
+
+1.  **Minimum (Min):** The smallest value in the dataset.
+2.  **First Quartile (Q1):** The 25th percentile.
+3.  **Median (Q2):** The middle value (50th percentile).
+4.  **Third Quartile (Q3):** The 75th percentile.
+5.  **Maximum (Max):** The largest value in the dataset.
+
+
+A **box plot** (or box-and-whisker plot) is a standardized way of visually displaying this five-number summary.
+
+**Components of a Box Plot:**
+
+*   **Box:** The central box extends from Q1 to Q3, representing the IQR. The length of the box is the IQR.
+*   **Median Line:** A line inside the box marks the median (Q2).
+*   **Whiskers:** Lines (the "whiskers") typically extend from the ends of the box (Q1 and Q3) to the minimum and maximum values *within a certain range*. A common rule for whisker length is 1.5 times the IQR. So, the upper whisker extends to the largest data point less than or equal to `Q3 + 1.5 * IQR`, and the lower whisker extends to the smallest data point greater than or equal to `Q1 - 1.5 * IQR`.
+*   **Outliers:** Any data points that fall outside the whiskers are often plotted as individual points. These are potential outliers.
+
+
+
+**Python Code for Box Plot using Matplotlib:**
+
+Let's create a box plot for our `budget_2013_dollars`.
+
+```{python}
+
+plt.boxplot(budget_2013_dollars, patch_artist=True)  # patch_artist fills the box
+
+plt.title("Box Plot of Sample Movie Budgets (2013 Dollars)")
+plt.ylabel("Budget (2013 Dollars)")
+plt.xticks([1], ['Sample Budgets']) # Label the x-axis tick
+plt.ticklabel_format(style='plain', axis='y') # Show plain numbers on y-axis
+plt.grid(True, axis='y', linestyle='--') # Add horizontal grid lines
+plt.show()
+
+```
+
+The box plot for movie revenues shows a compact box (small IQR relative to the total range) and a long upper whisker, with a number of points identified as outliers, visually confirming the right-skewness of the data.
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-boxplot}
+
+Create a box plot for movie revenue data in `domestic_gross_2013_dollars`. Use the same style as above, and label the x-axis as "Domestic Gross (2013 Dollars)", the y-axis as "Revenue (2013 Dollars)", and give the plot a title of "Box Plot of Domestic Gross Revenue (2013 Dollars)". Do you notice any very large outliers in the data?  What do these outliers mean in terms of movie revenues? 
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-boxplot collapse="true"}
+
+```{python}
+
+plt.boxplot(domestic_gross_2013_dollars, patch_artist=True)  # patch_artist fills the box
+plt.title("Box Plot of Domestic Gross Revenue (2013 Dollars)")
+plt.ylabel("Revenue (2013 Dollars)")
+plt.xticks([1], ['Domestic Gross']) # Label the x-axis tick
+plt.ticklabel_format(style='plain', axis='y') # Show plain numbers on y-axis
+plt.grid(True, axis='y', linestyle='--') # Add horizontal grid lines
+plt.show()
+
+```
+
+Yes, there is one particularly large outliers in the data, which can be seen as the very top point in box plot. This outlier indicates that there is a movie with exceptionally high revenue compared to the majority of movies in this dataset; i.e., there is "blockbuster" movies that made significantly more money than most movies. 
+
+:::
+
+
+
+
+#### Outliers
+
+As briefly discussed above, an **outlier** is a data point that is significantly different from other observations in a dataset. Outliers can occur due to various reasons:
+
+*   **Measurement errors:** Faulty equipment or incorrect readings.
+*   **Data entry errors:** Typos during data input.
+*   **Genuine extreme values:** The data point is a legitimate, but rare, occurrence (e.g., a billionaire's income in a general population survey).
+
+
+**Impact of Outliers:**
+
+As also discussed above, outliers can have a substantial impact on statistical analyses:
+
+*   They can heavily skew the **mean**.
+*   They can inflate the **standard deviation**, making the data appear more spread out than it actually is for the typical values.
+*   As we will discuss later, they can affect the results of some statistical tests or models.
+
+**Identifying Outliers - The 1.5 x IQR Rule:**
+
+A common method for identifying potential outliers, often visualized by box plots, is the **1.5 x IQR rule**:
+
+1.  Calculate the Interquartile Range (IQR = Q3 - Q1).
+2.  Determine the **lower fence**: `Q1 - 1.5 * IQR`
+3.  Determine the **upper fence**: `Q3 + 1.5 * IQR`
+
+Any data point that falls below the lower fence or above the upper fence is considered a suspected outlier.
+
+
+**Example (using our `budget_2013_dollars` data):**
+
+Let's calculate which values would be considered outliers in the `budget_2013_dollars`.
+
+```{python}
+
+# Calculate quartiles and IQR for movie budgets
+q_rev_values = statistics.quantiles(budget_2013_dollars, n=4)
+q1_rev = q_rev_values[0]
+q3_rev = q_rev_values[2]
+iqr_rev = q3_rev - q1_rev
+
+print(f"Q1 Budget: ${q1_rev:,.2f}, Q3 Budget: ${q3_rev:,.2f}, IQR Budget: ${iqr_rev:,.2f}")
+
+lower_fence = q1_rev - 1.5 * iqr_rev
+upper_fence = q3_rev + 1.5 * iqr_rev
+print(f"Lower Fence: ${lower_fence:,.2f}")
+print(f"Upper Fence: ${upper_fence:,.2f}")
+
+```
+
+For our movie budgets, the lower fence might be around $-85 million. This value doesn't make sense in this context since we can't really have negative budgets, so there are no lower outliers in this dataset. The upper fence might be around $186 million. Any budget above $186 million would be considered an outlier by this rule. 
+
+In the next chapter we will learn how to use numerical array operations using the `numpy` library to easily find all outliers in a dataset. 
+
+
+**Handling Outliers:**
+
+There's no single "best" way to handle outliers; it depends on the cause and the context of your analysis, but in general, here are some common approaches:
+
+1.  **Correct:** If the outlier is a confirmed error (e.g., a typo like age 250 instead of 25), correct it if possible or possibly remove the data point from the dataset if correction is not possible.
+
+2.  **Investigate:** Always try to understand why the outlier exists. As mentioned above if the outlier is due to an error, then one can correct it or potentially remove it. If it's a genuine extreme value, you should try to understand the reason for the outlier by looking at other information about the data point. For example, in our movie data, is there something particulalry noteworthy about the movie that has a very high budget or revenue? Outliers can provide valuable insights so investigating them can tell potentially tell you interesting information about the data. 
+
+3.  **Analyze with and without the outlier:** If it's a genuine extreme value, it might be important information.
+    *   Use robust statistical methods that are less sensitive to outliers (e.g., using the median instead of the mean, or using the IQR instead of standard deviation for spread).
+    *   You could run analyses both with and without the outlier to see how much it influences the results. Report both results, as this can provide a more comprehensive understanding of the data.
+    *  If you do remove the outlier, it is **critically important to** document this decision and report this in any analysis that is done on this data.
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-outliers}
+
+Find the most extreme outlier value in the `domestic_gross_2013_dollars` list using the `max()` function. Then answer the following questions:
+
+*   What is the value of the most extreme outlier?
+*   What movie does this outlier correspond to?
+*   Did this movie pass the Bechdel test? 
+
+Hint: You can find the movie title corresponding to a specific revenue value by using the `.index()` method on the `domestic_gross_2013_dollars` list to find the index of the outlier value, and then use that index to access the corresponding movie title in the `movie_titles` list and whether it passed the Bechdel test using the `bechdel_status` list.
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-outliers collapse="true"}
+
+```{python}
+
+# Find the maximum value in the budget_2013_dollars list
+max_revenue = max(domestic_gross_2013_dollars)
+max_revenue_index = domestic_gross_2013_dollars.index(max_revenue)
+max_revenue_movie = movie_titles[max_revenue_index]
+
+print(f"The most extreme outlier value in domestic gross revenue is: ${max_revenue:,.2f}")
+print(f"This outlier corresponds to the movie: {max_revenue_movie}")
+print(f"The movie {bechdel_status[max_revenue_index]}ED the Bechdel test.")
+
+```
+
+
+:::
+
+
+
+
+### Z-scores
+
+A **Z-score** measures how many standard deviations a particular data point is away from the mean of its distribution.
+
+**Purpose of Z-scores:**
+
+*   **Standardization:** Z-scores transform data from different scales into a common standard scale, with a mean of 0 and a standard deviation of 1. This allows for comparison of values from different datasets that might have different original means and standard deviations.
+
+*   **Identifying Unusual Values:**
+    *   A Z-score close to 0 means the data point is close to the mean.
+    *   Z-scores greater than 0 indicate the data point is above the mean.
+    *   Z-scores less than 0 indicate the data point is below the mean.
+    *   Generally, Z-scores greater than +2 or less than -2 are considered somewhat unusual.
+    *   Z-scores greater than +3 or less than -3 are often considered very unusual or potential outliers.
+
+**Formula:**
+
+$z_i = \frac{x_i - \bar{x}}{s}$
+
+Where:
+*   $x_i$ is the individual data point
+*   $\bar{x}$ is the mean of the dataset.
+*   $s$ is the standard deviation of the dataset.
+
+
+**Python Calculation:**
+
+
+```{python}
+
+#| eval: false
+#| echo: false
+
+# Data for the tables below
+# Data is from:  https://www.kaggle.com/datasets/vivovinco/2023-2024-nba-player-stats
+# League statistics for the 2023-2024 NBA season are not completely accurate but ok for now
+
+nba_stats = pd.read_csv("data/2023_2024_NBA_Player_Stats_Regular.csv", sep=";", encoding="latin1")
+nba_stats = nba_stats[["Player", "G", "PTS", "TRB", "AST", "STL", "BLK", "FG%", "3P%", "FT%"]]
+nba_stats = nba_stats[nba_stats.G >= 58]  # get only players who played at least 58 games
+
+# visualize histgrams of the data
+plt.figure(figsize=(12, 8))
+for i, column in enumerate(nba_stats.columns[1:], start=1):
+    plt.subplot(3, 4, i)
+    plt.hist(nba_stats[column], bins=20, color='skyblue', edgecolor='black', alpha=0.7)
+    plt.title(column)
+    plt.xlabel("Value")
+    plt.ylabel("Frequency")
+    plt.grid(axis='y', linestyle='--')
+plt.tight_layout()
+plt.show()
+
+
+display(round(nba_stats.describe().iloc[1:3, ], 3))
+display(nba_stats[nba_stats.Player == "Nikola Joki?"])
+
+```
+
+
+For a change of pace, let's look at some basketball data to illustrate Z-scores. The Most Valuable Player in the 2023-2024 NBA season was Nikola Jokić, who played for the Denver Nuggets. Nikola's statistics for the 2023-2024 season were as follows:
+
+| Statistic           | Value   |
+|---------------------|---------|
+| Points Per Game     | 26.4    |
+| Rebounds Per Game   | 12.4    |
+| Assists Per Game    | 9.0     |
+| Steals Per Game     | 1.4     |
+| Blocks Per Game     | 0.9     |
+| Field Goal %        | 58.3%   |
+| 3-Point %           | 35.9%   |
+| Free Throw %        | 81.0%   |
+
+Which of these statistics is the most impressive? 
+
+From looking at this data it is hard to tell. However, if we know the average and standard deviation for each statistic across the league, we can calculate Z-scores to see how Nikola Jokić's performance compares to the rest of the league. The following table shows the average and standard deviation for points scored per game in the 2023-2024 NBA season:
+
+| Statistic           | Average   | Standard Deviation |
+|---------------------|-----------|--------------------|
+| Points Per Game     | 12.5      | 6.5                |
+| Rebounds Per Game   | 4.6       | 2.4                |
+| Assists Per Game    | 2.9       | 2.0                |
+| Steals Per Game     | 0.8       | 0.3                |
+| Blocks Per Game     | 0.6       | 0.5                |
+| Field Goal %        | 48.2%     | 6.8%               |
+| 3-Point %           | 33.4%     | 11.3%              |
+| Free Throw %        | 77.4%     | 8.7%               |
+
+
+If we calculate the Z-score for Nikola Jokić's for each of these statistics, we can see how his performance compares to the average player in the league to determine which statistic is the most impressive relative to the rest of the league.
+
+```{python}
+
+zscore_points = (26.4 - 12.5) / 6.5
+zscore_rebounds = (12.4 - 4.6) / 2.4
+zscore_assists = (9.0 - 2.9) / 2.0
+zscore_steals = (1.4 - 0.8) / 0.3
+zscore_blocks = (0.9 - 0.6) / 0.5
+zscore_fg = (58.3 - 48.2) / 6.8
+zscore_3p = (35.9 - 33.4) / 11.3
+zscore_ft = (81.0 - 77.4) / 8.7
+
+
+# Put all the Z-scores into a dictionary to make them easy to read
+z_scores = {
+    "Points Per Game": zscore_points,
+    "Rebounds Per Game": zscore_rebounds,
+    "Assists Per Game": zscore_assists,
+    "Steals Per Game": zscore_steals,
+    "Blocks Per Game": zscore_blocks,
+    "Field Goal %": zscore_fg,
+    "3-Point %": zscore_3p,
+    "Free Throw %": zscore_ft
+}   
+
+z_scores
+
+```
+
+From looking at the Z-scores, we can see that Nikola Jokić's performance was above average for all statistics since his z-score were positive for all statistics. However, he was particularly impressive in terms of **assists per game** and **rebounds per game**, with Z-scores of approximately **3.05** and **3.25**, respectively. This means he performed more than 3 standard deviations above the average player in those categories, indicating an exceptional level of performance compared to his peers.  For **points per game**, his Z-score was approximately **2.14**, which is also impressive, but not as high as his assists and rebounds. His field goal percentage Z-score of approximately **1.48** and 3-point percentage Z-score of approximately **0.22** indicate that while he was above average in these areas, they were not as exceptional compared to the rest of the league. His free throw percentage Z-score of approximately **0.41** is also above average, but not as impressive as his other statistics.
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-zscores}
+
+In a previous exercise we saw that Star Wars was an outlier in terms of revenue. To see how much of an outlier it is, please calculate the Z-score for Star Wars' revenue using the average and standard deviation from the `domestic_gross_2013_dollars` data. Does this z-score seem impressive? 
+
+:::
+
+
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-zscores collapse="true"}
+
+
+```{python}
+
+star_wars_revenue = 1771682790
+
+mean_revenue = statistics.mean(domestic_gross_2013_dollars)
+stdev_revenue = statistics.stdev(domestic_gross_2013_dollars)
+
+z_score_star_wars = (star_wars_revenue - mean_revenue) / stdev_revenue
+
+print(f"The Z-score for Star Wars' revenue is: {z_score_star_wars:.2f}")
+
+```
+
+The Z-score for Star Wars' revenue is approximately **13.3**. This indicates that Star Wars' revenue is more than 13 standard deviations above the average movie revenue in this dataset, which is extremely high and confirms that it is indeed an outlier. This Z-score suggests that Star Wars' revenue is exceptionally high compared to the majority of movies in this dataset, making it one of the highest-grossing films of all time.
+
+:::
+
+
+
+
+
+
+## Two quantitative variables
+
+So far, we've looked at describing and visualizing single variables (univariate analysis). Now, let's explore situations where we have pairs of quantitative variables and want to understand if and how they relate to each other (bivariate analysis). 
+
+
+
+### Scatter plots
+
+When you have two quantitative variables, a **scatter plot** is an excellent first step to visualize their relationship. Each point on a scatter plot represents a pair of values; one variable is plotted on the x-axis, and the other on the y-axis.
+
+**Purpose:**
+*   To see if there's a relationship between the two variables.
+*   To identify the general pattern or trend of the relationship.
+*   To spot any unusual observations (outliers) that don't fit the general pattern.
+
+
+We can create a scatter plot using the `matplotlib` library using either the `plt.plot()` or `plt.scatter()` functions. The `plt.scatter()` function is typically preferred for scatter plots because it allows you to specify the color and size of the points, making it easier to visualize the data.
+
+Let's visualize the relationship between movie budgets and their domestic gross revenues using our sample data.
+
+```{python}
+
+plt.figure(figsize=(8, 6))
+plt.scatter(budget_2013_dollars, domestic_gross_2013_dollars); #, color='darkcyan', alpha=0.7) # alpha for transparency
+
+plt.title("Movie Budget vs. Domestic Revenue (2013 Dollars, Sample)")
+plt.xlabel("Budget (2013 Dollars)")
+plt.ylabel("Domestic Revenue (2013 Dollars)")
+plt.ticklabel_format(style='plain', axis='both') # Show plain numbers
+plt.grid(True)
+plt.show()
+
+```
+
+
+**Interpreting Scatter Plots:**
+When examining a scatter plot, look for:
+
+1.  **Direction:**
+    *   **Positive Association:** As the x-variable increases, the y-variable tends to increase. The points will generally slope upwards from left to right. (e.g., study hours and exam scores).
+    *   **Negative Association:** As the x-variable increases, the y-variable tends to decrease. The points will generally slope downwards from left to right. (e.g., number of absences and exam scores).
+    *   **No Clear Direction:** No discernible increasing or decreasing trend.
+
+2.  **Form:**
+    *   **Linear:** The points tend to cluster around a straight line.
+    *   **Curvilinear (Non-linear):** The points tend to follow a curved pattern (e.g., a U-shape or an inverted U-shape).
+    *   **No Clear Form / Clusters:** Points are scattered without a clear line or curve, or they might form distinct clusters.
+
+3.  **Strength:**
+    *   **Strong:** The points are tightly clustered around the identified form (e.g., very close to a straight line). The relationship is clear.
+    *   **Weak:** The points are widely spread out from the form. The relationship is less clear.
+    *   **Moderate:** Somewhere in between strong and weak.
+
+You might also notice **outliers**, which are points that lie far away from the general pattern of the other data points.
+With our small sample of movie budget and revenue data, the relationship might not be extremely clear due to the limited number of points and potential for wide variation in movie performance. Generally, one might expect a positive association (higher budget, higher potential revenue), but this is not always strong or guaranteed.
+
+From looking at the scatter plot, it is hard to see a clear pattern due to mainly points laying on top of each other in the lower left corner of the plot and the fact that there is a large amount of variation in the data. 
+
+If we look at the points very closely, we might see that there is possibly a weak positive **positive association** between movie budgets and domestic revenues. As the budget increases, the domestic revenue tends to increase as well, although there are some exceptions. The relationship appears to be somewhat **linear**, but again the strength of the relationship seems to relatively **weak**, so it is hard to see a clear pattern. We also again see the clear outlier of Star Wars, which has a very high typical budget and and very high revenue. 
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-scatterplot}
+
+Create a scatter plot of movies domestic gross revenue (`domestic_gross_2013_dollars`) vs. international gross revenue (`int_gross_2013_dollars`) using the same style as above. Label the x-axis as "Domestic Gross Revenue (2013 Dollars)", the y-axis as "International Gross Revenue (2013 Dollars)", and give the plot a title of "Domestic vs. International Gross Revenue (2013 Dollars)".
+
+Also describe the relationship you see in the scatter plot. Is there a positive or negative association? Is it linear or non-linear? Is it strong or weak? Are there any outliers? If so, what do they mean in terms of movie revenues?
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-scatterplot collapse="true"}
+
+```{python}
+
+plt.figure(figsize=(8, 6))
+plt.scatter(domestic_gross_2013_dollars, int_gross_2013_dollars, color='darkcyan', alpha=0.7)
+plt.title("Domestic vs. International Gross Revenue (2013 Dollars)")
+plt.xlabel("Domestic Gross Revenue (2013 Dollars)")
+plt.ylabel("International Gross Revenue (2013 Dollars)")
+plt.ticklabel_format(style='plain', axis='both') # Show plain numbers
+plt.grid(True)
+plt.show()
+
+```
+
+From looking at the scatter plot, we can see a **positive association** between domestic and international gross revenues. As domestic revenue increases, international revenue also tends to increase. The relationship appears to be **linear**, with most points clustering around a straight line, indicating a **strong** relationship. However, there are some outliers, particularly movies with very high international revenues compared to their domestic revenues. These outliers likely represent blockbuster movies that performed exceptionally well internationally, even if they did not perform as well domestically.
+
+
+:::
+
+
+
+
+### The correlation statistic
+
+While scatter plots give us a visual sense of the relationship, the **correlation coefficient** (often just called correlation) provides a numerical measure (i.e., a statistic value) of the strength and direction of a *linear* relationship between two quantitative variables. The most common type is Pearson's correlation coefficient, denoted as `r`.
+
+**Properties of Pearson's r:**
+
+*   **Range:** The value of `r` is always between -1 and +1, inclusive.
+*   **Positive Correlation (r > 0):** Indicates a positive linear relationship. As one variable increases, the other tends to increase. An `r` of +1 indicates a perfect positive linear relationship (all points lie exactly on a straight line that slopes upwards).
+*   **Negative Correlation (r < 0):** Indicates a negative linear relationship. As one variable increases, the other tends to decrease. An `r` of -1 indicates a perfect negative linear relationship (all points lie exactly on a straight line that slopes downwards).
+*   **No Linear Correlation (r ≈ 0):** An `r` value close to 0 suggests that there is no *linear* association between the variables. However, there might still be a strong *non-linear* relationship (e.g., a U-shape), which correlation would not capture.
+*   **Strength:** The closer `r` is to +1 or -1, the stronger the linear relationship. An `r` of 0.8 indicates a stronger positive linear relationship than an `r` of 0.4. Similarly, an `r` of -0.9 indicates a stronger negative linear relationship than an `r` of -0.5.
+*  **Symmetry:** The correlation between X and Y is the same as the correlation between Y and X. In other words, `r(X, Y) = r(Y, X)`.
+
+The formula for Pearson's correlation coefficient is:
+$$r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}$$
+
+where:
+
+*   $x_i$ and $y_i$ are the individual data points for the two variables.  
+*   $\bar{x}$ and $\bar{y}$ are the means of the two variables.  
+
+We can understand this formula in term z-scores. The correlation coefficient `r` is the average of the product of the z-scores of the two variables. In other words, it measures how much the z-scores of one variable tend to increase or decrease with the z-scores of the other variable.
+
+
+**Python Calculation:**
+
+In Python, we can use the `statistics.correlation()` to calculate the correlation coefficient `r`. Let's calculate it for our sample movie budgets and revenues.
+
+```{python}
+
+statistics.correlation(budget_2013_dollars, domestic_gross_2013_dollars)
+
+```
+
+From looking at this output, we see that the correlation coefficient `r` is approximately **0.46**. This indicates a moderate positive linear relationship between movie budgets and domestic revenues; i.e., movies with higher budgets tend to have higher domestic revenues. This value is not very close to 1, so the relationship is not very strong, but it is still a positive association.
+
+
+**Important Note: Correlation Does Not Imply Causation!**
+
+This is a crucial point in statistics: just because two variables are correlated (even strongly correlated) does not mean that one variable *causes* the other to change. There might be:
+
+*   **Confounding variable:** A third, unobserved variable that is affecting both variables. (e.g., ice cream sales and shark attacks are correlated, but both are caused by warmer weather).
+
+*   **Reverse causation:** It's possible that Y causes X, rather than X causing Y.
+
+Correlation tells you that there is an association, not the reason for it!
+
+
+::: {.callout-tip title="Exercise" #exercise-descriptive_stats_and_plots-correlation}
+
+Calculate the correlation coefficient between movie domestic gross revenue (`domestic_gross_2013_dollars) and international gross revenues (`int_gross_2013_dollars`). What does this tell you about the relationship between these two variables? Is it a strong or weak correlation? Is it positive or negative?
+
+:::
+
+
+::: {.callout-note title="Solution" #solution-descriptive_stats_and_plots-correlation collapse="true"}
+
+```{python}
+
+correlation_budget_int_gross = statistics.correlation(domestic_gross_2013_dollars, int_gross_2013_dollars)
+print(f"Correlation between movie budgets and international gross revenues: {correlation_budget_int_gross:.2f}")
+
+```
+
+The correlation coefficient between movie domestic gross revenue and international gross revenues is approximately **0.93**. This indicates a strong positive linear relationship between these two variables; i.e., movies with higher domestic revenues tend to have higher international revenues as well. This suggests that movies that perform well domestically also tend to perform well internationally, which is consistent with the idea that successful movies often have broad appeal across different markets.
+
+:::
+
+
+
+## Summary
+
+Congratulations on making it through this chapter on descriptive statistics and plots! You've taken a significant step from understanding Python basics to actually using Python to explore and make sense of data.
+
+We started by learning the fundamental distinction between **categorical data** (like favorite colors or types of pets) and **quantitative data** (like ages or exam scores). This distinction guides how we approach summarizing and visualizing information.
+
+For **categorical data**, you learned how to:   
+
+*   Summarize it using **frequency tables** and **proportions**.
+*   Visualize it effectively with **bar graphs** and, while understanding their limitations, **pie charts**.
+
+
+For **quantitative data**, we covered a broader range of tools:   
+
+*   Visualizing distributions with **histograms** (and interpreting their shapes like skewed or symmetric) and **box plots**.
+*   Summarizing its central tendency with the **mean** and **median**.
+*   Measuring its spread or variability with the **standard deviation**, **quartiles** (Q1, Q3), and the **Interquartile Range (IQR)**.
+*   Putting these together into a **five-number summary**.
+*   Understanding and identifying **outliers** and calculating **Z-scores** to see where data points stand relative to their distribution.
+
+We also looked at **two quantitative variables** together:
+
+*   Using **scatter plots** to visualize their relationship.
+*   Quantifying the strength and direction of a linear relationship with the **correlation coefficient**.
+*   And finally, we saw how **line plots** are useful for visualizing **time series data** to spot trends.
+
+Throughout this chapter, we've relied on base Python, particularly the `statistics` module for calculations, and the versatile `matplotlib.pyplot` library for creating our plots. Remember, clear labeling of your plots is crucial for communication!
+
+The descriptive statistics and visualization techniques you've learned here are the building blocks for more advanced data analysis and statistical inference that you might encounter later. Keep practicing, explore different datasets, and you'll become increasingly comfortable turning raw data into meaningful insights!
+
+
+
+
+## Exercises
+
 
 ::: {.exercise}
 **Exercise: Pet Preferences**
@@ -318,41 +1602,9 @@ plt.show()
 
 :::
 
-#### Pie charts
 
-A **pie chart** is a circular statistical graphic, which is divided into slices to illustrate numerical proportion. In a pie chart, the arc length of each slice (and consequently its central angle and area), is proportional to the quantity it represents. While they are colorful and familiar, they are often criticized.
 
-Let's create a pie chart for our `bechdel_reasons` sample from the movie dataset:
 
-```{python}
-import matplotlib.pyplot as plt
-
-# Sample data from our movie dataset subset (as defined in "Example Dataset")
-bechdel_reasons_sample = ['men', 'notalk', 'notalk', 'men', 'notalk', 'men', 'notalk', 'men']
-reason_categories = sorted(list(set(bechdel_reasons_sample))) # ['men', 'notalk']
-reason_counts = [bechdel_reasons_sample.count(reason) for reason in reason_categories] # [4, 4]
-
-# Colors for the slices
-colors = ['skyblue', 'lightcoral']
-# explode = (0, 0.05) # Optional: if you want to "explode" a slice
-
-plt.figure(figsize=(7, 7))
-plt.pie(reason_counts, labels=reason_categories, colors=colors, autopct='%1.1f%%', startangle=90)
-# autopct formats the percentage displayed on slices
-
-plt.title("Proportion of Bechdel Test Failure Reasons (Sample Data)")
-plt.axis('equal') # Equal aspect ratio ensures that pie is drawn as a circle.
-plt.show()
-```
-
-**Limitations of Pie Charts:**
-
-*   **Hard to Compare Slices:** It can be difficult for the human eye to accurately compare the sizes of slices, especially when the differences are small or when there are many slices.
-*   **Not Ideal for Many Categories:** Pie charts become cluttered and hard to read if you have more than a few categories.
-*   **Less Effective for Showing Exact Values:** While percentages can be displayed, bar charts are generally better for showing precise frequencies or making direct comparisons.
-*   **Misleading if Not Used for Parts of a Whole:** Pie charts should only be used when you are representing parts of a whole (i.e., proportions that sum to 100%).
-
-For these reasons, many data visualization experts recommend using bar charts instead of pie charts in most situations.
 
 ::: {.exercise}
 **Exercise: Pet Preferences Pie Chart**
@@ -393,95 +1645,8 @@ plt.show()
     *   The **pie chart** shows the proportions, but comparing the smaller slices (Bird vs. Fish, or even Cat vs. Dog) can be less precise visually than comparing bar heights. While the percentages help, the visual comparison itself is weaker. If the goal is to quickly see which category is largest and roughly its proportion of the whole, a pie chart can work, but for more detailed comparisons, the bar chart excels.
 :::
 
-### Labeling axes
-
-We've already incorporated this into our plotting examples, but it's worth reiterating: **always label your plots clearly!**
-
-This means including:
-*   A **Title:** What does the plot represent?
-*   **X-axis Label:** What do the values on the horizontal axis represent?
-*   **Y-axis Label:** What do the values on the vertical axis represent?
-
-Without these labels, your plot is just a collection of shapes and colors, and its meaning can be lost or misinterpreted. Clear labels are crucial for communicating your findings effectively. Think of them as the signposts that guide the reader through your data story. For example, in our bar graphs, `plt.xlabel()`, `plt.ylabel()`, and `plt.title()` were used to make the plots understandable.
 
 
-
-### Visualizing quantitative data
-
-While categorical data is about groups and labels, quantitative data deals with numbers. Visualizing quantitative data helps us understand its distribution, central tendency, and spread. Histograms are a primary tool for this.
-
-#### Histograms
-
-A **histogram** is a graphical representation of the distribution of numerical data. It's similar to a bar graph, but for quantitative data, the "categories" are continuous numerical intervals, called **bins** (or classes, or intervals). The height of each bar in a histogram represents the frequency (or count) of data points falling within that particular bin.
-
-**Creating Bins**
-To create a histogram, you first need to define these bins. For example, if you have movie revenues (in millions of dollars) from $0 to $200 million, you might create bins like:
-*   $0M - $50M
-*   $50M - $100M
-*   $100M - $150M
-*   $150M - $200M
-
-Then, you count how many movie revenues fall into each bin.
-
-**Sample Data and Manual Binning**
-
-Let's use a sample of our `domestic_gross_2013_dollars` data. For a clearer illustration of histogram shapes and statistics, we'll use a slightly augmented list here, imagining these are revenues in 2013 dollars for a selection of movies:
-`movie_revenues_sample = [376081.0, 752163.0, 11282440.0, 26209.0, 75216.0, 6902034.0, 45000000.0, 150000000.0]`
-
-Many real-world datasets, like movie revenues, are often **right-skewed**, meaning most movies make a modest amount, while a few blockbusters make a very large amount. Our small sample here also shows this tendency.
-
-**Creating Histograms with Matplotlib**
-
-Matplotlib provides the `plt.hist()` function. Let's plot our `movie_revenues_sample`:
-
-```{python}
-import matplotlib.pyplot as plt
-
-# Sample movie revenues (in 2013 dollars)
-movie_revenues_sample = [
-    376081.0,  # Intolerance
-    752163.0,  # Over the Hill...
-    11282440.0, # The Big Parade
-    26209.0,   # Metropolis
-    75216.0,   # Pandora's Box
-    6902034.0, # The Broadway Melody
-    45000000.0, # A more modern moderately successful movie
-    150000000.0 # A modern blockbuster
-]
-
-plt.figure(figsize=(8, 6))
-# Let's use 5 bins for this data. Edgecolor makes bins distinct.
-plt.hist(movie_revenues_sample, bins=5, color='skyblue', edgecolor='black')
-
-plt.title("Distribution of Sample Movie Revenues")
-plt.xlabel("Domestic Gross (2013 Dollars)")
-plt.ylabel("Frequency (Number of Movies)")
-# Optional: Format x-axis for better readability if numbers are very large
-plt.ticklabel_format(style='plain', axis='x')
-plt.xticks(rotation=30) # Rotate ticks slightly
-plt.show()
-
-```
-
-With this data, the histogram will likely show most values concentrated in the lower bins, with a tail extending to the right due to the one or two much larger revenue figures, indicating a right-skewed distribution.
-
-**Common Shapes of Histograms**
-
-Histograms can reveal the underlying shape of your data's distribution:
-
-*   **Right-skewed (Positively Skewed):** The tail on the right side of the distribution is longer or fatter than the left side. Most data points are concentrated on the left. Think of income data, where many people have lower to moderate incomes, and a few have very high incomes.
-    *   *Visual cue: Peak on the left, tail to the right.*
-*   **Left-skewed (Negatively Skewed):** The tail on the left side is longer or fatter than the right. Most data points are concentrated on the right. Think of retirement ages, where most people retire in their 60s or 70s, but a few retire much earlier.
-    *   *Visual cue: Peak on the right, tail to the left.*
-*   **Symmetric and Bell-Shaped (Normal Distribution):** The data is symmetrically distributed around a central value, forming a bell shape. Many natural phenomena follow this pattern (e.g., heights of people).
-    *   *Visual cue: A single peak in the middle, tapering off equally on both sides.*
-*   **Symmetric but Not Bell-Shaped:** The data is symmetric but doesn't form a bell.
-    *   **Uniform Distribution:** All bins have roughly the same frequency. (e.g., rolling a fair die many times, each number has an equal chance).
-        *   *Visual cue: Flat top, bars are of similar height.*
-    *   **Bimodal Distribution:** Has two peaks. This might indicate two different groups in your data.
-        *   *Visual cue: Two distinct peaks.*
-
-Understanding the shape can be the first step to selecting appropriate statistical analyses.
 
 ::: {.exercise}
 **Exercise: Ages Histogram**
@@ -521,42 +1686,8 @@ plt.show()
 
 :::
 
-### Statistics for quantitative data
 
-Beyond visualizations, we use numerical summaries (statistics) to describe quantitative data. These statistics help us pinpoint the center of the data, understand its spread, and identify other important characteristics. We'll use our `movie_revenues_sample` for these examples.
 
-```{python}
-
-# Sample movie revenues (defined previously for histogram example)
-movie_revenues_sample = [
-    376081.0, 752163.0, 11282440.0, 26209.0, 75216.0,
-    6902034.0, 45000000.0, 150000000.0
-]
-
-```
-
-#### The mean
-
-The **mean**, often called the average, is the most common measure of central tendency.
-
-**Calculation:** It's calculated by summing all the values in a dataset and then dividing by the number of values.
-Mean = (Sum of all values) / (Number of values)
-
-**Python Calculation:**
-Python's built-in `statistics` module makes this easy.
-
-```{python}
-import statistics
-
-# Using our movie revenues sample
-# movie_revenues_sample defined in the text above
-mean_revenue = statistics.mean(movie_revenues_sample)
-print(f"The mean revenue is: ${mean_revenue:,.2f}")
-# Using f-string formatting for currency
-
-```
-
-The `:,` in the f-string formatting adds a comma as a thousands separator.
 
 ::: {.exercise}
 **Exercise: Calculate Mean Age**
@@ -581,219 +1712,11 @@ The mean age is: 43.1
 ```
 :::
 
-#### The standard deviation
 
-The **standard deviation** is a measure of the amount of variation or dispersion in a set of values. A low standard deviation indicates that the values tend to be close to the mean, while a high standard deviation indicates that the values are spread out over a wider range.
-
-**Python Calculation:**
-
-```{python}
-
-import statistics
-
-# Using our movie revenues sample
-# movie_revenues_sample defined in the text above
-std_dev_revenue = statistics.stdev(movie_revenues_sample)
-mean_revenue = statistics.mean(movie_revenues_sample) # Calculated earlier for context
-
-print(f"The mean revenue is: ${mean_revenue:,.2f}")
-print(f"The standard deviation of revenue is: ${std_dev_revenue:,.2f}")
-
-```
-
-A large standard deviation, especially relative to the mean, often accompanies skewed data, indicating that data points are, on average, quite far from the mean.
 
 
 ::: {.exercise}
-**Exercise: Calculate Standard Deviation of Ages**
 
-Calculate the standard deviation of the `ages` data:
-`ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]`
-
-What does this value tell you about the spread of ages?
-:::
-
-
-::: {.solution}
-
-**Solution: Calculate Standard Deviation of Ages**
-
-```{python}
-
-import statistics
-
-ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
-std_dev_ages = statistics.stdev(ages)
-print(f"The standard deviation of ages is: {std_dev_ages}")
-
-```
-
-
-**Output:**
-```
-The standard deviation of ages is: 12.638132019998793
-
-```
-**Interpretation:**
-A standard deviation of approximately 12.64 years means that, on average, an individual's age in this dataset is about 12.64 years away from the mean age of 43.1 years. It indicates a moderate amount of spread in the ages. Some ages are quite close to the mean, while others (like 22 or 65) are further away.
-
-:::
-
-#### The median
-
-The **median** is another measure of central tendency. It is the middle value in a dataset that has been sorted in ascending order. The median is less affected by outliers and skewed data than the mean.
-
-**Calculation:**
-1.  Sort the data from smallest to largest.
-2.  If the number of data points (n) is **odd**, the median is the middle value at position `(n+1)/2`.
-3.  If the number of data points (n) is **even**, the median is the average of the two middle values at positions `n/2` and `(n/2) + 1`.
-
-**Python Calculation:**
-
-```{python}
-import statistics
-import matplotlib.pyplot as plt # For plotting
-
-# Using our movie revenues sample
-movie_revenues_sample = [
-    376081.0, 752163.0, 11282440.0, 26209.0, 75216.0,
-    6902034.0, 45000000.0, 150000000.0
-]
-median_revenue = statistics.median(movie_revenues_sample)
-mean_revenue = statistics.mean(movie_revenues_sample) # For comparison
-
-print(f"The median revenue is: ${median_revenue:,.2f}")
-print(f"The mean revenue is: ${mean_revenue:,.2f}")
-
-# Visualizing Mean vs. Median on a Histogram
-plt.figure(figsize=(10, 6))
-plt.hist(movie_revenues_sample, bins=10, color='skyblue', edgecolor='black', alpha=0.7)
-plt.axvline(mean_revenue, color='red', linestyle='dashed', linewidth=2, label=f'Mean: ${mean_revenue:,.0f}')
-plt.axvline(median_revenue, color='green', linestyle='dashed', linewidth=2, label=f'Median: ${median_revenue:,.0f}')
-plt.title("Distribution of Sample Movie Revenues with Mean and Median")
-plt.xlabel("Domestic Gross (2013 Dollars)")
-plt.ylabel("Frequency")
-plt.ticklabel_format(style='plain', axis='x')
-plt.xticks(rotation=30)
-plt.legend()
-plt.show()
-
-```
-
-**Median vs. Mean:**
-The median is often a better measure of central tendency when your data has **outliers** (extremely high or low values) or is **skewed**.
-For our `movie_revenues_sample`, which is right-skewed (a few movies make much more than most), you'll notice the mean is significantly higher than the median. The mean is pulled upwards by the high-grossing movies, while the median provides a better sense of the "typical" movie's revenue in this sample.
-
-Consider this income data: `[30000, 32000, 35000, 40000, 1000000]`
-*   Mean: `(30000+32000+35000+40000+1000000) / 5 = 227400`
-*   Median: `35000` (after sorting: `[30000, 32000, 35000, 40000, 1000000]`)
-The mean is heavily influenced by the one very high income, while the median gives a more typical representation.
-
-::: {.exercise}
-
-**Exercise: Calculate Median Age and Impact of Outlier**
-
-1.  Calculate the median of the `ages` data:
-    `ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]`
-2.  Now, add an outlier: a person aged 100, to this list: `ages_with_outlier = ages + [100]`
-3.  Calculate both the mean and median for `ages_with_outlier`.
-4.  How did the mean and median change? Which is more representative in the presence of the outlier?
-:::
-
-
-::: {.solution}
-
-**Solution: Calculate Median Age and Impact of Outlier**
-
-```{python}
-
-import statistics
-
-ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]
-
-# 1. Median of original ages
-median_age = statistics.median(ages)
-print(f"The original median age is: {median_age}")
-
-# 2. Add outlier
-ages_with_outlier = ages + [100]
-
-# 3. Calculate mean and median for the new list
-mean_age_outlier = statistics.mean(ages_with_outlier)
-median_age_outlier = statistics.median(ages_with_outlier)
-
-print(f"Mean age with outlier: {mean_age_outlier}")
-print(f"Median age with outlier: {median_age_outlier}")
-
-# Original mean for comparison
-mean_age_original = statistics.mean(ages) # 43.1
-print(f"Original mean age: {mean_age_original}")
-```
-
-
-**Output:**
-```
-The original median age is: 43.5
-Mean age with outlier: 45.80952380952381
-Median age with outlier: 45.0
-Original mean age: 43.1
-```
-
-**4. How did the mean and median change?**
-
-*   **Original Mean:** 43.1
-*   **Original Median:** 43.5
-
-*   **Mean with Outlier (100):** Increased from 43.1 to approximately 45.81 (a change of +2.71).
-*   **Median with Outlier (100):** Increased from 43.5 to 45.0 (a change of +1.5).
-
-The mean was pulled up more significantly by the single outlier value of 100. The median also increased, as expected since the new value is at the higher end, but its change was less drastic. In the presence of this outlier, the **median (45.0)** is likely a more representative measure of the "typical" age in the dataset than the **mean (45.81)**, as it is less influenced by the single very high age.
-
-:::
-
-
-#### Quartiles
-
-Quartiles are values that divide your sorted data into four equal parts. They help in understanding the spread and distribution of your data beyond just the center.
-
-*   **Q1 (First Quartile or Lower Quartile):** This is the 25th percentile. 25% of the data points are below Q1, and 75% are above it.
-*   **Q2 (Second Quartile):** This is the 50th percentile, which is also the **median** of the dataset. 50% of the data is below Q2, and 50% is above.
-*   **Q3 (Third Quartile or Upper Quartile):** This is the 75th percentile. 75% of the data points are below Q3, and 25% are above it.
-
-**Interquartile Range (IQR)**
-The **Interquartile Range (IQR)** is the difference between the third quartile (Q3) and the first quartile (Q1):
-`IQR = Q3 - Q1`
-
-The IQR represents the range of the middle 50% of your data. It's a robust measure of spread because it's not affected by outliers (extreme values at the ends of the dataset).
-
-**Python Calculation:**
-The `statistics` module's `quantiles()` function can be used. Let's use our `movie_revenues_sample`.
-
-```{python}
-import statistics
-
-# Using our movie revenues sample (defined earlier)
-movie_revenues_sample = [
-    376081.0, 752163.0, 11282440.0, 26209.0, 75216.0,
-    6902034.0, 45000000.0, 150000000.0
-]
-movie_revenues_sample.sort() # Sort for easier manual interpretation if desired
-
-quartile_values = statistics.quantiles(movie_revenues_sample, n=4)
-Q1 = quartile_values[0]
-median_q2 = quartile_values[1]
-Q3 = quartile_values[2]
-iqr = Q3 - Q1
-
-print(f"Sorted Sample Revenues: {['${:,.0f}'.format(rev) for rev in movie_revenues_sample]}")
-print(f"Q1 (25th percentile): ${Q1:,.2f}")
-print(f"Median (Q2 - 50th percentile): ${median_q2:,.2f}") # Same as statistics.median()
-print(f"Q3 (75th percentile): ${Q3:,.2f}")
-print(f"IQR (Interquartile Range): ${iqr:,.2f}")
-
-```
-
-::: {.exercise}
 **Exercise: Calculate and Interpret Quartiles for Ages**
 
 Using the `ages` data:
@@ -801,6 +1724,8 @@ Using the `ages` data:
 
 1.  Calculate Q1, Q3, and the IQR.
 2.  Interpret these values in the context of the ages dataset.
+
+
 :::
 
 ::: {.solution}
@@ -848,61 +1773,11 @@ print(f"IQR: {IQR}")
 
 :::
 
-#### Five number summaries and the box plot
-
-The **five-number summary** is a set of descriptive statistics that provides a concise overview of the distribution of a dataset. It consists of:
-1.  **Minimum (Min):** The smallest value in the dataset.
-2.  **First Quartile (Q1):** The 25th percentile.
-3.  **Median (Q2):** The middle value (50th percentile).
-4.  **Third Quartile (Q3):** The 75th percentile.
-5.  **Maximum (Max):** The largest value in the dataset.
-
-A **box plot** (or box-and-whisker plot) is a standardized way of visually displaying this five-number summary.
-
-**Components of a Box Plot:**
-*   **Box:** The central box extends from Q1 to Q3, representing the IQR. The length of the box is the IQR.
-*   **Median Line:** A line inside the box marks the median (Q2).
-*   **Whiskers:** Lines (the "whiskers") typically extend from the ends of the box (Q1 and Q3) to the minimum and maximum values *within a certain range*. A common rule for whisker length is 1.5 times the IQR. So, the upper whisker extends to the largest data point less than or equal to `Q3 + 1.5 * IQR`, and the lower whisker extends to the smallest data point greater than or equal to `Q1 - 1.5 * IQR`.
-*   **Outliers:** Any data points that fall outside the whiskers are often plotted as individual points. These are potential outliers.
-
-**Python Code for Box Plot using Matplotlib:**
-Let's create a box plot for our `movie_revenues_sample`.
-
-```{python}
-
-import matplotlib.pyplot as plt
-# movie_revenues_sample defined earlier
-# movie_revenues_sample = [
-#     376081.0, 752163.0, 11282440.0, 26209.0, 75216.0,
-#     6902034.0, 45000000.0, 150000000.0
-# ]
-
-plt.figure(figsize=(7, 8)) # Adjusted for better vertical display
-plt.boxplot(movie_revenues_sample, patch_artist=True) # patch_artist fills the box
-
-plt.title("Box Plot of Sample Movie Revenues")
-plt.ylabel("Domestic Gross (2013 Dollars)")
-plt.xticks([1], ['Sample Revenues']) # Label the x-axis tick
-plt.ticklabel_format(style='plain', axis='y') # Show plain numbers on y-axis
-plt.grid(True, axis='y', linestyle='--') # Add horizontal grid lines
-plt.show()
-
-# For interpretation, let's print the five-number summary using statistics module
-# import statistics # Already imported if running sequentially in a notebook
-# Min = min(movie_revenues_sample)
-# Max = max(movie_revenues_sample)
-# movie_revenues_sample.sort() # quantiles expects sorted data if using older methods, but handles it for n=4
-# q_values = statistics.quantiles(movie_revenues_sample, n=4)
-# Q1 = q_values[0]
-# Median = statistics.median(movie_revenues_sample) # or q_values[1]
-# Q3 = q_values[2]
-# print(f"Min: ${Min:,.0f}, Q1: ${Q1:,.0f}, Median: ${Median:,.0f}, Q3: ${Q3:,.0f}, Max: ${Max:,.0f}")
-```
 
 
-The box plot for movie revenues will likely show a compact box (small IQR relative to the total range) and a long upper whisker, possibly with some points identified as outliers, visually confirming the right-skewness.
 
 ::: {.exercise}
+
 **Exercise: Create and Interpret Box Plot for Ages**
 
 1.  Create a box plot for the `ages` data:
@@ -972,123 +1847,7 @@ print(f"  Max: {max_age}")      # Expected: 65
 
 :::
 
-#### Outliers
 
-An **outlier** is a data point that is significantly different from other observations in a dataset. Outliers can occur due to various reasons:
-*   **Measurement errors:** Faulty equipment or incorrect readings.
-*   **Data entry errors:** Typos during data input.
-*   **Sampling errors:** An unusual item was included in the sample by chance.
-*   **Genuine extreme values:** The data point is a legitimate, but rare, occurrence (e.g., a billionaire's income in a general population survey).
-
-**Impact of Outliers:**
-Outliers can have a substantial impact on statistical analyses:
-*   They can heavily skew the **mean**.
-*   They can inflate the **standard deviation**, making the data appear more spread out than it actually is for the typical values.
-*   They can affect the results of some statistical tests or models.
-
-**Identifying Outliers - The 1.5 x IQR Rule:**
-A common method for identifying potential outliers, often visualized by box plots, is the **1.5 x IQR rule**:
-1.  Calculate the Interquartile Range (IQR = Q3 - Q1).
-2.  Determine the **lower fence**: `Q1 - 1.5 * IQR`
-3.  Determine the **upper fence**: `Q3 + 1.5 * IQR`
-Any data point that falls below the lower fence or above the upper fence is considered a suspected outlier.
-
-**Example (using our `movie_revenues_sample` data):**
-First, let's calculate Q1, Q3, and IQR for `movie_revenues_sample`.
-```{python}
-
-import statistics
-movie_revenues_sample = [
-    376081.0, 752163.0, 11282440.0, 26209.0, 75216.0,
-    6902034.0, 45000000.0, 150000000.0
-]
-movie_revenues_sample.sort()
-
-q_rev_values = statistics.quantiles(movie_revenues_sample, n=4)
-q1_rev = q_rev_values[0]
-q3_rev = q_rev_values[2]
-iqr_rev = q3_rev - q1_rev
-
-print(f"Q1 Revenue: ${q1_rev:,.2f}, Q3 Revenue: ${q3_rev:,.2f}, IQR Revenue: ${iqr_rev:,.2f}")
-
-lower_fence = q1_rev - 1.5 * iqr_rev
-upper_fence = q3_rev + 1.5 * iqr_rev
-print(f"Lower Fence: ${lower_fence:,.2f}")
-print(f"Upper Fence: ${upper_fence:,.2f}")
-
-# Check for outliers in our sample
-outliers_sample = [rev for rev in movie_revenues_sample if rev < lower_fence or rev > upper_fence]
-if outliers_sample:
-    print(f"Outliers in sample: {[ '${:,.0f}'.format(o) for o in outliers_sample]}")
-else:
-    print("No outliers in this specific sample based on 1.5xIQR rule.")
-
-```
-
-
-For our `movie_revenues_sample`, the value $150,000,000 is likely to be identified as an outlier by this rule, as it's significantly higher than other values in this small illustrative list.
-*Self-correction during thought process: The upper fence calculation in the draft was `q3_rev - 1.5 * iqr_rev`, it should be `q3_rev + 1.5 * iqr_rev`. I will correct this in the actual replacement.*
-
-
-**Handling Outliers:**
-There's no single "best" way to handle outliers; it depends on the cause and the context of your analysis.
-1.  **Investigate:** Always try to understand why the outlier exists. Is it a typo, a measurement problem, or a real but extreme value?
-2.  **Correct:** If it's a confirmed error (e.g., a typo like age 250 instead of 25), correct it if possible.
-3.  **Remove:** If it's an error that cannot be corrected, you might consider removing it, but document this decision.
-4.  **Keep and Analyze:** If it's a genuine extreme value, it might be important information.
-    *   You could run analyses both with and without the outlier to see how much it influences the results.
-    *   Use robust statistical methods that are less sensitive to outliers (e.g., using the median instead of the mean, or using the IQR instead of standard deviation for spread).
-    *   Sometimes, the outlier itself is the most interesting part of the data!
-
-#### Z-scores
-
-A **Z-score** (or standard score) measures how many standard deviations a particular data point is away from the mean of its distribution.
-
-**Purpose of Z-scores:**
-*   **Standardization:** Z-scores transform data from different scales into a common standard scale (with a mean of 0 and a standard deviation of 1). This allows for comparison of values from different datasets that might have different original means and standard deviations.
-*   **Identifying Unusual Values:**
-    *   A Z-score close to 0 means the data point is close to the mean.
-    *   Z-scores greater than 0 indicate the data point is above the mean.
-    *   Z-scores less than 0 indicate the data point is below the mean.
-    *   Generally, Z-scores greater than +2 or less than -2 are considered somewhat unusual.
-    *   Z-scores greater than +3 or less than -3 are often considered very unusual or potential outliers.
-
-**Formula:**
-`Z = (X - μ) / σ`
-Where:
-*   `X` is the individual data point.
-*   `μ` (mu) is the mean of the dataset.
-*   `σ` (sigma) is the standard deviation of the dataset.
-
-**Python Calculation (Manual):**
-Let's consider an example from the broader movie dataset. Suppose the average domestic gross (in 2013 dollars) for all movies in the full FiveThirtyEight dataset is approximately **μ = $60.9 million**, and the standard deviation is approximately **σ = $110.9 million**. (These are hypothetical representative values for this example).
-
-Now, let's take a very high-grossing movie, "Star Wars: Episode VII - The Force Awakens" (2015). Its actual domestic gross was much higher, but for an illustrative 2013-adjusted example, let's imagine its adjusted revenue was **$863.6 million**.
-
-```{python}
-
-import statistics # Though not strictly needed here as we define mean/stdev
-
-# Values from the broader dataset context for illustration
-full_dataset_mean_revenue = 60900000.0  # Approx. $60.9M (Hypothetical)
-full_dataset_stdev_revenue = 110900000.0 # Approx. $110.9M (Hypothetical)
-
-# A specific movie's revenue (hypothetical 2013-adjusted for a major blockbuster)
-star_wars_revenue_example = 863600000.0 # Approx. $863.6M (Hypothetical)
-
-# Calculate Z-score for Star Wars
-z_score_star_wars = (star_wars_revenue_example - full_dataset_mean_revenue) / full_dataset_stdev_revenue
-print(f"The Z-score for Star Wars' revenue is: {z_score_star_wars:.2f}")
-
-# For comparison, let's check a movie from our sample list, e.g., 'Metropolis'
-# movie_revenues_sample defined earlier: [..., 26209.0, ...]
-metropolis_revenue = 26209.0
-z_score_metropolis = (metropolis_revenue - full_dataset_mean_revenue) / full_dataset_stdev_revenue
-print(f"The Z-score for Metropolis' revenue (using full dataset stats) is: {z_score_metropolis:.2f}")
-```
-
-
-A Z-score like the one for Star Wars (which would be `(863.6M - 60.9M) / 110.9M ≈ 7.24`) is very high, indicating it's an extreme outlier, more than 7 standard deviations above the average movie's gross in that dataset. Metropolis, on the other hand, would have a negative Z-score (approx -0.55), indicating it grossed below the average, but not an extreme amount in terms of standard deviations.
 
 
 ::: {.exercise}
@@ -1142,89 +1901,8 @@ Z-score for maximum age (65): 1.73
 
 
 
-## Two quantitative variables
-
-So far, we've looked at describing and visualizing single variables (univariate analysis). Now, let's explore situations where we have pairs of quantitative variables and want to understand if and how they relate to each other (bivariate analysis). We'll use our sample movie `budget_2013_dollars` and `revenue_2013_dollars` for these examples.
-
-Remember our sample lists (first 8 entries from the dataset defined in the "Example Dataset" section):
-```{python}
-
-# From our "Example Dataset" section
-revenue_2013_dollars = [
-    376081.0, 752163.0, 1504326.0, 300865.0, 75216.0,
-    10304216.0, 10304216.0, 5888123.0
-]
-budget_2013_dollars = [
-    483120.0, 181036.0, 302060.0, 1504326.0, 300865.0,
-    638000.0, 4785000.0, 1148000.0
-]
-
-```
 
 
-
-### Scatter plots
-
-When you have two quantitative variables, a **scatter plot** is an excellent first step to visualize their relationship. Each point on a scatter plot represents a pair of values; one variable is plotted on the x-axis, and the other on the y-axis.
-
-**Purpose:**
-*   To see if there's a relationship between the two variables.
-*   To identify the general pattern or trend of the relationship.
-*   To spot any unusual observations (outliers) that don't fit the general pattern.
-
-**Python Code using Matplotlib:**
-Let's visualize the relationship between movie budgets and their domestic gross revenues using our sample data.
-
-```{python}
-
-import matplotlib.pyplot as plt
-
-# Sample data from our movie dataset subset
-budgets = [
-    483120.0, 181036.0, 302060.0, 1504326.0, 300865.0,
-    638000.0, 4785000.0, 1148000.0
-]
-revenues = [
-    376081.0, 752163.0, 1504326.0, 300865.0, 75216.0,
-    10304216.0, 10304216.0, 5888123.0
-]
-
-
-plt.figure(figsize=(8, 6))
-plt.scatter(budgets, revenues, color='darkcyan', alpha=0.7) # alpha for transparency
-
-plt.title("Movie Budget vs. Domestic Revenue (2013 Dollars, Sample)")
-plt.xlabel("Budget (2013 Dollars)")
-plt.ylabel("Domestic Revenue (2013 Dollars)")
-plt.ticklabel_format(style='plain', axis='both') # Show plain numbers
-plt.xticks(rotation=30)
-plt.grid(True)
-plt.show()
-
-```
-
-
-
-**Interpreting Scatter Plots:**
-When examining a scatter plot, look for:
-
-1.  **Direction:**
-    *   **Positive Association:** As the x-variable increases, the y-variable tends to increase. The points will generally slope upwards from left to right. (e.g., study hours and exam scores).
-    *   **Negative Association:** As the x-variable increases, the y-variable tends to decrease. The points will generally slope downwards from left to right. (e.g., number of absences and exam scores).
-    *   **No Clear Direction:** No discernible increasing or decreasing trend.
-
-2.  **Form:**
-    *   **Linear:** The points tend to cluster around a straight line.
-    *   **Curvilinear (Non-linear):** The points tend to follow a curved pattern (e.g., a U-shape or an inverted U-shape).
-    *   **No Clear Form / Clusters:** Points are scattered without a clear line or curve, or they might form distinct clusters.
-
-3.  **Strength:**
-    *   **Strong:** The points are tightly clustered around the identified form (e.g., very close to a straight line). The relationship is clear.
-    *   **Weak:** The points are widely spread out from the form. The relationship is less clear.
-    *   **Moderate:** Somewhere in between strong and weak.
-
-You might also notice **outliers**, which are points that lie far away from the general pattern of the other data points.
-With our small sample of movie budget and revenue data, the relationship might not be extremely clear due to the limited number of points and potential for wide variation in movie performance. Generally, one might expect a positive association (higher budget, higher potential revenue), but this is not always strong or guaranteed.
 
 ::: {.exercise}
 **Exercise: Car Age and Price Scatter Plot**
@@ -1270,52 +1948,10 @@ plt.show()
 
 :::
 
-### The correlation statistic
 
-While scatter plots give us a visual sense of the relationship, the **correlation coefficient** (often just called correlation) provides a numerical measure of the strength and direction of a *linear* relationship between two quantitative variables. The most common type is Pearson's correlation coefficient, denoted as `r`.
 
-**Properties of Pearson's r:**
-*   **Range:** The value of `r` is always between -1 and +1, inclusive.
-*   **Positive Correlation (r > 0):** Indicates a positive linear relationship. As one variable increases, the other tends to increase. An `r` of +1 indicates a perfect positive linear relationship (all points lie exactly on a straight line that slopes upwards).
-*   **Negative Correlation (r < 0):** Indicates a negative linear relationship. As one variable increases, the other tends to decrease. An `r` of -1 indicates a perfect negative linear relationship (all points lie exactly on a straight line that slopes downwards).
-*   **No Linear Correlation (r ≈ 0):** An `r` value close to 0 suggests that there is no *linear* association between the variables. However, there might still be a strong *non-linear* relationship (e.g., a U-shape), which correlation would not capture.
-*   **Strength:** The closer `r` is to +1 or -1, the stronger the linear relationship. An `r` of 0.8 indicates a stronger positive linear relationship than an `r` of 0.4. Similarly, an `r` of -0.9 indicates a stronger negative linear relationship than an `r` of -0.5.
 
-**Python Calculation:**
-The `statistics` module (available in Python 3.10+) provides `statistics.correlation()`. Let's calculate it for our sample movie budgets and revenues.
 
-```{python}
-
-import statistics
-
-# Sample data from our movie dataset subset
-budgets = [
-    483120.0, 181036.0, 302060.0, 1504326.0, 300865.0,
-    638000.0, 4785000.0, 1148000.0
-]
-revenues = [
-    376081.0, 752163.0, 1504326.0, 300865.0, 75216.0,
-    10304216.0, 10304216.0, 5888123.0
-]
-
-# Ensure both lists have the same number of elements and at least two data points.
-if len(budgets) == len(revenues) and len(budgets) >= 2:
-    correlation_movies = statistics.correlation(budgets, revenues)
-    print(f"Pearson's correlation coefficient (r) for budget vs. revenue: {correlation_movies:.3f}")
-else:
-    print("Data lists must have equal length and at least two points to calculate correlation.")
-
-```
-
-*Note: If you are using a Python version older than 3.10, `statistics.correlation()` might not be available. In such cases, or for more advanced statistical analysis, libraries like NumPy (`numpy.corrcoef()`) or SciPy (`scipy.stats.pearsonr()`) are commonly used, but they are beyond the scope of this chapter which focuses on base Python and Matplotlib.*
-
-**Important Caveat: Correlation Does Not Imply Causation!**
-This is a crucial point in statistics. Just because two variables are correlated (even strongly correlated) does not mean that one variable *causes* the other to change. There might be:
-*   **Confounding variable:** A third, unobserved variable that is affecting both variables. (e.g., ice cream sales and crime rates are correlated, but both are caused by warmer weather).
-*   **Coincidence:** The relationship might be purely coincidental, especially with small datasets.
-*   **Reverse causation:** It's possible that Y causes X, rather than X causing Y.
-
-Correlation tells you about the association, not the reason for it.
 
 ::: {.exercise}
 **Exercise: Calculate and Interpret Correlation**
@@ -1364,111 +2000,23 @@ else:
 
 :::
 
-### Time series and line plots
-
-While our main movie dataset subset (`budget_2013_dollars`, `revenue_2013_dollars`) doesn't directly include a simple time component for these specific lists, line plots are crucial for visualizing data that *is* collected over time (time series data). Let's consider a different, classic example to illustrate line plots.
-
-**Time series data** is a sequence of data points recorded or collected over regular time intervals (e.g., hourly, daily, monthly, yearly). Examples include daily stock prices, monthly rainfall, annual company profits, etc.
-
-A **line plot** (or line graph) is the most common way to visualize time series data. It connects data points with straight lines, making it easy to see trends, patterns, seasonality, and fluctuations over time.
-
-**Python Code using Matplotlib:**
-Let's plot the average monthly temperature for a city over a year.
-
-```{python}
-
-import matplotlib.pyplot as plt
-
-months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-# Corresponding average temperatures (example values)
-avg_temps = [5, 7, 10, 15, 20, 25, 28, 27, 22, 16, 10, 6] # in Celsius
-
-plt.figure(figsize=(10, 6))
-plt.plot(months, avg_temps, marker='o', linestyle='-', color='red') # 'o' adds a marker at each point
-
-plt.title("Average Monthly Temperature")
-plt.xlabel("Month")
-plt.ylabel("Average Temperature (°C)")
-plt.xticks(rotation=45) # Rotate x-axis labels if they overlap
-plt.grid(True)
-plt.show()
-
-```
 
 
-In a line plot, the x-axis usually represents time, and the y-axis represents the value of the variable being measured.
-
-::: {.exercise}
-**Exercise: Company Sales Line Plot**
-
-A company's annual sales (in thousands of dollars) over the last 5 years are:
-`years = [2018, 2019, 2020, 2021, 2022]`
-`sales = [100, 110, 95, 120, 130]`
-
-1.  Create a line plot to visualize these sales data.
-2.  Label your plot appropriately.
-3.  Describe any trend you observe in the sales data.
-:::
-
-::: {.solution}
-**Solution: Company Sales Line Plot**
-
-1.  **Line Plot Code:**
-```{python}
-
-import matplotlib.pyplot as plt
-
-years = [2018, 2019, 2020, 2021, 2022]
-sales = [100, 110, 95, 120, 130] # Sales in thousands of dollars
-
-plt.figure(figsize=(8, 5))
-plt.plot(years, sales, marker='s', linestyle='--', color='purple') # 's' for square marker
-
-plt.title("Annual Company Sales (2018-2022)")
-plt.xlabel("Year")
-plt.ylabel("Sales (in $1000s)")
-plt.xticks(years) # Ensure all years are shown as ticks
-plt.ylim(bottom=0) # Optional: make y-axis start at 0
-plt.grid(True, linestyle=':', alpha=0.7) # Light, dotted grid
-plt.show()
-
-```
 
 
- *(This code will display the line plot.)*
 
-2.  **Trend Description:**
-    Looking at the line plot, the company's sales show an overall **upward trend** from 2018 to 2022. There was a slight dip in sales in 2020 (from 110 to 95), but sales recovered and grew in the subsequent years, reaching their highest point in 2022.
 
-:::
 
-## Summary
 
-Congratulations on making it through this chapter on descriptive statistics and plots! You've taken a significant step from understanding Python basics to actually using Python to explore and make sense of data.
 
-We started by learning the fundamental distinction between **categorical data** (like favorite colors or types of pets) and **quantitative data** (like ages or exam scores). This distinction guides how we approach summarizing and visualizing information.
 
-For **categorical data**, you learned how to:
-*   Summarize it using **frequency tables** and **proportions**.
-*   Visualize it effectively with **bar graphs** and, while understanding their limitations, **pie charts**.
 
-For **quantitative data**, we covered a broader range of tools:
-*   Visualizing distributions with **histograms** (and interpreting their shapes like skewed or symmetric) and **box plots**.
-*   Summarizing its central tendency with the **mean** and **median**.
-*   Measuring its spread or variability with the **standard deviation**, **quartiles** (Q1, Q3), and the **Interquartile Range (IQR)**.
-*   Putting these together into a **five-number summary**.
-*   Understanding and identifying **outliers** and calculating **Z-scores** to see where data points stand relative to their distribution.
 
-We also dipped our toes into looking at **two quantitative variables** together:
-*   Using **scatter plots** to visualize their relationship.
-*   Quantifying the strength and direction of a linear relationship with the **correlation coefficient**.
-*   And finally, we saw how **line plots** are useful for visualizing **time series data** to spot trends.
 
-Throughout this chapter, we've relied on base Python, particularly the `statistics` module for calculations, and the versatile `matplotlib.pyplot` library for creating our plots. Remember, clear labeling of your plots is crucial for communication!
 
-The descriptive statistics and visualization techniques you've learned here are the building blocks for more advanced data analysis and statistical inference that you might encounter later. Keep practicing, explore different datasets, and you'll become increasingly comfortable turning raw data into meaningful insights!
 
-## Exercises
+
+
 
 Here are a few more comprehensive exercises to help you practice the concepts from this chapter.
 

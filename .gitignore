@@ -8,3 +8,6 @@
 /trackchanges.sty
 
 /.luarc.json
+
+# ignore this for now
+data/

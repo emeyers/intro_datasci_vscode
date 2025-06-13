@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "jupyter>=1.1.1",
+    "kagglehub>=0.3.12",
     "matplotlib>=3.10.3",
     "nbformat>=5.10.4",
     "pandas>=2.2.3",
