@@ -98,6 +98,12 @@ print(f"Updated Courses: {student_info['courses']}")
 :::
 
 
+
+
+
+
+
+
 A list method that I removed because it is better if they use the `sorted()` function rather than the `.sort()` method; i.e., I typically don't want them changing the original list when they sort it. 
 
 | `.sort()`        | `my_list.sort()`         | Sorts the list in place                          | List is sorted                   |
