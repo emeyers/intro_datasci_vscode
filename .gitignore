@@ -9,5 +9,10 @@
 
 /.luarc.json
 
-# ignore this for now
-data/
+# ignore local data files, but keep committed snapshots used as render-time
+# fallbacks (e.g. the gas-price data, in case FRED is unreachable in CI)
+data/*
+!data/gas_prices_GASREGW_2025.csv
+
+.env
+**/*.quarto_ipynb
