@@ -1,0 +1,209 @@
+# Array computations with NumPy
+
+<!--
+CHAPTER OUTLINE (draft) — Chapter 4: Array processing with NumPy
+
+Merged from two outlines (the author's tentative outline + an earlier draft) and
+grounded in the Fall-2025 class material:
+  extras/material_from_2025f/class_code/class_06_answers.ipynb  (arrays, gas prices)
+  extras/material_from_2025f/class_code/class_07_answers.ipynb  (boolean masking,
+      higher-dimensional arrays, image processing)
+
+Lead dataset: ONE YEAR of weekly U.S. regular gasoline prices from FRED
+(series GASREGW), loaded with pandas_datareader (see class_06). A time series of
+~52 weekly prices is ideal here — every NumPy idea maps to a concrete, interesting
+question ("what's the average price?", "what was the biggest weekly jump?"). The
+Bechdel movie data from Ch. 3 returns later only as a brief callback in the
+boolean-masking section.
+
+Tools assumed: base Python (Ch. 2), the statistics module + Matplotlib (Ch. 3).
+This chapter ADDS NumPy.
+
+DEPENDENCIES (already added to pyproject.toml + requirements.txt):
+  - pandas-datareader   (FredReader, to pull the gas-price series)
+  - imageio             (imread, for the image-processing section)
+The image-processing section uses the Grace Hopper photo bundled with matplotlib
+(cbook.get_sample_data("grace_hopper.jpg")), so no image needs to be fetched or
+committed.
+-->
+
+## Introduction: what are arrays and why NumPy?
+
+<!--
+- Recall Chapter 3: we summarized data by looping over plain Python lists and
+  leaning on the `statistics` module. That works but is clunky and slow.
+- NumPy ("Numerical Python") gives us the *array*: the standard container for
+  numeric data and the foundation of the scientific Python stack (pandas,
+  scikit-learn, image libraries, ...).
+- Why arrays instead of lists? Three payoffs to state up front:
+    1. Memory — arrays store numbers compactly (one fixed dtype).
+    2. Speed — operations run in fast compiled code, not a Python loop.
+    3. Ease — element-wise arithmetic and "broadcasting" let us write
+       `prices * 147` instead of a loop. This is the big conceptual win.
+- Motivate with the lead question: we have a year of weekly gas prices — what can
+  we quickly learn from them? (average price, biggest weekly change, how often
+  prices were "high", etc.)
+-->
+
+## An example dataset: a year of U.S. gas prices
+
+<!--
+- Introduce the FRED weekly regular-gasoline series (GASREGW) and the questions
+  we'll answer about the year of prices.
+- Load it with pandas_datareader (mirrors class_06). Tell students to "ignore the
+  loading code for now" the same way Ch. 3 did with the Bechdel CSV, then pull a
+  NumPy array out of the DataFrame.
+
+- WINDOW: use calendar year 2025 (52 weekly values). A frozen snapshot of exactly
+  this window is committed at data/gas_prices_GASREGW_2025.csv (see the fallback
+  note below), so the numbers quoted in the prose stay fixed across renders.
+
+- LOADING PATTERN — try FRED live, fall back to the committed snapshot if FRED is
+  unreachable, so a FRED outage can never break the published build:
+
+    import pandas as pd
+
+    try:
+        from pandas_datareader.fred import FredReader
+        gas_data_all = FredReader("GASREGW", start="2024-06-01", end="2026-01-15").read().reset_index()
+        gas_year = gas_data_all[(gas_data_all["DATE"] >= "2025-01-01") & (gas_data_all["DATE"] < "2026-01-01")]
+    except Exception:
+        # FRED unreachable (e.g. in CI) -> use the committed snapshot of the same window
+        gas_year = pd.read_csv("data/gas_prices_GASREGW_2025.csv", parse_dates=["DATE"])
+
+    gas_prices = gas_year["GASREGW"].values   # <- a NumPy array (52 weekly prices)
+    gas_dates  = gas_year["DATE"].values
+
+  Keep the try/except in a Quarto block with `#| echo: false` (or otherwise hidden)
+  so beginners aren't confronted with exception handling this early — they just see
+  `gas_prices` and `gas_dates` appear, exactly like the Bechdel lists in Ch. 3.
+
+- REAL NUMBERS from the committed 2025 snapshot, for writing the prose:
+    * 52 weekly prices; first (Jan 6) $3.047, last (Dec 29) $2.811
+    * mean $3.097, median $3.122; min $2.811, max $3.243
+    * biggest single-week change +$0.081, week ending 2025-04-07
+  (Re-confirm against the rendered output, and refresh the snapshot if the window
+  changes.)
+
+CAVEAT for the author — live-vs-frozen tradeoff: with the try/except above, a
+successful FRED call returns *live* data, so if 2025's numbers were ever revised
+the quoted figures could drift out of sync with the prose. For a textbook the
+safest choice is to read the committed snapshot directly (drop the FRED call from
+the executed block, and show the FredReader code as a non-executed example of "how
+to fetch fresh data"). Decide which you prefer when drafting; the snapshot + the
+real numbers above support either approach.
+-->
+
+## Creating arrays and their basic properties
+
+<!--
+- Create arrays directly from lists with np.array(); contrast with a Ch. 2 list.
+- Key property that lists DON'T have: one dtype for the whole array.
+- Properties to introduce on `gas_prices`: .dtype, .shape (and that we have ~52
+  weeks), .size, .ndim.
+- Type conversion with .astype() (e.g. floats -> ints, or -> bool later).
+- Generating arrays without a list: np.arange() and np.linspace().
+-->
+
+## Indexing and slicing
+
+<!--
+- Builds directly on list slicing from Ch. 2: gas_prices[0], gas_prices[-1],
+  gas_prices[0:5] (first five weeks).
+- Sets up boolean indexing later.
+-->
+
+## NumPy functions on numerical arrays
+
+<!--
+This is the heart of the chapter — frame each tool as an INTERESTING QUESTION
+about the gas-price series (all of these are in class_06):
+
+- Element-wise arithmetic / broadcasting:
+    * "What would a gallon cost in another currency?"  -> gas_prices * 147
+    * "What if there were a constant $2/gallon tax?"   -> gas_prices + 2
+    * element-wise between two arrays: arr1 - arr2
+- Aggregation functions:
+    * "Average price this year?"          -> np.mean / np.median
+    * "Highest and lowest price?"         -> np.max, np.min (and np.argmax/argmin
+                                             + gas_dates to find WHEN)
+    * "Total if you bought a gallon a week all year?" -> np.sum
+- Sequence-aware functions (great fit for time series):
+    * "Running total over the year?"      -> np.cumsum
+    * "How much did the price move each week?" -> np.diff
+    * "What was the LARGEST single-week change?" ->
+          changes = np.diff(gas_prices)
+          np.max(np.abs(changes))          # size of biggest jump
+          gas_dates[np.argmax(np.abs(changes)) + 1]   # when it happened
+- Quick Matplotlib line plot of price vs. date to see the year visually
+  (plt.plot(gas_dates, gas_prices, '.-'); label axes) — ties back to Ch. 3 plotting.
+-->
+
+## Boolean arrays and boolean indexing
+
+<!--
+- Boolean arrays by hand (a small list of True/False) to demystify them.
+- Comparisons PRODUCE boolean arrays: gas_prices < 3.50.
+- Counting/among with sum & mean on booleans (True==1):
+    * "How many weeks were prices below $3.50?"      -> np.sum(gas_prices < 3.50)
+    * "What proportion of weeks?"                    -> np.mean(gas_prices < 3.50)
+- Combine conditions with & and | (parentheses required).
+- Boolean indexing / masking: gas_prices[gas_prices < 3.50] to pull out matching
+  values, then summarize: np.mean(gas_prices[gas_prices < 3.50]).
+- Brief CALLBACK to Ch. 3's Bechdel data (from class_06/07): compute the average
+  revenue of movies that passed the test with a boolean mask — shows the same
+  technique generalizes beyond the gas data.
+-->
+
+## Higher-dimensional arrays and image processing
+
+<!--
+From class_07. Motivates 2D/3D arrays concretely instead of abstract matrices.
+
+- Build a small 2D array by hand and visualize it:
+    face = np.zeros([100, 100]); face[21:30, 21:30] = 1; plt.imshow(face, cmap="gray")
+  (2D slicing assigns to a block — connects slicing to a picture you can see.)
+- A color image IS a 3D array (height x width x 3 RGB channels). Use the
+  Grace Hopper photo bundled WITH matplotlib (no new dependency, no network fetch
+  at render time, public-domain U.S. Navy photo). It also keeps class_07's
+  "famous Yale alumna" framing — Grace Hopper earned her Ph.D. at Yale and is a
+  computing pioneer, a fitting subject for a data science book:
+
+    import matplotlib.cbook as cbook
+    from imageio.v3 import imread
+    img = imread(cbook.get_sample_data("grace_hopper.jpg"))
+    # img.shape == (600, 512, 3), img.dtype == uint8 (values 0-255)
+    plt.imshow(img)
+
+- Simple manipulations, all just array operations:
+    * extract a channel: img[:, :, 0]
+    * swap red/blue channels
+    * grayscale by averaging channels: np.mean(img, axis=2)  (introduce `axis`)
+    * boolean arrays from images: img > 215, and masking pixels
+- Payoff: "images are just arrays" — everything from earlier in the chapter
+  (slicing, arithmetic, boolean masks, aggregation with axis) applies unchanged.
+-->
+
+## Summary
+
+<!--
+- Arrays vs. lists (memory, speed, broadcasting); element-wise ops replace loops;
+  aggregation and sequence functions (diff/cumsum) answer real questions; boolean
+  masks filter and count; higher-dimensional arrays cover images.
+- NumPy is the numeric backbone for the data-tables and visualization chapters.
+-->
+
+## Exercises
+
+<!--
+Follow Ch. 3's ::: {.exercise} / ::: {.solution} callout pattern.
+
+- Warm-up: make arrays from lists; inspect dtype/shape; element-wise arithmetic
+  (e.g. convert the gas prices to cents, or add a tax).
+- Intermediate: use np.diff to find the biggest week-over-week DROP and the week
+  it happened; count the weeks above the yearly average with a boolean mask.
+- Boolean/masking: average price during some sub-period; proportion of weeks over
+  a threshold.
+- Higher-dimensional: build a small pattern in a 2D array and imshow it; load an
+  image and produce a grayscale version and a single-channel version.
+-->

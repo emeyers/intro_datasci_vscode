@@ -1,0 +1,143 @@
+# Array computations with NumPy
+
+<!--
+CHAPTER OUTLINE (draft) — Chapter 4: Array processing with NumPy
+
+Pedagogical arc: In Chapter 3 we computed descriptive statistics "by hand" on
+plain Python lists (looping, the `statistics` module). This chapter introduces
+NumPy arrays as the standard tool for numerical work: they let us write
+element-wise ("vectorized") computations without loops, they are far faster, and
+they provide statistical functions directly. We continue with the Bechdel movie
+dataset from Chapter 3 so students see the same analyses, now done more cleanly.
+
+Tools assumed so far: base Python (Ch. 2), lists/slicing, the `statistics`
+module and Matplotlib (Ch. 3). This chapter ADDS NumPy.
+-->
+
+## Introduction: why we need arrays
+
+<!--
+- Recall Chapter 3: to find a mean we summed a list in a loop and divided; to
+  compute profit per movie we'd loop element-by-element.
+- Two problems with lists for data: (1) arithmetic isn't element-wise
+  (`list1 + list2` concatenates, `list * 2` repeats), and (2) loops are slow.
+- NumPy ("Numerical Python") is the foundation of the scientific Python stack
+  (pandas, scikit-learn, etc.). Learn it once, reuse everywhere.
+- Set expectations: by the end you can load numeric data into arrays, filter and
+  transform it without loops, and compute summary statistics in one line.
+-->
+
+## Importing NumPy
+
+<!--
+- `import numpy as np` — explain the `as np` convention (used everywhere).
+- Re-load the Bechdel data and pull the same lists as in Ch. 3, then convert the
+  numeric ones to arrays so the chapter is self-contained.
+-->
+
+## Creating arrays
+
+<!--
+- From a list: `np.array([...])`.
+- Convert the Ch. 3 budget/revenue lists into arrays.
+- Creation helpers: `np.zeros`, `np.ones`, `np.arange`, `np.linspace`.
+- Note: an array holds ONE data type (unlike a list); contrast with Ch. 2 lists.
+-->
+
+## Array attributes
+
+<!--
+- `.shape`, `.ndim`, `.size`, `.dtype`.
+- 1D arrays (a single variable, e.g. all movie budgets) vs. 2D arrays (a table)
+  — keep 2D light; full tables come in the pandas chapter.
+-->
+
+## Indexing and slicing
+
+<!--
+- Familiar from list slicing (Ch. 2): `arr[0]`, `arr[2:5]`, `arr[-1]`.
+- Show it behaves like lists so students transfer prior knowledge.
+- Tee up the more powerful boolean indexing below.
+-->
+
+## Element-wise (vectorized) operations
+
+<!--
+- This is the key idea. `arr * 2`, `arr + arr2`, etc. operate element-by-element.
+- Motivating example: `profit = revenue - budget` for ALL movies in one line,
+  vs. the loop you'd write with lists. Compare side by side.
+- Scalar broadcasting (`arr + 1000000`); briefly name "broadcasting".
+- Universal functions: `np.sqrt`, `np.log`, `np.abs`, etc.
+-->
+
+## Boolean arrays and filtering
+
+<!--
+- Comparisons produce boolean arrays: `budget > 1e8`.
+- Boolean indexing to select: `revenue[budget > 1e8]`.
+- Counting with `.sum()` on a boolean array (True == 1): e.g. how many movies had
+  a budget over $100M? what fraction passed the Bechdel test?
+- Combine conditions with `&` and `|` (note parentheses are required).
+-->
+
+## Descriptive statistics with NumPy
+
+<!--
+- Revisit every statistic from Chapter 3, now as one-liners on arrays:
+  `np.mean`, `np.median`, `np.std`, `np.min`, `np.max`, `np.sum`,
+  `np.percentile` (quartiles).
+- Show these match the `statistics`-module results from Ch. 3 — same numbers,
+  less code — to connect the chapters.
+- Z-scores in a single vectorized line: `(arr - arr.mean()) / arr.std()`,
+  callback to the z-score section of Ch. 3.
+-->
+
+## Working across rows and columns (2D arrays)
+
+<!--
+- Brief: stack budget & revenue into a 2D array, introduce the `axis` argument
+  (`axis=0` down columns, `axis=1` across rows) for aggregations.
+- Keep short — a teaser for the data-tables/pandas chapter.
+-->
+
+## Summary
+
+<!--
+- Arrays vs. lists; vectorization replaces loops; boolean masks for filtering;
+  built-in statistics. NumPy is the numeric backbone for the rest of the book.
+-->
+
+## Exercises
+
+<!--
+- Warm-up: create arrays, inspect attributes, basic element-wise arithmetic.
+- Intermediate: filter the movie data with boolean masks (e.g. compare mean
+  revenue of movies that pass vs. fail the Bechdel test); recompute a Ch. 3
+  statistic with NumPy and confirm it matches.
+- Advanced: compute z-scores and find the most extreme movies; a small 2D-array
+  aggregation using `axis`.
+- Follow Ch. 3's pattern: ::: {.exercise} / ::: {.solution} callout blocks.
+-->
+
+
+<!-- =====================================================================
+MATERIAL TO RELOCATE (was previously in this file):
+
+The section below on time series and line plots was the prior contents of
+array_computations.qmd. Line plots are a *visualization* topic, not array
+computation — this likely belongs in `data_visualization.qmd`. Left here
+temporarily so the content isn't lost; move or delete when convenient.
+====================================================================== -->
+
+<!--
+### Time series and line plots
+
+Time series data is a sequence of data points recorded over regular time
+intervals. A line plot connects data points with straight lines, making trends
+and seasonality easy to see. Example: average monthly temperature over a year
+(months on x-axis, temperature on y-axis) plotted with
+`plt.plot(months, avg_temps, marker='o', linestyle='-', color='red')`.
+
+Exercise idea: plot 5 years of annual company sales and describe the trend
+(overall upward with a dip in one year).
+-->

@@ -1,87 +1,629 @@
-# Array computations
+# Array computations with NumPy
 
+In the previous chapter we summarized data using plain Python lists, the `statistics` module, and a fair amount of manual work. That approach got the job done, but it was clunky: to do almost anything to *every* value in a list — add a tax to every price, convert every value to different units, or just add two lists of numbers together — we had to reach for a loop.
 
+In this chapter we introduce **NumPy** (short for "Numerical Python"), the standard Python library for working with numerical data. NumPy gives us a new kind of container called an **array**, which makes numerical computations shorter to write, faster to run, and easier to read. Arrays are the foundation that nearly every other data science tool in Python — including the Pandas package we'll use later — is built on top of.
 
-### Time series and line plots
+By the end of this chapter you'll be able to load numerical data into arrays, transform and summarize that data without writing loops, filter it using conditions, and even treat images as arrays of numbers.
 
-Do this in the context of array computations, specifically focusing on time series data and line plots.
+## Why arrays instead of lists?
 
+Let's start by seeing why lists alone aren't quite enough. Suppose we have the price of a gallon of gas (in dollars) for three weeks, stored in a list:
 
-While our main movie dataset subset (`budget_2013_dollars`, `revenue_2013_dollars`) doesn't directly include a simple time component for these specific lists, line plots are crucial for visualizing data that *is* collected over time (time series data). Let's consider a different, classic example to illustrate line plots.
+```{python}
 
-**Time series data** is a sequence of data points recorded or collected over regular time intervals (e.g., hourly, daily, monthly, yearly). Examples include daily stock prices, monthly rainfall, annual company profits, etc.
+weekly_prices = [3.05, 3.04, 3.11]
 
-A **line plot** (or line graph) is the most common way to visualize time series data. It connects data points with straight lines, making it easy to see trends, patterns, seasonality, and fluctuations over time.
+```
 
-**Python Code using Matplotlib:**
-Let's plot the average monthly temperature for a city over a year.
+Now imagine the government adds a \$2-per-gallon tax, and we want the new price for each week. It would be natural to *try* multiplying or adding to the list, but lists don't behave the way we might hope:
+
+```{python}
+
+# Multiplying a list by 2 repeats the list instead of doubling each value
+weekly_prices * 2
+
+```
+
+Multiplying a list by a number *repeats* it, and adding a number to a list causes an error entirely. To actually add \$2 to each price using a list, we'd have to write a loop:
+
+```{python}
+
+# Adding a $2 tax to each price using a list requires a loop
+prices_with_tax = []
+for price in weekly_prices:
+    prices_with_tax.append(price + 2)
+
+prices_with_tax
+
+```
+
+This works, but it's a lot of code for a simple idea. NumPy lets us express the same computation in a single, readable expression. First we need to import the library. By near-universal convention, NumPy is imported under the short name `np`:
+
+```{python}
+
+import numpy as np
+
+```
+
+Now we can turn our list into a NumPy array with `np.array()` and simply add 2:
+
+```{python}
+
+price_array = np.array([3.05, 3.04, 3.11])
+
+# Add the $2 tax to every price at once — no loop needed
+price_array + 2
+
+```
+
+The operation was applied to every element automatically. This idea — applying an operation to every element of an array at once — is called **vectorization**, and it's the heart of what makes NumPy so useful. Compared to lists, arrays give us three big advantages:
+
+1. **Ease of expression.** Element-wise arithmetic like `price_array + 2` lets us say what we mean without writing loops.
+2. **Speed.** NumPy performs these operations in fast, pre-compiled code, so computations on large arrays run far faster than the equivalent Python loop.
+3. **Memory.** Arrays store their values compactly, which means they use less memory than the equivalent list.
+
+For the rest of this chapter we'll put these ideas to work on a real dataset.
+
+## An example dataset: a year of U.S. gas prices
+
+To explore NumPy we'll look at the price of gasoline in the United States over the course of a year. Gas prices are a nice example because they change every week, which gives us a natural sequence of numbers to ask questions about: What was the average price? How much did the price swing from week to week? What was the biggest jump? In what fraction of weeks was gas relatively cheap?
+
+Our data comes from **FRED** (Federal Reserve Economic Data), a large public database of economic time series maintained by the Federal Reserve Bank of St. Louis. We'll use the series for the U.S. average weekly retail price of regular gasoline, which has the code `GASREGW`. The `pandas-datareader` package can download FRED data directly. The essential idea looks like this:
+
+```python
+from pandas_datareader.fred import FredReader
+
+# Download the weekly regular-gasoline price series for the year 2025
+gas_data = FredReader("GASREGW", start="2025-01-01", end="2026-01-01").read()
+```
+
+In the code block below we load the prices for all 52 weeks of 2025. We've wrapped the download in a little extra code — which you can safely ignore for now — that falls back to a saved copy of the data if FRED can't be reached. The result is two NumPy arrays: `gas_prices`, holding the price for each week, and `gas_dates`, holding the corresponding dates.
+
+```{python}
+#| echo: false
+
+import pandas as pd
+
+# Try to download the data live from FRED; if that fails (for example, when there
+# is no internet connection), fall back to a saved snapshot of the same year.
+try:
+    from pandas_datareader.fred import FredReader
+    gas_data_all = FredReader("GASREGW", start="2024-06-01", end="2026-01-15").read().reset_index()
+    gas_year = gas_data_all[(gas_data_all["DATE"] >= "2025-01-01") & (gas_data_all["DATE"] < "2026-01-01")]
+except Exception:
+    gas_year = pd.read_csv("data/gas_prices_GASREGW_2025.csv", parse_dates=["DATE"])
+
+# Pull the prices and dates out of the data table as NumPy arrays
+gas_prices = gas_year["GASREGW"].values
+gas_dates = gas_year["DATE"].values
+
+```
+
+Let's take a look at the prices we just loaded:
+
+```{python}
+
+gas_prices
+
+```
+
+We have one price per week. Throughout the chapter we'll use this `gas_prices` array (and the matching `gas_dates`) to illustrate what NumPy can do.
+
+## Creating arrays and their basic properties
+
+We've already seen the most common way to make an array: pass a list to `np.array()`.
+
+```{python}
+
+example_array = np.array([10, 20, 30, 40])
+example_array
+
+```
+
+Unlike a list, every value in a NumPy array has the **same data type**. We can ask an array to describe itself using a few useful attributes. Note that these are written *without* parentheses, because they are properties of the array rather than functions we call:
+
+```{python}
+
+# The data type of the elements (float64 means decimal numbers)
+gas_prices.dtype
+
+```
+
+```{python}
+
+# The shape of the array: 52 weeks of prices, stored as a single row
+gas_prices.shape
+
+```
+
+The `.shape` is reported as `(52,)`, which tells us the array has 52 elements arranged in a single dimension. Two related attributes are `.size` (the total number of elements) and `.ndim` (the number of dimensions):
+
+```{python}
+
+[gas_prices.size, gas_prices.ndim]
+
+```
+
+Sometimes we want to change the data type of an array — for example, to view our prices as whole numbers of dollars. The `.astype()` method makes a new array with a different type:
+
+```{python}
+
+# Convert the decimal prices to integers (the decimal part is dropped, not rounded)
+gas_prices.astype(int)
+
+```
+
+Finally, NumPy can generate arrays for us without starting from a list. `np.arange()` works like Python's `range()` but produces an array, and `np.linspace()` produces a given number of evenly spaced values between two endpoints:
+
+```{python}
+
+# Whole numbers from 0 up to (but not including) 10
+np.arange(10)
+
+```
+
+```{python}
+
+# Five evenly spaced values from 0 to 1
+np.linspace(0, 1, 5)
+
+```
+
+## Indexing and slicing
+
+Indexing and slicing arrays works just like it did for lists in the Python basics chapter. We use square brackets with a position (starting from 0), and we can use negative positions to count from the end:
+
+```{python}
+
+# The price in the first week of the year
+gas_prices[0]
+
+```
+
+```{python}
+
+# The price in the last week of the year
+gas_prices[-1]
+
+```
+
+We can also take a **slice** to get a range of values. Here are the prices for the first five weeks:
+
+```{python}
+
+gas_prices[0:5]
+
+```
+
+Already we can see something interesting: gas started the year a little over \$3.00 a gallon. To say more, we'll want to summarize all 52 weeks at once.
+
+## NumPy functions for summarizing and transforming arrays
+
+This is where arrays really shine. NumPy provides a large collection of functions that operate on an entire array at once, letting us answer questions about our data with a single line of code.
+
+### Transforming every value at once
+
+We saw earlier that we can do arithmetic on an entire array. Because each operation applies to every element, we can answer "what if" questions instantly. For example, one U.S. dollar was worth roughly 147 Japanese yen during this period — so what was each week's gas price in yen?
+
+```{python}
+
+# Convert every weekly price from dollars to yen
+gas_prices * 147
+
+```
+
+Or, returning to our tax example, what would each price be with a \$2-per-gallon tax added?
+
+```{python}
+
+gas_prices + 2
+
+```
+
+When one of the values in an operation is a single number (like `147` or `2`) and the other is an array, NumPy applies the operation between that number and *every* element of the array. This convenient behavior is called **broadcasting**.
+
+### Summarizing an array with a single number
+
+A second family of functions reduces an entire array down to one summary value. These are the same descriptive statistics we computed by hand in the previous chapter, but now each one is a single function call. What was the average price of gas over the year?
+
+```{python}
+
+# Two measures of the "typical" price
+[np.mean(gas_prices), np.median(gas_prices)]
+
+```
+
+The average price was about \$3.10 a gallon. What were the cheapest and most expensive weeks?
+
+```{python}
+
+[np.min(gas_prices), np.max(gas_prices)]
+
+```
+
+Prices ranged from a low of about \$2.81 to a high of about \$3.24. A natural follow-up question is *when* those weeks occurred. The functions `np.argmin()` and `np.argmax()` give us the **position** of the smallest and largest values, which we can then use to look up the matching date:
+
+```{python}
+
+# The date of the most expensive week
+gas_dates[np.argmax(gas_prices)]
+
+```
+
+Gas was at its priciest in early April. We can also add up all the values with `np.sum()`. If you bought exactly one gallon of gas every week of the year, the total spent would be:
+
+```{python}
+
+np.sum(gas_prices)
+
+```
+
+### Functions that work across a sequence
+
+Because our prices are in weekly order, some NumPy functions are especially useful. `np.cumsum()` gives the **cumulative sum** — the running total spent after each week:
+
+```{python}
+
+# Running total if you bought one gallon each week
+np.cumsum(gas_prices)
+
+```
+
+Even more useful for a time series is `np.diff()`, which gives the difference between each value and the one before it — in other words, how much the price *changed* from one week to the next:
+
+```{python}
+
+# Week-to-week changes in the price of gas
+weekly_changes = np.diff(gas_prices)
+weekly_changes
+
+```
+
+Notice that `weekly_changes` has 51 values rather than 52: there are only 51 gaps between 52 weeks. Now we can answer an interesting question: what was the single largest weekly change in price? Since a change can be a drop (negative) or a rise (positive), we use `np.abs()` to look at the *size* of each change regardless of direction, and `np.max()` to find the biggest:
+
+```{python}
+
+# The size of the largest single-week change
+np.max(np.abs(weekly_changes))
+
+```
+
+The biggest swing in any week was about 8 cents. Combining this with `np.argmax()` and our dates, we can find exactly which week saw that change:
+
+```{python}
+
+# The week in which the largest change occurred.
+# We add 1 because each change is recorded at the *later* of the two weeks.
+gas_dates[np.argmax(np.abs(weekly_changes)) + 1]
+
+```
+
+### Seeing the whole year at a glance
+
+Numbers are useful, but a picture of how the price moved over the year is even better. Using the Matplotlib skills from the previous chapter, we can plot the price against the date:
 
 ```{python}
 
 import matplotlib.pyplot as plt
 
-months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-# Corresponding average temperatures (example values)
-avg_temps = [5, 7, 10, 15, 20, 25, 28, 27, 22, 16, 10, 6] # in Celsius
-
-plt.figure(figsize=(10, 6))
-plt.plot(months, avg_temps, marker='o', linestyle='-', color='red') # 'o' adds a marker at each point
-
-plt.title("Average Monthly Temperature")
-plt.xlabel("Month")
-plt.ylabel("Average Temperature (°C)")
-plt.xticks(rotation=45) # Rotate x-axis labels if they overlap
-plt.grid(True)
+plt.plot(gas_dates, gas_prices, '.-')
+plt.xlabel("Date")
+plt.ylabel("Price per gallon ($)")
+plt.title("U.S. weekly regular gas price, 2025")
+plt.xticks(rotation=45)
 plt.show()
 
 ```
 
+The plot makes the story clear: prices rose into the spring, peaked in April, and then drifted downward through the rest of the year to their lowest point at the very end of December.
 
-In a line plot, the x-axis usually represents time, and the y-axis represents the value of the variable being measured.
+::: {.callout-tip title="Exercise" #exercise-array_computations-changes}
 
-::: {.exercise}
-**Exercise: Company Sales Line Plot**
+Use `np.diff()` and `np.min()` to find the *largest single-week drop* in the price of gas (the most negative weekly change). Then find the date of the week in which it occurred.
 
-A company's annual sales (in thousands of dollars) over the last 5 years are:
-`years = [2018, 2019, 2020, 2021, 2022]`
-`sales = [100, 110, 95, 120, 130]`
-
-1.  Create a line plot to visualize these sales data.
-2.  Label your plot appropriately.
-3.  Describe any trend you observe in the sales data.
 :::
 
-::: {.solution}
-**Solution: Company Sales Line Plot**
+::: {.callout-note title="Solution" #solution-array_computations-changes collapse="true"}
 
-1.  **Line Plot Code:**
 ```{python}
 
-import matplotlib.pyplot as plt
+weekly_changes = np.diff(gas_prices)
 
-years = [2018, 2019, 2020, 2021, 2022]
-sales = [100, 110, 95, 120, 130] # Sales in thousands of dollars
+# The largest drop is the most negative change, so we use np.min
+largest_drop = np.min(weekly_changes)
 
-plt.figure(figsize=(8, 5))
-plt.plot(years, sales, marker='s', linestyle='--', color='purple') # 's' for square marker
+# np.argmin gives the position of that drop; add 1 to get the later week
+drop_date = gas_dates[np.argmin(weekly_changes) + 1]
 
-plt.title("Annual Company Sales (2018-2022)")
-plt.xlabel("Year")
-plt.ylabel("Sales (in $1000s)")
-plt.xticks(years) # Ensure all years are shown as ticks
-plt.ylim(bottom=0) # Optional: make y-axis start at 0
-plt.grid(True, linestyle=':', alpha=0.7) # Light, dotted grid
+[largest_drop, drop_date]
+
+```
+
+The largest single-week drop was about 8 cents, in the week ending in early December.
+
+:::
+
+## Boolean arrays and boolean indexing
+
+So far our questions have been about all the prices together. Often, though, we want to focus on values that meet some condition — the weeks where gas was cheap, say. NumPy handles this with **boolean arrays**.
+
+A boolean array is just an array of `True`/`False` values. We can make one by hand, but more often we create one by writing a **comparison** against an array. NumPy compares every element and returns an array of the results:
+
+```{python}
+
+# Was the price below $3.00 in each week?
+gas_prices < 3.00
+
+```
+
+The real power comes from the fact that Python treats `True` as 1 and `False` as 0. That means we can *count* how many weeks met our condition by summing the boolean array, and find the *proportion* of weeks by taking its mean:
+
+```{python}
+
+# How many weeks was gas below $3.00?
+np.sum(gas_prices < 3.00)
+
+```
+
+```{python}
+
+# What fraction of weeks was gas below $3.00?
+np.mean(gas_prices < 3.00)
+
+```
+
+So gas dipped below \$3.00 in only 5 of the 52 weeks — about 10% of the year. We can build more specific conditions by combining comparisons with `&` ("and") and `|` ("or"). Each comparison must be wrapped in parentheses:
+
+```{python}
+
+# How many weeks was the price between $3.00 and $3.20?
+np.sum((gas_prices > 3.00) & (gas_prices < 3.20))
+
+```
+
+### Boolean indexing
+
+Beyond counting, we can use a boolean array to *pull out* the values that meet a condition. Putting a condition inside the square brackets keeps only the elements where the condition is `True`. This is called **boolean indexing** or **masking**:
+
+```{python}
+
+# The actual prices for the weeks when gas was below $3.00
+gas_prices[gas_prices < 3.00]
+
+```
+
+This becomes especially powerful when we then summarize the result. For example, *among the weeks when gas was below \$3.00*, what was the average price?
+
+```{python}
+
+np.mean(gas_prices[gas_prices < 3.00])
+
+```
+
+### The same idea on other data
+
+Boolean indexing isn't specific to gas prices — it's a general tool for asking "what is true of the subset of my data that meets some condition?" To see this, let's briefly return to the Bechdel test movie data from the previous chapter. Recall that each movie either passes (`"PASS"`) or fails (`"FAIL"`) the test. Here we load the movies' pass/fail status and international gross earnings into two arrays:
+
+```{python}
+
+# Load the Bechdel data and pull two columns out as arrays
+movies = pd.read_csv("https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/bechdel/movies.csv")
+movies = movies[["binary", "intgross_2013$"]].dropna()
+
+bechdel_status = movies["binary"].values
+intl_gross = movies["intgross_2013$"].values
+
+```
+
+Using exactly the masking technique we just learned, we can compare the average earnings of movies that passed the test against those that failed:
+
+```{python}
+
+# Average international gross for movies that PASS vs. FAIL the Bechdel test
+[np.mean(intl_gross[bechdel_status == "PASS"]),
+ np.mean(intl_gross[bechdel_status == "FAIL"])]
+
+```
+
+Strikingly, movies that *failed* the Bechdel test earned more on average than those that passed — the very pattern FiveThirtyEight highlighted in their analysis. The same one-line masking idea that summarized cheap-gas weeks works just as well on movie earnings.
+
+::: {.callout-tip title="Exercise" #exercise-array_computations-mask}
+
+Using the `gas_prices` array, count how many weeks the price was *above* the average price for the year. (Hint: you can use `np.mean(gas_prices)` directly inside a comparison.)
+
+:::
+
+::: {.callout-note title="Solution" #solution-array_computations-mask collapse="true"}
+
+```{python}
+
+np.sum(gas_prices > np.mean(gas_prices))
+
+```
+
+The price was above the yearly average in 34 of the 52 weeks. (Because a few high-priced weeks pull the average up, more than half the weeks can still fall below it.)
+
+:::
+
+## Higher-dimensional arrays and image processing
+
+Every array we've used so far has been one-dimensional — a single row of numbers. But arrays can have more than one dimension. A two-dimensional array is just a grid of numbers (rows and columns), much like a spreadsheet or a mathematical matrix.
+
+We can create one directly. Here we start with a 100×100 grid of zeros using `np.zeros()`, then use slicing to set a square block of values in the middle to 1:
+
+```{python}
+
+# A 100x100 grid of zeros
+grid = np.zeros([100, 100])
+
+# Set a square block of the grid to 1 using slicing on both dimensions
+grid[30:70, 30:70] = 1
+
+```
+
+Why make a grid of numbers? Because **an image is exactly that**. A grayscale image is a 2D array where each number is the brightness of a pixel. If we display our grid as an image, the 1s show up as a white square on a black background:
+
+```{python}
+
+plt.imshow(grid, cmap="gray")
 plt.show()
 
 ```
 
+### Color images are 3D arrays
 
- *(This code will display the line plot.)*
+A color image goes one dimension further: it's a 3D array of shape (height, width, 3), where the final dimension holds the three color channels — **red, green, and blue**. Let's load a real photograph to see this. We'll use a portrait of Grace Hopper, a pioneering computer scientist (and Yale Ph.D.), that comes bundled with Matplotlib:
 
-2.  **Trend Description:**
-    Looking at the line plot, the company's sales show an overall **upward trend** from 2018 to 2022. There was a slight dip in sales in 2020 (from 110 to 95), but sales recovered and grew in the subsequent years, reaching their highest point in 2022.
+```{python}
+
+import matplotlib.cbook as cbook
+from imageio.v3 import imread
+
+# Load the image into a NumPy array
+hopper = imread(cbook.get_sample_data("grace_hopper.jpg"))
+
+plt.imshow(hopper)
+plt.show()
+
+```
+
+Let's confirm that this image really is just an array of numbers by checking its shape and data type:
+
+```{python}
+
+[hopper.shape, hopper.dtype]
+
+```
+
+The shape `(600, 512, 3)` tells us the image is 600 pixels tall, 512 pixels wide, and has 3 color channels. The data type `uint8` means each value is a whole number from 0 to 255, where 0 is no intensity and 255 is full intensity for that color.
+
+### Manipulating an image is just array computation
+
+Because the image is an array, every NumPy tool from this chapter applies to it. Using slicing, we can pull out a single color channel — here, the red channel — and display it on its own:
+
+```{python}
+
+# Keep all rows and columns, but only the first (red) channel
+red_channel = hopper[:, :, 0]
+
+plt.imshow(red_channel, cmap="gray")
+plt.show()
+
+```
+
+We can convert the photo to grayscale by averaging the three color channels together. The `axis=2` argument tells `np.mean()` to average *across the color channels* (the third dimension) at each pixel, leaving a 2D array:
+
+```{python}
+
+# Average the red, green, and blue values at each pixel
+gray_hopper = np.mean(hopper, axis=2)
+
+plt.imshow(gray_hopper, cmap="gray")
+plt.show()
+
+```
+
+Finally, the boolean-array idea works on images too. Comparing the grayscale image to a threshold produces a boolean array marking the brightest pixels, which we can display to highlight the lightest regions of the photo:
+
+```{python}
+
+# A boolean array that is True for bright pixels
+bright_pixels = gray_hopper > 150
+
+plt.imshow(bright_pixels, cmap="gray")
+plt.show()
+
+```
+
+The lesson is worth emphasizing: **images are just arrays**, so slicing, arithmetic, aggregation with an `axis`, and boolean masks — everything from this chapter — applies to them unchanged.
+
+::: {.callout-tip title="Exercise" #exercise-array_computations-image}
+
+Create a grayscale version of the Grace Hopper image and use boolean indexing to count how many of its pixels are *darker* than a brightness of 50.
 
 :::
 
+::: {.callout-note title="Solution" #solution-array_computations-image collapse="true"}
 
+```{python}
 
+gray_hopper = np.mean(hopper, axis=2)
+
+# Count the pixels whose brightness is below 50
+np.sum(gray_hopper < 50)
+
+```
+
+:::
+
+## Summary
+
+In this chapter we introduced NumPy arrays, the standard container for numerical data in Python. The key ideas were:
+
+- **Arrays vs. lists.** Arrays hold values of a single type and support *vectorized* operations, letting us transform every element at once instead of writing loops. This makes code shorter, faster, and more memory-efficient.
+- **Creating and inspecting arrays.** We build arrays with `np.array()`, `np.arange()`, and `np.linspace()`, and inspect them with attributes like `.shape`, `.dtype`, `.size`, and `.ndim`.
+- **Summarizing and transforming.** Functions such as `np.mean()`, `np.median()`, `np.min()`, `np.max()`, and `np.sum()` reduce an array to a single number, while `np.diff()` and `np.cumsum()` are especially handy for sequences like time series.
+- **Boolean arrays.** Comparisons produce arrays of `True`/`False` values that we can sum to count, average to find proportions, and use to index — pulling out and summarizing exactly the values that meet a condition.
+- **Higher-dimensional arrays.** Two- and three-dimensional arrays represent grids and images, and every array tool we learned applies to them.
+
+NumPy is the numerical backbone of the Python data science ecosystem. In the chapters ahead we'll build on it to work with full data tables and to create richer visualizations.
+
+## Exercises
+
+::: {.callout-tip title="Exercise" #exercise-array_computations-cents}
+
+Create a NumPy array of the gas prices expressed in **cents** rather than dollars (so \$3.05 becomes 305 cents). Then find the average price in cents.
+
+:::
+
+::: {.callout-note title="Solution" #solution-array_computations-cents collapse="true"}
+
+```{python}
+
+prices_in_cents = gas_prices * 100
+
+[prices_in_cents, np.mean(prices_in_cents)]
+
+```
+
+:::
+
+::: {.callout-tip title="Exercise" #exercise-array_computations-range}
+
+The **range** of a dataset is the difference between its largest and smallest values. Use `np.max()` and `np.min()` to compute the range of the gas prices for the year.
+
+:::
+
+::: {.callout-note title="Solution" #solution-array_computations-range collapse="true"}
+
+```{python}
+
+np.max(gas_prices) - np.min(gas_prices)
+
+```
+
+Gas prices varied by about 43 cents between the cheapest and most expensive weeks of the year.
+
+:::
+
+::: {.callout-tip title="Exercise" #exercise-array_computations-firsthalf}
+
+Use slicing and `np.mean()` to compare the average gas price in the first half of the year (the first 26 weeks) to the average in the second half (the last 26 weeks). Did gas get cheaper or more expensive on average?
+
+:::
+
+::: {.callout-note title="Solution" #solution-array_computations-firsthalf collapse="true"}
+
+```{python}
+
+first_half_avg = np.mean(gas_prices[0:26])
+second_half_avg = np.mean(gas_prices[26:52])
+
+[first_half_avg, second_half_avg]
+
+```
+
+Gas was more expensive in the first half of the year than in the second half, consistent with the downward drift we saw in the line plot.
+
+:::

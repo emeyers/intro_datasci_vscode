@@ -1,4 +1,6 @@
-jupyter 
+jupyter
 nbformat
-matplotlib 
-pandas 
+matplotlib
+pandas
+pandas-datareader
+imageio
