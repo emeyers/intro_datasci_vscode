@@ -12,6 +12,7 @@ book:
     - array_computations.qmd
     - data_tables.qmd
     - data_visualization.qmd
+    - iteration_and_functions.qmd
 
 bibliography: references.bib
 

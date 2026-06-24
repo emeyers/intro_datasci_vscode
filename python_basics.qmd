@@ -6,6 +6,10 @@ This chapter introduces the fundamental concepts and basic syntax of the Python 
 
 While the chapter covers several different key concepts and syntax of Python, we focus on a subset of features that are most central for data analysis, rather than covering the full range of Python's capabilities.  Becoming proficient in the basic Python covered in this chapter will be important as a basis for writing code in subsequent chapters, so make sure to practice and understand these concepts thoroughly.
 
+::: {.callout-note}
+Two foundational Python tools — **loops** (for repeating an action many times) and **writing your own functions** — are intentionally *not* covered here. Because the array and table tools introduced in the next several chapters often let us operate on a whole dataset at once, we rarely need loops at first, so we postpone these topics until @sec-iteration-functions, once you've seen why they are useful. You can read the book straight through without them until that point.
+:::
+
 By the end of this chapter, you should be comfortable with writing basic Python code, performing simple calculations, and understanding how Python represents and manipulates different types of data. These foundational skills will prepare you for more advanced topics in data analysis that are covered in the rest of the book. 
 
 
