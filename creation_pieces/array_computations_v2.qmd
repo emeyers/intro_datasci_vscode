@@ -207,3 +207,91 @@ Follow Ch. 3's ::: {.exercise} / ::: {.solution} callout pattern.
 - Higher-dimensional: build a small pattern in a 2D array and imshow it; load an
   image and produce a grayscale version and a single-channel version.
 -->
+
+
+
+### Color images are 3D arrays
+
+A color image goes one dimension further: it's a 3D array of shape (height, width, 3), where the final dimension holds the three color channels — **red, green, and blue**. Let's load a real photograph to see this. We'll use a portrait of Grace Hopper, a pioneering computer scientist (and Yale Ph.D.), that comes bundled with Matplotlib. (The exact image-loading functions below are not important — they only fetch the picture; the point is that what comes out is an ordinary NumPy array.)
+
+```{python}
+
+import matplotlib.cbook as cbook
+from imageio.v3 import imread
+
+# Load the image into a NumPy array
+hopper = imread(cbook.get_sample_data("grace_hopper.jpg"))
+
+plt.imshow(hopper)
+plt.show()
+
+```
+
+Let's confirm that this image really is just an array of numbers by checking its shape and data type:
+
+```{python}
+
+[hopper.shape, hopper.dtype]
+
+```
+
+The shape `(600, 512, 3)` tells us the image is 600 pixels tall, 512 pixels wide, and has 3 color channels. The data type `uint8` means each value is a whole number from 0 to 255, where 0 is no intensity and 255 is full intensity for that color.
+
+### Manipulating an image is just array computation
+
+Because the image is an array, every NumPy tool from this chapter applies to it. Using slicing, we can pull out a single color channel — here, the red channel — and display it on its own:
+
+```{python}
+
+# Keep all rows and columns, but only the first (red) channel
+red_channel = hopper[:, :, 0]
+
+plt.imshow(red_channel, cmap="gray")
+plt.show()
+
+```
+
+We can convert the photo to grayscale by averaging the three color channels together. The `axis=2` argument tells `np.mean()` to average *across the color channels* at each pixel, leaving a 2D array. The dimensions are numbered starting from 0 to match the shape `(600, 512, 3)`: axis 0 is the rows, axis 1 is the columns, and axis 2 is the three color channels — the one we want to average over here:
+
+```{python}
+
+# Average the red, green, and blue values at each pixel
+gray_hopper = np.mean(hopper, axis=2)
+
+plt.imshow(gray_hopper, cmap="gray")
+plt.show()
+
+```
+
+Finally, the boolean-array idea works on images too. Comparing the grayscale image to a threshold produces a boolean array marking the brightest pixels, which we can display to highlight the lightest regions of the photo:
+
+```{python}
+
+# A boolean array that is True for bright pixels
+bright_pixels = gray_hopper > 150
+
+plt.imshow(bright_pixels, cmap="gray")
+plt.show()
+
+```
+
+The lesson is worth emphasizing: **images are just arrays**. Everything from this chapter — slicing, arithmetic, aggregation with an `axis`, and boolean masks — applies to them unchanged.
+
+::: {.callout-tip title="Exercise" #exercise-array_computations-image}
+
+Create a grayscale version of the Grace Hopper image and use boolean indexing to count how many of its pixels are *darker* than a brightness of 50.
+
+:::
+
+::: {.callout-note title="Solution" #solution-array_computations-image collapse="true"}
+
+```{python}
+
+gray_hopper = np.mean(hopper, axis=2)
+
+# Count the pixels whose brightness is below 50
+np.sum(gray_hopper < 50)
+
+```
+
+:::

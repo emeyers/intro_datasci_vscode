@@ -2072,17 +2072,22 @@ print("-" * 30)
 
 # 2. 'Major' variable analysis
 print("\n2. Analysis of 'Major':")
-major_freq = {}
-for major in majors:
-    major_freq[major] = major_freq.get(major, 0) + 1
+
+# Count how many students have each major (a frequency table), using the
+# list.count() method we saw earlier in this chapter
+major_names = ['CompSci', 'Biology', 'English', 'Math']
+major_counts = [majors.count('CompSci'),
+                majors.count('Biology'),
+                majors.count('English'),
+                majors.count('Math')]
 
 print("Frequency Table for Major:")
-for major, count in major_freq.items():
-    print(f"- {major}: {count}")
+print(f"- CompSci: {majors.count('CompSci')}")
+print(f"- Biology: {majors.count('Biology')}")
+print(f"- English: {majors.count('English')}")
+print(f"- Math: {majors.count('Math')}")
 
 # Bar graph for Major
-major_names = list(major_freq.keys())
-major_counts = list(major_freq.values())
 
 plt.figure(figsize=(7, 5))
 plt.bar(major_names, major_counts, color=['skyblue', 'lightgreen', 'salmon', 'gold'])
@@ -2127,12 +2132,14 @@ plt.ylabel("Exam Score")
 plt.xticks([1], ['Scores'])
 plt.show()
 
-# Check for outliers using 1.5xIQR rule
+# Check for outliers using the 1.5xIQR rule by comparing the smallest and
+# largest scores to the fences
 lower_fence = q1_score - 1.5 * iqr_score
 upper_fence = q3_score + 1.5 * iqr_score
-outliers = [score for score in exam_scores if score < lower_fence or score > upper_fence]
-if outliers:
-    print(f"Potential outliers based on 1.5xIQR rule: {outliers}")
+lowest_score = min(exam_scores)
+highest_score = max(exam_scores)
+if lowest_score < lower_fence or highest_score > upper_fence:
+    print("There are potential outliers based on the 1.5xIQR rule.")
 else:
     print("No potential outliers detected by the 1.5xIQR rule.")
 print("-" * 30)

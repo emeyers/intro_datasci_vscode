@@ -1,0 +1,55 @@
+# Iteration and writing functions {#sec-iteration-functions}
+
+So far we have deliberately gotten quite far without two of Python's most fundamental tools: **loops**, which repeat an action many times, and **functions** that we write ourselves to package up and reuse a piece of code. We were able to postpone them because the array and table tools introduced in the earlier chapters let us operate on whole collections of data at once, which removes the need to write a loop in many common situations.
+
+There are still plenty of tasks, though, where writing a loop or your own function is the clearest — or the only — way to get the job done. This chapter introduces both.
+
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+Source material: the author's class introduces loops and functions together,
+later in the semester. Pull worked examples from the Fall-2025 class notebooks
+in extras/material_from_2025f/class_code/ (the class that covers iteration and
+defining functions).
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+end most sections with an exercise (see CLAUDE.md); only use tools introduced in
+this chapter or earlier ones.
+-->
+
+## Repeating work with `for` loops
+
+<!--
+- Motivate with a task that arrays/tables don't cleanly handle.
+- `for` loop syntax: the `for ... in ...:` header, the colon, indentation.
+- Looping over a list; looping over a range with range().
+- Building up a result inside a loop (e.g. accumulating a total, appending to a list).
+- Exercise.
+-->
+
+## Repeating work until a condition is met: `while` loops
+
+<!--
+- `while` loop syntax and when to prefer it over `for`.
+- Caution about loops that never end.
+- Exercise.
+-->
+
+## Writing your own functions
+
+<!--
+- `def`, parameters, the `return` statement (contrast with the call expressions
+  from the Python basics chapter, where we *called* functions others wrote).
+- Why functions: reuse, naming a computation, avoiding repetition.
+- A worked example that combines a function with a loop.
+- Exercise.
+-->
+
+## Summary
+
+<!--
+- When to reach for a loop vs. a vectorized array/table operation.
+- Functions as a way to organize and reuse code.
+-->
+
+## Exercises
