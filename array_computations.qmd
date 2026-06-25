@@ -1,8 +1,8 @@
 # Array computations with NumPy
 
-In the previous chapter we summarized data using plain Python lists, the `statistics` module, and considerable manual work. That approach worked, but it was tedious: to do almost anything to *every* value in a list — add a tax to every price, convert every value to different units, or just add two lists of numbers together — we had to handle the values one at a time.
+In the previous chapter we summarized data using plain Python lists, the `statistics` module, and considerable manual work. That approach worked, but it was tedious: to do almost anything to *every* value in a list (add a tax to every price, convert every value to different units, or just add two lists of numbers together), we had to handle the values one at a time.
 
-In this chapter we introduce **NumPy** (short for "Numerical Python"), the standard Python library for working with numerical data. NumPy gives us a new kind of container called an **array**, which makes numerical computations shorter to write, faster to run, and easier to read. Arrays are the foundation that nearly every other data science tool in Python — including the Pandas package we'll use later — is built on top of.
+In this chapter we introduce **NumPy** (short for "Numerical Python"), the standard Python library for working with numerical data. NumPy gives us a new kind of container called an **array**, which makes numerical computations shorter to write, faster to run, and easier to read. Arrays are the foundation that nearly every other data science tool in Python, including the Pandas package we'll use later, is built on top of.
 
 By the end of this chapter you'll be able to load numerical data into arrays, transform and summarize that data in a single step, filter it down to the values you care about, and even treat images as arrays of numbers.
 
@@ -25,7 +25,7 @@ weekly_prices * 2
 
 ```
 
-As you can see, that doesn't double each price — multiplying a list by a number just *repeats* the list. And adding a number to a list doesn't work at all; it causes an error. To actually add \$2 to each price, we'd have to reach into the list and update each value individually:
+As you can see, that doesn't double each price: multiplying a list by a number just *repeats* the list. And adding a number to a list doesn't work at all; it causes an error. To actually add \$2 to each price, we'd have to reach into the list and update each value individually:
 
 ```{python}
 
@@ -34,10 +34,10 @@ As you can see, that doesn't double each price — multiplying a list by a numbe
 
 ```
 
-This works, but imagine doing it for a whole year of weekly prices, or for the thousands of values in a larger dataset — writing out every element by hand quickly becomes impractical.
+This works, but imagine doing it for a whole year of weekly prices, or for the thousands of values in a larger dataset. Writing out every element by hand quickly becomes impractical.
 
 ::: {.callout-note}
-Python does have a tool for repeating an action many times without writing it out by hand — the **loop** — which we cover later in @sec-iteration-functions. But for the whole-dataset calculations that are common in data science, the array approach shown in this chapter is usually shorter, faster, and easier to read, so we will favor it throughout the book.
+Python does have a tool for repeating an action many times without writing it out by hand: the **loop**, which we cover later in @sec-iteration-functions. But for the whole-dataset calculations that are common in data science, the array approach shown in this chapter is usually shorter, faster, and easier to read, so we will favor it throughout the book.
 :::
 
 NumPy lets us express the same computation in a single, readable expression. First we need to import the library. By near-universal convention, NumPy is imported under the short name `np`:
@@ -59,7 +59,7 @@ price_array + 2
 
 ```
 
-The operation was applied to every element automatically. This idea — applying an operation to every element of an array at once — is called **vectorization**, and it is the central idea behind NumPy's usefulness. Compared to lists, arrays give us three main advantages:
+The operation was applied to every element automatically. This idea, applying an operation to every element of an array at once, is called **vectorization**, and it is the central idea behind NumPy's usefulness. Compared to lists, arrays give us three main advantages:
 
 1. **Ease of expression.** Element-wise arithmetic like `price_array + 2` lets us say what we mean in a single short expression.
 2. **Speed.** NumPy performs these operations in fast, pre-compiled code, so computations on large arrays run far faster than handling the values one at a time.
@@ -121,7 +121,7 @@ gas_dates = gas_year["DATE"].values
 
 ```
 
-Let's take a look at the prices we just loaded:
+Take a look at the prices we just loaded:
 
 ```{python}
 
@@ -129,7 +129,7 @@ gas_prices
 
 ```
 
-This is an array of 52 numbers, one price per week — the first value, about \$3.05, is the price in the first week of January. Throughout the chapter we'll use this `gas_prices` array (and the matching `gas_dates`) to illustrate what NumPy can do.
+This is an array of 52 numbers, one price per week. The first value, about \$3.05, is the price in the first week of January. Throughout the chapter we'll use this `gas_prices` array (and the matching `gas_dates`) to illustrate what NumPy can do.
 
 ## Creating arrays and their basic properties
 
@@ -166,7 +166,7 @@ The `.shape` is reported as `(52,)`, which tells us the array has 52 elements ar
 
 ```
 
-Sometimes we want to change the data type of an array — for example, to view our prices as whole numbers of dollars. The `.astype()` method makes a new array with a different type:
+Sometimes we want to change the data type of an array, for example to view our prices as whole numbers of dollars. The `.astype()` method makes a new array with a different type:
 
 ```{python}
 
@@ -260,7 +260,7 @@ This is where arrays are most useful. NumPy provides a large collection of funct
 
 ### Transforming every value at once
 
-We saw earlier that we can do arithmetic on an entire array. Because each operation applies to every element, we can answer "what if" questions instantly. For example, one U.S. dollar was worth roughly 147 Japanese yen during this period — so what was each week's gas price in yen?
+We saw earlier that we can do arithmetic on an entire array. Because each operation applies to every element, we can answer "what if" questions instantly. For example, one U.S. dollar was worth roughly 147 Japanese yen during this period. So what was each week's gas price in yen?
 
 ```{python}
 
@@ -317,7 +317,7 @@ np.sum(gas_prices)
 
 ### Working across a sequence
 
-Because our prices are in weekly order, some NumPy functions are especially useful. `np.cumsum()` gives the **cumulative sum** — the running total spent after each week:
+Because our prices are in weekly order, some NumPy functions are especially useful. `np.cumsum()` gives the **cumulative sum**: the running total spent after each week.
 
 ```{python}
 
@@ -326,13 +326,91 @@ np.cumsum(gas_prices)
 
 ```
 
-Even more useful for a time series is `np.diff()`, which gives the difference between each value and the one before it — in other words, how much the price *changed* from one week to the next:
+To see what `np.cumsum()` is doing, it helps to look at a small example array instead of all 52 weeks at once. Each value in the running total is the sum of itself and every value before it, so the running total carries forward from one box to the next:
+
+```{python}
+#| echo: false
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+
+example = np.array([4, 1, 5, 2])
+running_total = np.cumsum(example)
+
+fig, ax = plt.subplots(figsize=(7.5, 3.4))
+ax.set_title("np.cumsum(): each value is the running total so far")
+ax.axis("off")
+ax.set_xlim(-1.3, len(example))
+ax.set_ylim(-0.4, 2.0)
+
+box_w, box_h = 0.8, 0.6
+for i, val in enumerate(example):
+    ax.add_patch(patches.FancyBboxPatch((i - box_w / 2, 1.2), box_w, box_h,
+                 boxstyle="round,pad=0.02", facecolor="#cfe3f7", edgecolor="black"))
+    ax.text(i, 1.5, str(val), ha="center", va="center", fontsize=13)
+
+for i, val in enumerate(running_total):
+    ax.add_patch(patches.FancyBboxPatch((i - box_w / 2, 0), box_w, box_h,
+                 boxstyle="round,pad=0.02", facecolor="#fde2a8", edgecolor="black"))
+    ax.text(i, 0.3, str(val), ha="center", va="center", fontsize=13)
+    # arrow from the original value down into its cumsum box
+    ax.annotate("", xy=(i, 0.65), xytext=(i, 1.15),
+                arrowprops=dict(arrowstyle="->", color="gray"))
+    # arrow carrying the running total forward from the previous cumsum box
+    if i > 0:
+        ax.annotate("", xy=(i - box_w / 2 - 0.03, 0.3), xytext=(i - 1 + box_w / 2 + 0.03, 0.3),
+                    arrowprops=dict(arrowstyle="->", color="black",
+                                     connectionstyle="arc3,rad=-0.6"))
+
+ax.text(-1.15, 1.5, "array", fontsize=10, ha="left", va="center")
+ax.text(-1.15, 0.3, "cumsum", fontsize=10, ha="left", va="center")
+plt.show()
+
+```
+
+Even more useful for a time series is `np.diff()`, which gives the difference between each value and the one before it: how much the price *changed* from one week to the next.
 
 ```{python}
 
 # Week-to-week changes in the price of gas
 weekly_changes = np.diff(gas_prices)
 weekly_changes
+
+```
+
+The same small example shows what `np.diff()` does: each value is the gap between two neighbors, so there is one fewer diff value than there are original values:
+
+```{python}
+#| echo: false
+
+diffs = np.diff(example)
+
+fig, ax = plt.subplots(figsize=(7.5, 3.4))
+ax.set_title("np.diff(): each value is the gap between two neighbors")
+ax.axis("off")
+ax.set_xlim(-1.3, len(example))
+ax.set_ylim(-0.4, 2.0)
+
+for i, val in enumerate(example):
+    ax.add_patch(patches.FancyBboxPatch((i - box_w / 2, 1.2), box_w, box_h,
+                 boxstyle="round,pad=0.02", facecolor="#cfe3f7", edgecolor="black"))
+    ax.text(i, 1.5, str(val), ha="center", va="center", fontsize=13)
+
+for i, val in enumerate(diffs):
+    mid = i + 0.5
+    ax.add_patch(patches.FancyBboxPatch((mid - box_w / 2, 0), box_w, box_h,
+                 boxstyle="round,pad=0.02", facecolor="#fde2a8", edgecolor="black"))
+    label = f"+{val}" if val > 0 else str(val)
+    ax.text(mid, 0.3, label, ha="center", va="center", fontsize=13)
+    # arrows from each pair of neighbors converging on the diff box between them
+    ax.annotate("", xy=(mid - 0.08, 0.65), xytext=(i, 1.15),
+                arrowprops=dict(arrowstyle="->", color="gray"))
+    ax.annotate("", xy=(mid + 0.08, 0.65), xytext=(i + 1, 1.15),
+                arrowprops=dict(arrowstyle="->", color="gray"))
+
+ax.text(-1.15, 1.5, "array", fontsize=10, ha="left", va="center")
+ax.text(-1.15, 0.3, "diff", fontsize=10, ha="left", va="center")
+plt.show()
 
 ```
 
@@ -402,7 +480,7 @@ The largest single-week drop was about 8 cents, in the week ending in early Dece
 
 ## Boolean arrays and boolean indexing
 
-So far our questions have been about all the prices together. Often, though, we want to focus on values that meet some condition — the weeks where gas was cheap, say. NumPy handles this with **boolean arrays**.
+So far our questions have been about all the prices together. Often, though, we want to focus on values that meet some condition, such as the weeks where gas was cheap. NumPy handles this with **boolean arrays**.
 
 A boolean array is just an array of `True`/`False` values. We can make one by hand, but more often we create one by writing a **comparison** against an array. NumPy compares every element and returns an array of the results:
 
@@ -429,7 +507,7 @@ np.mean(gas_prices < 3.00)
 
 ```
 
-So gas dipped below \$3.00 in only 5 of the 52 weeks — about 10% of the year. We can build more specific conditions by combining comparisons with `&` ("and") and `|` ("or"). Each comparison must be wrapped in parentheses:
+So gas dipped below \$3.00 in only 5 of the 52 weeks, about 10% of the year. We can build more specific conditions by combining comparisons with `&` ("and") and `|` ("or"). Each comparison must be wrapped in parentheses:
 
 ```{python}
 
@@ -459,7 +537,7 @@ np.mean(gas_prices[gas_prices < 3.00])
 
 ### The same idea on other data
 
-Boolean indexing isn't specific to gas prices — it's a general tool for asking "what is true of the subset of my data that meets some condition?" To see this, let's briefly return to the Bechdel test movie data from the previous chapter. Recall that each movie either passes (`"PASS"`) or fails (`"FAIL"`) the test. Here we load the movies' pass/fail status and international gross earnings into two arrays:
+Boolean indexing isn't specific to gas prices. It's a general tool for asking "what is true of the subset of my data that meets some condition?" To see this, let's briefly return to the Bechdel test movie data from the previous chapter. Recall that each movie either passes (`"PASS"`) or fails (`"FAIL"`) the test. Here we load the movies' pass/fail status and international gross earnings into two arrays:
 
 ```{python}
 
@@ -482,7 +560,7 @@ Using exactly the masking technique we just learned, we can compare the average 
 
 ```
 
-Strikingly, movies that *failed* the Bechdel test earned more on average than those that passed — the very pattern FiveThirtyEight highlighted in its analysis. Notice that the same one-line masking idea works just as well here as it did on the gas prices.
+Strikingly, movies that *failed* the Bechdel test earned more on average than those that passed, the very pattern FiveThirtyEight highlighted in its analysis. Notice that the same one-line masking idea works just as well here as it did on the gas prices.
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-mask}
 
@@ -504,9 +582,11 @@ The price was above the yearly average in 34 of the 52 weeks. (Because a few hig
 
 ## Higher-dimensional arrays and image processing
 
-Every array we've used so far has been one-dimensional — a single row of numbers. But arrays can have more than one dimension. A two-dimensional array is just a grid of numbers (rows and columns), much like a spreadsheet or a mathematical matrix.
+Every array we've used so far has been one-dimensional: a single row of numbers. But arrays can have more than one dimension. A two-dimensional array is just a grid of numbers (rows and columns), much like a spreadsheet or a mathematical matrix.
 
-We can create one directly. Here we start with a 100×100 grid of zeros using `np.zeros()`, then use slicing to set a square block of values in the middle to 1. Note that the `[100, 100]` we pass to `np.zeros()` is not a list of *values* (the way `np.array([3.05, 3.04])` was) — it describes the *shape* we want: 100 rows and 100 columns.
+### Grayscale images are 2D arrays
+
+We can create a 2D array directly. Here we start with a 100×100 grid of zeros using `np.zeros()`, then use slicing to set a square block of values in the middle to 1. Note that the `[100, 100]` we pass to `np.zeros()` is not a list of *values* (the way `np.array([3.05, 3.04])` was). It describes the *shape* we want: 100 rows and 100 columns.
 
 ```{python}
 
@@ -518,7 +598,7 @@ grid[30:70, 30:70] = 1
 
 ```
 
-Why make a grid of numbers? Because **an image is exactly that**. A grayscale image is a 2D array where each number is the brightness of a pixel. If we display our grid as an image, the 1s show up as a white square on a black background:
+Why make a grid of numbers? Because **a grayscale image is exactly that**: a 2D array where each number is the brightness of a pixel. If we display our grid as an image, the 1s show up as a white square on a black background:
 
 ```{python}
 
@@ -527,24 +607,100 @@ plt.show()
 
 ```
 
-### Color images are 3D arrays
+The picture below makes the connection precise: every position in the array has a row index (**axis 0**) and a column index (**axis 1**), and the *value* stored at that position controls how dark or light the pixel is, from 0 (black) to 255 (white):
 
-A color image goes one dimension further: it's a 3D array of shape (height, width, 3), where the final dimension holds the three color channels — **red, green, and blue**. Let's load a real photograph to see this. We'll use a portrait of Grace Hopper, a pioneering computer scientist (and Yale Ph.D.), that comes bundled with Matplotlib. (The exact image-loading functions below are not important — they only fetch the picture; the point is that what comes out is an ordinary NumPy array.)
+```{python}
+#| echo: false
+
+import matplotlib.patches as patches
+
+vals = np.array([
+    [10, 60, 120, 180, 240],
+    [40, 80, 140, 200, 255],
+    [20, 100, 160, 220, 250],
+    [0, 70, 130, 190, 230],
+])
+n_rows, n_cols = vals.shape
+
+fig, axes = plt.subplots(1, 2, figsize=(9, 4.2))
+
+# Both panels use the same pixel-centered limits as imshow's default, so row i
+# lines up at the same height in the numbers panel and the pixels panel.
+xlim = (-0.5, n_cols - 0.5)
+ylim = (n_rows - 0.5, -0.5)
+
+ax = axes[0]
+ax.set_xlim(*xlim)
+ax.set_ylim(*ylim)
+ax.set_aspect("equal")
+ax.set_title("A 2D array of brightness values", fontsize=12)
+ax.set_xlabel("axis 1 (columns)")
+ax.set_ylabel("axis 0 (rows)")
+ax.set_xticks(range(n_cols))
+ax.set_yticks(range(n_rows))
+for spine in ax.spines.values():
+    spine.set_visible(False)
+ax.tick_params(length=0)
+
+for r in range(n_rows):
+    for c in range(n_cols):
+        ax.add_patch(patches.Rectangle((c - 0.5, r - 0.5), 1, 1,
+                     facecolor="white", edgecolor="black"))
+        ax.text(c, r, str(vals[r, c]), ha="center", va="center", fontsize=11)
+
+ax = axes[1]
+im = ax.imshow(vals, cmap="gray", vmin=0, vmax=255)
+ax.set_title("The same array, displayed as pixels", fontsize=12)
+ax.set_xlabel("axis 1 (columns)")
+ax.set_ylabel("axis 0 (rows)")
+ax.set_xticks(range(n_cols))
+ax.set_yticks(range(n_rows))
+cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+cbar.set_label("0 = black  →  255 = white")
+
+plt.tight_layout()
+plt.show()
+
+```
+
+Now let's look at a real photograph this way: a portrait of Grace Hopper, a pioneering computer scientist (and Yale Ph.D.), that comes bundled with Matplotlib. (The exact image-loading functions below are not important; they only fetch the picture. The point is that what comes out is an ordinary NumPy array.) The photograph was actually captured in color, but to start, let's look at it as a single 2D array of brightness values; we'll see exactly how that grayscale version is built once we've covered color images below.
 
 ```{python}
 
 import matplotlib.cbook as cbook
 from imageio.v3 import imread
 
-# Load the image into a NumPy array
+# Load the image into a NumPy array (we'll work with its color version shortly)
 hopper = imread(cbook.get_sample_data("grace_hopper.jpg"))
+
+# For now, look at it as a single grayscale layer of brightness values
+gray_hopper = np.mean(hopper, axis=2)
+
+plt.imshow(gray_hopper, cmap="gray")
+plt.show()
+
+```
+
+Confirm that this grayscale photo really is a 2D array of numbers by checking its shape and data type:
+
+```{python}
+
+[gray_hopper.shape, gray_hopper.dtype]
+
+```
+
+The shape `(600, 512)` tells us the photo is 600 pixels tall and 512 pixels wide, with a single brightness value at each position, just like the small example above. The values are `float64` because averaging can produce decimals, even though the original pixel values were whole numbers.
+
+### Color images are 3D arrays
+
+It turns out this photograph was captured in color. Here's the original:
+
+```{python}
 
 plt.imshow(hopper)
 plt.show()
 
 ```
-
-Let's confirm that this image really is just an array of numbers by checking its shape and data type:
 
 ```{python}
 
@@ -552,11 +708,125 @@ Let's confirm that this image really is just an array of numbers by checking its
 
 ```
 
-The shape `(600, 512, 3)` tells us the image is 600 pixels tall, 512 pixels wide, and has 3 color channels. The data type `uint8` means each value is a whole number from 0 to 255, where 0 is no intensity and 255 is full intensity for that color.
+The shape `(600, 512, 3)` tells us the image is still 600 pixels tall and 512 pixels wide, but now has a third dimension of length 3: one value for each color channel at every pixel. The data type `uint8` means each value is a whole number from 0 to 255, where 0 is no intensity and 255 is full intensity for that color. A color image goes one dimension further than the grayscale array above: it's a 3D array of shape (height, width, 3), where the final dimension holds the three color channels, **red, green, and blue**:
+
+```{python}
+#| echo: false
+
+fig, ax = plt.subplots(figsize=(7, 5.4))
+ax.set_xlim(-1.3, 8.6)
+ax.set_ylim(-1.0, 8.6)
+ax.axis("off")
+ax.set_aspect("equal")
+ax.set_title("A color image is three stacked 2D layers", fontsize=12)
+
+size = 4.0
+offset = 1.0
+layers = [
+    ("R", "#f0a8a8", 0),
+    ("G", "#a8d8a8", 1),
+    ("B", "#9bb8e8", 2),
+]
+
+base_x, base_y = 2.2, 1.6
+
+
+def corners(depth):
+    return base_x + depth * offset, base_y + depth * offset
+
+
+x_back, y_back = corners(0)
+x_front, y_front = corners(2)
+
+# plain wireframe edges connecting back (R) to front (B), except the
+# bottom-right one, which becomes the axis-2 arrow below
+for dx, dy in [(0, 0), (0, size), (size, size)]:
+    ax.plot([x_back + dx, x_front + dx], [y_back + dy, y_front + dy],
+            color="black", lw=0.8, zorder=0)
+
+for label, color, depth in layers:
+    x0, y0 = corners(depth)
+    ax.add_patch(patches.Rectangle((x0, y0), size, size, facecolor=color,
+                 edgecolor="black", lw=1.3, alpha=0.95, zorder=depth + 1))
+    ax.text(x0 + 0.35, y0 + 0.35, label, ha="center", va="center",
+            fontsize=13, fontweight="bold", zorder=depth + 1.5)
+
+# axis 0 (rows): attached to R's left edge, the only edge not covered by
+# the layers stacked in front of it. Points down, since row 0 is at the top.
+ax.annotate("", xy=(x_back - 0.5, y_back), xytext=(x_back - 0.5, y_back + size),
+            arrowprops=dict(arrowstyle="->", color="black", lw=1.5))
+ax.text(x_back - 0.95, y_back + size / 2, "axis 0\n(rows)", ha="center", va="center",
+        fontsize=10, rotation=90)
+
+# axis 1 (columns): attached to R's bottom edge, likewise fully exposed
+ax.annotate("", xy=(x_back + size, y_back - 0.5), xytext=(x_back, y_back - 0.5),
+            arrowprops=dict(arrowstyle="->", color="black", lw=1.5))
+ax.text(x_back + size / 2, y_back - 0.85, "axis 1 (columns)", ha="center", va="center", fontsize=10)
+
+# axis 2 (channel): the bottom-right corner connector, turned into an arrow,
+# labeled in the lower right
+ax.annotate("", xy=(x_front + size, y_front), xytext=(x_back + size, y_back),
+            arrowprops=dict(arrowstyle="->", color="black", lw=1.6, linestyle="--"), zorder=0)
+ax.text(x_back + size + 0.3, y_back - 0.15, "axis 2 (channel:\n0=R, 1=G, 2=B)",
+        ha="left", va="top", fontsize=10)
+
+ax.text((x_back + x_front + size) / 2, y_front + size + 0.4, "shape = (height, width, 3)",
+        fontsize=11, ha="center")
+
+plt.tight_layout()
+plt.show()
+
+```
+
+Combining different amounts of red, green, and blue *light* is how each pixel's color is produced, an idea called **additive color**. Mixing any two of the three at full intensity produces yellow, magenta, or cyan; mixing all three produces white:
+
+```{python}
+#| echo: false
+
+H, W = 420, 420
+canvas = np.zeros((H, W, 3))
+yy, xx = np.mgrid[0:H, 0:W]
+
+
+def circle_mask(cx, cy, r):
+    return (xx - cx) ** 2 + (yy - cy) ** 2 <= r ** 2
+
+
+r = 130
+red_center = (210, 150)
+green_center = (150, 270)
+blue_center = (270, 270)
+
+# Add light into each channel wherever its circle covers a pixel; where circles
+# overlap, the added light combines (and is clipped at 255, full intensity).
+canvas[circle_mask(*red_center, r), 0] += 255
+canvas[circle_mask(*green_center, r), 1] += 255
+canvas[circle_mask(*blue_center, r), 2] += 255
+canvas = np.clip(canvas, 0, 255).astype("uint8")
+
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.imshow(canvas)
+ax.axis("off")
+ax.set_title("Mixing red, green, and blue light (additive color)", fontsize=12)
+
+ax.text(210, 60, "Red", ha="center", fontsize=12, fontweight="bold", color="white")
+ax.text(90, 330, "Green", ha="center", fontsize=12, fontweight="bold", color="white")
+ax.text(330, 330, "Blue", ha="center", fontsize=12, fontweight="bold", color="white")
+ax.text(150, 195, "Yellow", ha="center", fontsize=10, color="black")
+ax.text(270, 195, "Magenta", ha="center", fontsize=10, color="black")
+ax.text(210, 305, "Cyan", ha="center", fontsize=10, color="black")
+ax.text(210, 240, "White", ha="center", fontsize=10, color="black")
+
+plt.tight_layout()
+plt.show()
+
+```
+
+This is also how we produced the grayscale version of the photo earlier: `np.mean(hopper, axis=2)` averages the red, green, and blue values at each pixel into a single brightness value. The `axis=2` argument tells NumPy which axis to average over, and axis 2 is exactly the channel axis shown in the diagram above: axis 0 is the rows, axis 1 is the columns, and axis 2 is the three color channels.
 
 ### Manipulating an image is just array computation
 
-Because the image is an array, every NumPy tool from this chapter applies to it. Using slicing, we can pull out a single color channel — here, the red channel — and display it on its own:
+Because the image is an array, every NumPy tool from this chapter applies to it. Using slicing, we can pull out a single color channel (here, the red channel) and display it on its own:
 
 ```{python}
 
@@ -568,19 +838,7 @@ plt.show()
 
 ```
 
-We can convert the photo to grayscale by averaging the three color channels together. The `axis=2` argument tells `np.mean()` to average *across the color channels* at each pixel, leaving a 2D array. The dimensions are numbered starting from 0 to match the shape `(600, 512, 3)`: axis 0 is the rows, axis 1 is the columns, and axis 2 is the three color channels — the one we want to average over here:
-
-```{python}
-
-# Average the red, green, and blue values at each pixel
-gray_hopper = np.mean(hopper, axis=2)
-
-plt.imshow(gray_hopper, cmap="gray")
-plt.show()
-
-```
-
-Finally, the boolean-array idea works on images too. Comparing the grayscale image to a threshold produces a boolean array marking the brightest pixels, which we can display to highlight the lightest regions of the photo:
+The boolean-array idea works on images too. Comparing the grayscale image to a threshold produces a boolean array marking the brightest pixels, which we can display to highlight the lightest regions of the photo:
 
 ```{python}
 
@@ -592,11 +850,11 @@ plt.show()
 
 ```
 
-The lesson is worth emphasizing: **images are just arrays**. Everything from this chapter — slicing, arithmetic, aggregation with an `axis`, and boolean masks — applies to them unchanged.
+The lesson is worth emphasizing: **images are just arrays**. Slicing, arithmetic, aggregation with an `axis`, and boolean masks all apply to them, exactly as they did everywhere else in this chapter.
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-image}
 
-Create a grayscale version of the Grace Hopper image and use boolean indexing to count how many of its pixels are *darker* than a brightness of 50.
+Using the `gray_hopper` array from above, use boolean indexing to count how many of its pixels are *darker* than a brightness of 50.
 
 :::
 
@@ -620,7 +878,7 @@ In this chapter we introduced NumPy arrays, the standard container for numerical
 - **Arrays vs. lists.** Arrays hold values of a single type and support *vectorized* operations, letting us transform every element at once instead of writing loops. This makes code shorter, faster, and more memory-efficient.
 - **Creating and inspecting arrays.** We build arrays with `np.array()`, `np.arange()`, and `np.linspace()`, and inspect them with attributes like `.shape`, `.dtype`, `.size`, and `.ndim`.
 - **Summarizing and transforming.** Functions such as `np.mean()`, `np.median()`, `np.min()`, `np.max()`, and `np.sum()` reduce an array to a single number, while `np.diff()` and `np.cumsum()` are especially useful for sequences like time series.
-- **Boolean arrays.** Comparisons produce arrays of `True`/`False` values that we can sum to count, average to find proportions, and use to index — pulling out and summarizing exactly the values that meet a condition.
+- **Boolean arrays.** Comparisons produce arrays of `True`/`False` values that we can sum to count, average to find proportions, and use to index, pulling out and summarizing exactly the values that meet a condition.
 - **Higher-dimensional arrays.** Two- and three-dimensional arrays represent grids and images, and every array tool we learned applies to them.
 
 NumPy is the numerical backbone of the Python data science ecosystem. In the chapters ahead we'll build on it to work with full data tables and to create richer visualizations.
