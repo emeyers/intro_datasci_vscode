@@ -2,13 +2,13 @@
 
 In the previous chapter we summarized data using plain Python lists, the `statistics` module, and considerable manual work. That approach worked, but it was tedious: to do almost anything to *every* value in a list (add a tax to every price, convert every value to different units, or just add two lists of numbers together), we had to handle the values one at a time.
 
-In this chapter we introduce **NumPy** (short for "Numerical Python"), the standard Python library for working with numerical data. NumPy gives us a new kind of container called an **array**, which makes numerical computations shorter to write, faster to run, and easier to read. Arrays are the foundation that nearly every other data science tool in Python, including the Pandas package we'll use later, is built on top of.
+In this chapter we introduce **NumPy** (short for "Numerical Python"), the standard Python library for working with numerical data. NumPy gives us a new kind of container called an **array**, which makes numerical computations shorter to write and faster to run. Arrays are the foundation that nearly every other data science tool in Python, including the Pandas package we'll use later, is built on top of.
 
 By the end of this chapter you'll be able to load numerical data into arrays, transform and summarize that data in a single step, filter it down to the values you care about, and even treat images as arrays of numbers.
 
 ## Why arrays instead of lists?
 
-Let's start by seeing why lists alone aren't quite enough. Suppose we have the price of a gallon of gas (in dollars) for three weeks, stored in a list:
+To see why lists alone aren't quite enough, suppose we have the price of a gallon of gas (in dollars) for three weeks, stored in a list:
 
 ```{python}
 
@@ -34,13 +34,13 @@ As you can see, that doesn't double each price: multiplying a list by a number j
 
 ```
 
-This works, but imagine doing it for a whole year of weekly prices, or for the thousands of values in a larger dataset. Writing out every element by hand quickly becomes impractical.
+This works for three prices, but not for a whole year of weekly data.
 
 ::: {.callout-note}
 Python does have a tool for repeating an action many times without writing it out by hand: the **loop**, which we cover later in @sec-iteration-functions. But for the whole-dataset calculations that are common in data science, the array approach shown in this chapter is usually shorter, faster, and easier to read, so we will favor it throughout the book.
 :::
 
-NumPy lets us express the same computation in a single, readable expression. First we need to import the library. By near-universal convention, NumPy is imported under the short name `np`:
+NumPy lets us express the same computation in one line. First, import the library (by near-universal convention, NumPy is imported under the short name `np`):
 
 ```{python}
 
@@ -59,13 +59,10 @@ price_array + 2
 
 ```
 
-The operation was applied to every element automatically. This idea, applying an operation to every element of an array at once, is called **vectorization**, and it is the central idea behind NumPy's usefulness. Compared to lists, arrays give us three main advantages:
+The operation was applied to every element automatically. This idea, applying an operation to every element of an array at once, is called **vectorization**, and it is the central idea behind NumPy's usefulness. Compared to lists, arrays give us two main advantages:
 
 1. **Ease of expression.** Element-wise arithmetic like `price_array + 2` lets us say what we mean in a single short expression.
-2. **Speed.** NumPy performs these operations in fast, pre-compiled code, so computations on large arrays run far faster than handling the values one at a time.
-3. **Memory.** Arrays store their values compactly, which means they use less memory than the equivalent list.
-
-For the rest of this chapter we'll put these ideas to work on a real dataset.
+2. **Speed.** NumPy performs these operations in fast, pre-compiled code and stores values more compactly than a list, so computations on large arrays run faster and use less memory.
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-vectorize}
 
@@ -88,18 +85,9 @@ more_prices * 0.9
 
 ## An example dataset: a year of U.S. gas prices
 
-To explore NumPy we'll look at the price of gasoline in the United States over the course of a year. Gas prices are a useful example because they change every week, which gives us a natural sequence of numbers to ask questions about: What was the average price? How much did the price swing from week to week? What was the biggest jump? In what fraction of weeks was gas relatively cheap?
+To explore NumPy we'll look at the price of gasoline in the United States over the course of a year. Gas prices change every week, so the data gives us a natural sequence to explore: how prices moved, how much they varied, and what fraction of weeks fell below a given threshold.
 
-Our data comes from **FRED** (Federal Reserve Economic Data), a large public database of economic time series maintained by the Federal Reserve Bank of St. Louis. We'll use the series for the U.S. average weekly retail price of regular gasoline, which has the code `GASREGW`. The `pandas-datareader` package can download FRED data directly. The essential idea looks like this:
-
-```python
-from pandas_datareader.fred import FredReader
-
-# Download the weekly regular-gasoline price series for the year 2025
-gas_data = FredReader("GASREGW", start="2025-01-01", end="2026-01-01").read()
-```
-
-We load the prices for all 52 weeks of 2025 using a slightly expanded version of the code above (it falls back to a saved copy of the data if FRED can't be reached). That code is hidden here, since the details aren't important yet. What matters is that running it gives us two NumPy arrays: `gas_prices`, holding the price for each week, and `gas_dates`, holding the corresponding date for each price.
+Our data comes from **FRED** (Federal Reserve Economic Data), a large public database of economic time series maintained by the Federal Reserve Bank of St. Louis. We'll use the series for the U.S. average weekly retail price of regular gasoline, which has the code `GASREGW`. The hidden cell below uses the `pandas-datareader` package to download that series, falling back to a saved copy of the data if FRED cannot be reached. What matters is that running it gives us two NumPy arrays: `gas_prices`, holding the price for each week, and `gas_dates`, holding the corresponding date for each price.
 
 ```{python}
 #| echo: false
@@ -158,7 +146,7 @@ gas_prices.shape
 
 ```
 
-The `.shape` is reported as `(52,)`, which tells us the array has 52 elements arranged in a single dimension. Two more useful attributes are `.size` (the total number of elements) and `.ndim` (the number of dimensions):
+The `.shape` is reported as `(52,)`, which tells us the array has 52 elements arranged in a single dimension. The trailing comma is Python's notation for a one-element tuple; a 2D array would show two numbers here, like `(4, 5)`. Two more useful attributes are `.size` (the total number of elements) and `.ndim` (the number of dimensions):
 
 ```{python}
 
@@ -256,7 +244,9 @@ gas_prices[-5:]
 
 ## NumPy functions for summarizing and transforming arrays
 
-This is where arrays are most useful. NumPy provides a large collection of functions that operate on an entire array at once, letting us answer questions about our data with a single line of code.
+This is where arrays are most useful. NumPy provides a large collection of functions that operate on an entire array at once, letting us answer questions about our data with a single line of code. These fall into two families.
+
+The first family transforms every value: arithmetic like `gas_prices * 147` applies the operation to each element. The second family reduces an array to a summary: `np.mean()`, `np.median()`, `np.min()`, `np.max()`, `np.sum()`, `np.std()`, and `np.percentile()` each collapse the whole array down to one number. You saw the `statistics` module handle some of these in the previous chapter; NumPy's versions work directly on arrays and run in fast, pre-compiled code, so they are substantially faster on large datasets.
 
 ### Transforming every value at once
 
@@ -277,11 +267,11 @@ gas_prices + 2
 
 ```
 
-When one of the values in an operation is a single number (like `147` or `2`) and the other is an array, NumPy applies the operation between that number and *every* element of the array. This pairing of a single number with a whole array is called **broadcasting**, and it is what makes the vectorized arithmetic from the start of the chapter possible.
+When one value in an operation is a single number and the other is an array, NumPy applies the operation between that number and *every* element of the array. This pattern is called **broadcasting**, and it is what makes all the vectorized arithmetic in this chapter work.
 
 ### Summarizing an array with a single number
 
-A second family of functions reduces an entire array down to one summary value. These are the same descriptive statistics we computed in the previous chapter, but now each one is a single function call. (In the last chapter we used `statistics.mean` and `statistics.median` from the `statistics` module; `np.mean` and `np.median` are NumPy's own versions, built to work directly on arrays.) What was the average price of gas over the year?
+Each summary function reduces the entire array down to one value in a single call. What was the average price of gas over the year?
 
 ```{python}
 
@@ -315,6 +305,53 @@ np.sum(gas_prices)
 
 ```
 
+Two functions measure **spread**: how much the values vary around the average. `np.std()` gives the standard deviation, the typical distance of each value from the mean. A small standard deviation means prices were stable; a large one means they fluctuated:
+
+```{python}
+
+np.std(gas_prices)
+
+```
+
+Percentiles tell you the value below which a given share of the data falls. The 25th percentile is the price that was cheaper than 75% of the weeks; the 75th percentile is the price cheaper than only 25% of them. `np.percentile()` takes the array and the percentile you want:
+
+```{python}
+
+# 25th and 75th percentile of weekly gas prices
+[np.percentile(gas_prices, 25), np.percentile(gas_prices, 75)]
+
+```
+
+The gap between those two values is the **interquartile range (IQR)**: the spread of the middle 50% of the data. Because it ignores the top and bottom quarters, it is less affected by unusually high or low weeks than the full range:
+
+```{python}
+
+# Interquartile range: the spread of the middle 50% of the data
+np.percentile(gas_prices, 75) - np.percentile(gas_prices, 25)
+
+```
+
+::: {.callout-tip title="Exercise" #exercise-array_computations-spread}
+
+Use `np.std()` to find the standard deviation of the gas prices. Then compute the IQR using `np.percentile()`. Which is larger?
+
+:::
+
+::: {.callout-note title="Solution" #solution-array_computations-spread collapse="true"}
+
+```{python}
+
+std = np.std(gas_prices)
+iqr = np.percentile(gas_prices, 75) - np.percentile(gas_prices, 25)
+
+[std, iqr]
+
+```
+
+The IQR is smaller than the standard deviation here. The IQR captures only the middle half of the data and ignores the extremes, so it tends to be a more conservative measure of spread when a few unusually high or low weeks pull the standard deviation up.
+
+:::
+
 ### Working across a sequence
 
 Because our prices are in weekly order, some NumPy functions are especially useful. `np.cumsum()` gives the **cumulative sum**: the running total spent after each week.
@@ -326,7 +363,7 @@ np.cumsum(gas_prices)
 
 ```
 
-To see what `np.cumsum()` is doing, it helps to look at a small example array instead of all 52 weeks at once. Each value in the running total is the sum of itself and every value before it, so the running total carries forward from one box to the next:
+A small example shows the mechanics more clearly than 52 weeks of data. Each value in the running total is the sum of itself and every value before it, so the running total carries forward from one box to the next:
 
 ```{python}
 #| echo: false
@@ -364,6 +401,8 @@ for i, val in enumerate(running_total):
 
 ax.text(-1.15, 1.5, "array", fontsize=10, ha="left", va="center")
 ax.text(-1.15, 0.3, "cumsum", fontsize=10, ha="left", va="center")
+ax.text(1.5, -0.18, "running total carries forward →", ha="center", va="center",
+        fontsize=8, color="#555555", style="italic")
 plt.show()
 
 ```
@@ -378,7 +417,7 @@ weekly_changes
 
 ```
 
-The same small example shows what `np.diff()` does: each value is the gap between two neighbors, so there is one fewer diff value than there are original values:
+`np.diff()` works on the same example: each output value is the difference between two adjacent inputs, so there is one fewer output than input:
 
 ```{python}
 #| echo: false
@@ -414,7 +453,7 @@ plt.show()
 
 ```
 
-Notice that `weekly_changes` has 51 values rather than 52: there are only 51 gaps between 52 weeks. Now we can answer an interesting question: what was the single largest weekly change in price? Since a change can be a drop (negative) or a rise (positive), we use `np.abs()` to look at the *size* of each change regardless of direction, and `np.max()` to find the biggest:
+The result has 51 values rather than 52, because 52 weeks produce only 51 gaps. Now we can answer an interesting question: what was the single largest weekly change in price? Since a change can be a drop (negative) or a rise (positive), we use `np.abs()` to look at the *size* of each change regardless of direction, and `np.max()` to find the biggest:
 
 ```{python}
 
@@ -435,13 +474,13 @@ gas_dates[np.argmax(np.abs(weekly_changes)) + 1]
 
 ### Seeing the whole year at a glance
 
-Numbers are useful, but a picture of how the price moved over the year is even better. Using the Matplotlib skills from the previous chapter, we can plot the price against the date:
+A line plot shows the full year's movement more directly than any single summary number:
 
 ```{python}
 
 import matplotlib.pyplot as plt
 
-plt.plot(gas_dates, gas_prices, '.-')
+plt.plot(gas_dates, gas_prices, '.-')  # '.-' draws dots at each data point connected by lines
 plt.xlabel("Date")
 plt.ylabel("Price per gallon ($)")
 plt.title("U.S. weekly regular gas price, 2025")
@@ -450,7 +489,7 @@ plt.show()
 
 ```
 
-The plot makes the story clear: prices rose into the spring, peaked in April, and then drifted downward through the rest of the year to their lowest point at the very end of December.
+Prices rose through the spring, peaked in April, and drifted lower through the second half of the year, reaching their lowest point in late December.
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-changes}
 
@@ -507,7 +546,7 @@ np.mean(gas_prices < 3.00)
 
 ```
 
-So gas dipped below \$3.00 in only 5 of the 52 weeks, about 10% of the year. We can build more specific conditions by combining comparisons with `&` ("and") and `|` ("or"). Each comparison must be wrapped in parentheses:
+Gas dipped below \$3.00 in only 5 of the 52 weeks, or about 10% of the year. We can build more specific conditions by combining comparisons with `&` ("and") and `|` ("or"). Each comparison must be wrapped in parentheses:
 
 ```{python}
 
@@ -518,7 +557,7 @@ np.sum((gas_prices > 3.00) & (gas_prices < 3.20))
 
 ### Boolean indexing
 
-Beyond counting, we can use a boolean array to *pull out* the values that meet a condition. Putting a condition inside the square brackets keeps only the elements where the condition is `True`. This is called **boolean indexing** or **masking**:
+Beyond counting, we can use a boolean array to *pull out* the values that meet a condition. This is called **boolean indexing** or **masking**:
 
 ```{python}
 
@@ -527,7 +566,7 @@ gas_prices[gas_prices < 3.00]
 
 ```
 
-This becomes especially powerful when we then summarize the result. For example, *among the weeks when gas was below \$3.00*, what was the average price?
+The full value of masking appears when you then summarize the selected values. For example, *among the weeks when gas was below \$3.00*, what was the average price?
 
 ```{python}
 
@@ -537,9 +576,11 @@ np.mean(gas_prices[gas_prices < 3.00])
 
 ### The same idea on other data
 
-Boolean indexing isn't specific to gas prices. It's a general tool for asking "what is true of the subset of my data that meets some condition?" To see this, let's briefly return to the Bechdel test movie data from the previous chapter. Recall that each movie either passes (`"PASS"`) or fails (`"FAIL"`) the test. Here we load the movies' pass/fail status and international gross earnings into two arrays:
+The Bechdel test data from the previous chapter gives a different example of the same idea. Recall that each movie either passes (`"PASS"`) or fails (`"FAIL"`) the test. The cell below loads the movies' pass/fail status and international gross earnings into two arrays using `pandas`, a data-table library we will cover in detail in the next chapter:
 
 ```{python}
+
+import pandas as pd  # pandas is covered in the next chapter; here we use it just to load the data
 
 # Load the Bechdel data and pull two columns out as arrays
 movies = pd.read_csv("https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/bechdel/movies.csv")
@@ -560,7 +601,7 @@ Using exactly the masking technique we just learned, we can compare the average 
 
 ```
 
-Strikingly, movies that *failed* the Bechdel test earned more on average than those that passed, the very pattern FiveThirtyEight highlighted in its analysis. Notice that the same one-line masking idea works just as well here as it did on the gas prices.
+Movies that *failed* the Bechdel test earned more on average than those that passed, the pattern FiveThirtyEight highlighted in its original analysis. The masking syntax is identical to the gas-price examples above.
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-mask}
 
@@ -582,7 +623,7 @@ The price was above the yearly average in 34 of the 52 weeks. (Because a few hig
 
 ## Higher-dimensional arrays and image processing
 
-Every array we've used so far has been one-dimensional: a single row of numbers. But arrays can have more than one dimension. A two-dimensional array is just a grid of numbers (rows and columns), much like a spreadsheet or a mathematical matrix.
+Every array we've used so far has been one-dimensional: a single row of numbers. But arrays can have more than one dimension. A two-dimensional array is just a grid of numbers, with rows and columns like a spreadsheet.
 
 ### Creating and indexing matrices
 
@@ -631,7 +672,23 @@ matrix[0:2, 1:3]
 
 ```
 
-These two ideas, indexing with a row and a column, and slicing along either axis, are exactly what we'll use to work with images for the rest of this section.
+The `axis` argument in NumPy functions specifies which dimension to operate along. On a 2D array, `axis=0` operates *down the rows*, producing one result per column, and `axis=1` operates *across the columns*, producing one result per row:
+
+```{python}
+
+# Sum down the rows (axis=0): one total per column
+np.sum(matrix, axis=0)
+
+```
+
+```{python}
+
+# Sum across the columns (axis=1): one total per row
+np.sum(matrix, axis=1)
+
+```
+
+We will use this same idea with `axis=2` when working with 3D color images later in this section.
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-matrix}
 
@@ -657,7 +714,7 @@ small_matrix = np.array([
 
 ### Grayscale images are 2D arrays
 
-We can create a 2D array directly. Here we start with a 100×100 grid of zeros using `np.zeros()`, then use slicing to set a square block of values in the middle to 1. Note that the `[100, 100]` we pass to `np.zeros()` is not a list of *values* (the way `np.array([3.05, 3.04])` was). It describes the *shape* we want: 100 rows and 100 columns.
+We can create a 2D array directly. Here we start with a 100×100 grid of zeros using `np.zeros()`, then use slicing to set a square block of values in the middle to 1. Note that the `[100, 100]` we pass to `np.zeros()` is not a list of *values* (the way `np.array([3.05, 3.04])` was). It describes the *shape* we want: 100 rows and 100 columns. NumPy functions that accept a shape always expect it as a single list or tuple, not as separate arguments.
 
 ```{python}
 
@@ -734,11 +791,11 @@ plt.show()
 
 ```
 
-Now let's look at a real photograph this way: "the cameraman," a classic test photo from the world of image processing. Unlike most photos, this one was captured directly as a single grayscale layer of brightness values, with no color version behind it:
+As a concrete example, consider the cameraman: a standard grayscale test image distributed with the `imageio` package and used in image-processing research for decades. Unlike most digital photos, it was stored from the start as a single 2D layer of brightness values with no color information:
 
 ```{python}
 
-from imageio.v3 import imread
+from imageio.v3 import imread  # like pandas_datareader, this package handles the file loading for us
 
 # A classic grayscale test photo, with one brightness value per pixel
 cameraman = imread("imageio:camera.png")
@@ -756,15 +813,15 @@ Confirm that it really is a 2D array of numbers by checking its shape and data t
 
 ```
 
-The shape `(512, 512)` tells us the photo is 512 pixels tall and 512 pixels wide, with a single brightness value at each position, just like the small example above. The data type `uint8` means each value is a whole number from 0 to 255, where 0 is no intensity (black) and 255 is full intensity (white).
+The shape `(512, 512)` tells us the photo is 512 pixels tall and 512 pixels wide, with a single brightness value at each position, just like the small example above. The data type `uint8` is an unsigned 8-bit integer: `u` means no negative values, and 8 bits gives exactly 256 possible values, from 0 to 255. Here 0 is black and 255 is white.
 
 ### Color images are 3D arrays
 
-Now let's look at a color photograph: a row of bell peppers. (The exact image-loading function below is not important; it only fetches the picture. The point is that what comes out is an ordinary NumPy array.)
+Color photographs add a third dimension. Here we load a photo of bell peppers:
 
 ```{python}
 
-# Load the image into a NumPy array
+# Load the image into a NumPy array (same imread as above; the file is stored locally)
 peppers = imread("images/peppers.jpg")
 
 plt.imshow(peppers)
@@ -778,7 +835,7 @@ plt.show()
 
 ```
 
-The shape `(648, 960, 3)` tells us the image is 648 pixels tall and 960 pixels wide, with a third dimension of length 3: one value for each color channel at every pixel. The data type `uint8` means each value is a whole number from 0 to 255, where 0 is no intensity and 255 is full intensity for that color. A color image goes one dimension further than the grayscale array above: it's a 3D array of shape (height, width, 3), where the final dimension holds the three color channels, **red, green, and blue**:
+The shape `(648, 960, 3)` says the image is 648 pixels tall and 960 pixels wide, with 3 values at each pixel position, one per color channel. Each channel holds the intensity of one color (red, green, or blue) at that pixel, using the same `uint8` range of 0 to 255. The diagram below shows how those three layers are organized.
 
 ```{python}
 #| echo: false
@@ -818,8 +875,8 @@ for label, color, depth in layers:
     x0, y0 = corners(depth)
     ax.add_patch(patches.Rectangle((x0, y0), size, size, facecolor=color,
                  edgecolor="black", lw=1.3, alpha=0.95, zorder=depth + 1))
-    ax.text(x0 + 0.35, y0 + 0.35, label, ha="center", va="center",
-            fontsize=13, fontweight="bold", zorder=depth + 1.5)
+    ax.text(x0 + 0.35, y0 + 0.35, f"{depth}={label}", ha="center", va="center",
+            fontsize=12, fontweight="bold", zorder=depth + 1.5)
 
 # axis 0 (rows): attached to R's left edge, the only edge not covered by
 # the layers stacked in front of it. Points down, since row 0 is at the top.
@@ -892,7 +949,7 @@ plt.show()
 
 ```
 
-This also gives us a way to turn any color photo into a grayscale one, just like the cameraman photo above: average the red, green, and blue values at each pixel into a single brightness value, using `np.mean()` with `axis=2`. Axis 2 is exactly the channel axis shown in the diagram above, so averaging over it collapses red, green, and blue down to one number per pixel:
+Averaging the red, green, and blue values at each pixel collapses them to a single brightness value, in the same format as the grayscale photo earlier. Passing `axis=2` to `np.mean()` tells NumPy to average along the channel dimension: for each pixel position (row, column), it reduces the three channel values to one number, leaving an array of shape (height, width):
 
 ```{python}
 
@@ -906,7 +963,7 @@ plt.show()
 
 ### Manipulating an image is just array computation
 
-Because the image is an array, every NumPy tool from this chapter applies to it. Using slicing, we can pull out a single color channel (here, the red channel) and display it on its own. Watch what happens to each pepper: the red one turns nearly white (lots of red light), while the green one turns dark (almost none):
+Because the image is an array, every NumPy tool from this chapter applies to it. Using slicing, we can pull out a single color channel (here, the red channel) and display it on its own. The effect is visible across the peppers: the red one appears nearly white (high red-channel values), while the green one appears dark (low red-channel values):
 
 ```{python}
 
@@ -930,7 +987,7 @@ plt.show()
 
 ```
 
-The lesson is worth emphasizing: **images are just arrays**. Slicing, arithmetic, aggregation with an `axis`, and boolean masks all apply to them, exactly as they did everywhere else in this chapter.
+**Images are just arrays.** Slicing, arithmetic, `np.mean()` with an `axis` argument, and boolean masks all work on image arrays the same way they work on any NumPy array.
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-image}
 
@@ -942,6 +999,7 @@ Using the `gray_peppers` array from above, use boolean indexing to count how man
 
 ```{python}
 
+# gray_peppers is redefined here so this solution cell runs on its own
 gray_peppers = np.mean(peppers, axis=2)
 
 # Count the pixels whose brightness is below 50
@@ -955,9 +1013,9 @@ np.sum(gray_peppers < 50)
 
 In this chapter we introduced NumPy arrays, the standard container for numerical data in Python. The key ideas were:
 
-- **Arrays vs. lists.** Arrays hold values of a single type and support *vectorized* operations, letting us transform every element at once instead of writing loops. This makes code shorter, faster, and more memory-efficient.
+- **Arrays vs. lists.** Arrays hold values of a single type and support *vectorized* operations, letting us transform every element at once instead of writing loops. This makes code shorter to write and faster to run.
 - **Creating and inspecting arrays.** We build arrays with `np.array()`, `np.arange()`, and `np.linspace()`, and inspect them with attributes like `.shape`, `.dtype`, `.size`, and `.ndim`.
-- **Summarizing and transforming.** Functions such as `np.mean()`, `np.median()`, `np.min()`, `np.max()`, and `np.sum()` reduce an array to a single number, while `np.diff()` and `np.cumsum()` are especially useful for sequences like time series.
+- **Summarizing and transforming.** Functions such as `np.mean()`, `np.median()`, `np.min()`, `np.max()`, `np.sum()`, `np.std()`, and `np.percentile()` reduce an array to a single number, while `np.diff()` and `np.cumsum()` are especially useful for sequences like time series.
 - **Boolean arrays.** Comparisons produce arrays of `True`/`False` values that we can sum to count, average to find proportions, and use to index, pulling out and summarizing exactly the values that meet a condition.
 - **Higher-dimensional arrays.** Two- and three-dimensional arrays represent grids and images, and every array tool we learned applies to them.
 
