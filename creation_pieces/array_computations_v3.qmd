@@ -1,14 +1,14 @@
 # Array computations with NumPy
 
-In the previous chapter we stored data in plain Python lists, and we used the `statistics` module (and considerable manual work) to calculate statistics. While that approach worked, but it was tedious. To do almost anything to *every* value in a list (add a tax to every price, convert every value to different units, or just add two lists of numbers together), we had to handle the values one at a time.
+In the previous chapter we summarized data using plain Python lists, the `statistics` module, and considerable manual work. That approach worked, but it was tedious: to do almost anything to *every* value in a list (add a tax to every price, convert every value to different units, or just add two lists of numbers together), we had to handle the values one at a time.
 
-In this chapter we introduce **NumPy** (short for "Numerical Python"), the standard Python library for working with numerical data. NumPy gives us a new kind of container called an **array**, which makes numerical computations shorter to write and faster to run compared to using lists. Arrays are the foundation that nearly every other data science tool in Python, including the Pandas package we'll use later, is built on top of.
+In this chapter we introduce **NumPy** (short for "Numerical Python"), the standard Python library for working with numerical data. NumPy gives us a new kind of container called an **array**, which makes numerical computations shorter to write and faster to run. Arrays are the foundation that nearly every other data science tool in Python, including the Pandas package we'll use later, is built on top of.
 
 By the end of this chapter you'll be able to load numerical data into arrays, transform and summarize that data in a single step, filter it down to the values you care about, and even treat images as arrays of numbers.
 
 ## Why arrays instead of lists?
 
-To see some of the shortcomings of using lists for data processing, suppose we have the price of a gallon of gas (in dollars) for three weeks, stored in a list:
+To see why lists alone aren't quite enough, suppose we have the price of a gallon of gas (in dollars) for three weeks, stored in a list:
 
 ```{python}
 
@@ -16,7 +16,7 @@ weekly_prices = [3.05, 3.04, 3.11]
 
 ```
 
-Now imagine the government adds a 100% tax on the gas prices so that the cost to purchase a gallon of gas is twice as much. If we wanted the new price for each week, it would be natural to *try* multiplying the the list by 2, but lists don't behave the way we might hope:
+Now imagine the government adds a \$2-per-gallon tax, and we want the new price for each week. It would be natural to *try* multiplying or adding to the list, but lists don't behave the way we might hope:
 
 ```{python}
 
@@ -25,16 +25,16 @@ weekly_prices * 2
 
 ```
 
-As you can see, that doesn't double each price. Instead, multiplying a list by a number just *repeats* the list. Similarly, we wanted to add a constant to value to each item in a list, just taking the list and using `* 2` would result in an error. To actually multiple each price by 2 we would have to reach into the list and update each value individually:
+As you can see, that doesn't double each price: multiplying a list by a number just *repeats* the list. And adding a number to a list doesn't work at all; it causes an error. To actually add \$2 to each price, we'd have to reach into the list and update each value individually:
 
 ```{python}
 
 # Adding $2 to each price, one value at a time, is tedious
-[weekly_prices[0] * 2, weekly_prices[1] * 2, weekly_prices[2] * 2]
+[weekly_prices[0] + 2, weekly_prices[1] + 2, weekly_prices[2] + 2]
 
 ```
 
-This works for three prices, but it is tendious, particularly if we had to do this for a larger data set.
+This works for three prices, but not for a whole year of weekly data.
 
 ::: {.callout-note}
 Python does have a tool for repeating an action many times without writing it out by hand: the **loop**, which we cover later in @sec-iteration-functions. But for the whole-dataset calculations that are common in data science, the array approach shown in this chapter is usually shorter, faster, and easier to read, so we will favor it throughout the book.
@@ -48,25 +48,25 @@ import numpy as np
 
 ```
 
-Now we can turn our list into a NumPy array with `np.array()` and simply multiple by 2:
+Now we can turn our list into a NumPy array with `np.array()` and simply add 2:
 
 ```{python}
 
 price_array = np.array([3.05, 3.04, 3.11])
 
-# Doubling the gas prices
-price_array * 2
+# Add the $2 tax to every price at once
+price_array + 2
 
 ```
 
 The operation was applied to every element automatically. This idea, applying an operation to every element of an array at once, is called **vectorization**, and it is the central idea behind NumPy's usefulness. Compared to lists, arrays give us two main advantages:
 
-1. **Ease of expression.** Element-wise arithmetic like `price_array * 2` and `price_array + 2`, lets us say what we mean in a single short expression.
+1. **Ease of expression.** Element-wise arithmetic like `price_array + 2` lets us say what we mean in a single short expression.
 2. **Speed.** NumPy performs these operations in fast, pre-compiled code and stores values more compactly than a list, so computations on large arrays run faster and use less memory.
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-vectorize}
 
-Here are three more weekly gas prices stored in a list: `[3.20, 3.15, 3.18]`. Turn this list into a NumPy array, then use a single expression (no loop) to calculate what the prices would be if there was a three dollar surchange on each price (i.e., if each price was 3 dollars higher).  
+Here are three more weekly gas prices stored in a list: `[3.20, 3.15, 3.18]`. Turn this list into a NumPy array, then use a single expression (no loop) to apply a 10% discount to every price.
 
 :::
 
@@ -77,7 +77,7 @@ Here are three more weekly gas prices stored in a list: `[3.20, 3.15, 3.18]`. Tu
 more_prices = np.array([3.20, 3.15, 3.18])
 
 # Paying 90% of each price applies a 10% discount to every element at once
-more_prices + 3
+more_prices * 0.9
 
 ```
 
@@ -87,7 +87,7 @@ more_prices + 3
 
 To explore NumPy we'll look at the price of gasoline in the United States over the course of a year. Gas prices change every week, so the data gives us a natural sequence to explore: how prices moved, how much they varied, and what fraction of weeks fell below a given threshold.
 
-Our data comes from **FRED** (Federal Reserve Economic Data), a large public database of economic time series maintained by the Federal Reserve Bank of St. Louis. We'll use data from U.S. average weekly retail price of regular gasoline in 2025 in two NumPy arrays: `gas_prices` which has the gas price for each week, and `gas_dates` which has the corresponding date for each price.
+Our data comes from **FRED** (Federal Reserve Economic Data), a large public database of economic time series maintained by the Federal Reserve Bank of St. Louis. We'll use the series for the U.S. average weekly retail price of regular gasoline, which has the code `GASREGW`. The hidden cell below uses the `pandas-datareader` package to download that series, falling back to a saved copy of the data if FRED cannot be reached. What matters is that running it gives us two NumPy arrays: `gas_prices`, holding the price for each week, and `gas_dates`, holding the corresponding date for each price.
 
 ```{python}
 #| echo: false
@@ -109,7 +109,7 @@ gas_dates = gas_year["DATE"].values
 
 ```
 
-Let's take a look at the prices:
+Take a look at the prices we just loaded:
 
 ```{python}
 
@@ -121,7 +121,7 @@ This is an array of 52 numbers, one price per week. The first value, about \$3.0
 
 ## Creating arrays and their basic properties
 
-We've already seen the most common way to make an array: pass a list to `np.array()`. For example, we can pass the list `[10, 20, 30, 40]` to the `np.array()` function to create a list of 4 elements: 
+We've already seen the most common way to make an array: pass a list to `np.array()`.
 
 ```{python}
 
@@ -130,9 +130,7 @@ example_array
 
 ```
 
-An important property of NumPy arrays is that all elements in the array must be the  **same data type**. For example, we could have an array with all numbers, or an array with all Booleans, etc. but, unlike a list,  we can't have an array that has mixed types. 
-
-To see what type of element is being stored in an array, we can get the array's data type by accessing the `dtype` property. 
+Unlike a list, every value in a NumPy array has the **same data type**. We can ask an array to describe itself using a few useful attributes. Note that these are written *without* parentheses, because they are properties of the array rather than functions we call:
 
 ```{python}
 
@@ -140,10 +138,6 @@ To see what type of element is being stored in an array, we can get the array's 
 gas_prices.dtype
 
 ```
-
-Note that we extract this property *without* using parentheses, because they it is a propertiy of the array rather than a function.
-
-Similarly, we can get the number of elements in the array using the `shape` property: 
 
 ```{python}
 
@@ -169,7 +163,7 @@ gas_prices.astype(int)
 
 ```
 
-Finally, NumPy can generate arrays for us without starting from a list. `np.arange()` allows us to create an array of sequential integers, and `np.linspace()` produces a given number of evenly spaced values between two endpoints:
+Finally, NumPy can generate arrays for us without starting from a list. `np.arange()` works like Python's `range()` but produces an array, and `np.linspace()` produces a given number of evenly spaced values between two endpoints:
 
 ```{python}
 
@@ -187,7 +181,7 @@ np.linspace(0, 1, 5)
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-create}
 
-Use `np.arange()` to create an array containing the whole numbers from 1 to 11. Then use `.astype()` to make a version of that array whose values are floating-point numbers, and check its `.dtype` to confirm the conversion worked.
+Use `np.arange()` to create an array containing the whole numbers from 1 to 10. Then use `.astype()` to make a version of that array whose values are floating-point numbers, and check its `.dtype` to confirm the conversion worked.
 
 :::
 
