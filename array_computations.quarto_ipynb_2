@@ -16,7 +16,7 @@
         "\n",
         "To see some of the shortcomings of using lists for data processing, suppose we have the price of a gallon of gas (in dollars) for three weeks, stored in a list:"
       ],
-      "id": "e3a6ee18"
+      "id": "8d3599fd"
     },
     {
       "cell_type": "code",
@@ -24,7 +24,7 @@
       "source": [
         "weekly_prices = [3.05, 3.04, 3.11]"
       ],
-      "id": "d72d7cc1",
+      "id": "08f265fb",
       "execution_count": null,
       "outputs": []
     },
@@ -34,7 +34,7 @@
       "source": [
         "Now imagine the government adds a 100% tax, doubling the price of every gallon. If we wanted the new price for each week, it would be natural to *try* multiplying the list by 2, but lists don't behave the way we might hope:"
       ],
-      "id": "980edafd"
+      "id": "7f81f83d"
     },
     {
       "cell_type": "code",
@@ -43,7 +43,7 @@
         "# Multiplying a list by 2 repeats the list instead of doubling each value\n",
         "weekly_prices * 2"
       ],
-      "id": "49debf83",
+      "id": "58b44dec",
       "execution_count": null,
       "outputs": []
     },
@@ -53,7 +53,7 @@
       "source": [
         "As you can see, that doesn't double each price. Instead, multiplying a list by a number just *repeats* the list. And if we wanted to *add* a constant to each item, writing `weekly_prices + 2` would produce an error rather than the new prices. To actually double each price we would have to reach into the list and update each value individually:"
       ],
-      "id": "48a8e989"
+      "id": "016696c0"
     },
     {
       "cell_type": "code",
@@ -62,7 +62,7 @@
         "# Doubling each price, one value at a time\n",
         "[weekly_prices[0] * 2, weekly_prices[1] * 2, weekly_prices[2] * 2]"
       ],
-      "id": "458c9cea",
+      "id": "74bfc510",
       "execution_count": null,
       "outputs": []
     },
@@ -78,7 +78,7 @@
         "\n",
         "NumPy lets us express the same computation in one line. First, import the library (by near-universal convention, NumPy is imported under the short name `np`):"
       ],
-      "id": "c6860fed"
+      "id": "10928bc2"
     },
     {
       "cell_type": "code",
@@ -86,7 +86,7 @@
       "source": [
         "import numpy as np"
       ],
-      "id": "581c9778",
+      "id": "d0b36c55",
       "execution_count": null,
       "outputs": []
     },
@@ -96,7 +96,7 @@
       "source": [
         "Now we can turn our list into a NumPy array with `np.array()` and multiply by 2:"
       ],
-      "id": "48ba59e0"
+      "id": "8a3fdac2"
     },
     {
       "cell_type": "code",
@@ -107,7 +107,7 @@
         "# Doubling the gas prices\n",
         "price_array * 2"
       ],
-      "id": "8e7554fa",
+      "id": "cc56bc25",
       "execution_count": null,
       "outputs": []
     },
@@ -128,7 +128,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-vectorize collapse=\"true\"}"
       ],
-      "id": "09ba1c01"
+      "id": "4c7d2b47"
     },
     {
       "cell_type": "code",
@@ -139,7 +139,7 @@
         "# Adding 3 dollars to every price at once\n",
         "more_prices + 3"
       ],
-      "id": "f2778166",
+      "id": "a22e611e",
       "execution_count": null,
       "outputs": []
     },
@@ -155,7 +155,7 @@
         "\n",
         "Our data comes from **FRED** (Federal Reserve Economic Data), a large public database of economic time series maintained by the Federal Reserve Bank of St. Louis. We'll store the U.S. average weekly retail price of regular gasoline for 2025 in two NumPy arrays: `gas_prices`, which holds the price for each week, and `gas_dates`, which holds the corresponding date. Run the cell below to load the data; as with the data-loading code in the previous chapter, you don't need to understand its details yet."
       ],
-      "id": "7de68074"
+      "id": "c98b42d4"
     },
     {
       "cell_type": "code",
@@ -176,7 +176,7 @@
         "gas_prices = gas_year[\"GASREGW\"].values\n",
         "gas_dates = gas_year[\"DATE\"].values"
       ],
-      "id": "e8aac519",
+      "id": "baaef5d8",
       "execution_count": null,
       "outputs": []
     },
@@ -186,7 +186,7 @@
       "source": [
         "Let's take a look at the prices:"
       ],
-      "id": "b15e9ca4"
+      "id": "ad439829"
     },
     {
       "cell_type": "code",
@@ -194,7 +194,7 @@
       "source": [
         "gas_prices"
       ],
-      "id": "7a51fa16",
+      "id": "b71465fd",
       "execution_count": null,
       "outputs": []
     },
@@ -204,7 +204,7 @@
       "source": [
         "This is an array of 52 numbers, one price per week. The first value, about \\$3.05, is the price in the first week of January. The matching `gas_dates` array holds the date of each week's price, stored as NumPy datetime values:"
       ],
-      "id": "dc275e33"
+      "id": "31a31f31"
     },
     {
       "cell_type": "code",
@@ -213,7 +213,7 @@
         "# The dates of the first three weekly prices\n",
         "gas_dates[0:3]"
       ],
-      "id": "c4878913",
+      "id": "a6f9dba6",
       "execution_count": null,
       "outputs": []
     },
@@ -223,7 +223,7 @@
       "source": [
         "Before computing any statistics, we can see the whole year at a glance using the Matplotlib skills from the previous chapter:"
       ],
-      "id": "5bc43398"
+      "id": "4eed35fa"
     },
     {
       "cell_type": "code",
@@ -238,7 +238,7 @@
         "plt.xticks(rotation=45)\n",
         "plt.show()"
       ],
-      "id": "11d9ecfb",
+      "id": "1b5b1f8b",
       "execution_count": null,
       "outputs": []
     },
@@ -252,7 +252,7 @@
         "\n",
         "We've already seen the most common way to make an array: pass a list to `np.array()`. For example, we can pass the list `[10, 20, 30, 40]` to the `np.array()` function to create an array of 4 elements:"
       ],
-      "id": "a32b168e"
+      "id": "2c113b49"
     },
     {
       "cell_type": "code",
@@ -261,7 +261,7 @@
         "example_array = np.array([10, 20, 30, 40])\n",
         "example_array"
       ],
-      "id": "6b0ce69b",
+      "id": "1acfddc1",
       "execution_count": null,
       "outputs": []
     },
@@ -273,7 +273,7 @@
         "\n",
         "To see what type of element is being stored in an array, we can access the array's `dtype` attribute:"
       ],
-      "id": "ef1ee48b"
+      "id": "384ce412"
     },
     {
       "cell_type": "code",
@@ -282,7 +282,7 @@
         "# The data type of the elements (float64 means decimal numbers)\n",
         "gas_prices.dtype"
       ],
-      "id": "6f862047",
+      "id": "9898b227",
       "execution_count": null,
       "outputs": []
     },
@@ -294,7 +294,7 @@
         "\n",
         "What happens if you break the same-type rule and pass `np.array()` a list with mixed types? NumPy does not report an error. Instead it silently converts every value to a common type, usually strings:"
       ],
-      "id": "39f0bc14"
+      "id": "d94e1700"
     },
     {
       "cell_type": "code",
@@ -302,7 +302,7 @@
       "source": [
         "np.array([1, \"two\", True])"
       ],
-      "id": "3b1109f4",
+      "id": "fc5eabf1",
       "execution_count": null,
       "outputs": []
     },
@@ -314,7 +314,7 @@
         "\n",
         "Similarly, we can see how an array's elements are arranged using the `shape` attribute:"
       ],
-      "id": "1a3621f0"
+      "id": "67f2ebb0"
     },
     {
       "cell_type": "code",
@@ -323,7 +323,7 @@
         "# The shape of the array: 52 weeks of prices in a single dimension\n",
         "gas_prices.shape"
       ],
-      "id": "5c7a900d",
+      "id": "a77f8d0a",
       "execution_count": null,
       "outputs": []
     },
@@ -333,7 +333,7 @@
       "source": [
         "The `.shape` is reported as `(52,)`, which tells us the array has 52 elements arranged in a single dimension. The trailing comma is Python's notation for a one-element **tuple** (a parentheses-wrapped sequence of values); a 2D array would show two numbers here, like `(4, 5)`. Two more useful attributes are `.size` (the total number of elements) and `.ndim` (the number of dimensions):"
       ],
-      "id": "c97708d8"
+      "id": "a5966e84"
     },
     {
       "cell_type": "code",
@@ -341,7 +341,7 @@
       "source": [
         "[gas_prices.size, gas_prices.ndim]"
       ],
-      "id": "e0b0076d",
+      "id": "0457b610",
       "execution_count": null,
       "outputs": []
     },
@@ -351,7 +351,7 @@
       "source": [
         "Sometimes we want to change the data type of an array, for example to view our prices as whole numbers of dollars. The `.astype()` method makes a new array with a different type:"
       ],
-      "id": "815dc7c9"
+      "id": "b464d59c"
     },
     {
       "cell_type": "code",
@@ -360,7 +360,7 @@
         "# Convert the decimal prices to integers (the decimal part is dropped, not rounded)\n",
         "gas_prices.astype(int)"
       ],
-      "id": "4f526c24",
+      "id": "0880b7e3",
       "execution_count": null,
       "outputs": []
     },
@@ -370,7 +370,7 @@
       "source": [
         "Finally, NumPy can generate arrays for us without starting from a list. `np.arange()` allows us to create an array of sequential integers, and `np.linspace()` produces a given number of evenly spaced values between two endpoints:"
       ],
-      "id": "26edddf6"
+      "id": "b0b577d0"
     },
     {
       "cell_type": "code",
@@ -379,7 +379,7 @@
         "# Whole numbers from 0 up to (but not including) 10\n",
         "np.arange(10)"
       ],
-      "id": "fdb45f25",
+      "id": "5bfbfe36",
       "execution_count": null,
       "outputs": []
     },
@@ -389,7 +389,7 @@
       "source": [
         "`np.arange()` can also take a start and a stop value. Like slicing, the stop value is excluded:"
       ],
-      "id": "9d3031bd"
+      "id": "ae8ac5f3"
     },
     {
       "cell_type": "code",
@@ -398,7 +398,7 @@
         "# Whole numbers from 1 up to (but not including) 11\n",
         "np.arange(1, 11)"
       ],
-      "id": "ee6f5a74",
+      "id": "d6cdf268",
       "execution_count": null,
       "outputs": []
     },
@@ -409,7 +409,7 @@
         "# Five evenly spaced values from 0 to 1\n",
         "np.linspace(0, 1, 5)"
       ],
-      "id": "28e70cd0",
+      "id": "7ec823d7",
       "execution_count": null,
       "outputs": []
     },
@@ -425,7 +425,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-create collapse=\"true\"}"
       ],
-      "id": "31858532"
+      "id": "74faa30f"
     },
     {
       "cell_type": "code",
@@ -437,7 +437,7 @@
         "\n",
         "[nums_float, nums_float.dtype]"
       ],
-      "id": "f46f945b",
+      "id": "e95aa080",
       "execution_count": null,
       "outputs": []
     },
@@ -451,7 +451,7 @@
         "\n",
         "Indexing and slicing arrays work just like they did for lists in the Python basics chapter. We use square brackets with a position (starting from 0), and we can use negative positions to count from the end:"
       ],
-      "id": "7b4e4855"
+      "id": "9fffa6c3"
     },
     {
       "cell_type": "code",
@@ -460,7 +460,7 @@
         "# The price in the first week of the year\n",
         "gas_prices[0]"
       ],
-      "id": "a016512b",
+      "id": "63136f65",
       "execution_count": null,
       "outputs": []
     },
@@ -471,7 +471,7 @@
         "# The price in the last week of the year\n",
         "gas_prices[-1]"
       ],
-      "id": "6f80e7f5",
+      "id": "d5444966",
       "execution_count": null,
       "outputs": []
     },
@@ -481,7 +481,7 @@
       "source": [
         "We can also take a **slice** to get a range of values. Here are the prices for the first five weeks:"
       ],
-      "id": "487bc27b"
+      "id": "dc49a1a2"
     },
     {
       "cell_type": "code",
@@ -489,7 +489,7 @@
       "source": [
         "gas_prices[0:5]"
       ],
-      "id": "2054b454",
+      "id": "dbd6354b",
       "execution_count": null,
       "outputs": []
     },
@@ -507,7 +507,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-slice collapse=\"true\"}"
       ],
-      "id": "419cdc3f"
+      "id": "a65b16e3"
     },
     {
       "cell_type": "code",
@@ -515,7 +515,7 @@
       "source": [
         "gas_prices[-5:]"
       ],
-      "id": "58b81c29",
+      "id": "2fb59c11",
       "execution_count": null,
       "outputs": []
     },
@@ -535,7 +535,7 @@
         "\n",
         "We saw earlier that we can do arithmetic on an entire array. Because each operation applies to every element, we can answer \"what if\" questions in a single line. For example, one U.S. dollar was worth roughly 147 Japanese yen during this period. So what was each week's gas price in yen?"
       ],
-      "id": "5e35bb04"
+      "id": "38f204a5"
     },
     {
       "cell_type": "code",
@@ -544,7 +544,7 @@
         "# Convert every weekly price from dollars to yen\n",
         "gas_prices * 147"
       ],
-      "id": "37e79e31",
+      "id": "60eddace",
       "execution_count": null,
       "outputs": []
     },
@@ -554,7 +554,7 @@
       "source": [
         "Or, returning to our tax example, what would each price be with a \\$2-per-gallon tax added?"
       ],
-      "id": "c1b8f0e8"
+      "id": "02a31752"
     },
     {
       "cell_type": "code",
@@ -562,7 +562,7 @@
       "source": [
         "gas_prices + 2"
       ],
-      "id": "24747479",
+      "id": "42160fd2",
       "execution_count": null,
       "outputs": []
     },
@@ -574,7 +574,7 @@
         "\n",
         "Arithmetic between *two arrays* of the same length also works element by element: the first elements combine, then the second elements, and so on. This solves the \"add two lists of numbers together\" problem from the start of the chapter in one line:"
       ],
-      "id": "03e2989f"
+      "id": "7e7109e3"
     },
     {
       "cell_type": "code",
@@ -583,7 +583,7 @@
         "# Each element of the first array pairs with the matching element of the second\n",
         "np.array([1, 2, 3]) + np.array([10, 20, 30])"
       ],
-      "id": "2f5b0fa3",
+      "id": "ba61f1c0",
       "execution_count": null,
       "outputs": []
     },
@@ -595,7 +595,7 @@
         "\n",
         "Each summary function reduces the entire array down to one value in a single call. What was the average price of gas over the year?"
       ],
-      "id": "8177d7ea"
+      "id": "a2e40382"
     },
     {
       "cell_type": "code",
@@ -604,7 +604,7 @@
         "# Two measures of the \"typical\" price\n",
         "[np.mean(gas_prices), np.median(gas_prices)]"
       ],
-      "id": "3cc7460c",
+      "id": "3e4ad4a3",
       "execution_count": null,
       "outputs": []
     },
@@ -614,7 +614,7 @@
       "source": [
         "Both values are about \\$3.10, so a typical week's price was a little over three dollars a gallon. What were the cheapest and most expensive weeks?"
       ],
-      "id": "bfa27eb9"
+      "id": "393da6dc"
     },
     {
       "cell_type": "code",
@@ -622,7 +622,7 @@
       "source": [
         "[np.min(gas_prices), np.max(gas_prices)]"
       ],
-      "id": "6427b78f",
+      "id": "3f544d11",
       "execution_count": null,
       "outputs": []
     },
@@ -632,7 +632,7 @@
       "source": [
         "Prices ranged from a low of about \\$2.81 to a high of about \\$3.24. A natural follow-up question is *when* those weeks occurred. The functions `np.argmin()` and `np.argmax()` give us the **position** of the smallest and largest values, which we can then use to look up the matching date:"
       ],
-      "id": "0fc52617"
+      "id": "fcb8bcaf"
     },
     {
       "cell_type": "code",
@@ -641,7 +641,7 @@
         "# The date of the most expensive week\n",
         "gas_dates[np.argmax(gas_prices)]"
       ],
-      "id": "007423ed",
+      "id": "b64ad53b",
       "execution_count": null,
       "outputs": []
     },
@@ -651,7 +651,7 @@
       "source": [
         "Gas was at its most expensive in early April. We can also add up all the values with `np.sum()`. If you bought exactly one gallon of gas every week of the year, the total spent would be:"
       ],
-      "id": "e2ce72c5"
+      "id": "cc55b95e"
     },
     {
       "cell_type": "code",
@@ -659,7 +659,7 @@
       "source": [
         "np.sum(gas_prices)"
       ],
-      "id": "591ae559",
+      "id": "f060c16f",
       "execution_count": null,
       "outputs": []
     },
@@ -669,7 +669,7 @@
       "source": [
         "NumPy also has functions for measuring **spread**: how much the values vary around the average. `np.std()` gives the standard deviation, the typical distance of each value from the mean. A small standard deviation means prices were stable; a large one means they fluctuated:"
       ],
-      "id": "0833b65a"
+      "id": "08823dd3"
     },
     {
       "cell_type": "code",
@@ -677,7 +677,7 @@
       "source": [
         "np.std(gas_prices)"
       ],
-      "id": "bd7d5eb2",
+      "id": "c488e5ea",
       "execution_count": null,
       "outputs": []
     },
@@ -691,7 +691,7 @@
         "\n",
         "Percentiles tell you the value below which a given share of the data falls: 25% of the weeks had prices below the 25th percentile, and 75% of the weeks had prices below the 75th percentile. (The median you met in the previous chapter is the 50th percentile.) `np.percentile()` takes the array and the percentile you want:"
       ],
-      "id": "5b84e0ef"
+      "id": "4ed4346c"
     },
     {
       "cell_type": "code",
@@ -700,7 +700,7 @@
         "# 25th and 75th percentile of weekly gas prices\n",
         "[np.percentile(gas_prices, 25), np.percentile(gas_prices, 75)]"
       ],
-      "id": "853c1a37",
+      "id": "4b9edc10",
       "execution_count": null,
       "outputs": []
     },
@@ -710,7 +710,7 @@
       "source": [
         "The gap between those two values is the **interquartile range (IQR)**: the spread of the middle 50% of the data. Because it ignores the top and bottom quarters, it is less affected by unusually high or low weeks than the full range:"
       ],
-      "id": "69fc0739"
+      "id": "3e6984ff"
     },
     {
       "cell_type": "code",
@@ -719,7 +719,7 @@
         "# Interquartile range: the spread of the middle 50% of the data\n",
         "np.percentile(gas_prices, 75) - np.percentile(gas_prices, 25)"
       ],
-      "id": "824a15ba",
+      "id": "387ef5a1",
       "execution_count": null,
       "outputs": []
     },
@@ -735,7 +735,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-spread collapse=\"true\"}"
       ],
-      "id": "386ce4ed"
+      "id": "7d8bf334"
     },
     {
       "cell_type": "code",
@@ -746,7 +746,7 @@
         "\n",
         "[std, iqr]"
       ],
-      "id": "6c2afab4",
+      "id": "ae0eda4b",
       "execution_count": null,
       "outputs": []
     },
@@ -762,7 +762,7 @@
         "\n",
         "Because our prices are in weekly order, some NumPy functions are especially useful. `np.cumsum()` gives the **cumulative sum**: the running total spent after each week."
       ],
-      "id": "46eacd78"
+      "id": "8c59e909"
     },
     {
       "cell_type": "code",
@@ -771,7 +771,7 @@
         "# Running total if you bought one gallon each week\n",
         "np.cumsum(gas_prices)"
       ],
-      "id": "a20c32e6",
+      "id": "cdeb81da",
       "execution_count": null,
       "outputs": []
     },
@@ -781,7 +781,7 @@
       "source": [
         "A small example shows the mechanics more clearly than 52 weeks of data. Each value in the running total is the sum of the corresponding array value and every value before it, so the running total carries forward from one box to the next:"
       ],
-      "id": "862ebf8c"
+      "id": "28260f57"
     },
     {
       "cell_type": "code",
@@ -826,7 +826,7 @@
         "        fontsize=8, color=\"#555555\", style=\"italic\")\n",
         "plt.show()"
       ],
-      "id": "7d9582aa",
+      "id": "9b20b9f8",
       "execution_count": null,
       "outputs": []
     },
@@ -836,7 +836,7 @@
       "source": [
         "Even more useful for a time series is `np.diff()`, which gives the difference between each value and the one before it: how much the price *changed* from one week to the next."
       ],
-      "id": "6f2adf0a"
+      "id": "17973e83"
     },
     {
       "cell_type": "code",
@@ -846,7 +846,7 @@
         "weekly_changes = np.diff(gas_prices)\n",
         "weekly_changes"
       ],
-      "id": "810386cc",
+      "id": "77b657a1",
       "execution_count": null,
       "outputs": []
     },
@@ -856,7 +856,7 @@
       "source": [
         "`np.diff()` works on the same example: each output value is the difference between two adjacent inputs, so there is one fewer output than input:"
       ],
-      "id": "84c46cfe"
+      "id": "735e215c"
     },
     {
       "cell_type": "code",
@@ -893,7 +893,7 @@
         "ax.text(-1.15, 0.3, \"diff\", fontsize=10, ha=\"left\", va=\"center\")\n",
         "plt.show()"
       ],
-      "id": "e73f87f0",
+      "id": "b236a0cb",
       "execution_count": null,
       "outputs": []
     },
@@ -903,7 +903,7 @@
       "source": [
         "The result has 51 values rather than 52, because 52 weeks produce only 51 gaps. Now we can answer an interesting question: what was the single largest weekly change in price? Since a change can be a drop (negative) or a rise (positive), we use `np.abs()` to look at the *size* of each change regardless of direction, and `np.max()` to find the biggest:"
       ],
-      "id": "18ba2d3b"
+      "id": "fef624f5"
     },
     {
       "cell_type": "code",
@@ -912,7 +912,7 @@
         "# The size of the largest single-week change\n",
         "np.max(np.abs(weekly_changes))"
       ],
-      "id": "48e31287",
+      "id": "88be3112",
       "execution_count": null,
       "outputs": []
     },
@@ -922,7 +922,7 @@
       "source": [
         "The biggest swing in any week was about 8 cents. Combining this with `np.argmax()` and our dates, we can find exactly which week saw that change. There is one subtlety: because `weekly_changes` describes the gaps *between* weeks, its positions are shifted by one from the weeks themselves. The first change (position 0) is the jump from week 0 to week 1, so it belongs to week 1; the change at any position therefore corresponds to the date one position later. That's why we add 1 before looking up the date:"
       ],
-      "id": "e934e1b9"
+      "id": "1cfcf204"
     },
     {
       "cell_type": "code",
@@ -932,7 +932,7 @@
         "# We add 1 because each change belongs to the *later* of the two weeks it spans.\n",
         "gas_dates[np.argmax(np.abs(weekly_changes)) + 1]"
       ],
-      "id": "2d6075c6",
+      "id": "e18ec904",
       "execution_count": null,
       "outputs": []
     },
@@ -942,7 +942,7 @@
       "source": [
         "The line plot at the start of the chapter showed *when* prices moved. A histogram of `weekly_changes` shows *how much* prices typically moved from one week to the next:"
       ],
-      "id": "eb0929ea"
+      "id": "bd85c3b3"
     },
     {
       "cell_type": "code",
@@ -954,7 +954,7 @@
         "plt.title(\"Distribution of weekly gas price changes, 2025\")\n",
         "plt.show()"
       ],
-      "id": "44f7964b",
+      "id": "43fc8df5",
       "execution_count": null,
       "outputs": []
     },
@@ -972,7 +972,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-changes collapse=\"true\"}"
       ],
-      "id": "7ec6f07d"
+      "id": "fb4d64bc"
     },
     {
       "cell_type": "code",
@@ -988,7 +988,7 @@
         "\n",
         "[largest_drop, drop_date]"
       ],
-      "id": "cb65a6e5",
+      "id": "08d10852",
       "execution_count": null,
       "outputs": []
     },
@@ -1006,7 +1006,7 @@
         "\n",
         "A Boolean array is just an array of `True`/`False` values. We can build one by hand, the same way we build any other array:"
       ],
-      "id": "74f3e747"
+      "id": "4fc3b286"
     },
     {
       "cell_type": "code",
@@ -1014,7 +1014,7 @@
       "source": [
         "np.array([True, False, True])"
       ],
-      "id": "6433ee67",
+      "id": "63901cc7",
       "execution_count": null,
       "outputs": []
     },
@@ -1024,7 +1024,7 @@
       "source": [
         "More often, though, we create one by writing a **comparison** against an array. NumPy compares every element and returns an array of the results:"
       ],
-      "id": "b0637887"
+      "id": "b9118215"
     },
     {
       "cell_type": "code",
@@ -1033,7 +1033,7 @@
         "# Was the price below $3.00 in each week?\n",
         "gas_prices < 3.00"
       ],
-      "id": "70b0d94b",
+      "id": "dea3227c",
       "execution_count": null,
       "outputs": []
     },
@@ -1043,7 +1043,7 @@
       "source": [
         "Because Python treats `True` as 1 and `False` as 0, we can *count* how many weeks met our condition by summing the Boolean array, and find the *proportion* of weeks by taking its mean:"
       ],
-      "id": "f5f537d6"
+      "id": "09be1e0d"
     },
     {
       "cell_type": "code",
@@ -1052,7 +1052,7 @@
         "# How many weeks was gas below $3.00?\n",
         "np.sum(gas_prices < 3.00)"
       ],
-      "id": "7b9f078b",
+      "id": "0dbd7858",
       "execution_count": null,
       "outputs": []
     },
@@ -1063,7 +1063,7 @@
         "# What fraction of weeks was gas below $3.00?\n",
         "np.mean(gas_prices < 3.00)"
       ],
-      "id": "d096d611",
+      "id": "b3eb1b03",
       "execution_count": null,
       "outputs": []
     },
@@ -1073,7 +1073,7 @@
       "source": [
         "Gas dipped below \\$3.00 in only 5 of the 52 weeks, or about 10% of the year. We can build more specific conditions by combining comparisons with `&` (\"and\") and `|` (\"or\"). Each comparison must be wrapped in parentheses:"
       ],
-      "id": "38c5aaf2"
+      "id": "002428a0"
     },
     {
       "cell_type": "code",
@@ -1082,7 +1082,7 @@
         "# How many weeks was the price between $3.00 and $3.20?\n",
         "np.sum((gas_prices > 3.00) & (gas_prices < 3.20))"
       ],
-      "id": "e0266861",
+      "id": "6237f090",
       "execution_count": null,
       "outputs": []
     },
@@ -1094,7 +1094,7 @@
         "\n",
         "Beyond counting, we can use a Boolean array to *pull out* the values that meet a condition. This is called **Boolean indexing** or **masking**. To see how it works, start with a mask built by hand. Indexing an array with a Boolean array of the same length keeps the values where the mask is `True` and drops the values where it is `False`:"
       ],
-      "id": "f4202d66"
+      "id": "10247186"
     },
     {
       "cell_type": "code",
@@ -1105,7 +1105,7 @@
         "\n",
         "small_prices[mask]"
       ],
-      "id": "d0e874c8",
+      "id": "bb3da352",
       "execution_count": null,
       "outputs": []
     },
@@ -1153,7 +1153,7 @@
         "\n",
         "plt.show()"
       ],
-      "id": "96c2e4f8",
+      "id": "aa60ec5e",
       "execution_count": null,
       "outputs": []
     },
@@ -1163,7 +1163,7 @@
       "source": [
         "In practice we rarely type a mask by hand. Instead we produce one with a comparison, then index with it in a single expression:"
       ],
-      "id": "16fe9c33"
+      "id": "caa87a35"
     },
     {
       "cell_type": "code",
@@ -1172,7 +1172,7 @@
         "# The actual prices for the weeks when gas was below $3.00\n",
         "gas_prices[gas_prices < 3.00]"
       ],
-      "id": "1d3db28a",
+      "id": "60f4f5e4",
       "execution_count": null,
       "outputs": []
     },
@@ -1182,7 +1182,7 @@
       "source": [
         "The full value of masking appears when you then summarize the selected values. For example, *among the weeks when gas was below \\$3.00*, what was the average price?"
       ],
-      "id": "c3c88cf0"
+      "id": "c12dc673"
     },
     {
       "cell_type": "code",
@@ -1190,7 +1190,7 @@
       "source": [
         "np.mean(gas_prices[gas_prices < 3.00])"
       ],
-      "id": "1dd8ba61",
+      "id": "95fa2c4a",
       "execution_count": null,
       "outputs": []
     },
@@ -1200,7 +1200,7 @@
       "source": [
         "Masking also lets us fulfill a promise from the previous chapter: finding a dataset's **outliers**. Recall the rule of thumb that flags any value more than 1.5 IQRs below the 25th percentile or above the 75th percentile. With `np.percentile()` and a compound condition, this takes only a few lines:"
       ],
-      "id": "76310e0c"
+      "id": "5f22dfd3"
     },
     {
       "cell_type": "code",
@@ -1216,7 +1216,7 @@
         "# The prices that fall outside the fences\n",
         "gas_prices[(gas_prices < lower_fence) | (gas_prices > upper_fence)]"
       ],
-      "id": "9b55e5ff",
+      "id": "28823ccc",
       "execution_count": null,
       "outputs": []
     },
@@ -1230,7 +1230,7 @@
         "\n",
         "The Bechdel Test data from the previous chapter gives a different example of the same idea. Recall that each movie either passes (`\"PASS\"`) or fails (`\"FAIL\"`) the test. The cell below loads the movies' pass/fail status and international gross earnings into two arrays, again using the `pandas` loading code you can treat as a black box for now:"
       ],
-      "id": "e132d931"
+      "id": "196afdc0"
     },
     {
       "cell_type": "code",
@@ -1243,7 +1243,7 @@
         "bechdel_status = movies[\"binary\"].values\n",
         "intl_gross = movies[\"intgross_2013$\"].values"
       ],
-      "id": "46148898",
+      "id": "2adb8071",
       "execution_count": null,
       "outputs": []
     },
@@ -1253,7 +1253,7 @@
       "source": [
         "Using exactly the masking technique we just learned, we can compare the average earnings of movies that passed the test against those that failed:"
       ],
-      "id": "be7a5cc2"
+      "id": "f16c74f5"
     },
     {
       "cell_type": "code",
@@ -1263,7 +1263,7 @@
         "[np.mean(intl_gross[bechdel_status == \"PASS\"]),\n",
         " np.mean(intl_gross[bechdel_status == \"FAIL\"])]"
       ],
-      "id": "0b65fd20",
+      "id": "c475ea2d",
       "execution_count": null,
       "outputs": []
     },
@@ -1281,7 +1281,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-mask collapse=\"true\"}"
       ],
-      "id": "ce3f0446"
+      "id": "1a10a42d"
     },
     {
       "cell_type": "code",
@@ -1289,7 +1289,7 @@
       "source": [
         "np.sum(gas_prices > np.mean(gas_prices))"
       ],
-      "id": "81ac28ac",
+      "id": "85331042",
       "execution_count": null,
       "outputs": []
     },
@@ -1309,7 +1309,7 @@
         "\n",
         "A **matrix** is a 2D array, and the most direct way to build one is to pass `np.array()` a list of lists, with each inner list becoming one row:"
       ],
-      "id": "8ec4d37c"
+      "id": "c243ed58"
     },
     {
       "cell_type": "code",
@@ -1322,7 +1322,7 @@
         "\n",
         "matrix"
       ],
-      "id": "be6b35b0",
+      "id": "4c9721cb",
       "execution_count": null,
       "outputs": []
     },
@@ -1332,7 +1332,7 @@
       "source": [
         "The `.shape` confirms the structure: 2 rows and 3 columns."
       ],
-      "id": "00dee24f"
+      "id": "2ccc9c38"
     },
     {
       "cell_type": "code",
@@ -1340,7 +1340,7 @@
       "source": [
         "matrix.shape"
       ],
-      "id": "eb063644",
+      "id": "38880113",
       "execution_count": null,
       "outputs": []
     },
@@ -1350,7 +1350,7 @@
       "source": [
         "Indexing a 2D array takes two positions separated by a comma: a row, then a column. `matrix[0, 1]` is the value in row 0, column 1:"
       ],
-      "id": "ca00d3b5"
+      "id": "17896e17"
     },
     {
       "cell_type": "code",
@@ -1358,7 +1358,7 @@
       "source": [
         "matrix[0, 1]"
       ],
-      "id": "037243cb",
+      "id": "98e7bd55",
       "execution_count": null,
       "outputs": []
     },
@@ -1368,7 +1368,7 @@
       "source": [
         "A `:` in either position means \"every value along that axis.\" `matrix[1, :]` pulls out all of row 1, and `matrix[:, 2]` pulls out all of column 2:"
       ],
-      "id": "9a3b552f"
+      "id": "fd442fcb"
     },
     {
       "cell_type": "code",
@@ -1376,7 +1376,7 @@
       "source": [
         "[matrix[1, :], matrix[:, 2]]"
       ],
-      "id": "445e2b08",
+      "id": "d6cdb2d3",
       "execution_count": null,
       "outputs": []
     },
@@ -1386,7 +1386,7 @@
       "source": [
         "Slicing combines with indexing the same way: `matrix[0:2, 1:3]` keeps rows 0 and 1, and within those rows, columns 1 and 2:"
       ],
-      "id": "2eba214f"
+      "id": "c023f9df"
     },
     {
       "cell_type": "code",
@@ -1394,7 +1394,7 @@
       "source": [
         "matrix[0:2, 1:3]"
       ],
-      "id": "85a99797",
+      "id": "04ad7a07",
       "execution_count": null,
       "outputs": []
     },
@@ -1404,7 +1404,7 @@
       "source": [
         "The `axis` argument in NumPy functions specifies which dimension to operate along. On a 2D array, `axis=0` operates *down the rows*, producing one result per column, and `axis=1` operates *across the columns*, producing one result per row:"
       ],
-      "id": "9d792f80"
+      "id": "c8aac745"
     },
     {
       "cell_type": "code",
@@ -1413,7 +1413,7 @@
         "# Sum down the rows (axis=0): one total per column\n",
         "np.sum(matrix, axis=0)"
       ],
-      "id": "5d738fc9",
+      "id": "775fec64",
       "execution_count": null,
       "outputs": []
     },
@@ -1424,7 +1424,7 @@
         "# Sum across the columns (axis=1): one total per row\n",
         "np.sum(matrix, axis=1)"
       ],
-      "id": "c6f5958f",
+      "id": "2e018345",
       "execution_count": null,
       "outputs": []
     },
@@ -1434,7 +1434,7 @@
       "source": [
         "The picture below shows the direction each version sums along, and the 1D array each one produces:"
       ],
-      "id": "11537d2d"
+      "id": "3b1a53d1"
     },
     {
       "cell_type": "code",
@@ -1487,7 +1487,7 @@
         "plt.tight_layout()\n",
         "plt.show()"
       ],
-      "id": "718f4ac7",
+      "id": "5807de7b",
       "execution_count": null,
       "outputs": []
     },
@@ -1505,7 +1505,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-matrix collapse=\"true\"}"
       ],
-      "id": "c3d3152a"
+      "id": "3e6b9a98"
     },
     {
       "cell_type": "code",
@@ -1519,7 +1519,7 @@
         "\n",
         "[small_matrix[2, 0], small_matrix[2, :]]"
       ],
-      "id": "77019810",
+      "id": "fb4238f7",
       "execution_count": null,
       "outputs": []
     },
@@ -1533,7 +1533,7 @@
         "\n",
         "For a large grid, typing out every value as a list of lists is impractical, so we can ask NumPy to build the array for us. Here we start with a 100×100 grid of zeros using `np.zeros()`, then use slicing to set a square block of values in the middle to 1. Note that the `[100, 100]` we pass to `np.zeros()` is not a list of *values* (the way `np.array([3.05, 3.04])` was). It describes the *shape* we want: 100 rows and 100 columns. NumPy functions that accept a shape always expect it as a single list or tuple, not as separate arguments."
       ],
-      "id": "0e8584fe"
+      "id": "19a4787e"
     },
     {
       "cell_type": "code",
@@ -1545,7 +1545,7 @@
         "# Set a square block of the grid to 1 using slicing on both dimensions\n",
         "grid[30:70, 30:70] = 1"
       ],
-      "id": "dbe7d7c3",
+      "id": "397d75d0",
       "execution_count": null,
       "outputs": []
     },
@@ -1555,7 +1555,7 @@
       "source": [
         "Why make a grid of numbers? Because **a grayscale image is exactly that**: a 2D array where each number is the brightness of a pixel. If we display our grid as an image, the 1s show up as a white square on a black background:"
       ],
-      "id": "c4a0b9aa"
+      "id": "7b722401"
     },
     {
       "cell_type": "code",
@@ -1564,7 +1564,7 @@
         "plt.imshow(grid, cmap=\"gray\")\n",
         "plt.show()"
       ],
-      "id": "31bf5f96",
+      "id": "8f1e1215",
       "execution_count": null,
       "outputs": []
     },
@@ -1574,7 +1574,7 @@
       "source": [
         "The picture below makes the connection precise: every position in the array has a row index (**axis 0**) and a column index (**axis 1**), and the *value* stored at that position controls how dark or light the pixel is. Stored photos typically use whole numbers from 0 (black) to 255 (white). (Our square example used 0 and 1 instead; by default Matplotlib stretches an array's smallest value to black and its largest to white, which is why the 1s displayed as pure white.)"
       ],
-      "id": "0fa13ccb"
+      "id": "8907ac18"
     },
     {
       "cell_type": "code",
@@ -1631,7 +1631,7 @@
         "plt.tight_layout()\n",
         "plt.show()"
       ],
-      "id": "fdca8a32",
+      "id": "f89dba04",
       "execution_count": null,
       "outputs": []
     },
@@ -1641,7 +1641,7 @@
       "source": [
         "As a concrete example, consider the cameraman: a standard grayscale test image distributed with the `imageio` package and used in image-processing research for decades. Unlike most digital photos, it was stored from the start as a single 2D layer of brightness values with no color information:"
       ],
-      "id": "77d8d51e"
+      "id": "b75fdbd8"
     },
     {
       "cell_type": "code",
@@ -1656,7 +1656,7 @@
         "plt.imshow(cameraman, cmap=\"gray\")\n",
         "plt.show()"
       ],
-      "id": "e33f4a67",
+      "id": "467d0dda",
       "execution_count": null,
       "outputs": []
     },
@@ -1666,7 +1666,7 @@
       "source": [
         "Confirm that it really is a 2D array of numbers by checking its shape and data type:"
       ],
-      "id": "0cd3dac2"
+      "id": "cffee30a"
     },
     {
       "cell_type": "code",
@@ -1674,7 +1674,7 @@
       "source": [
         "[cameraman.shape, cameraman.dtype]"
       ],
-      "id": "2b051df8",
+      "id": "cb05a9a3",
       "execution_count": null,
       "outputs": []
     },
@@ -1688,7 +1688,7 @@
         "\n",
         "Color photographs add a third dimension. Here we load a photo of bell peppers:"
       ],
-      "id": "1eb7d8e2"
+      "id": "a403f727"
     },
     {
       "cell_type": "code",
@@ -1700,7 +1700,7 @@
         "plt.imshow(peppers)\n",
         "plt.show()"
       ],
-      "id": "70522ffc",
+      "id": "3f1adf37",
       "execution_count": null,
       "outputs": []
     },
@@ -1710,7 +1710,7 @@
       "source": [
         "[peppers.shape, peppers.dtype]"
       ],
-      "id": "3311c216",
+      "id": "72e5d41a",
       "execution_count": null,
       "outputs": []
     },
@@ -1720,7 +1720,7 @@
       "source": [
         "The shape `(648, 960, 3)` says the image is 648 pixels tall and 960 pixels wide, with 3 values at each pixel position, one per color channel. Each channel holds the intensity of one color (red, green, or blue) at that pixel, using the same `uint8` range of 0 to 255. The diagram below shows how those three layers are organized; the outlined cell marks a single pixel, whose color is stored as three values at the same (row, column) position, one on each layer."
       ],
-      "id": "11fe2fd8"
+      "id": "5c245296"
     },
     {
       "cell_type": "code",
@@ -1817,7 +1817,7 @@
         "plt.tight_layout()\n",
         "plt.show()"
       ],
-      "id": "bdffd310",
+      "id": "6380c041",
       "execution_count": null,
       "outputs": []
     },
@@ -1827,7 +1827,7 @@
       "source": [
         "Combining different amounts of red, green, and blue *light* is how each pixel's color is produced, an idea called **additive color**. Mixing any two of the three at full intensity produces yellow, magenta, or cyan; mixing all three produces white:"
       ],
-      "id": "e6f19b4b"
+      "id": "47004d5f"
     },
     {
       "cell_type": "code",
@@ -1883,7 +1883,7 @@
         "plt.tight_layout()\n",
         "plt.show()"
       ],
-      "id": "28beb67d",
+      "id": "5e4ce0c4",
       "execution_count": null,
       "outputs": []
     },
@@ -1893,7 +1893,7 @@
       "source": [
         "Averaging the red, green, and blue values at each pixel collapses them to a single brightness value, in the same format as the grayscale photo earlier. Passing `axis=2` to `np.mean()` tells NumPy to average along the channel dimension: for each pixel position (row, column), it reduces the three channel values to one number, leaving an array of shape (height, width):"
       ],
-      "id": "da46a9dc"
+      "id": "b572f57f"
     },
     {
       "cell_type": "code",
@@ -1905,7 +1905,7 @@
         "plt.imshow(gray_peppers, cmap=\"gray\")\n",
         "plt.show()"
       ],
-      "id": "d5b6491a",
+      "id": "e2b5aa8a",
       "execution_count": null,
       "outputs": []
     },
@@ -1917,7 +1917,7 @@
         "\n",
         "Because the image is an array, every NumPy tool from this chapter applies to it. Using slicing, we can pull out a single color channel (here, the red channel) and display it on its own. The effect is visible across the peppers: the red one appears nearly white (high red-channel values), while the green one appears dark (low red-channel values). The yellow pepper also appears bright, and the additive-color figure explains why: yellow is red plus green light, so its red channel is high too:"
       ],
-      "id": "484342ca"
+      "id": "4a45d7e7"
     },
     {
       "cell_type": "code",
@@ -1929,7 +1929,7 @@
         "plt.imshow(red_channel, cmap=\"gray\")\n",
         "plt.show()"
       ],
-      "id": "852e7317",
+      "id": "27d70136",
       "execution_count": null,
       "outputs": []
     },
@@ -1939,7 +1939,7 @@
       "source": [
         "The Boolean-array idea works on images too. Comparing the grayscale image to a threshold produces a Boolean array marking the brightest pixels, which we can display to highlight the lightest regions of the photo:"
       ],
-      "id": "af191dce"
+      "id": "2d0f206b"
     },
     {
       "cell_type": "code",
@@ -1951,7 +1951,7 @@
         "plt.imshow(bright_pixels, cmap=\"gray\")\n",
         "plt.show()"
       ],
-      "id": "9ff2ae5f",
+      "id": "4b311c3b",
       "execution_count": null,
       "outputs": []
     },
@@ -1971,7 +1971,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-image collapse=\"true\"}"
       ],
-      "id": "92641ae9"
+      "id": "98b90f25"
     },
     {
       "cell_type": "code",
@@ -1980,7 +1980,7 @@
         "# Count the pixels whose brightness is below 50\n",
         "np.sum(gray_peppers < 50)"
       ],
-      "id": "7e553bbb",
+      "id": "85fd6d38",
       "execution_count": null,
       "outputs": []
     },
@@ -2012,7 +2012,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-cents collapse=\"true\"}"
       ],
-      "id": "7c094e53"
+      "id": "dcd98d51"
     },
     {
       "cell_type": "code",
@@ -2022,7 +2022,7 @@
         "\n",
         "[prices_in_cents, np.mean(prices_in_cents)]"
       ],
-      "id": "ca69a224",
+      "id": "5fe02a53",
       "execution_count": null,
       "outputs": []
     },
@@ -2040,7 +2040,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-range collapse=\"true\"}"
       ],
-      "id": "6b2ae7b1"
+      "id": "307c3303"
     },
     {
       "cell_type": "code",
@@ -2048,7 +2048,7 @@
       "source": [
         "np.max(gas_prices) - np.min(gas_prices)"
       ],
-      "id": "fad6a8bf",
+      "id": "f7beee03",
       "execution_count": null,
       "outputs": []
     },
@@ -2068,7 +2068,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-firsthalf collapse=\"true\"}"
       ],
-      "id": "8ec750aa"
+      "id": "ecbe04d9"
     },
     {
       "cell_type": "code",
@@ -2079,7 +2079,7 @@
         "\n",
         "[first_half_avg, second_half_avg]"
       ],
-      "id": "5ea353ef",
+      "id": "a4183572",
       "execution_count": null,
       "outputs": []
     },
@@ -2099,7 +2099,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-boxplot collapse=\"true\"}"
       ],
-      "id": "f7c3ec1b"
+      "id": "2992d86c"
     },
     {
       "cell_type": "code",
@@ -2114,7 +2114,7 @@
         "plt.title(\"International gross by Bechdel Test result\")\n",
         "plt.show()"
       ],
-      "id": "66026b68",
+      "id": "6d0c1ccb",
       "execution_count": null,
       "outputs": []
     },
@@ -2134,7 +2134,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-array_computations-swap collapse=\"true\"}"
       ],
-      "id": "ac83da8e"
+      "id": "75d62a40"
     },
     {
       "cell_type": "code",
@@ -2149,7 +2149,7 @@
         "plt.imshow(swapped)\n",
         "plt.show()"
       ],
-      "id": "a4adfcd0",
+      "id": "3ec8f1b3",
       "execution_count": null,
       "outputs": []
     },
@@ -2161,7 +2161,7 @@
         "\n",
         ":::"
       ],
-      "id": "ed9ed887"
+      "id": "58c085ab"
     }
   ],
   "metadata": {
