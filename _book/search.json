@@ -294,7 +294,7 @@
     "href": "array_computations.html#why-arrays-instead-of-lists",
     "title": "4  Array computations",
     "section": "",
-    "text": "Note\n\n\n\nPython does have a tool for repeating an action many times without writing it out by hand: the loop, which we cover later in Chapter 7. But for the whole-dataset calculations that are common in data science, the array approach shown in this chapter is usually shorter and easier to read, so we will favor it throughout the book.\n\n\n\n\n\n\n\n\nEase of expression. Element-wise arithmetic like price_array * 2 and price_array + 2 lets us say what we mean in a single short expression.\nSpeed. NumPy performs these operations in fast, pre-compiled code and stores values more compactly than a list, so computations on large arrays run faster and use less memory.\n\n\n\n\n\n\n\nTipExercise\n\n\n\nHere are three more weekly gas prices stored in a list: [3.20, 3.15, 3.18]. Turn this list into a NumPy array, then use a single expression (no loop) to calculate the prices with a three-dollar surcharge added to each (i.e., each price becomes 3 dollars higher).\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\nmore_prices = np.array([3.20, 3.15, 3.18])\n\n# Adding 3 dollars to every price at once\nmore_prices + 3\n\narray([6.2 , 6.15, 6.18])",
+    "text": "Note\n\n\n\nPython does have a tool for repeating an action many times without writing it out by hand: the loop, which we cover later in Chapter 9. But for the whole-dataset calculations that are common in data science, the array approach shown in this chapter is usually shorter and easier to read, so we will favor it throughout the book.\n\n\n\n\n\n\n\n\nEase of expression. Element-wise arithmetic like price_array * 2 and price_array + 2 lets us say what we mean in a single short expression.\nSpeed. NumPy performs these operations in fast, pre-compiled code and stores values more compactly than a list, so computations on large arrays run faster and use less memory.\n\n\n\n\n\n\n\nTipExercise\n\n\n\nHere are three more weekly gas prices stored in a list: [3.20, 3.15, 3.18]. Turn this list into a NumPy array, then use a single expression (no loop) to calculate the prices with a three-dollar surcharge added to each (i.e., each price becomes 3 dollars higher).\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\nmore_prices = np.array([3.20, 3.15, 3.18])\n\n# Adding 3 dollars to every price at once\nmore_prices + 3\n\narray([6.2 , 6.15, 6.18])",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Array computations</span>"
     ]
@@ -380,53 +380,593 @@
     ]
   },
   {
+    "objectID": "interactive_visualizations.html",
+    "href": "interactive_visualizations.html",
+    "title": "7  Interactive visualizations",
+    "section": "",
+    "text": "7.1 Pivot tables and heatmaps\nThe plots we have made so far are static images. This chapter introduces visualizations a reader can explore: charts that respond to hovering and zooming, and animations that show change over time.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+    ]
+  },
+  {
+    "objectID": "interactive_visualizations.html#interactive-charts",
+    "href": "interactive_visualizations.html#interactive-charts",
+    "title": "7  Interactive visualizations",
+    "section": "7.2 Interactive charts",
+    "text": "7.2 Interactive charts",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+    ]
+  },
+  {
+    "objectID": "interactive_visualizations.html#animations",
+    "href": "interactive_visualizations.html#animations",
+    "title": "7  Interactive visualizations",
+    "section": "7.3 Animations",
+    "text": "7.3 Animations",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+    ]
+  },
+  {
+    "objectID": "interactive_visualizations.html#summary",
+    "href": "interactive_visualizations.html#summary",
+    "title": "7  Interactive visualizations",
+    "section": "7.4 Summary",
+    "text": "7.4 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+    ]
+  },
+  {
+    "objectID": "interactive_visualizations.html#exercises",
+    "href": "interactive_visualizations.html#exercises",
+    "title": "7  Interactive visualizations",
+    "section": "7.5 Exercises",
+    "text": "7.5 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+    ]
+  },
+  {
+    "objectID": "maps.html",
+    "href": "maps.html",
+    "title": "8  Maps",
+    "section": "",
+    "text": "8.1 Geographic data and boundaries\nSome data is fundamentally about where. This chapter puts data on maps: drawing geographic boundaries, coloring regions by a data value, and building interactive maps you can zoom and explore.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+    ]
+  },
+  {
+    "objectID": "maps.html#projections",
+    "href": "maps.html#projections",
+    "title": "8  Maps",
+    "section": "8.2 Projections",
+    "text": "8.2 Projections",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+    ]
+  },
+  {
+    "objectID": "maps.html#layers-and-markers",
+    "href": "maps.html#layers-and-markers",
+    "title": "8  Maps",
+    "section": "8.3 Layers and markers",
+    "text": "8.3 Layers and markers",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+    ]
+  },
+  {
+    "objectID": "maps.html#choropleth-maps",
+    "href": "maps.html#choropleth-maps",
+    "title": "8  Maps",
+    "section": "8.4 Choropleth maps",
+    "text": "8.4 Choropleth maps",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+    ]
+  },
+  {
+    "objectID": "maps.html#interactive-maps",
+    "href": "maps.html#interactive-maps",
+    "title": "8  Maps",
+    "section": "8.5 Interactive maps",
+    "text": "8.5 Interactive maps",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+    ]
+  },
+  {
+    "objectID": "maps.html#summary",
+    "href": "maps.html#summary",
+    "title": "8  Maps",
+    "section": "8.6 Summary",
+    "text": "8.6 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+    ]
+  },
+  {
+    "objectID": "maps.html#exercises",
+    "href": "maps.html#exercises",
+    "title": "8  Maps",
+    "section": "8.7 Exercises",
+    "text": "8.7 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+    ]
+  },
+  {
     "objectID": "iteration_and_functions.html",
     "href": "iteration_and_functions.html",
-    "title": "7  Iteration and writing functions",
+    "title": "9  Iteration and writing functions",
     "section": "",
-    "text": "7.1 Repeating work with for loops\nSo far we have deliberately gotten quite far without two of Python’s most fundamental tools: loops, which repeat an action many times, and functions that we write ourselves to package up and reuse a piece of code. We were able to postpone them because the array and table tools introduced in the earlier chapters let us operate on whole collections of data at once, which removes the need to write a loop in many common situations.\nThere are still plenty of tasks, though, where writing a loop or your own function is the clearest — or the only — way to get the job done. This chapter introduces both.",
+    "text": "9.1 Repeating work with for loops\nSo far we have deliberately gotten quite far without two of Python’s most fundamental tools: loops, which repeat an action many times, and functions that we write ourselves to package up and reuse a piece of code. We were able to postpone them because the array and table tools introduced in the earlier chapters let us operate on whole collections of data at once, which removes the need to write a loop in many common situations.\nThere are still plenty of tasks, though, where writing a loop or your own function is the clearest — or the only — way to get the job done. This chapter introduces both.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
     ]
   },
   {
     "objectID": "iteration_and_functions.html#repeating-work-until-a-condition-is-met-while-loops",
     "href": "iteration_and_functions.html#repeating-work-until-a-condition-is-met-while-loops",
-    "title": "7  Iteration and writing functions",
-    "section": "7.2 Repeating work until a condition is met: while loops",
-    "text": "7.2 Repeating work until a condition is met: while loops",
+    "title": "9  Iteration and writing functions",
+    "section": "9.2 Repeating work until a condition is met: while loops",
+    "text": "9.2 Repeating work until a condition is met: while loops",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
     ]
   },
   {
     "objectID": "iteration_and_functions.html#writing-your-own-functions",
     "href": "iteration_and_functions.html#writing-your-own-functions",
-    "title": "7  Iteration and writing functions",
-    "section": "7.3 Writing your own functions",
-    "text": "7.3 Writing your own functions",
+    "title": "9  Iteration and writing functions",
+    "section": "9.3 Writing your own functions",
+    "text": "9.3 Writing your own functions",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
     ]
   },
   {
     "objectID": "iteration_and_functions.html#summary",
     "href": "iteration_and_functions.html#summary",
-    "title": "7  Iteration and writing functions",
-    "section": "7.4 Summary",
-    "text": "7.4 Summary",
+    "title": "9  Iteration and writing functions",
+    "section": "9.4 Summary",
+    "text": "9.4 Summary",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
     ]
   },
   {
     "objectID": "iteration_and_functions.html#exercises",
     "href": "iteration_and_functions.html#exercises",
-    "title": "7  Iteration and writing functions",
-    "section": "7.5 Exercises",
-    "text": "7.5 Exercises",
+    "title": "9  Iteration and writing functions",
+    "section": "9.5 Exercises",
+    "text": "9.5 Exercises",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+    ]
+  },
+  {
+    "objectID": "statistical_inference.html",
+    "href": "statistical_inference.html",
+    "title": "10  Introduction to statistical inference",
+    "section": "",
+    "text": "10.1 Populations and samples\nDescriptive statistics summarize the data we have. Statistical inference asks what that data can tell us about the larger population it came from. This chapter introduces the central idea: comparing an observed result to what chance alone would produce, using simulation.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+    ]
+  },
+  {
+    "objectID": "statistical_inference.html#sampling-distributions-through-simulation",
+    "href": "statistical_inference.html#sampling-distributions-through-simulation",
+    "title": "10  Introduction to statistical inference",
+    "section": "10.2 Sampling distributions through simulation",
+    "text": "10.2 Sampling distributions through simulation",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+    ]
+  },
+  {
+    "objectID": "statistical_inference.html#the-logic-of-a-hypothesis-test",
+    "href": "statistical_inference.html#the-logic-of-a-hypothesis-test",
+    "title": "10  Introduction to statistical inference",
+    "section": "10.3 The logic of a hypothesis test",
+    "text": "10.3 The logic of a hypothesis test",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+    ]
+  },
+  {
+    "objectID": "statistical_inference.html#a-complete-example-testing-a-single-proportion",
+    "href": "statistical_inference.html#a-complete-example-testing-a-single-proportion",
+    "title": "10  Introduction to statistical inference",
+    "section": "10.4 A complete example: testing a single proportion",
+    "text": "10.4 A complete example: testing a single proportion",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+    ]
+  },
+  {
+    "objectID": "statistical_inference.html#summary",
+    "href": "statistical_inference.html#summary",
+    "title": "10  Introduction to statistical inference",
+    "section": "10.5 Summary",
+    "text": "10.5 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+    ]
+  },
+  {
+    "objectID": "statistical_inference.html#exercises",
+    "href": "statistical_inference.html#exercises",
+    "title": "10  Introduction to statistical inference",
+    "section": "10.6 Exercises",
+    "text": "10.6 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+    ]
+  },
+  {
+    "objectID": "hypothesis_testing.html",
+    "href": "hypothesis_testing.html",
+    "title": "11  Hypothesis testing",
+    "section": "",
+    "text": "11.1 Comparing two proportions\nThe previous chapter tested a claim about a single proportion. This chapter applies the same five-step recipe to richer questions: comparing two groups, and testing whether two variables are related.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
+    ]
+  },
+  {
+    "objectID": "hypothesis_testing.html#comparing-two-means",
+    "href": "hypothesis_testing.html#comparing-two-means",
+    "title": "11  Hypothesis testing",
+    "section": "11.2 Comparing two means",
+    "text": "11.2 Comparing two means",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
+    ]
+  },
+  {
+    "objectID": "hypothesis_testing.html#testing-a-correlation",
+    "href": "hypothesis_testing.html#testing-a-correlation",
+    "title": "11  Hypothesis testing",
+    "section": "11.3 Testing a correlation",
+    "text": "11.3 Testing a correlation",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
+    ]
+  },
+  {
+    "objectID": "hypothesis_testing.html#one-sided-and-two-sided-tests",
+    "href": "hypothesis_testing.html#one-sided-and-two-sided-tests",
+    "title": "11  Hypothesis testing",
+    "section": "11.4 One-sided and two-sided tests",
+    "text": "11.4 One-sided and two-sided tests",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
+    ]
+  },
+  {
+    "objectID": "hypothesis_testing.html#summary",
+    "href": "hypothesis_testing.html#summary",
+    "title": "11  Hypothesis testing",
+    "section": "11.5 Summary",
+    "text": "11.5 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
+    ]
+  },
+  {
+    "objectID": "hypothesis_testing.html#exercises",
+    "href": "hypothesis_testing.html#exercises",
+    "title": "11  Hypothesis testing",
+    "section": "11.6 Exercises",
+    "text": "11.6 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
+    ]
+  },
+  {
+    "objectID": "confidence_intervals.html",
+    "href": "confidence_intervals.html",
+    "title": "12  Confidence intervals",
+    "section": "",
+    "text": "12.1 From tests to intervals\nA hypothesis test answers a yes-or-no question about the population. A confidence interval answers a different one: given the data, what range of values for the population quantity is plausible? This chapter builds confidence intervals with the same simulation tools used for hypothesis tests.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Confidence intervals</span>"
+    ]
+  },
+  {
+    "objectID": "confidence_intervals.html#constructing-and-interpreting-an-interval",
+    "href": "confidence_intervals.html#constructing-and-interpreting-an-interval",
+    "title": "12  Confidence intervals",
+    "section": "12.2 Constructing and interpreting an interval",
+    "text": "12.2 Constructing and interpreting an interval",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Confidence intervals</span>"
+    ]
+  },
+  {
+    "objectID": "confidence_intervals.html#summary",
+    "href": "confidence_intervals.html#summary",
+    "title": "12  Confidence intervals",
+    "section": "12.3 Summary",
+    "text": "12.3 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Confidence intervals</span>"
+    ]
+  },
+  {
+    "objectID": "confidence_intervals.html#exercises",
+    "href": "confidence_intervals.html#exercises",
+    "title": "12  Confidence intervals",
+    "section": "12.4 Exercises",
+    "text": "12.4 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Confidence intervals</span>"
+    ]
+  },
+  {
+    "objectID": "classification.html",
+    "href": "classification.html",
+    "title": "13  Classification",
+    "section": "",
+    "text": "13.1 Features and labels\nMachine learning builds models that make predictions from data. This chapter introduces the supervised-learning setup, in which a model learns from examples with known answers, and builds a first classifier: a model that predicts which category an observation belongs to.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
+    ]
+  },
+  {
+    "objectID": "classification.html#a-first-classifier-k-nearest-neighbors",
+    "href": "classification.html#a-first-classifier-k-nearest-neighbors",
+    "title": "13  Classification",
+    "section": "13.2 A first classifier: k-Nearest Neighbors",
+    "text": "13.2 A first classifier: k-Nearest Neighbors",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
+    ]
+  },
+  {
+    "objectID": "classification.html#how-good-is-the-classifier-cross-validation",
+    "href": "classification.html#how-good-is-the-classifier-cross-validation",
+    "title": "13  Classification",
+    "section": "13.3 How good is the classifier? Cross-validation",
+    "text": "13.3 How good is the classifier? Cross-validation",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
+    ]
+  },
+  {
+    "objectID": "classification.html#feature-normalization",
+    "href": "classification.html#feature-normalization",
+    "title": "13  Classification",
+    "section": "13.4 Feature normalization",
+    "text": "13.4 Feature normalization",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
+    ]
+  },
+  {
+    "objectID": "classification.html#other-classifiers",
+    "href": "classification.html#other-classifiers",
+    "title": "13  Classification",
+    "section": "13.5 Other classifiers",
+    "text": "13.5 Other classifiers",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
+    ]
+  },
+  {
+    "objectID": "classification.html#summary",
+    "href": "classification.html#summary",
+    "title": "13  Classification",
+    "section": "13.6 Summary",
+    "text": "13.6 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
+    ]
+  },
+  {
+    "objectID": "classification.html#exercises",
+    "href": "classification.html#exercises",
+    "title": "13  Classification",
+    "section": "13.7 Exercises",
+    "text": "13.7 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
+    ]
+  },
+  {
+    "objectID": "linear_regression.html",
+    "href": "linear_regression.html",
+    "title": "14  Linear regression",
+    "section": "",
+    "text": "14.1 Fitting a line to data\nClassification predicts a category. Regression predicts a number. This chapter fits lines to data, interprets what the fitted model says, and uses inference to ask whether an apparent relationship could be due to chance.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
+    ]
+  },
+  {
+    "objectID": "linear_regression.html#interpreting-the-model",
+    "href": "linear_regression.html#interpreting-the-model",
+    "title": "14  Linear regression",
+    "section": "14.2 Interpreting the model",
+    "text": "14.2 Interpreting the model",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
+    ]
+  },
+  {
+    "objectID": "linear_regression.html#inference-on-regression-coefficients",
+    "href": "linear_regression.html#inference-on-regression-coefficients",
+    "title": "14  Linear regression",
+    "section": "14.3 Inference on regression coefficients",
+    "text": "14.3 Inference on regression coefficients",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
+    ]
+  },
+  {
+    "objectID": "linear_regression.html#summary",
+    "href": "linear_regression.html#summary",
+    "title": "14  Linear regression",
+    "section": "14.4 Summary",
+    "text": "14.4 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
+    ]
+  },
+  {
+    "objectID": "linear_regression.html#exercises",
+    "href": "linear_regression.html#exercises",
+    "title": "14  Linear regression",
+    "section": "14.5 Exercises",
+    "text": "14.5 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
+    ]
+  },
+  {
+    "objectID": "unsupervised_learning.html",
+    "href": "unsupervised_learning.html",
+    "title": "15  Unsupervised learning",
+    "section": "",
+    "text": "15.1 Clustering\nThe models in the last two chapters learned from labeled examples. Unsupervised learning works without labels: it looks for structure that is already present in the data. This chapter introduces clustering, which groups similar observations together.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Unsupervised learning</span>"
+    ]
+  },
+  {
+    "objectID": "unsupervised_learning.html#hierarchical-clustering",
+    "href": "unsupervised_learning.html#hierarchical-clustering",
+    "title": "15  Unsupervised learning",
+    "section": "15.2 Hierarchical clustering",
+    "text": "15.2 Hierarchical clustering",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Unsupervised learning</span>"
+    ]
+  },
+  {
+    "objectID": "unsupervised_learning.html#summary",
+    "href": "unsupervised_learning.html#summary",
+    "title": "15  Unsupervised learning",
+    "section": "15.3 Summary",
+    "text": "15.3 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Unsupervised learning</span>"
+    ]
+  },
+  {
+    "objectID": "unsupervised_learning.html#exercises",
+    "href": "unsupervised_learning.html#exercises",
+    "title": "15  Unsupervised learning",
+    "section": "15.4 Exercises",
+    "text": "15.4 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Unsupervised learning</span>"
+    ]
+  },
+  {
+    "objectID": "web_data.html",
+    "href": "web_data.html",
+    "title": "16  Web data",
+    "section": "",
+    "text": "16.1 How a web page is put together\nEvery dataset in this book so far arrived as a tidy file someone else prepared. This chapter is about collecting data yourself: how a web page is put together, how to extract data from one, and how to request data directly from services that provide it.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+    ]
+  },
+  {
+    "objectID": "web_data.html#fetching-a-page",
+    "href": "web_data.html#fetching-a-page",
+    "title": "16  Web data",
+    "section": "16.2 Fetching a page",
+    "text": "16.2 Fetching a page",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+    ]
+  },
+  {
+    "objectID": "web_data.html#extracting-data-from-a-page",
+    "href": "web_data.html#extracting-data-from-a-page",
+    "title": "16  Web data",
+    "section": "16.3 Extracting data from a page",
+    "text": "16.3 Extracting data from a page",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+    ]
+  },
+  {
+    "objectID": "web_data.html#getting-data-from-an-api",
+    "href": "web_data.html#getting-data-from-an-api",
+    "title": "16  Web data",
+    "section": "16.4 Getting data from an API",
+    "text": "16.4 Getting data from an API",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+    ]
+  },
+  {
+    "objectID": "web_data.html#summary",
+    "href": "web_data.html#summary",
+    "title": "16  Web data",
+    "section": "16.5 Summary",
+    "text": "16.5 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+    ]
+  },
+  {
+    "objectID": "web_data.html#exercises",
+    "href": "web_data.html#exercises",
+    "title": "16  Web data",
+    "section": "16.6 Exercises",
+    "text": "16.6 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+    ]
+  },
+  {
+    "objectID": "where_next.html",
+    "href": "where_next.html",
+    "title": "17  Where to go next",
+    "section": "",
+    "text": "17.1 Large language models\nThis closing chapter looks at two directions for continuing beyond the book: using large language models as tools for working with data, and making your own work interactive and shareable.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Where to go next</span>"
+    ]
+  },
+  {
+    "objectID": "where_next.html#interactive-widgets",
+    "href": "where_next.html#interactive-widgets",
+    "title": "17  Where to go next",
+    "section": "17.2 Interactive widgets",
+    "text": "17.2 Interactive widgets",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Where to go next</span>"
+    ]
+  },
+  {
+    "objectID": "where_next.html#sharing-your-work",
+    "href": "where_next.html#sharing-your-work",
+    "title": "17  Where to go next",
+    "section": "17.3 Sharing your work",
+    "text": "17.3 Sharing your work",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Where to go next</span>"
+    ]
+  },
+  {
+    "objectID": "where_next.html#summary",
+    "href": "where_next.html#summary",
+    "title": "17  Where to go next",
+    "section": "17.4 Summary",
+    "text": "17.4 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Where to go next</span>"
     ]
   }
 ]

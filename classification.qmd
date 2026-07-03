@@ -1,0 +1,62 @@
+# Classification {#sec-classification}
+
+Machine learning builds models that make predictions from data. This chapter introduces the supervised-learning setup, in which a model learns from examples with known answers, and builds a first classifier: a model that predicts which category an observation belongs to.
+
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+Source material: classes 22–23 of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_22.ipynb, class_23.ipynb and the
+matching slides): features (X) and labels (y), the k-Nearest Neighbors
+classifier, cross-validation (including k-fold), building a KNN classifier by
+hand, feature normalization, and a look at other classifiers.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+
+## Features and labels
+
+<!--
+- The supervised setup: a table of features X and a column of labels y.
+- Training data vs. new observations we want to predict.
+- Exercise.
+-->
+
+## A first classifier: k-Nearest Neighbors
+
+<!--
+- The idea: predict the label of the closest known examples.
+- Fit and predict with scikit-learn; the role of k.
+- Building the classifier by hand to demystify it (class 23).
+- Exercise.
+-->
+
+## How good is the classifier? Cross-validation
+
+<!--
+- Why testing on the training data is cheating.
+- Train/test splits; k-fold cross-validation (class 22/23).
+- Exercise.
+-->
+
+## Feature normalization
+
+<!--
+- Why features on different scales break distance-based classifiers.
+- Standardizing features before fitting (class 23/24).
+- Exercise.
+-->
+
+## Other classifiers
+
+<!--
+- A brief look at swapping in other scikit-learn classifiers with the same
+  fit/predict interface (class 22/23).
+- Exercise.
+-->
+
+## Summary
+
+## Exercises

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Data visualization – Introduction to Data Science</title>
+<title>16&nbsp; Web data – Introduction to Data Science</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./interactive_visualizations.html" rel="next">
-<link href="./data_tables.html" rel="prev">
+<link href="./where_next.html" rel="next">
+<link href="./unsupervised_learning.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -85,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_visualization.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./web_data.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Web data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -148,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_visualization.html" class="sidebar-item-text sidebar-link active">
+  <a href="./data_visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></span></a>
   </div>
 </li>
@@ -208,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./web_data.html" class="sidebar-item-text sidebar-link">
+  <a href="./web_data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Web data</span></span></a>
   </div>
 </li>
@@ -223,15 +223,26 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#how-a-web-page-is-put-together" id="toc-how-a-web-page-is-put-together" class="nav-link active" data-scroll-target="#how-a-web-page-is-put-together"><span class="header-section-number">16.1</span> How a web page is put together</a></li>
+  <li><a href="#fetching-a-page" id="toc-fetching-a-page" class="nav-link" data-scroll-target="#fetching-a-page"><span class="header-section-number">16.2</span> Fetching a page</a></li>
+  <li><a href="#extracting-data-from-a-page" id="toc-extracting-data-from-a-page" class="nav-link" data-scroll-target="#extracting-data-from-a-page"><span class="header-section-number">16.3</span> Extracting data from a page</a></li>
+  <li><a href="#getting-data-from-an-api" id="toc-getting-data-from-an-api" class="nav-link" data-scroll-target="#getting-data-from-an-api"><span class="header-section-number">16.4</span> Getting data from an API</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.5</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">16.6</span> Exercises</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></h1>
+<h1 class="title"><span id="sec-web-data" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Web data</span></span></h1>
 </div>
 
 
@@ -248,8 +259,72 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Every dataset in this book so far arrived as a tidy file someone else prepared. This chapter is about collecting data yourself: how a web page is put together, how to extract data from one, and how to request data directly from services that provide it.</p>
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+NOTE: unlike the other chapters, there is NO matching class material in
+extras/ for this topic — it will be drafted from scratch. It sits late in the
+book deliberately: scraping requires loops and functions (ch. on iteration)
+and produces DataFrames (ch. on data tables), so the full toolkit is available.
+
+Fragility warning: the book re-renders on every push, so executable cells must
+scrape a STABLE target — use a site designed for scraping practice (e.g.
+https://books.toscrape.com) or a stable Wikipedia table, and wrap network
+access in the same try/except-with-saved-fallback pattern the gas-price loader
+in array_computations.qmd uses. Note scraping etiquette (robots.txt, terms of
+service, rate limits) honestly but briefly.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+<section id="how-a-web-page-is-put-together" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="how-a-web-page-is-put-together"><span class="header-section-number">16.1</span> How a web page is put together</h2>
+<!--
+- HTML as a tree of tags; elements, attributes, text.
+- Looking at a page's source in the browser; developer tools.
+- A tiny hand-written HTML example rendered and dissected.
+- Exercise.
+-->
+</section>
+<section id="fetching-a-page" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="fetching-a-page"><span class="header-section-number">16.2</span> Fetching a page</h2>
+<!--
+- requests: fetching a page's HTML into a string.
+- Status codes; what can go wrong.
+- Scraping etiquette: robots.txt, terms of service, not hammering a server.
+- Exercise.
+-->
+</section>
+<section id="extracting-data-from-a-page" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="extracting-data-from-a-page"><span class="header-section-number">16.3</span> Extracting data from a page</h2>
+<!--
+- BeautifulSoup: parsing HTML, finding tags, reading attributes and text.
+- Looping over repeated elements (a table's rows, a list of products) and
+  building up lists — this is where the iteration chapter pays off.
+- Assembling the scraped values into a DataFrame; then plot or summarize it
+  with earlier chapters' tools for the payoff.
+- Exercise.
+-->
+</section>
+<section id="getting-data-from-an-api" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="getting-data-from-an-api"><span class="header-section-number">16.4</span> Getting data from an API</h2>
+<!--
+- Some services offer data directly: request a URL, receive JSON.
+- JSON as dictionaries and lists; turning a response into a DataFrame.
+- Why an API beats scraping when one exists.
+- Exercise.
+-->
+</section>
+<section id="summary" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">16.5</span> Summary</h2>
+</section>
+<section id="exercises" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">16.6</span> Exercises</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -654,13 +729,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data_tables.html" class="pagination-link" aria-label="Data tables">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data tables</span></span>
+      <a href="./unsupervised_learning.html" class="pagination-link" aria-label="Unsupervised learning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Unsupervised learning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./interactive_visualizations.html" class="pagination-link" aria-label="Interactive visualizations">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Interactive visualizations</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./where_next.html" class="pagination-link" aria-label="Where to go next">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Where to go next</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

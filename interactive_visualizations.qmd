@@ -1,0 +1,46 @@
+# Interactive visualizations {#sec-interactive-visualizations}
+
+The plots we have made so far are static images. This chapter introduces visualizations a reader can explore: charts that respond to hovering and zooming, and animations that show change over time.
+
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+Source material: class 14 (and the start of class 15) of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_14.ipynb, class_15.ipynb and the
+matching slides): plotly (line plots, scatter plots, animations) and pivot
+tables with heatmaps. The geographic/map material from these sessions lives in
+its own chapter, maps.qmd.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+
+## Pivot tables and heatmaps
+
+<!--
+- Reshaping a table so rows and columns each carry a variable (pivot).
+- Displaying a pivot table as a heatmap; reading color as magnitude.
+- Exercise.
+-->
+
+## Interactive charts
+
+<!--
+- plotly express: the same line and scatter plots as before, now with hover,
+  zoom, and pan.
+- When interactivity helps (exploration) vs. when a static plot is better
+  (print, papers).
+- Exercise.
+-->
+
+## Animations
+
+<!--
+- A scatter plot that plays over time (class 14 example).
+- Exercise.
+-->
+
+## Summary
+
+## Exercises

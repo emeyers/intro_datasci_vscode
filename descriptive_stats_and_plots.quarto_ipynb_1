@@ -32,7 +32,7 @@
         "\n",
         "Below we load in the data into a Pandas DataFrame and displays the first few rows of the data. We will discuss the Pandas package later in this book so for now you should ignore what this code is doing for now. "
       ],
-      "id": "c5584893"
+      "id": "433ea59a"
     },
     {
       "cell_type": "code",
@@ -63,7 +63,7 @@
         "\n",
         "int_gross_2013_dollars = bechdel_df[\"intgross_2013$\"].tolist()"
       ],
-      "id": "f5f0c7d8",
+      "id": "ba827651",
       "execution_count": null,
       "outputs": []
     },
@@ -96,7 +96,7 @@
         "\n",
         "Since these are just ordinary lists, we can use the list operations we discussed in the previous chapter. For example, we can extract a subset of elements from the list using slicing, and we can get the number of elements in the list using the `len()` function: "
       ],
-      "id": "2fdf9818"
+      "id": "5b494d22"
     },
     {
       "cell_type": "code",
@@ -110,7 +110,7 @@
         "# (i.e., the number of movies in our data set)\n",
         "print(len(budget_2013_dollars))"
       ],
-      "id": "0712bd2f",
+      "id": "87913eea",
       "execution_count": null,
       "outputs": []
     },
@@ -122,7 +122,7 @@
         "\n",
         "Importantly for our analyses, the data in four lists all ordered the same way such that information about particular movie is at the same index in all the lists.  For example, the code below prints out information about the 11th movie in our list ^[remember, Python starts index counts at 0, so to get information about the 11th movie, we use index number 10]."
       ],
-      "id": "0c35d698"
+      "id": "b7f9aa1b"
     },
     {
       "cell_type": "code",
@@ -138,7 +138,7 @@
         "\n",
         "print(domestic_gross_2013_dollars[10])"
       ],
-      "id": "776512e4",
+      "id": "ae7b21f6",
       "execution_count": null,
       "outputs": []
     },
@@ -152,7 +152,7 @@
         "\n",
         "Also, try to use f-strings, as discussed in the previous chapter, to print out the text that describes what each value refers to along with the value. For example, the output for the 11th movie should be: "
       ],
-      "id": "7a64379c"
+      "id": "7283605a"
     },
     {
       "cell_type": "code",
@@ -174,7 +174,7 @@
         "\n",
         "print(f\"gross dollars: {domestic_gross_2013_dollars[index_number]}\")"
       ],
-      "id": "398403a7",
+      "id": "7cf1ae87",
       "execution_count": null,
       "outputs": []
     },
@@ -189,7 +189,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-list_data collapse=\"true\"}"
       ],
-      "id": "e397ed34"
+      "id": "38804ea1"
     },
     {
       "cell_type": "code",
@@ -209,7 +209,7 @@
         "\n",
         "print(f\"gross dollars: {domestic_gross_2013_dollars[index_number]}\")"
       ],
-      "id": "67c50cb6",
+      "id": "3d8328ab",
       "execution_count": null,
       "outputs": []
     },
@@ -289,7 +289,7 @@
         "\n",
         "To visualize data we will use the `pyplot` module in the Matplotlib library. As we discussed in the previous chapter, to use a library we first need to install it (if it is not already installed). Once the library has been installed (which we only need to do once), we can load using an `import` statement. To use `Matplotlib` it is standard practice to import the `pyplot` module into the name `plt` using the following code."
       ],
-      "id": "33cc2573"
+      "id": "41c80033"
     },
     {
       "cell_type": "code",
@@ -297,7 +297,7 @@
       "source": [
         "import matplotlib.pyplot as plt"
       ],
-      "id": "5f745b68",
+      "id": "ff2d6813",
       "execution_count": null,
       "outputs": []
     },
@@ -326,7 +326,7 @@
         "\n",
         "To create a full frequency table, we just need to count how many items there are in each of the category levels. We can then store these results in a list: "
       ],
-      "id": "bf934da0"
+      "id": "eac0393b"
     },
     {
       "cell_type": "code",
@@ -340,7 +340,7 @@
         "\n",
         "reason_counts    "
       ],
-      "id": "bea43b5f",
+      "id": "d44aa518",
       "execution_count": null,
       "outputs": []
     },
@@ -374,7 +374,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-freq_table collapse=\"true\"}"
       ],
-      "id": "fbb22f30"
+      "id": "eb15dab2"
     },
     {
       "cell_type": "code",
@@ -387,7 +387,7 @@
         "# put the resulting numbers into a list to print them\n",
         "[num_passed, num_failed]"
       ],
-      "id": "18ea7041",
+      "id": "2c561fbd",
       "execution_count": null,
       "outputs": []
     },
@@ -411,7 +411,7 @@
         "\n",
         "You calculate it by dividing the frequency of a category by the total number of data points. We can do this in Python using: "
       ],
-      "id": "0512eb67"
+      "id": "e8a69534"
     },
     {
       "cell_type": "code",
@@ -425,7 +425,7 @@
         "\n",
         "reason_proportions"
       ],
-      "id": "16cd4ec7",
+      "id": "115837a9",
       "execution_count": null,
       "outputs": []
     },
@@ -454,7 +454,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-proportions collapse=\"true\"}"
       ],
-      "id": "77e2d04a"
+      "id": "4755eb2f"
     },
     {
       "cell_type": "code",
@@ -467,7 +467,7 @@
         "# put the resulting numbers into a list to print them\n",
         "[prop_passed, prop_failed]"
       ],
-      "id": "a5bcbb74",
+      "id": "3f48f04f",
       "execution_count": null,
       "outputs": []
     },
@@ -501,7 +501,7 @@
         "\n",
         "For example, to plot the reasons that movies failed the Bechdel test, we can create a list of strings called `reason_names` which has all the names of the reasons why movies passed or failed the Bechdel test. We can then use this list, along with the `reason_counts` list we created above, to create the bar graph:\n"
       ],
-      "id": "7be31b50"
+      "id": "59034352"
     },
     {
       "cell_type": "code",
@@ -514,7 +514,7 @@
         "\n",
         "plt.bar(reason_names, reason_counts);\n"
       ],
-      "id": "329bcba7",
+      "id": "f50eda05",
       "execution_count": null,
       "outputs": []
     },
@@ -533,7 +533,7 @@
         "\n",
         "We can create a pie chart using Matplotlib's `plt.pie()` function.  Let's create a pie chart displaying the proportions of reasons why movies did not pass the Bechdel test using the `reason_counts` list we created above. "
       ],
-      "id": "b4487e75"
+      "id": "61ee367c"
     },
     {
       "cell_type": "code",
@@ -541,7 +541,7 @@
       "source": [
         "plt.pie(reason_counts);"
       ],
-      "id": "be82943a",
+      "id": "34623d4b",
       "execution_count": null,
       "outputs": []
     },
@@ -551,7 +551,7 @@
       "source": [
         "While this chart looks interesting, clearly it is hard to gain any insights from it because each slice is not labeled with the category name. We can add the category name to each slice using the the `labels` argument, which we can set to the `reason_names` we created above. \n"
       ],
-      "id": "50684dd8"
+      "id": "a8e55081"
     },
     {
       "cell_type": "code",
@@ -559,7 +559,7 @@
       "source": [
         "plt.pie(reason_counts, labels = reason_names);"
       ],
-      "id": "a8ed8c89",
+      "id": "26065d80",
       "execution_count": null,
       "outputs": []
     },
@@ -592,7 +592,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-bar_and_pie collapse=\"true\"}\n"
       ],
-      "id": "fd7f9ec9"
+      "id": "43b1529d"
     },
     {
       "cell_type": "code",
@@ -606,7 +606,7 @@
         "\n",
         "plt.bar(bechdel_names, bechdel_counts);"
       ],
-      "id": "7b341056",
+      "id": "e45879d9",
       "execution_count": null,
       "outputs": []
     },
@@ -616,7 +616,7 @@
       "source": [
         "plt.pie(bechdel_counts, labels = bechdel_names);"
       ],
-      "id": "32a04dea",
+      "id": "2ad1c834",
       "execution_count": null,
       "outputs": []
     },
@@ -642,7 +642,7 @@
         "\n",
         "As an illustration, let's improve on our bar chart of the reasons movies fail the Bechdel test by adding the appropriate labels. \n"
       ],
-      "id": "30c18f33"
+      "id": "3c782f1d"
     },
     {
       "cell_type": "code",
@@ -654,7 +654,7 @@
         "plt.ylabel(\"Number of Movies\");\n",
         "plt.title(\"Reasons Movies Passed or Failed the Bechdel Test\");"
       ],
-      "id": "de3f0b7a",
+      "id": "4b360972",
       "execution_count": null,
       "outputs": []
     },
@@ -685,7 +685,7 @@
         "\n",
         "Then, you count how many movie revenues fall into each bin to create a frequency table as shown below:"
       ],
-      "id": "d93f9919"
+      "id": "7e8ceee0"
     },
     {
       "cell_type": "code",
@@ -706,7 +706,7 @@
         "\n",
         "budget_bins"
       ],
-      "id": "27d72a5d",
+      "id": "d7e16c26",
       "execution_count": null,
       "outputs": []
     },
@@ -728,7 +728,7 @@
         "\n",
         "We can create histograms in Python using the `plt.hist()` function from Matplotlib. This function automatically creates bins for us, but we can also specify the number of bins, or the bin edges, if we want more control over how the data is grouped using the `bins` argument.\n"
       ],
-      "id": "224a2ff1"
+      "id": "804f8917"
     },
     {
       "cell_type": "code",
@@ -746,7 +746,7 @@
         "plt.ylabel(\"Number of Movies\");\n",
         "plt.title(\"Distribution of Movie Budgets (2013 Dollars)\");"
       ],
-      "id": "c2c27788",
+      "id": "7d931708",
       "execution_count": null,
       "outputs": []
     },
@@ -778,7 +778,7 @@
         "    *   **Uniform Distribution:** All bins have roughly the same frequency. (e.g., rolling a fair die many times, each number has an equal chance).\n",
         "    *   **Bimodal Distribution:** Has two peaks. This might indicate two different groups in your data.\n"
       ],
-      "id": "8caef1e1"
+      "id": "9bb976d2"
     },
     {
       "cell_type": "code",
@@ -833,7 +833,7 @@
         "plt.tight_layout()\n",
         "plt.show()"
       ],
-      "id": "b2357673",
+      "id": "7c2b71d3",
       "execution_count": null,
       "outputs": []
     },
@@ -850,7 +850,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-histograms collapse=\"true\"}"
       ],
-      "id": "a6e7865d"
+      "id": "a5f6226b"
     },
     {
       "cell_type": "code",
@@ -867,7 +867,7 @@
         "plt.ylabel(\"Number of Movies\");\n",
         "plt.title(\"Distribution of Domestic Gross Revenue (2013 Dollars)\");"
       ],
-      "id": "71bd4213",
+      "id": "7053c180",
       "execution_count": null,
       "outputs": []
     },
@@ -889,7 +889,7 @@
         "\n",
         "To calculate these statistics, we will use the `statistics` module in Python, which provides functions for calculating common statistics. To use this module, we first need to import it:"
       ],
-      "id": "5a003bbd"
+      "id": "99e20c54"
     },
     {
       "cell_type": "code",
@@ -897,7 +897,7 @@
       "source": [
         "import statistics"
       ],
-      "id": "556fe626",
+      "id": "3c9389b3",
       "execution_count": null,
       "outputs": []
     },
@@ -914,7 +914,7 @@
         "\n",
         "In Python, we can calculate the mean using the `statistics.mean()` function.\n"
       ],
-      "id": "eef95b7d"
+      "id": "8ba08402"
     },
     {
       "cell_type": "code",
@@ -931,7 +931,7 @@
         "print(f\"The mean budget is: ${mean_budget:,.2f}\")\n",
         "print(f\"The mean budget (calculated manually) is: ${mean_budget_manual:,.2f}\")"
       ],
-      "id": "9c9dfcab",
+      "id": "4f9f97fb",
       "execution_count": null,
       "outputs": []
     },
@@ -954,7 +954,7 @@
         "\n",
         "In Python, we can calculate the median using the `statistics.median()` function."
       ],
-      "id": "e318df13"
+      "id": "7eda509a"
     },
     {
       "cell_type": "code",
@@ -977,7 +977,7 @@
         "print(f\"The median budget is: ${median_budget:,.2f}\")\n",
         "print(f\"The median budget (calculated manually) is: ${median_budget_manual:,.2f}\")"
       ],
-      "id": "d7263053",
+      "id": "e65c3b5b",
       "execution_count": null,
       "outputs": []
     },
@@ -998,7 +998,7 @@
         "\n",
         "Let's visualize the mean and median on a histogram of our movie budgets to see how they compare visually.\n"
       ],
-      "id": "eaca3fa7"
+      "id": "58e7a2b3"
     },
     {
       "cell_type": "code",
@@ -1021,7 +1021,7 @@
         "plt.legend()\n",
         "plt.show()\n"
       ],
-      "id": "57164955",
+      "id": "0c301abc",
       "execution_count": null,
       "outputs": []
     },
@@ -1052,7 +1052,7 @@
         "\n",
         "**Solution: Calculate Median Age and Impact of Outlier**"
       ],
-      "id": "c6175ef9"
+      "id": "84ef7848"
     },
     {
       "cell_type": "code",
@@ -1077,7 +1077,7 @@
         "print(f\"Original median age: {median_age_original}\")\n",
         "print(f\"Median age with outlier: {median_age_outlier}\")"
       ],
-      "id": "daf3868b",
+      "id": "d0b44661",
       "execution_count": null,
       "outputs": []
     },
@@ -1122,7 +1122,7 @@
         "\n",
         "We can calculate the standard deviation in Python using the `statistics.stdev()` function from the `statistics` module. "
       ],
-      "id": "dfd14d98"
+      "id": "86f78426"
     },
     {
       "cell_type": "code",
@@ -1133,7 +1133,7 @@
         "\n",
         "print(f\"The standard deviation of budget is: ${std_dev_budget:,.2f}\")"
       ],
-      "id": "beed9812",
+      "id": "7779c099",
       "execution_count": null,
       "outputs": []
     },
@@ -1156,7 +1156,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-stdev collapse=\"true\"}"
       ],
-      "id": "4a6a39cd"
+      "id": "68577f88"
     },
     {
       "cell_type": "code",
@@ -1170,7 +1170,7 @@
         "print(f\"The standard deviation of movie budgets is: ${stdev_budget:,.2f}\")\n",
         "print(f\"The standard deviation of movie revenues is: ${stdev_revenue:,.2f}\")\n"
       ],
-      "id": "428addd3",
+      "id": "1ae46f14",
       "execution_count": null,
       "outputs": []
     },
@@ -1208,7 +1208,7 @@
         "**Python Calculation:**\n",
         "The `statistics` module's `quantiles()` function can be used. Let's use our `budget_2013_dollars`."
       ],
-      "id": "9a5e2c0c"
+      "id": "47c81695"
     },
     {
       "cell_type": "code",
@@ -1226,7 +1226,7 @@
         "print(f\"Q3 (75th percentile): ${Q3:,.2f}\")\n",
         "print(f\"IQR (Interquartile Range): ${iqr:,.2f}\")"
       ],
-      "id": "ce94abe8",
+      "id": "95ee4b2d",
       "execution_count": null,
       "outputs": []
     },
@@ -1255,7 +1255,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-IRQ collapse=\"true\"}"
       ],
-      "id": "ee4473e6"
+      "id": "bbae386e"
     },
     {
       "cell_type": "code",
@@ -1272,7 +1272,7 @@
         "stdev_revenue = statistics.stdev(domestic_gross_2013_dollars)\n",
         "print(f\"Standard Deviation for revenues: ${stdev_revenue:,.2f}\")"
       ],
-      "id": "a7f48783",
+      "id": "1504c142",
       "execution_count": null,
       "outputs": []
     },
@@ -1314,7 +1314,7 @@
         "\n",
         "Let's create a box plot for our `budget_2013_dollars`."
       ],
-      "id": "2dc3ef72"
+      "id": "23648f0f"
     },
     {
       "cell_type": "code",
@@ -1329,7 +1329,7 @@
         "plt.grid(True, axis='y', linestyle='--') # Add horizontal grid lines\n",
         "plt.show()"
       ],
-      "id": "01d8b9b4",
+      "id": "5df306c3",
       "execution_count": null,
       "outputs": []
     },
@@ -1349,7 +1349,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-boxplot collapse=\"true\"}"
       ],
-      "id": "49fb5a86"
+      "id": "24015e83"
     },
     {
       "cell_type": "code",
@@ -1363,7 +1363,7 @@
         "plt.grid(True, axis='y', linestyle='--') # Add horizontal grid lines\n",
         "plt.show()"
       ],
-      "id": "3c50db6e",
+      "id": "ec0cdb64",
       "execution_count": null,
       "outputs": []
     },
@@ -1410,7 +1410,7 @@
         "\n",
         "Let's calculate which values would be considered outliers in the `budget_2013_dollars`."
       ],
-      "id": "0654f1b7"
+      "id": "1ba9b62b"
     },
     {
       "cell_type": "code",
@@ -1429,7 +1429,7 @@
         "print(f\"Lower Fence: ${lower_fence:,.2f}\")\n",
         "print(f\"Upper Fence: ${upper_fence:,.2f}\")"
       ],
-      "id": "2d877f61",
+      "id": "3a36e185",
       "execution_count": null,
       "outputs": []
     },
@@ -1471,7 +1471,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-outliers collapse=\"true\"}"
       ],
-      "id": "16d2612c"
+      "id": "73721c40"
     },
     {
       "cell_type": "code",
@@ -1486,7 +1486,7 @@
         "print(f\"This outlier corresponds to the movie: {max_revenue_movie}\")\n",
         "print(f\"The movie {bechdel_status[max_revenue_index]}ED the Bechdel test.\")"
       ],
-      "id": "0ad86754",
+      "id": "0bb1fd25",
       "execution_count": null,
       "outputs": []
     },
@@ -1526,7 +1526,7 @@
         "\n",
         "**Python Calculation:**\n"
       ],
-      "id": "4c2af658"
+      "id": "378f0201"
     },
     {
       "cell_type": "code",
@@ -1559,7 +1559,7 @@
         "display(round(nba_stats.describe().iloc[1:3, ], 3))\n",
         "display(nba_stats[nba_stats.Player == \"Nikola Joki?\"])"
       ],
-      "id": "49faddb8",
+      "id": "ce2b0f5f",
       "execution_count": null,
       "outputs": []
     },
@@ -1598,7 +1598,7 @@
         "\n",
         "If we calculate the Z-score for Nikola Jokić's for each of these statistics, we can see how his performance compares to the average player in the league to determine which statistic is the most impressive relative to the rest of the league."
       ],
-      "id": "4b3934cf"
+      "id": "e67a7faa"
     },
     {
       "cell_type": "code",
@@ -1628,7 +1628,7 @@
         "\n",
         "z_scores"
       ],
-      "id": "d4efd83b",
+      "id": "285a34db",
       "execution_count": null,
       "outputs": []
     },
@@ -1650,7 +1650,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-zscores collapse=\"true\"}\n"
       ],
-      "id": "19ab727b"
+      "id": "b14b4e2d"
     },
     {
       "cell_type": "code",
@@ -1665,7 +1665,7 @@
         "\n",
         "print(f\"The Z-score for Star Wars' revenue is: {z_score_star_wars:.2f}\")"
       ],
-      "id": "48d46080",
+      "id": "f9cf0831",
       "execution_count": null,
       "outputs": []
     },
@@ -1702,7 +1702,7 @@
         "\n",
         "Let's visualize the relationship between movie budgets and their domestic gross revenues using our sample data."
       ],
-      "id": "210fd1da"
+      "id": "c1e6647d"
     },
     {
       "cell_type": "code",
@@ -1718,7 +1718,7 @@
         "plt.grid(True)\n",
         "plt.show()"
       ],
-      "id": "7ebdee1e",
+      "id": "1d0a6b81",
       "execution_count": null,
       "outputs": []
     },
@@ -1763,7 +1763,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-scatterplot collapse=\"true\"}"
       ],
-      "id": "2a5755ea"
+      "id": "fd4ad152"
     },
     {
       "cell_type": "code",
@@ -1778,7 +1778,7 @@
         "plt.grid(True)\n",
         "plt.show()"
       ],
-      "id": "afc0ab01",
+      "id": "0ae43abc",
       "execution_count": null,
       "outputs": []
     },
@@ -1822,7 +1822,7 @@
         "\n",
         "In Python, we can use the `statistics.correlation()` to calculate the correlation coefficient `r`. Let's calculate it for our sample movie budgets and revenues."
       ],
-      "id": "76e91194"
+      "id": "1c59e644"
     },
     {
       "cell_type": "code",
@@ -1830,7 +1830,7 @@
       "source": [
         "statistics.correlation(budget_2013_dollars, domestic_gross_2013_dollars)"
       ],
-      "id": "9d9cdedd",
+      "id": "d8195e6d",
       "execution_count": null,
       "outputs": []
     },
@@ -1861,7 +1861,7 @@
         "\n",
         "::: {.callout-note title=\"Solution\" #solution-descriptive_stats_and_plots-correlation collapse=\"true\"}"
       ],
-      "id": "860f51fa"
+      "id": "11447747"
     },
     {
       "cell_type": "code",
@@ -1870,7 +1870,7 @@
         "correlation_budget_int_gross = statistics.correlation(domestic_gross_2013_dollars, int_gross_2013_dollars)\n",
         "print(f\"Correlation between movie budgets and international gross revenues: {correlation_budget_int_gross:.2f}\")"
       ],
-      "id": "f8da495a",
+      "id": "832df4ce",
       "execution_count": null,
       "outputs": []
     },
@@ -1951,7 +1951,7 @@
         "\n",
         "2.  **Bar Graph Code:**"
       ],
-      "id": "a911d13e"
+      "id": "615400b0"
     },
     {
       "cell_type": "code",
@@ -1975,7 +1975,7 @@
         "# Display the plot\n",
         "plt.show()"
       ],
-      "id": "4e4deafd",
+      "id": "ba45758a",
       "execution_count": null,
       "outputs": []
     },
@@ -2004,7 +2004,7 @@
         "\n",
         "1.  **Pie Chart Code:**"
       ],
-      "id": "bad58f1c"
+      "id": "3ea46949"
     },
     {
       "cell_type": "code",
@@ -2023,7 +2023,7 @@
         "plt.axis('equal') # Ensures pie is drawn as a circle\n",
         "plt.show()"
       ],
-      "id": "733543ab",
+      "id": "0146ef22",
       "execution_count": null,
       "outputs": []
     },
@@ -2059,7 +2059,7 @@
         "\n",
         "1.  **Histogram Code:**"
       ],
-      "id": "51eb382b"
+      "id": "49e17592"
     },
     {
       "cell_type": "code",
@@ -2077,7 +2077,7 @@
         "plt.ylabel(\"Frequency\")\n",
         "plt.show()\n"
       ],
-      "id": "5d127e4f",
+      "id": "2ab7b353",
       "execution_count": null,
       "outputs": []
     },
@@ -2105,7 +2105,7 @@
         "::: {.solution}\n",
         "**Solution: Calculate Mean Age**"
       ],
-      "id": "73dd2725"
+      "id": "34736254"
     },
     {
       "cell_type": "code",
@@ -2117,7 +2117,7 @@
         "mean_age = statistics.mean(ages)\n",
         "print(f\"The mean age is: {mean_age}\")"
       ],
-      "id": "1882b5e1",
+      "id": "19e0ad2c",
       "execution_count": null,
       "outputs": []
     },
@@ -2152,7 +2152,7 @@
         "\n",
         "1.  **Python Code:**"
       ],
-      "id": "70eb2a86"
+      "id": "605841ca"
     },
     {
       "cell_type": "code",
@@ -2181,7 +2181,7 @@
         "# Q1 = 34.25, Q2 (Median) = 43.5, Q3 = 50.5\n",
         "# IQR = 50.5 - 34.25 = 16.25\n"
       ],
-      "id": "4fd0db72",
+      "id": "6a3ded22",
       "execution_count": null,
       "outputs": []
     },
@@ -2222,7 +2222,7 @@
         "\n",
         "1.  **Box Plot Code:**"
       ],
-      "id": "7f92d379"
+      "id": "11155b1f"
     },
     {
       "cell_type": "code",
@@ -2258,7 +2258,7 @@
         "print(f\"  Q3: {q3_age}\")       # Expected: 50.5\n",
         "print(f\"  Max: {max_age}\")      # Expected: 65"
       ],
-      "id": "2b8a3f02",
+      "id": "f85b25ca",
       "execution_count": null,
       "outputs": []
     },
@@ -2305,7 +2305,7 @@
         "\n",
         "1.  **Python Code:**"
       ],
-      "id": "ca1c7b71"
+      "id": "137710cf"
     },
     {
       "cell_type": "code",
@@ -2327,7 +2327,7 @@
         "print(f\"Z-score for minimum age ({min_age}): {z_score_min:.2f}\")\n",
         "print(f\"Z-score for maximum age ({max_age}): {z_score_max:.2f}\")"
       ],
-      "id": "61be3521",
+      "id": "dc050811",
       "execution_count": null,
       "outputs": []
     },
@@ -2374,7 +2374,7 @@
         "\n",
         "1.  **Scatter Plot Code:**"
       ],
-      "id": "2f1c04b4"
+      "id": "77dcfaf5"
     },
     {
       "cell_type": "code",
@@ -2394,7 +2394,7 @@
         "plt.grid(True)\n",
         "plt.show()"
       ],
-      "id": "7249b24c",
+      "id": "172c2d83",
       "execution_count": null,
       "outputs": []
     },
@@ -2432,7 +2432,7 @@
         "\n",
         "1.  **Python Code:**"
       ],
-      "id": "dd7e6530"
+      "id": "be55c542"
     },
     {
       "cell_type": "code",
@@ -2452,7 +2452,7 @@
         "else:\n",
         "    print(\"Data lists must be of equal length and have at least two points.\")"
       ],
-      "id": "a6d8a49d",
+      "id": "07af5e77",
       "execution_count": null,
       "outputs": []
     },
@@ -2521,7 +2521,7 @@
         "::: {.callout-note title=\"Solution\" #solution-descriptive-final-1 collapse=\"true\"}\n",
         "**Solution: Comprehensive Student Data Exploration**\n"
       ],
-      "id": "417ec3e7"
+      "id": "4612f9a8"
     },
     {
       "cell_type": "code",
@@ -2639,7 +2639,7 @@
         "print(\"- Strength: Quite strong, as the points cluster fairly closely around an upward trend.\")\n",
         "print(f\"The correlation coefficient of {correlation_study_score:.3f} supports a strong positive linear relationship.\")"
       ],
-      "id": "878f179c",
+      "id": "c9d0a815",
       "execution_count": null,
       "outputs": []
     },
@@ -2708,7 +2708,7 @@
         "        (The spread for City B should look wider than for City A in the sketches).\n",
         ":::\n"
       ],
-      "id": "182c904d"
+      "id": "e00083f0"
     }
   ],
   "metadata": {

@@ -21,9 +21,9 @@ Publishing is automated: pushing to `main` triggers `.github/workflows/publish.y
 
 `_quarto.yml` defines the book and the **chapter order** — a new chapter only appears in the book if it is added to the `chapters:` list there. Chapters render in listed order:
 
-1. `index.qmd` (welcome) → `introduction.qmd` → `python_basics.qmd` → `descriptive_stats_and_plots.qmd` → `array_computations.qmd` → `data_tables.qmd` → `data_visualization.qmd`
+1. `index.qmd` (welcome) → `introduction.qmd` → `python_basics.qmd` → `descriptive_stats_and_plots.qmd` → `array_computations.qmd` → `data_tables.qmd` → `data_visualization.qmd` → `interactive_visualizations.qmd` → `maps.qmd` → `iteration_and_functions.qmd` → `statistical_inference.qmd` → `hypothesis_testing.qmd` → `confidence_intervals.qmd` → `classification.qmd` → `linear_regression.qmd` → `unsupervised_learning.qmd` → `web_data.qmd` → `where_next.qmd`
 
-The later chapters are mostly stubs to be filled in.
+The chapters from `data_tables.qmd` onward are stubs to be filled in. Each chapter covers roughly two sessions of the Fall-2025 class (see the mapping comments at the top of each stub); `interactive_visualizations.qmd` and `maps.qmd` split classes 14–15 and deliberately come before `iteration_and_functions.qmd` to match the class order, and the inference chapters depend on loops/functions from the iteration chapter. `web_data.qmd` is the one chapter with **no** matching class material — it is drafted from scratch and sits late so it can use loops, functions, and DataFrames; its scraping cells must target a stable site with a saved fallback (see the note in the stub).
 
 ## Authoring conventions
 

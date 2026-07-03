@@ -1,0 +1,63 @@
+# Maps {#sec-maps}
+
+Some data is fundamentally about *where*. This chapter puts data on maps: drawing geographic boundaries, coloring regions by a data value, and building interactive maps you can zoom and explore.
+
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+Source material: classes 14–15 of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_14.ipynb, class_15.ipynb and the
+matching slides): spatial mapping with geopandas (visualizing boundaries,
+coordinate reference systems and projections, maps with layers and markers,
+two choropleth examples) and interactive maps with plotly.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+
+## Geographic data and boundaries
+
+<!--
+- Geographic data as a new column type: geometries (points, lines, polygons).
+- Reading a boundary file with geopandas; a GeoDataFrame is a DataFrame with
+  a geometry column, so everything from the data-tables chapter still applies.
+- Plotting boundaries (class 14/15).
+- Exercise.
+-->
+
+## Projections
+
+<!--
+- Coordinate reference systems: why a round Earth makes flat maps distort.
+- Changing a map's projection and seeing the effect (class 15).
+- Exercise.
+-->
+
+## Layers and markers
+
+<!--
+- Drawing points (cities, events) on top of a boundary base map (class 15).
+- Exercise.
+-->
+
+## Choropleth maps
+
+<!--
+- Coloring each region by a data value: joining a data table to geometries.
+- The two class choropleth examples (class 15).
+- Choosing sensible color scales; per-capita vs. raw counts.
+- Exercise.
+-->
+
+## Interactive maps
+
+<!--
+- Choropleth and point maps with plotly: hover, zoom, and pan on geographic
+  data (class 15).
+- Exercise.
+-->
+
+## Summary
+
+## Exercises

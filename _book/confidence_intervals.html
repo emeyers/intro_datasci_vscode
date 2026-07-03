@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Data visualization – Introduction to Data Science</title>
+<title>12&nbsp; Confidence intervals – Introduction to Data Science</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./interactive_visualizations.html" rel="next">
-<link href="./data_tables.html" rel="prev">
+<link href="./classification.html" rel="next">
+<link href="./hypothesis_testing.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -85,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_visualization.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./confidence_intervals.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -148,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_visualization.html" class="sidebar-item-text sidebar-link active">
+  <a href="./data_visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></span></a>
   </div>
 </li>
@@ -184,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link">
+  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
@@ -223,15 +223,24 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#from-tests-to-intervals" id="toc-from-tests-to-intervals" class="nav-link active" data-scroll-target="#from-tests-to-intervals"><span class="header-section-number">12.1</span> From tests to intervals</a></li>
+  <li><a href="#constructing-and-interpreting-an-interval" id="toc-constructing-and-interpreting-an-interval" class="nav-link" data-scroll-target="#constructing-and-interpreting-an-interval"><span class="header-section-number">12.2</span> Constructing and interpreting an interval</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">12.3</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">12.4</span> Exercises</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data visualization</span></h1>
+<h1 class="title"><span id="sec-confidence-intervals" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></h1>
 </div>
 
 
@@ -248,8 +257,44 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>A hypothesis test answers a yes-or-no question about the population. A confidence interval answers a different one: given the data, what range of values for the population quantity is plausible? This chapter builds confidence intervals with the same simulation tools used for hypothesis tests.</p>
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+Source material: classes 21–22 of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_21.ipynb, class_22.ipynb and the
+matching slides): generating confidence intervals from hypothesis tests.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+<section id="from-tests-to-intervals" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="from-tests-to-intervals"><span class="header-section-number">12.1</span> From tests to intervals</h2>
+<!--
+- The connection: a confidence interval is the set of parameter values a
+  hypothesis test would not reject (the class 21/22 construction).
+- Estimation vs. testing: two questions about the same population quantity.
+- Exercise.
+-->
+</section>
+<section id="constructing-and-interpreting-an-interval" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="constructing-and-interpreting-an-interval"><span class="header-section-number">12.2</span> Constructing and interpreting an interval</h2>
+<!--
+- Build an interval for a proportion with simulation.
+- What "95% confident" does and does not mean.
+- Width of the interval: sample size and confidence level.
+- Exercise.
+-->
+</section>
+<section id="summary" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">12.3</span> Summary</h2>
+</section>
+<section id="exercises" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">12.4</span> Exercises</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -654,13 +699,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./data_tables.html" class="pagination-link" aria-label="Data tables">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data tables</span></span>
+      <a href="./hypothesis_testing.html" class="pagination-link" aria-label="Hypothesis testing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./interactive_visualizations.html" class="pagination-link" aria-label="Interactive visualizations">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Interactive visualizations</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./classification.html" class="pagination-link" aria-label="Classification">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

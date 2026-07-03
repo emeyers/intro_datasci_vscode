@@ -1,0 +1,61 @@
+# Introduction to statistical inference {#sec-statistical-inference}
+
+Descriptive statistics summarize the data we have. Statistical inference asks what that data can tell us about the larger population it came from. This chapter introduces the central idea: comparing an observed result to what chance alone would produce, using simulation.
+
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+Source material: classes 17–19 of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_17.ipynb, class_18.ipynb,
+class_19.ipynb and the matching slides): sampling distributions built by taking
+random samples, faster simulation with coin flips, the five-step hypothesis
+test, and the single-proportion "sinister" (handedness) example.
+
+This chapter depends on loops and functions from the iteration chapter — the
+simulations are for loops that repeat an experiment many times.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+
+## Populations and samples
+
+<!--
+- The population you care about vs. the sample you have.
+- Why a statistic computed on a sample varies from sample to sample.
+- Exercise.
+-->
+
+## Sampling distributions through simulation
+
+<!--
+- Build a sampling distribution by drawing many random samples (class 17/18).
+- A faster route: simulating coin flips directly.
+- Plot the sampling distribution; connect its spread to sample size.
+- Exercise.
+-->
+
+## The logic of a hypothesis test
+
+<!--
+- The five steps used throughout the course:
+  1. State the null and alternative hypotheses.
+  2. Calculate the observed statistic.
+  3. Create the null distribution.
+  4. Calculate the p-value.
+  5. Draw a conclusion.
+- Exercise.
+-->
+
+## A complete example: testing a single proportion
+
+<!--
+- The handedness ("sinister") example from class 18/19, walked through all
+  five steps with simulation code.
+- Exercise.
+-->
+
+## Summary
+
+## Exercises

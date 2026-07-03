@@ -1,0 +1,65 @@
+# Web data {#sec-web-data}
+
+Every dataset in this book so far arrived as a tidy file someone else prepared. This chapter is about collecting data yourself: how a web page is put together, how to extract data from one, and how to request data directly from services that provide it.
+
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+NOTE: unlike the other chapters, there is NO matching class material in
+extras/ for this topic — it will be drafted from scratch. It sits late in the
+book deliberately: scraping requires loops and functions (ch. on iteration)
+and produces DataFrames (ch. on data tables), so the full toolkit is available.
+
+Fragility warning: the book re-renders on every push, so executable cells must
+scrape a STABLE target — use a site designed for scraping practice (e.g.
+https://books.toscrape.com) or a stable Wikipedia table, and wrap network
+access in the same try/except-with-saved-fallback pattern the gas-price loader
+in array_computations.qmd uses. Note scraping etiquette (robots.txt, terms of
+service, rate limits) honestly but briefly.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+
+## How a web page is put together
+
+<!--
+- HTML as a tree of tags; elements, attributes, text.
+- Looking at a page's source in the browser; developer tools.
+- A tiny hand-written HTML example rendered and dissected.
+- Exercise.
+-->
+
+## Fetching a page
+
+<!--
+- requests: fetching a page's HTML into a string.
+- Status codes; what can go wrong.
+- Scraping etiquette: robots.txt, terms of service, not hammering a server.
+- Exercise.
+-->
+
+## Extracting data from a page
+
+<!--
+- BeautifulSoup: parsing HTML, finding tags, reading attributes and text.
+- Looping over repeated elements (a table's rows, a list of products) and
+  building up lists — this is where the iteration chapter pays off.
+- Assembling the scraped values into a DataFrame; then plot or summarize it
+  with earlier chapters' tools for the payoff.
+- Exercise.
+-->
+
+## Getting data from an API
+
+<!--
+- Some services offer data directly: request a URL, receive JSON.
+- JSON as dictionaries and lists; turning a response into a DataFrame.
+- Why an API beats scraping when one exists.
+- Exercise.
+-->
+
+## Summary
+
+## Exercises

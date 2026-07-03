@@ -1,0 +1,41 @@
+# Where to go next {#sec-where-next}
+
+This closing chapter looks at two directions for continuing beyond the book: using large language models as tools for working with data, and making your own work interactive and shareable.
+
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+Source material: classes 25–26 of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_25.ipynb, class_26.ipynb and the
+matching slides): chatbots and large language models (an interaction loop,
+Hugging Face datasets), widgets (sliders, updating a figure), and displaying
+Jupyter notebooks as websites.
+
+This is an outlook chapter: shorter than the others, and it can close with
+pointers to further resources instead of a full exercise set.
+-->
+
+## Large language models
+
+<!--
+- What an LLM is at a working level; using one from Python.
+- A chatbot interaction loop (class 25/26).
+- Loading datasets from Hugging Face.
+- Honest framing: what LLMs are good at with data, and where they fail.
+-->
+
+## Interactive widgets
+
+<!--
+- Sliders and controls in a notebook; updating a figure as a widget changes
+  (class 26).
+-->
+
+## Sharing your work
+
+<!--
+- Displaying Jupyter notebooks as websites (class 26).
+- Pointers onward: what to learn next after this book.
+-->
+
+## Summary
