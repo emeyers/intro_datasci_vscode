@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Ethan Meyers">
 
-<title>Introduction to Data Science</title>
+<title>14&nbsp; Linear regression – Introduction to Data Science</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -34,7 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./introduction.html" rel="next">
+<link href="./unsupervised_learning.html" rel="next">
+<link href="./classification.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -85,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear_regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -112,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -196,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear_regression.html" class="sidebar-item-text sidebar-link">
+  <a href="./linear_regression.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear regression</span></span></a>
   </div>
 </li>
@@ -228,7 +228,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#fitting-a-line-to-data" id="toc-fitting-a-line-to-data" class="nav-link active" data-scroll-target="#fitting-a-line-to-data"><span class="header-section-number">14.1</span> Fitting a line to data</a></li>
+  <li><a href="#interpreting-the-model" id="toc-interpreting-the-model" class="nav-link" data-scroll-target="#interpreting-the-model"><span class="header-section-number">14.2</span> Interpreting the model</a></li>
+  <li><a href="#inference-on-regression-coefficients" id="toc-inference-on-regression-coefficients" class="nav-link" data-scroll-target="#inference-on-regression-coefficients"><span class="header-section-number">14.3</span> Inference on regression coefficients</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14.4</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">14.5</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -237,19 +241,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to Data Science</h1>
+<h1 class="title"><span id="sec-linear-regression" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear regression</span></span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Ethan Meyers </p>
-          </div>
-  </div>
     
   
     
@@ -260,10 +258,49 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p><img src="images/cover_img.png" class="img-fluid" width="300"></p>
-<p>This book gives an introduction to Data Science using the Python programming langauge.</p>
+<p>Classification predicts a category. Regression predicts a number. This chapter fits lines to data, interprets what the fitted model says, and uses inference to ask whether an apparent relationship could be due to chance.</p>
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+Source material: classes 24–25 of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_24.ipynb, class_25.ipynb and the
+matching slides): the regression model equation and inference on regression
+coefficients.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+<section id="fitting-a-line-to-data" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="fitting-a-line-to-data"><span class="header-section-number">14.1</span> Fitting a line to data</h2>
+<!--
+- Scatter plot first; when a line is a reasonable summary.
+- The regression model equation: intercept and slope (class 24).
+- Fitting the model and plotting the fitted line over the data.
+- Exercise.
+-->
+</section>
+<section id="interpreting-the-model" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="interpreting-the-model"><span class="header-section-number">14.2</span> Interpreting the model</h2>
+<!--
+- What the slope and intercept mean in the units of the data.
+- Predictions from the fitted line; the danger of extrapolating.
+- Exercise.
+-->
+</section>
+<section id="inference-on-regression-coefficients" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="inference-on-regression-coefficients"><span class="header-section-number">14.3</span> Inference on regression coefficients</h2>
+<!--
+- Could a slope this large arise by chance? Connecting back to the
+  hypothesis-testing chapters (class 24/25).
+- Exercise.
+-->
+</section>
+<section id="summary" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">14.4</span> Summary</h2>
+</section>
+<section id="exercises" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">14.5</span> Exercises</h2>
 
 
 </section>
@@ -671,10 +708,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./classification.html" class="pagination-link" aria-label="Classification">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./unsupervised_learning.html" class="pagination-link" aria-label="Unsupervised learning">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Unsupervised learning</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
