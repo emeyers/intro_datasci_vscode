@@ -13,6 +13,9 @@
 # fallbacks (e.g. the gas-price data, in case FRED is unreachable in CI)
 data/*
 !data/gas_prices_GASREGW_2025.csv
+# the baby-name dataset is built here and served from this repo, so both the
+# generated files and the script that generates them are tracked
+!data/babynames/
 
 .env
 **/*.quarto_ipynb
