@@ -61,7 +61,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -259,6 +278,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Where to go next</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./setting_up_python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Setting up Python</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -323,8 +359,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="a-first-look-at-a-data-science-analysis" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="a-first-look-at-a-data-science-analysis"><span class="header-section-number">1.1</span> A first look at a data science analysis</h2>
 <p>Before defining what the field of Data Science is, it is useful to see what a small analysis typical of a Data Science project looks like. The code below loads the baby-name data, which covers every name given to at least five babies in a year, and plots the popularity of four female names over time.</p>
-<p>You are not expected to understand this code. It is here so you know what you are working toward. Its pieces arrive over the next several chapters: <span class="quarto-unresolved-ref">?sec-descriptive-stats</span> teaches the plotting, <span class="quarto-unresolved-ref">?sec-data-tables</span> teaches how to load a file and pull out the rows for one name, and <a href="iteration_and_functions.html" class="quarto-xref"><span>Chapter 9</span></a> covers the <code>for</code> line that repeats the work for each name.</p>
-<div id="b64a3c4e" class="cell" data-execution_count="1">
+<p>You are not expected to understand this code. It is here so you know what you are working toward. Its pieces arrive over the next several chapters: <a href="descriptive_stats_and_plots.html" class="quarto-xref"><span>Chapter 3</span></a> teaches the plotting, <a href="data_tables.html" class="quarto-xref"><span>Chapter 5</span></a> teaches how to load a file and pull out the rows for one name, and <a href="iteration_and_functions.html" class="quarto-xref"><span>Chapter 9</span></a> covers the <code>for</code> line that repeats the work for each name.</p>
+<div id="4c8e49f4" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One row per name, per year, per sex, for every name given to at least</span></span>
@@ -396,7 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>As a first step in any analysis, it is important to understand the data one is working with. For the baby-names data, each row corresponds to one name, in one year, for one sex. The <code>count</code> column gives the number of babies who received that name, and the <code>percent</code> column expresses that count as a percentage of all babies of that sex born in that year. The first row therefore says that 9,655 boys born in 1880 were named John, and that those boys made up 8.15463% of all the boys born that year.</p>
 <p>With the contents of the file established, we can plot how the popularity of individual names has changed over time:</p>
-<div id="c94793c6" class="cell" data-execution_count="2">
+<div id="28e79325" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>girls <span class="op">=</span> names[names[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"girl"</span>]</span>
@@ -431,13 +467,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="from-statistics-to-data-science"><span class="header-section-number">1.2.1</span> From statistics to data science</h3>
 <p>The practice of analyzing data is centuries old, but the name “data science” is very recent. Governments have counted people and harvests for as long as they have collected taxes, and the word “statistics” still carries that origin, since it began as a term for the description of a state’s resources. The field became mathematical when probability was brought to bear on it, and the version of it taught today was largely built between 1885 and 1940 by people working on concrete problems: Francis Galton studying biologically inherited traits, William Gosset drawing conclusions from the small samples a Guinness brewery could actually run, and Ronald Fisher spending fourteen years on agricultural field trials. Several of these ideas created by these early statisticians have chapters of their own later in this book, starting with <a href="statistical_inference.html" class="quarto-xref"><span>Chapter 10</span></a>.</p>
 <p>In all the research areas where these classic statistical methods were developed, data was expensive, slow to obtain, and scarce. For example, Fisher’s field trials took a growing season each to generate data and Gosset’s samples were limited to what a brewery could brew and taste. When you hold only a few dozen observations, assumptions about the process that produced them are what make any conclusion possible, so the mathematics was doing work the data could not do on its own. Statistical theory grew up as a way of extracting the most from scarce data.</p>
-<p>The first sustained objection to classical statistical analyses came from inside the field, when John Tukey opened “The Future of Data Analysis” in 1962 by admitting doubt about his own subject and arguing that the real activity, which he called data analysis, is a science in its own right of which mathematical statistics forms only one part <span class="citation" data-cites="tukey1962">(<a href="#ref-tukey1962" role="doc-biblioref"><strong>tukey1962?</strong></a>)</span>. The argument was repeated over the following decades, by William Cleveland in 2001 under the name data science <span class="citation" data-cites="cleveland2001">(<a href="#ref-cleveland2001" role="doc-biblioref"><strong>cleveland2001?</strong></a>)</span> and by Leo Breiman the same year, who described a field split between people who build probability models of how data arose and people who judge an algorithm purely by how accurately it predicts <span class="citation" data-cites="breiman2001">(<a href="#ref-breiman2001" role="doc-biblioref"><strong>breiman2001?</strong></a>)</span>. What eventually settled the question was not the arguments but the arrival of cheap computing <span class="citation" data-cites="donoho2017">(<a href="#ref-donoho2017" role="doc-biblioref"><strong>donoho2017?</strong></a>)</span>.</p>
+<p>The first sustained objection to classical statistical analyses came from inside the field, when John Tukey opened “The Future of Data Analysis” in 1962 by admitting doubt about his own subject and arguing that the real activity, which he called data analysis, is a science in its own right of which mathematical statistics forms only one part <span class="citation" data-cites="tukey1962">(<a href="#ref-tukey1962" role="doc-biblioref">Tukey 1962</a>)</span>. The argument was repeated over the following decades, by William Cleveland in 2001 under the name data science <span class="citation" data-cites="cleveland2001">(<a href="#ref-cleveland2001" role="doc-biblioref">Cleveland 2001</a>)</span> and by Leo Breiman the same year, who described a field split between people who build probability models of how data arose and people who judge an algorithm purely by how accurately it predicts <span class="citation" data-cites="breiman2001">(<a href="#ref-breiman2001" role="doc-biblioref">Breiman 2001</a>)</span>. What eventually settled the question was not the arguments but the arrival of cheap computing <span class="citation" data-cites="donoho2017">(<a href="#ref-donoho2017" role="doc-biblioref">Donoho 2017</a>)</span>.</p>
 </section>
 <section id="new-approaches-to-analyzing-data" class="level3" data-number="1.2.2">
 <h3 data-number="1.2.2" class="anchored" data-anchor-id="new-approaches-to-analyzing-data"><span class="header-section-number">1.2.2</span> New approaches to analyzing data</h3>
 <p>When data and computing power became abundant around the turn of the 21st century, data analysis drastically changed in many fields. Records that once had to be gathered deliberately began accumulating as a byproduct of ordinary activity, whether a purchase, a search, a card application, or a sensor reading, and the internet turned the resulting files into something a stranger can download in seconds. At the same time, programming languages made analysis something you could carry out without deriving it first. The baby-name data at the start of this chapter shows both. Nobody ran a study to produce it, the records exist because people applied for Social Security cards, and retrieving all 2,181,032 rows took a single line of code.</p>
 <p>This rise in larger data also changed which skills were needed. In Fisher’s era the limiting factor was the data itself, and mathematics allowed one to understand larger patterns from this limited data. In the past couple decades, data is frequently abundant but disorganized, arriving in the wrong shape, spread across several files, full of missing entries and inconsistent spellings. The skill that allows one to handle this constraint is programming: finding a file, reshaping it, drawing it, and running the whole process again unchanged when the file is updated next year. This is why the early chapters of this book are about Python rather than probability.</p>
-<p>The rise of large data sets also frequently changes how much of the older theory you need. Much of classical statistics answers one question: given a small sample, how confident can I be that the pattern I see is not an accident of which few individuals happened to end up in my study? That question is pressing when you have thirty observations. It is much less pressing when you have two million. Nobody needs a significance test to establish that the name Linda rose in 1947, because the rise is enormous, the records run to millions of births a year, and you can see it in the plot. With data of that size the hard part moves elsewhere, to getting the data into a usable shape and then seeing what is in it. That is why this book spends whole chapters on reshaping data (<span class="quarto-unresolved-ref">?sec-data-tables</span>) and on visualization (<span class="quarto-unresolved-ref">?sec-data-visualization</span>) before it takes up inference at all.</p>
+<p>The rise of large data sets also frequently changes how much of the older theory you need. Much of classical statistics answers one question: given a small sample, how confident can I be that the pattern I see is not an accident of which few individuals happened to end up in my study? That question is pressing when you have thirty observations. It is much less pressing when you have two million. Nobody needs a significance test to establish that the name Linda rose in 1947, because the rise is enormous, the records run to millions of births a year, and you can see it in the plot. With data of that size the hard part moves elsewhere, to getting the data into a usable shape and then seeing what is in it. That is why this book spends whole chapters on reshaping data (<a href="data_tables.html" class="quarto-xref"><span>Chapter 5</span></a>) and on visualization (<a href="data_visualization.html" class="quarto-xref"><span>Chapter 6</span></a>) before it takes up inference at all.</p>
 <p>Programming also opened a genuinely different way of analyzing data, known as <strong>machine learning</strong>: instead of writing down a mathematical model of how the data arose, you let an algorithm search for patterns that predict well. The obvious worry is that an algorithm flexible enough to find any pattern will find ones that are not really there. The answer is not a proof but a simple procedure. You hide part of your data, let the algorithm learn from the rest, and then check its predictions against the part it never saw. If it does well on data it has not seen, the pattern it found is likely real. Repeating this with different parts held back each time is called <strong>cross-validation</strong>, and <a href="classification.html" class="quarto-xref"><span>Chapter 13</span></a> builds one.</p>
 <p>The same instinct applies when you do need to answer a question about chance, and it replaces mathematical theory with repetition. Suppose you find that girls in some dataset score two points higher than boys, and you want to know whether a gap that big could show up by chance alone. Classical statistics would answer with a formula derived under assumptions about the population. You can instead answer it by brute force: shuffle the labels so that “girl” and “boy” are assigned to the scores at random, recompute the gap, and repeat several thousand times. If a gap of two points almost never appears in the shuffled versions, chance alone is a poor explanation of the real one. This is a <strong>permutation test</strong>, and it needs no formula, only a computer willing to repeat something ten thousand times. <a href="hypothesis_testing.html" class="quarto-xref"><span>Chapter 11</span></a> builds these tests directly.</p>
 <p>None of this makes statistical reasoning optional, and the book teaches both. What has changed is the order in which they become useful: you now have to get the data and look at it before there is anything to reason about.</p>
@@ -445,9 +481,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-rise-of-data-science" class="level3" data-number="1.2.3">
 <h3 data-number="1.2.3" class="anchored" data-anchor-id="the-rise-of-data-science"><span class="header-section-number">1.2.3</span> The rise of data science</h3>
 <p>The changes described so far were mostly visible to the people already doing the work. What gave data science a public profile, along with job titles and degree programs, was a series of high-profile events over the first two decades of the 21st century. The episodes below are the ones that come up most often, and they shaped both the enthusiasm for the field and the criticism of it.</p>
-<p>One event that had a signifant impact showing the value of these new data analysis methods occured in Major League Baseball. In 2002 the Oakland Athletics, working with one of the smallest payrolls in baseball, used statistical analysis of ordinary published numbers to find players the scouting system had undervalued, and put together a season that included a twenty-game winning streak. Michael Lewis’s 2003 book about it, <em>Moneyball</em>, reached an audience far beyond baseball <span class="citation" data-cites="lewis2003">(<a href="#ref-lewis2003" role="doc-biblioref"><strong>lewis2003?</strong></a>)</span> and led most major league baseball teams to invest in increasinly larger analytics departments. Another event that drew attention to using machine learning for analyzing data occurred in 2006 when Netflix offered a million dollar prize to anyone who could improve the company’s recommendations by 10%, along with a large dataset of ratings so that anyone could try, and in 2009 a team assembled from outsiders beat what Netflix’s own engineers had managed. And a third source that showed the public the power of data analysis was due to Nate Silver’s statistical models at FiveThirtyEight website, where predicted 49 of 50 states in the 2008 presidential election and all 50 in 2012, at a time when television coverage ran on the intuition of experienced commentators. By 2012 a <em>Harvard Business Review</em> article called the data scientist “the sexiest job of the 21st century” <span class="citation" data-cites="davenport2012">(<a href="#ref-davenport2012" role="doc-biblioref"><strong>davenport2012?</strong></a>)</span>, and universities began launching degrees and renaming departments to match.</p>
-<p>As the field begain to mature, failures and negative consequences began to become visible. Netflix never put the winning algorithm into production, because it averaged together so many separate models that it was expensive to run and hard to maintain, and researchers then showed that individuals could be identified in the supposedly anonymous ratings by matching them against public reviews on another film site <span class="citation" data-cites="narayanan2008">(<a href="#ref-narayanan2008" role="doc-biblioref"><strong>narayanan2008?</strong></a>)</span>. Google Flu Trends estimated influenza activity from the volume of flu-related searches, faster than the Centers for Disease Control could report it, and was held up as proof that with enough data careful modeling mattered less than sheer scale. Its estimates then drifted, reaching roughly double the true rate of flu-related doctor visits by 2013, in part because the model had been fitted years earlier and never refitted while the world changed underneath it <span class="citation" data-cites="lazer2014">(<a href="#ref-lazer2014" role="doc-biblioref"><strong>lazer2014?</strong></a>)</span>. In 2016 Cathy O’Neil’s <em>Weapons of Math Destruction</em> documented models used in sentencing, hiring, lending, and school evaluation that encoded existing inequities and applied them at scale <span class="citation" data-cites="oneil2016">(<a href="#ref-oneil2016" role="doc-biblioref"><strong>oneil2016?</strong></a>)</span>, and ProPublica’s investigation of the COMPAS recidivism model found that Black defendants were roughly twice as likely as white defendants to be wrongly flagged as high risk. That same year produced the sharpest argument about forecasting, when FiveThirtyEight gave Donald Trump roughly a 29% chance of winning, he won, and forecasting was widely described as having failed. Whether a 29% forecast of something that then happens is a failure is a real question with a real answer, and <a href="statistical_inference.html" class="quarto-xref"><span>Chapter 10</span></a> takes it up.</p>
-<div id="388306e8" class="cell" data-execution_count="3">
+<p>One event that had a signifant impact showing the value of these new data analysis methods occured in Major League Baseball. In 2002 the Oakland Athletics, working with one of the smallest payrolls in baseball, used statistical analysis of ordinary published numbers to find players the scouting system had undervalued, and put together a season that included a twenty-game winning streak. Michael Lewis’s 2003 book about it, <em>Moneyball</em>, reached an audience far beyond baseball <span class="citation" data-cites="lewis2003">(<a href="#ref-lewis2003" role="doc-biblioref">Lewis 2003</a>)</span> and led most major league baseball teams to invest in increasinly larger analytics departments. Another event that drew attention to using machine learning for analyzing data occurred in 2006 when Netflix offered a million dollar prize to anyone who could improve the company’s recommendations by 10%, along with a large dataset of ratings so that anyone could try, and in 2009 a team assembled from outsiders beat what Netflix’s own engineers had managed. And a third source that showed the public the power of data analysis was due to Nate Silver’s statistical models at FiveThirtyEight website, where predicted 49 of 50 states in the 2008 presidential election and all 50 in 2012, at a time when television coverage ran on the intuition of experienced commentators. By 2012 a <em>Harvard Business Review</em> article called the data scientist “the sexiest job of the 21st century” <span class="citation" data-cites="davenport2012">(<a href="#ref-davenport2012" role="doc-biblioref">Davenport and Patil 2012</a>)</span>, and universities began launching degrees and renaming departments to match.</p>
+<p>As the field begain to mature, failures and negative consequences began to become visible. Netflix never put the winning algorithm into production, because it averaged together so many separate models that it was expensive to run and hard to maintain, and researchers then showed that individuals could be identified in the supposedly anonymous ratings by matching them against public reviews on another film site <span class="citation" data-cites="narayanan2008">(<a href="#ref-narayanan2008" role="doc-biblioref">Narayanan and Shmatikov 2008</a>)</span>. Google Flu Trends estimated influenza activity from the volume of flu-related searches, faster than the Centers for Disease Control could report it, and was held up as proof that with enough data careful modeling mattered less than sheer scale. Its estimates then drifted, reaching roughly double the true rate of flu-related doctor visits by 2013, in part because the model had been fitted years earlier and never refitted while the world changed underneath it <span class="citation" data-cites="lazer2014">(<a href="#ref-lazer2014" role="doc-biblioref">Lazer et al. 2014</a>)</span>. In 2016 Cathy O’Neil’s <em>Weapons of Math Destruction</em> documented models used in sentencing, hiring, lending, and school evaluation that encoded existing inequities and applied them at scale <span class="citation" data-cites="oneil2016">(<a href="#ref-oneil2016" role="doc-biblioref">O’Neil 2016</a>)</span>, and ProPublica’s investigation of the COMPAS recidivism model found that Black defendants were roughly twice as likely as white defendants to be wrongly flagged as high risk. That same year produced the sharpest argument about forecasting, when FiveThirtyEight gave Donald Trump roughly a 29% chance of winning, he won, and forecasting was widely described as having failed. Whether a 29% forecast of something that then happens is a failure is a real question with a real answer, and <a href="statistical_inference.html" class="quarto-xref"><span>Chapter 10</span></a> takes it up.</p>
+<div id="b72dca3a" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -565,7 +601,7 @@ Table&nbsp;1.1: Two emphases in the analysis of data
 <section id="what-a-data-science-project-looks-like" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="what-a-data-science-project-looks-like"><span class="header-section-number">1.3</span> What a data science project looks like</h2>
 <p>Projects vary, but most of them pass through the same stages.</p>
-<div id="517181a2" class="cell" data-execution_count="4">
+<div id="24b22fdc" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -600,15 +636,15 @@ Table&nbsp;1.2: Where each stage is covered
 </tr>
 <tr class="even">
 <td>Get the data</td>
-<td><span class="quarto-unresolved-ref">?sec-data-tables</span>, <a href="web_data.html" class="quarto-xref"><span>Chapter 16</span></a></td>
+<td><a href="data_tables.html" class="quarto-xref"><span>Chapter 5</span></a>, <a href="web_data.html" class="quarto-xref"><span>Chapter 16</span></a></td>
 </tr>
 <tr class="odd">
 <td>Clean it</td>
-<td><span class="quarto-unresolved-ref">?sec-data-tables</span></td>
+<td><a href="data_tables.html" class="quarto-xref"><span>Chapter 5</span></a></td>
 </tr>
 <tr class="even">
 <td>Explore and visualize</td>
-<td><span class="quarto-unresolved-ref">?sec-descriptive-stats</span>, <span class="quarto-unresolved-ref">?sec-array-computations</span>, <span class="quarto-unresolved-ref">?sec-data-visualization</span>, <a href="interactive_visualizations.html" class="quarto-xref"><span>Chapter 7</span></a>, <a href="maps.html" class="quarto-xref"><span>Chapter 8</span></a></td>
+<td><a href="descriptive_stats_and_plots.html" class="quarto-xref"><span>Chapter 3</span></a>, <a href="array_computations.html" class="quarto-xref"><span>Chapter 4</span></a>, <a href="data_visualization.html" class="quarto-xref"><span>Chapter 6</span></a>, <a href="interactive_visualizations.html" class="quarto-xref"><span>Chapter 7</span></a>, <a href="maps.html" class="quarto-xref"><span>Chapter 8</span></a></td>
 </tr>
 <tr class="odd">
 <td>Model</td>
@@ -623,20 +659,20 @@ Table&nbsp;1.2: Where each stage is covered
 </div>
 </figure>
 </div>
-<p>Two chapters sit outside this table because they supply tools used at every stage. <span class="quarto-unresolved-ref">?sec-python-basics</span> teaches enough Python to write any of the code at all, and <a href="iteration_and_functions.html" class="quarto-xref"><span>Chapter 9</span></a> introduces loops and user-defined functions, which are the tools for repeating an analysis and packaging it up for reuse.</p>
+<p>Two chapters sit outside this table because they supply tools used at every stage. <a href="python_basics.html" class="quarto-xref"><span>Chapter 2</span></a> teaches enough Python to write any of the code at all, and <a href="iteration_and_functions.html" class="quarto-xref"><span>Chapter 9</span></a> introduces loops and user-defined functions, which are the tools for repeating an analysis and packaging it up for reuse.</p>
 <p>The arrows in the diagram run in only one direction, which is a simplification of how the work actually proceeds. Exploring the data frequently reveals that different data is required, or that the question one began with was the wrong question to ask. Cleaning is rarely finished on the first attempt. In practice, most projects pass through this sequence of stages more than once.</p>
 </section>
 <section id="writing-analyses-others-can-check" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="writing-analyses-others-can-check"><span class="header-section-number">1.4</span> Writing analyses others can check</h2>
 <p>An analysis is best understood as an argument, and like any argument it is worth only as much as a reader’s ability to check it. A result presented without the steps that produced it asks to be taken on faith.</p>
 <p>Meeting that standard is harder than it sounds. Over the past decade, researchers across many fields have tried to reproduce published findings and repeatedly failed, sometimes because the original work was wrong and often because the description of what was done was not detailed enough to repeat. This came to be called the <strong>replication crisis</strong>. A written summary of an analysis leaves out exactly the details that matter: which rows were dropped, and which version of the data was used.</p>
-<p>Donald Knuth proposed a fix for a related problem in the 1980s. He argued that programs should be written to be read by people, with the explanation and the code composed together as a single document <span class="citation" data-cites="knuth1984">(<a href="#ref-knuth1984" role="doc-biblioref"><strong>knuth1984?</strong></a>)</span>. He called this <strong>literate programming</strong>. Applied to data analysis, the idea is that the writing, the code, and the results belong in one document, so that a reader can follow the reasoning and see precisely what produced each number.</p>
+<p>Donald Knuth proposed a fix for a related problem in the 1980s. He argued that programs should be written to be read by people, with the explanation and the code composed together as a single document <span class="citation" data-cites="knuth1984">(<a href="#ref-knuth1984" role="doc-biblioref">Knuth 1984</a>)</span>. He called this <strong>literate programming</strong>. Applied to data analysis, the idea is that the writing, the code, and the results belong in one document, so that a reader can follow the reasoning and see precisely what produced each number.</p>
 <p>Several tools put this idea into practice, differing mainly in which programming languages they support and in how a finished document is shared. The one most widely used with Python is the Jupyter notebook, and it is the one this book uses.</p>
 <section id="jupyter-notebooks" class="level3" data-number="1.4.1">
 <h3 data-number="1.4.1" class="anchored" data-anchor-id="jupyter-notebooks"><span class="header-section-number">1.4.1</span> Jupyter notebooks</h3>
-<p>A <strong>Jupyter notebook</strong> is a document built on that idea. It consists of a sequence of cells of two kinds. <strong>Markdown cells</strong> hold text, which is where the explanation, the reasoning, the headings, and any equations belong, while <strong>code cells</strong> hold the code itself. When a code cell is run, its output appears directly beneath it and remains there as part of the document.</p>
+<p>A <strong>Jupyter notebook</strong> is a document built on the idea of literate programming and reproducible analyses. It consists of a sequence of cells of two kinds. <strong>Markdown cells</strong> hold text, which is where the explanation, the reasoning, the headings, and any equations belong, while <strong>code cells</strong> hold the code itself. When a code cell is run, its output appears directly beneath it and remains there as part of the document.</p>
 <p>Markdown is a plain-text way of marking up formatting. You type <code>## A heading</code> to get a heading and <code>**important**</code> to get bold, and the notebook renders it when you run the cell. The markdown cell in the diagram below shows what you type rather than how it looks once rendered.</p>
-<div id="7f375bc2" class="cell" data-execution_count="5">
+<div id="f1710a4d" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -646,7 +682,7 @@ Table&nbsp;1.2: Where each stage is covered
 </div>
 </div>
 <p>The number in brackets beside a code cell is its <strong>execution count</strong>. The first cell run in a session is labeled <code>[1]</code>, the next <code>[2]</code>, and so on. The count records the order in which the cells were actually executed, which is not necessarily the order in which they appear on the page. This number is worth keeping in mind, because the next section concerns what happens when those two orders disagree.</p>
-<p>To run a cell, click on it and press <code>Shift+Enter</code>. You can return to a cell, change it, and run it again as often as you like. That freedom to revise is what makes a notebook well suited to exploring data, and it is also the source of one difficulty that you should understand before encountering it.</p>
+<p>To run a cell, click on it and press <code>Command+Return</code> on a Mac, or <code>Shift+Enter</code> if you are using a Windows computer. You can return to a cell, change it, and run it again as often as you like. That freedom to revise is what makes a notebook well suited to exploring data, and it is also the source of one difficulty that you should understand before encountering it.</p>
 </section>
 <section id="the-order-cells-run-in" class="level3" data-number="1.4.2">
 <h3 data-number="1.4.2" class="anchored" data-anchor-id="the-order-cells-run-in"><span class="header-section-number">1.4.2</span> The order cells run in</h3>
@@ -704,7 +740,7 @@ Table&nbsp;1.2: Where each stage is covered
 </ul>
 <p>Loading a package into your own code is called <strong>importing</strong> it, and it looks like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>That line makes the pandas package available and gives it the short name <code>pd</code>, so that later code can write <code>pd.read_csv(...)</code> instead of the full name. <span class="quarto-unresolved-ref">?sec-python-basics</span> covers how this works. For now the point is only that the line exists, and that most of what this book does follows from it.</p>
+<p>That line makes the pandas package available and gives it the short name <code>pd</code>, so that later code can write <code>pd.read_csv(...)</code> instead of the full name. <a href="python_basics.html" class="quarto-xref"><span>Chapter 2</span></a> covers how this works. For now the point is only that the line exists, and that most of what this book does follows from it.</p>
 <p>Python is not the only language used for this work. R is the other common choice, and it is well suited to statistics and to producing reports. Python’s advantage is that it is a general-purpose programming language that also has strong data packages, so the same language that loads your data can run a website or control an instrument. Either language is a good place to start, and people who do this professionally often use both.</p>
 <section id="the-packages-we-will-use" class="level3" data-number="1.5.1">
 <h3 data-number="1.5.1" class="anchored" data-anchor-id="the-packages-we-will-use"><span class="header-section-number">1.5.1</span> The packages we will use</h3>
@@ -731,22 +767,22 @@ Table&nbsp;1.3: The main packages used in this book
 <tr class="odd">
 <td>Matplotlib</td>
 <td>Draws plots</td>
-<td><span class="quarto-unresolved-ref">?sec-descriptive-stats</span>, <span class="quarto-unresolved-ref">?sec-data-visualization</span></td>
+<td><a href="descriptive_stats_and_plots.html" class="quarto-xref"><span>Chapter 3</span></a>, <a href="data_visualization.html" class="quarto-xref"><span>Chapter 6</span></a></td>
 </tr>
 <tr class="even">
 <td>NumPy</td>
 <td>Arrays of numbers and fast computation on them</td>
-<td><span class="quarto-unresolved-ref">?sec-array-computations</span></td>
+<td><a href="array_computations.html" class="quarto-xref"><span>Chapter 4</span></a></td>
 </tr>
 <tr class="odd">
 <td>pandas</td>
 <td>Data tables: loading, filtering, grouping, joining</td>
-<td><span class="quarto-unresolved-ref">?sec-data-tables</span></td>
+<td><a href="data_tables.html" class="quarto-xref"><span>Chapter 5</span></a></td>
 </tr>
 <tr class="even">
 <td>seaborn, Plotly</td>
 <td>Statistical and interactive graphics</td>
-<td><span class="quarto-unresolved-ref">?sec-data-visualization</span>, <a href="interactive_visualizations.html" class="quarto-xref"><span>Chapter 7</span></a></td>
+<td><a href="data_visualization.html" class="quarto-xref"><span>Chapter 6</span></a>, <a href="interactive_visualizations.html" class="quarto-xref"><span>Chapter 7</span></a></td>
 </tr>
 <tr class="odd">
 <td>GeoPandas</td>
@@ -769,7 +805,7 @@ Table&nbsp;1.3: The main packages used in this book
 </figure>
 </div>
 <p>These packages are layered on one another rather than independent. NumPy provides the array of numbers that nearly everything else stores its data in; pandas builds tables on top of NumPy arrays; scikit-learn expects its input as arrays or tables.</p>
-<div id="ee10dcb6" class="cell" data-execution_count="6">
+<div id="d720f8eb" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -778,12 +814,12 @@ Table&nbsp;1.3: The main packages used in this book
 </div>
 </div>
 </div>
-<p>Every package in that table is free and open source, written and maintained by communities of contributors. These packages also change over time. New versions add features, occasionally rename existing ones, and sometimes break code that previously worked. This is the reason a careful analysis records which versions of each package it used, a point that <span class="quarto-unresolved-ref">?sec-setup</span> returns to.</p>
+<p>Every package in that table is free and open source, written and maintained by communities of contributors. These packages also change over time. New versions add features, occasionally rename existing ones, and sometimes break code that previously worked. This is the reason a careful analysis records which versions of each package it used, a point that <a href="setting_up_python.html" class="quarto-xref"><span>Appendix A</span></a> returns to.</p>
 </section>
 <section id="getting-set-up" class="level3" data-number="1.5.2">
 <h3 data-number="1.5.2" class="anchored" data-anchor-id="getting-set-up"><span class="header-section-number">1.5.2</span> Getting set up</h3>
 <p>Running the code in this book requires three things: Python itself, the packages listed above, and a way to run notebooks. Installing them is a one-time task, and it is the part of learning data science most likely to be frustrating for reasons that have nothing to do with data science.</p>
-<p><span class="quarto-unresolved-ref">?sec-setup</span> walks through it with a tool called uv, and also covers the two alternatives you will run into in other courses and workplaces, pip with venv and conda. If you cannot install software on the computer you are using, it covers running notebooks in a browser instead, which requires installing nothing.</p>
+<p><a href="setting_up_python.html" class="quarto-xref"><span>Appendix A</span></a> walks through it with a tool called uv, and also covers the two alternatives you will run into in other courses and workplaces, pip with venv and conda. If you cannot install software on the computer you are using, it covers running notebooks in a browser instead, which requires installing nothing.</p>
 <p>Once you have a notebook you can run, the exercise below confirms that everything is connected properly.</p>
 <div id="exercise-introduction-first-import" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
 <div class="callout-header d-flex align-content-center">
@@ -798,7 +834,7 @@ Table&nbsp;1.3: The main packages used in this book
 <p>Open a Jupyter notebook and run the following two lines in a code cell:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.__version__)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If a version number prints, pandas is installed and your setup works. If you get a <code>ModuleNotFoundError</code> instead, the package is not available in the environment your notebook is using. An environment is the particular Python installation and set of packages your notebook is connected to, and <span class="quarto-unresolved-ref">?sec-setup</span> explains both what that means and how to fix it.</p>
+<p>If a version number prints, pandas is installed and your setup works. If you get a <code>ModuleNotFoundError</code> instead, the package is not available in the environment your notebook is using. An environment is the particular Python installation and set of packages your notebook is connected to, and <a href="setting_up_python.html" class="quarto-xref"><span>Appendix A</span></a> explains both what that means and how to fix it.</p>
 </div>
 </div>
 <div id="solution-introduction-first-import" class="callout callout-style-default callout-note callout-titled" title="Solution">
@@ -813,7 +849,7 @@ Table&nbsp;1.3: The main packages used in this book
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="e943e2fd" class="cell" data-execution_count="7">
+<div id="77b32f51" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.__version__)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -876,7 +912,7 @@ Table&nbsp;1.3: The main packages used in this book
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Only two strings in the original cell need to change. Using “Ethan” as the example:</p>
-<div id="c085c99b" class="cell" data-execution_count="8">
+<div id="51ef77f7" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>boys <span class="op">=</span> names[names[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"boy"</span>]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name <span class="kw">in</span> [<span class="st">"Ethan"</span>]:</span>
@@ -896,8 +932,8 @@ Table&nbsp;1.3: The main packages used in this book
 </div>
 </div>
 <p>The name sits close to zero for a century and then climbs sharply from the late 1980s, peaking a little above 1% shortly after 2000. Reading that off the plot is all the exercise asked for.</p>
-<p>If you want the exact figures rather than an eyeballed estimate, pandas can find them. You are not expected to write this yet; the tools appear in <span class="quarto-unresolved-ref">?sec-data-tables</span>.</p>
-<div id="378afd61" class="cell" data-execution_count="9">
+<p>If you want the exact figures rather than an eyeballed estimate, pandas can find them. You are not expected to write this yet; the tools appear in <a href="data_tables.html" class="quarto-xref"><span>Chapter 5</span></a>.</p>
+<div id="74dd7964" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ethan <span class="op">=</span> boys[boys[<span class="st">"name"</span>] <span class="op">==</span> <span class="st">"Ethan"</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>peak <span class="op">=</span> ethan.loc[ethan[<span class="st">"percent"</span>].idxmax()]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(peak[<span class="st">"year"</span>], <span class="bu">round</span>(peak[<span class="st">"percent"</span>], <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -951,6 +987,38 @@ Table&nbsp;1.3: The main packages used in this book
 </div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-breiman2001" class="csl-entry" role="listitem">
+Breiman, Leo. 2001. <span>“Statistical Modeling: The Two Cultures.”</span> <em>Statistical Science</em> 16 (3): 199–231. <a href="https://doi.org/10.1214/ss/1009213726">https://doi.org/10.1214/ss/1009213726</a>.
+</div>
+<div id="ref-cleveland2001" class="csl-entry" role="listitem">
+Cleveland, William S. 2001. <span>“Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics.”</span> <em>International Statistical Review</em> 69 (1): 21–26. <a href="https://doi.org/10.1111/j.1751-5823.2001.tb00477.x">https://doi.org/10.1111/j.1751-5823.2001.tb00477.x</a>.
+</div>
+<div id="ref-davenport2012" class="csl-entry" role="listitem">
+Davenport, Thomas H., and D. J. Patil. 2012. <span>“Data Scientist: The Sexiest Job of the 21st Century.”</span> <em>Harvard Business Review</em> 90 (10): 70–76.
+</div>
+<div id="ref-donoho2017" class="csl-entry" role="listitem">
+Donoho, David. 2017. <span>“50 Years of Data Science.”</span> <em>Journal of Computational and Graphical Statistics</em> 26 (4): 745–66. <a href="https://doi.org/10.1080/10618600.2017.1384734">https://doi.org/10.1080/10618600.2017.1384734</a>.
+</div>
+<div id="ref-knuth1984" class="csl-entry" role="listitem">
+Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>The Computer Journal</em> 27 (2): 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
+</div>
+<div id="ref-lazer2014" class="csl-entry" role="listitem">
+Lazer, David, Ryan Kennedy, Gary King, and Alessandro Vespignani. 2014. <span>“The Parable of Google Flu: Traps in Big Data Analysis.”</span> <em>Science</em> 343 (6176): 1203–5. <a href="https://doi.org/10.1126/science.1248506">https://doi.org/10.1126/science.1248506</a>.
+</div>
+<div id="ref-lewis2003" class="csl-entry" role="listitem">
+Lewis, Michael. 2003. <em>Moneyball: The Art of Winning an Unfair Game</em>. W. W. Norton &amp; Company.
+</div>
+<div id="ref-narayanan2008" class="csl-entry" role="listitem">
+Narayanan, Arvind, and Vitaly Shmatikov. 2008. <span>“Robust de-Anonymization of Large Sparse Datasets.”</span> <em>2008 IEEE Symposium on Security and Privacy</em>, 111–25. <a href="https://doi.org/10.1109/SP.2008.33">https://doi.org/10.1109/SP.2008.33</a>.
+</div>
+<div id="ref-oneil2016" class="csl-entry" role="listitem">
+O’Neil, Cathy. 2016. <em>Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy</em>. Crown.
+</div>
+<div id="ref-tukey1962" class="csl-entry" role="listitem">
+Tukey, John W. 1962. <span>“The Future of Data Analysis.”</span> <em>The Annals of Mathematical Statistics</em> 33 (1): 1–67. <a href="https://doi.org/10.1214/aoms/1177704711">https://doi.org/10.1214/aoms/1177704711</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

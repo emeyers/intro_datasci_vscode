@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; Iteration and writing functions – Introduction to Data Science</title>
+<title>Appendix A — Setting up Python – Introduction to Data Science</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -36,8 +71,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./statistical_inference.html" rel="next">
-<link href="./maps.html" rel="prev">
+<link href="./where_next.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -88,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./iteration_and_functions.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Iteration and writing functions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./setting_up_python.html">Appendices</a></li><li class="breadcrumb-item"><a href="./setting_up_python.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Setting up Python</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -169,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./iteration_and_functions.html" class="sidebar-item-text sidebar-link active">
+  <a href="./iteration_and_functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Iteration and writing functions</span></span></a>
   </div>
 </li>
@@ -232,7 +266,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./setting_up_python.html" class="sidebar-item-text sidebar-link">
+  <a href="./setting_up_python.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Setting up Python</span></span></a>
   </div>
 </li>
@@ -248,20 +282,25 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#repeating-work-with-for-loops" id="toc-repeating-work-with-for-loops" class="nav-link active" data-scroll-target="#repeating-work-with-for-loops"><span class="header-section-number">9.1</span> Repeating work with <code>for</code> loops</a></li>
-  <li><a href="#repeating-work-until-a-condition-is-met-while-loops" id="toc-repeating-work-until-a-condition-is-met-while-loops" class="nav-link" data-scroll-target="#repeating-work-until-a-condition-is-met-while-loops"><span class="header-section-number">9.2</span> Repeating work until a condition is met: <code>while</code> loops</a></li>
-  <li><a href="#writing-your-own-functions" id="toc-writing-your-own-functions" class="nav-link" data-scroll-target="#writing-your-own-functions"><span class="header-section-number">9.3</span> Writing your own functions</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">9.4</span> Summary</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">9.5</span> Exercises</a></li>
+  <li><a href="#virtual-environments-and-why-you-need-one" id="toc-virtual-environments-and-why-you-need-one" class="nav-link active" data-scroll-target="#virtual-environments-and-why-you-need-one"><span class="header-section-number">A.1</span> Virtual environments, and why you need one</a></li>
+  <li><a href="#the-recommended-path-uv" id="toc-the-recommended-path-uv" class="nav-link" data-scroll-target="#the-recommended-path-uv"><span class="header-section-number">A.2</span> The recommended path: uv</a>
+  <ul class="collapse">
+  <li><a href="#the-two-files-uv-creates" id="toc-the-two-files-uv-creates" class="nav-link" data-scroll-target="#the-two-files-uv-creates"><span class="header-section-number">A.2.1</span> The two files uv creates</a></li>
+  </ul></li>
+  <li><a href="#the-classic-path-pip-and-venv" id="toc-the-classic-path-pip-and-venv" class="nav-link" data-scroll-target="#the-classic-path-pip-and-venv"><span class="header-section-number">A.3</span> The classic path: pip and venv</a></li>
+  <li><a href="#the-scientific-computing-path-conda" id="toc-the-scientific-computing-path-conda" class="nav-link" data-scroll-target="#the-scientific-computing-path-conda"><span class="header-section-number">A.4</span> The scientific-computing path: conda</a></li>
+  <li><a href="#the-no-install-path-notebooks-in-a-browser" id="toc-the-no-install-path-notebooks-in-a-browser" class="nav-link" data-scroll-target="#the-no-install-path-notebooks-in-a-browser"><span class="header-section-number">A.5</span> The no-install path: notebooks in a browser</a></li>
+  <li><a href="#checking-that-it-worked" id="toc-checking-that-it-worked" class="nav-link" data-scroll-target="#checking-that-it-worked"><span class="header-section-number">A.6</span> Checking that it worked</a></li>
+  <li><a href="#when-something-goes-wrong" id="toc-when-something-goes-wrong" class="nav-link" data-scroll-target="#when-something-goes-wrong"><span class="header-section-number">A.7</span> When something goes wrong</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./setting_up_python.html">Appendices</a></li><li class="breadcrumb-item"><a href="./setting_up_python.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Setting up Python</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-iteration-functions" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Iteration and writing functions</span></span></h1>
+<h1 class="title"><span id="sec-setup" class="quarto-section-identifier">Appendix A — Setting up Python</span></h1>
 </div>
 
 
@@ -278,57 +317,129 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>So far we have deliberately gotten quite far without two of Python’s most fundamental tools: <strong>loops</strong>, which repeat an action many times, and <strong>functions</strong> that we write ourselves to package up and reuse a piece of code. We were able to postpone them because the array and table tools introduced in the earlier chapters let us operate on whole collections of data at once, which removes the need to write a loop in many common situations.</p>
-<p>There are still plenty of tasks, though, where writing a loop or your own function is the clearest — or the only — way to get the job done. This chapter introduces both.</p>
-<!--
-CHAPTER OUTLINE (stub) — to be drafted.
-
-Source material: the author's class introduces loops and functions together,
-later in the semester. Pull worked examples from the Fall-2025 class notebooks
-in extras/material_from_2025f/class_code/ (the class that covers iteration and
-defining functions).
-
-Keep the book's conventions: executable blocks use the ```{python}``` fence;
-end most sections with an exercise (see CLAUDE.md); only use tools introduced in
-this chapter or earlier ones.
--->
-<section id="repeating-work-with-for-loops" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="repeating-work-with-for-loops"><span class="header-section-number">9.1</span> Repeating work with <code>for</code> loops</h2>
-<!--
-- Motivate with a task that arrays/tables don't cleanly handle.
-- `for` loop syntax: the `for ... in ...:` header, the colon, indentation.
-- Looping over a list; looping over a range with range().
-- Building up a result inside a loop (e.g. accumulating a total, appending to a list).
-- Exercise.
--->
+<p>To run the code in this book you need three things:</p>
+<ol type="1">
+<li><strong>Python itself.</strong> The language, installed on your computer.</li>
+<li><strong>The packages.</strong> pandas, Matplotlib, NumPy, and the others introduced along the way. None of them come with Python; each is installed separately.</li>
+<li><strong>A way to run notebooks.</strong> Something that opens a <code>.ipynb</code> file, lets you edit cells, and runs them.</li>
+</ol>
+<p>This appendix covers three ways to install all of that, plus a fourth option that installs nothing at all. Read the section for whichever tool you are using and skip the rest. If you have no preference, use uv.</p>
+<p>This book was written with Python 3.12. Anything from version 3.10 onward will run the code.</p>
+<p>The commands below are typed at a <strong>command line</strong>, not in a notebook. On macOS that is the Terminal application; on Windows it is PowerShell or Command Prompt; on Linux it is whatever terminal your system provides. Where a command differs between operating systems, both versions are shown.</p>
+<section id="virtual-environments-and-why-you-need-one" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="virtual-environments-and-why-you-need-one"><span class="header-section-number">A.1</span> Virtual environments, and why you need one</h2>
+<p>It is tempting to install every package straight onto your computer and be done. The reason to avoid it is that different projects need different versions.</p>
+<p>Suppose you install pandas today and write an analysis with it. Six months later you start another project that needs a newer pandas, so you upgrade. Something in the new version was renamed, and your first analysis no longer runs. Multiply this by every package and every project.</p>
+<p>A <strong>virtual environment</strong> solves it. An environment is a self-contained folder holding one project’s Python and one project’s packages. Two projects on the same computer can use different versions of pandas without either knowing about the other, and deleting a project’s environment removes its packages without touching anything else.</p>
+<p>Every tool below creates environments. They differ mainly in the commands you type.</p>
 </section>
-<section id="repeating-work-until-a-condition-is-met-while-loops" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="repeating-work-until-a-condition-is-met-while-loops"><span class="header-section-number">9.2</span> Repeating work until a condition is met: <code>while</code> loops</h2>
-<!--
-- `while` loop syntax and when to prefer it over `for`.
-- Caution about loops that never end.
-- Exercise.
--->
+<section id="the-recommended-path-uv" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="the-recommended-path-uv"><span class="header-section-number">A.2</span> The recommended path: uv</h2>
+<p><code>uv</code> is a recent tool that does all of this: installing Python, creating the environment, installing packages, and recording exactly what was installed. It is faster than the alternatives, and it is what this book was written with.</p>
+<p><strong>Install uv.</strong> On macOS or Linux:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On Windows, in PowerShell:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>powershell <span class="op">-</span>ExecutionPolicy ByPass <span class="op">-</span>c <span class="st">"irm https://astral.sh/uv/install.ps1 | iex"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Close and reopen your terminal afterward, then check that it worked:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Create a project.</strong> <code>uv init</code> makes a new folder and sets it up; then move into it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> init my-data-project</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> my-data-project</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Add the packages you need:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add pandas matplotlib numpy jupyterlab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>uv add</code> installs each package into this project’s environment and records it. You do not need to create or activate an environment yourself; uv does it.</p>
+<p><strong>Start JupyterLab:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run jupyter lab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A browser window opens with a file browser. Create a new notebook from the launcher, and you are ready to work through the book.</p>
+<p><code>uv run</code> is the general pattern: it runs a command inside the project’s environment. To run a Python script rather than a notebook, use <code>uv run python my_script.py</code>.</p>
+<section id="the-two-files-uv-creates" class="level3" data-number="A.2.1">
+<h3 data-number="A.2.1" class="anchored" data-anchor-id="the-two-files-uv-creates"><span class="header-section-number">A.2.1</span> The two files uv creates</h3>
+<p>Look inside the project folder and you will find <code>pyproject.toml</code> and <code>uv.lock</code>.</p>
+<p><code>pyproject.toml</code> lists the packages you asked for. It is short and meant to be read by people.</p>
+<p><code>uv.lock</code> records the exact version of every package that was actually installed, including the packages your packages depend on. It is long and not meant to be read.</p>
+<p>The lock file is what makes an analysis reproducible. Hand someone your project folder and they can run <code>uv sync</code> to recreate your environment exactly, down to the version numbers, and get the same results you did. This is the practical version of the argument in <a href="introduction.html" class="quarto-xref"><span>Chapter 1</span></a> about analyses that others can check. An analysis that only runs on your machine is one a reader cannot verify.</p>
 </section>
-<section id="writing-your-own-functions" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="writing-your-own-functions"><span class="header-section-number">9.3</span> Writing your own functions</h2>
-<!--
-- `def`, parameters, the `return` statement (contrast with the call expressions
-  from the Python basics chapter, where we *called* functions others wrote).
-- Why functions: reuse, naming a computation, avoiding repetition.
-- A worked example that combines a function with a loop.
-- Exercise.
--->
 </section>
-<section id="summary" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">9.4</span> Summary</h2>
-<!--
-- When to reach for a loop vs. a vectorized array/table operation.
-- Functions as a way to organize and reuse code.
--->
+<section id="the-classic-path-pip-and-venv" class="level2" data-number="A.3">
+<h2 data-number="A.3" class="anchored" data-anchor-id="the-classic-path-pip-and-venv"><span class="header-section-number">A.3</span> The classic path: pip and venv</h2>
+<p><code>pip</code> is Python’s original package installer and <code>venv</code> is its built-in tool for creating environments. Both come with Python, so if you already have Python installed, you already have these. You will see them throughout documentation and older tutorials.</p>
+<p>First install Python from <a href="https://www.python.org/downloads/">python.org</a> if you do not have it. Then make a folder for your project and, inside it:</p>
+<p><strong>Create an environment.</strong> This makes a folder named <code>.venv</code> holding the project’s own copy of Python:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv .venv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On some systems the command is <code>python3</code> rather than <code>python</code>.</p>
+<p><strong>Activate it.</strong> This is the step people forget. On macOS or Linux:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On Windows, in PowerShell:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Your prompt changes to show the environment name once it is active. Activation applies to that terminal window only, so you repeat it each time you open a new terminal to work on the project.</p>
+<p><strong>Install packages and start JupyterLab:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pandas matplotlib numpy jupyterlab</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Record what you installed</strong> so someone else can reproduce it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> freeze <span class="op">&gt;</span> requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>They can then recreate your environment with <code>pip install -r requirements.txt</code>. This is a weaker guarantee than uv’s lock file, but it is far better than recording nothing.</p>
 </section>
-<section id="exercises" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">9.5</span> Exercises</h2>
+<section id="the-scientific-computing-path-conda" class="level2" data-number="A.4">
+<h2 data-number="A.4" class="anchored" data-anchor-id="the-scientific-computing-path-conda"><span class="header-section-number">A.4</span> The scientific-computing path: conda</h2>
+<p><code>conda</code> is common in universities and research labs, particularly in fields that use packages with large non-Python components. Its advantage is that it installs those components too, rather than assuming your system already has them.</p>
+<p>Two versions exist. <strong>Anaconda</strong> is a large distribution that comes with hundreds of packages already installed. <strong>Miniconda</strong> installs conda and little else, leaving you to add what you need. Miniconda is the better choice for this book; Anaconda takes several gigabytes and most of it goes unused.</p>
+<p>Install Miniconda from <a href="https://docs.conda.io/projects/miniconda/">the conda documentation site</a>, then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> datascience python=3.12</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate datascience</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install pandas matplotlib numpy jupyterlab</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>-n datascience</code> names the environment. As with <code>venv</code>, you activate it once per terminal session, and <code>conda deactivate</code> leaves it.</p>
+<p>To record an environment for someone else:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env export <span class="op">&gt;</span> environment.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>One warning before you start: mixing <code>conda install</code> and <code>pip install</code> in the same environment sometimes produces broken installations, because the two tools do not know about each other’s work. If you are using conda, prefer <code>conda install</code> and fall back to pip only for packages conda does not have.</p>
+</section>
+<section id="the-no-install-path-notebooks-in-a-browser" class="level2" data-number="A.5">
+<h2 data-number="A.5" class="anchored" data-anchor-id="the-no-install-path-notebooks-in-a-browser"><span class="header-section-number">A.5</span> The no-install path: notebooks in a browser</h2>
+<p>If you cannot install software on the computer you are using, or you want to start immediately and deal with installation later, you can run notebooks in a browser.</p>
+<p><strong>Google Colab</strong> (<a href="https://colab.research.google.com">colab.research.google.com</a>) provides free notebooks that run on Google’s machines. It requires a Google account and nothing else. Colab comes with pandas, Matplotlib, NumPy, and scikit-learn already installed.</p>
+<p>Because every dataset in this book is loaded from a URL, the code in these chapters runs in Colab without any extra setup. Files you upload yourself are a different matter: they disappear when the session ends, as do any packages you install, so a <code>pip install</code> has to be repeated each session. Sessions also shut down after a period of inactivity, which clears everything in memory.</p>
+<p>Many universities run their own notebook servers, which work the same way and usually have the packages a course needs already installed. If you are reading this for a class, check whether one is available before installing anything.</p>
+</section>
+<section id="checking-that-it-worked" class="level2" data-number="A.6">
+<h2 data-number="A.6" class="anchored" data-anchor-id="checking-that-it-worked"><span class="header-section-number">A.6</span> Checking that it worked</h2>
+<p>Whichever route you took, open a new notebook and run this in a code cell:</p>
+<div id="e97c6a57" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Python"</span>, sys.version.split()[<span class="dv">0</span>])</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pandas"</span>, pd.__version__)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"matplotlib"</span>, matplotlib.__version__)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy"</span>, np.__version__)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Python 3.12.3
+pandas 3.0.5
+matplotlib 3.11.1
+numpy 2.5.2</code></pre>
+</div>
+</div>
+<p>If four lines print, your setup works. The exact version numbers do not need to match the ones above.</p>
+</section>
+<section id="when-something-goes-wrong" class="level2" data-number="A.7">
+<h2 data-number="A.7" class="anchored" data-anchor-id="when-something-goes-wrong"><span class="header-section-number">A.7</span> When something goes wrong</h2>
+<p><strong><code>ModuleNotFoundError: No module named 'pandas'</code></strong></p>
+<p>This is the most common problem, and it almost never means the installation failed. It means the notebook is running a different Python than the one you installed pandas into.</p>
+<p>Find out which Python the notebook is actually using by running this in a cell:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sys.executable)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The path it prints should point inside your project’s environment folder, something like:</p>
+<pre><code>/Users/you/my-data-project/.venv/bin/python</code></pre>
+<p>If instead it points somewhere general, such as <code>/usr/bin/python3</code>, the notebook is connected to the wrong Python. The environment a notebook uses is called its <strong>kernel</strong>. JupyterLab shows it in the top right corner of the notebook, and you can switch it from the Kernel menu under “Change Kernel”. Pick the one matching your project.</p>
+<p>The reliable way to avoid this is to start Jupyter from inside the environment, which is what <code>uv run jupyter lab</code> does, and what running <code>jupyter lab</code> after activating a <code>venv</code> or conda environment does.</p>
+<p><strong><code>command not found: uv</code></strong> (or <code>python</code>, or <code>jupyter</code>)</p>
+<p>The program installed but your terminal does not know where to find it. Close the terminal and open a new one. That is enough in most cases, because installers change settings that only take effect in new sessions. If the problem persists after a restart, the installer’s output will usually name a directory that needs to be added to your <code>PATH</code>.</p>
+<p><strong>Activation fails on Windows with a message about execution policies</strong></p>
+<p>PowerShell blocks scripts by default. Running this once allows scripts you created yourself while still blocking unsigned downloaded ones:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Set-ExecutionPolicy</span> <span class="op">-</span>ExecutionPolicy RemoteSigned <span class="op">-</span>Scope CurrentUser</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>A package installs but the wrong version arrives</strong></p>
+<p>Ask for the version explicitly, using <code>uv add "pandas==2.2.3"</code>, <code>pip install "pandas==2.2.3"</code>, or <code>conda install pandas=2.2.3</code>. This comes up most often when following a tutorial written against an older version of a package.</p>
 
 
 </section>
@@ -736,14 +847,11 @@ this chapter or earlier ones.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./maps.html" class="pagination-link" aria-label="Maps">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Maps</span></span>
+      <a href="./where_next.html" class="pagination-link" aria-label="Where to go next">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Where to go next</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./statistical_inference.html" class="pagination-link" aria-label="Introduction to statistical inference">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introduction to statistical inference</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
