@@ -64,64 +64,21 @@ The analysis is worth noting for two reasons. It answered a question that intuit
 The last of these three is the one most easily underrated. Nothing in the baby-names code knows what a name is or what it means for one to be fashionable. The code established that the name Linda rose sharply in 1947, but the connection to a popular song came from a person who already knew that music influences naming and who went looking for such an explanation. An analysis that ignores the subject matter it concerns tends to produce results that are technically correct and of little use to anyone.
 
 
-### Data science and statistics
-
-Statistics is another field that focuses on analyzing data, so a natural question to ask is what is the difference between statistics and data science? In fact, data science and statistics overlap heavily, and the difference between them is one of emphasis rather than of subject matter. Both are concerned with drawing conclusions from data. They tend to differ in where the data comes from, and in what counts as a good reason to trust a method, and the history of how these two highly overlapping fields developed. 
-
-In terms of approaching analyzing data, a statistician's instinct is to fit a mathematical (probability) model to the data and draw conclusions based on properties of the model. A data scientist's instinct is to try several approaches and see which one gives the most accurate predictions and most valuable practical insights (often this involves fitting the method on most of the data, then checking its predictions against a subset of data deliberately kept aside). One camp says the proof is in the math; the other says the proof is in the pudding (i.e., do the results give practical insights). Both instincts are correct, and both fail in characteristic ways when used alone.
-
-The boundary between the two is not a sharp one, and most practitioners move back and forth across it depending on the problem in front of them. The table below characterizes how these different approaches typically approach problems. 
-
-
-| | Statistics | Data science |
-|---|---|---|
-| Where the data comes from | Often collected deliberately, to answer a specific question | Often collected for some other purpose, and reused |
-| Typical size | Small enough to handle by hand or with a single command | Often large enough that retrieving it is part of the problem |
-| Why a method is trusted | It has mathematical guarantees under stated assumptions | It performs well when tested against data it has not seen |
-| How much programming | Sometimes little | Usually substantial |
-| What comes out | An estimate, an interval, a test result | Any of those, plus predictions, visualizations, and working systems |
-
-: Two emphases in the analysis of data {#tbl-stats-vs-ds}
-
-
-
 ### From statistics to data science
 
-The practice of analyzing data is old, but the name "data science" is recent. Governments have counted people and harvests for as long as they have collected taxes, and the word "statistics" still carries that origin, since it began as a term for the description of a state's resources. The field became mathematical when probability was brought to bear on it, and the version of it taught today was largely built between 1885 and 1940 by people working on concrete problems: Francis Galton studying inheritance and naming the effect he called regression, Karl Pearson founding the first university statistics department, William Gosset drawing conclusions from the small samples a Guinness brewery could actually run, and Ronald Fisher spending fourteen years on agricultural field trials at Rothamsted, out of which came randomized experiments and the convention that a probability below 0.05 deserves attention. Jerzy Neyman and Egon Pearson added a formal theory of hypothesis testing in 1933, and Neyman the confidence interval in 1937. Several of these ideas have chapters of their own later in this book, starting with @sec-statistical-inference.
+The practice of analyzing data is centuries old, but the name "data science" is very recent. Governments have counted people and harvests for as long as they have collected taxes, and the word "statistics" still carries that origin, since it began as a term for the description of a state's resources. The field became mathematical when probability was brought to bear on it, and the version of it taught today was largely built between 1885 and 1940 by people working on concrete problems: Francis Galton studying biologically inherited traits, William Gosset drawing conclusions from the small samples a Guinness brewery could actually run, and Ronald Fisher spending fourteen years on agricultural field trials at Rothamsted, out of which came randomized experiments and the convention that a probability below 0.05 deserves attention. Several of these ideas have chapters of their own later in this book, starting with @sec-statistical-inference.
 
-The situation those people worked in matters more than the dates. Data was expensive, slow to obtain, and scarce, since Fisher's field trials took a growing season each and Gosset's samples were limited to what a brewery could brew and taste. When you hold only a few dozen observations, assumptions about the process that produced them are what make any conclusion possible, so the mathematics was doing work the data could not do on its own. Statistical theory grew up as a way of extracting the most from scarce data. The first sustained objection came from inside the field, when John Tukey opened "The Future of Data Analysis" in 1962 by admitting doubt about his own subject and arguing that the real activity, which he called data analysis, is a science in its own right of which mathematical statistics forms only one part [@tukey1962]. The argument was repeated over the following decades, by William Cleveland in 2001 under the name data science [@cleveland2001] and by Leo Breiman the same year, who described a field split between people who build probability models of how data arose and people who judge an algorithm purely by how accurately it predicts [@breiman2001]. What eventually settled the question was not the arguments but the arrival of cheap computing, and David Donoho's "50 Years of Data Science" [@donoho2017] tells that longer story well.
+In all the research areas where that these classic statistical methods were developed, data was expensive, slow to obtain, and scarce. For example, Fisher's field trials took a growing season each to generate data and Gosset's samples were limited to what a brewery could brew and taste. When you hold only a few dozen observations, assumptions about the process that produced them are what make any conclusion possible, so the mathematics was doing work the data could not do on its own. Statistical theory grew up as a way of extracting the most from scarce data. 
 
-
-### What changed when data became abundant
-
-Two things happened at once. Records that once had to be gathered deliberately began accumulating as a byproduct of ordinary activity, whether a purchase, a search, a card application, or a sensor reading, and the internet turned the resulting files into something a stranger can download in seconds. At the same time, programming languages made analysis something you could carry out without deriving it first. The baby-name data at the start of this chapter shows both. Nobody ran a study to produce it, the records exist because people applied for Social Security cards, and retrieving all 2,181,032 rows took a single line of code.
-
-This changes which skill is the scarce one. In Fisher's era the binding constraint was the data itself, and mathematics was what loosened it. Data is now frequently abundant but disorganized, arriving in the wrong shape, spread across several files, full of missing entries and inconsistent spellings. The skill that loosens *that* constraint is programming: finding a file, reshaping it, drawing it, and running the whole process again unchanged when the file is updated next year. This is why the early chapters of this book are about Python rather than probability.
-
-It also changes how much of the older theory you need. Much of classical statistics answers one question: given a small sample, how confident can I be that the pattern I see is not an accident of which few individuals happened to end up in my study? That question is pressing when you have thirty observations. It is much less pressing when you have two million. Nobody needs a significance test to establish that the name Linda rose in 1947, because the rise is enormous, the records run to millions of births a year, and you can see it in the plot. With data of that size the hard part moves elsewhere, to getting the data into a usable shape and then seeing what is in it. That is why this book spends whole chapters on reshaping data (@sec-data-tables) and on visualization (@sec-data-visualization) before it takes up inference at all.
-
-Programming also opened a genuinely different way of analyzing data, known as **machine learning**: instead of writing down a mathematical model of how the data arose, you let an algorithm search for patterns that predict well. The obvious worry is that an algorithm flexible enough to find any pattern will find ones that are not really there. The answer is not a proof but a test. You hide part of your data, let the algorithm learn from the rest, and then check its predictions against the part it never saw. If it does well on data it has not seen, the pattern it found is likely real. Repeating this with different parts held back each time is called **cross-validation**, and @sec-classification builds one.
-
-The same instinct applies when you do need to answer a question about chance, and it replaces mathematical theory with repetition. Suppose you find that girls in some dataset score two points higher than boys, and you want to know whether a gap that big could show up by luck alone. Classical statistics would answer with a formula derived under assumptions about the population. You can instead answer it by brute force: shuffle the labels so that "girl" and "boy" are assigned to the scores at random, recompute the gap, and repeat several thousand times. If a gap of two points almost never appears in the shuffled versions, chance alone is a poor explanation of the real one. This is a **permutation test**, and it needs no formula, only a computer willing to repeat something ten thousand times. @sec-hypothesis-testing builds these tests directly.
-
-None of this makes statistical reasoning optional, and the book teaches both. What has changed is the order in which they become useful: you now have to get the data and look at it before there is anything to reason about.
+The first sustained objection to classical statistical analyses came from inside the field, when John Tukey opened "The Future of Data Analysis" in 1962 by admitting doubt about his own subject and arguing that the real activity, which he called data analysis, is a science in its own right of which mathematical statistics forms only one part [@tukey1962]. The argument was repeated over the following decades, by William Cleveland in 2001 under the name data science [@cleveland2001] and by Leo Breiman the same year, who described a field split between people who build probability models of how data arose and people who judge an algorithm purely by how accurately it predicts [@breiman2001]. What eventually settled the question was not the arguments but the arrival of cheap computing [@donoho2017].
 
 
-### How data science became a field
 
-What made the field visible outside of universities was a series of public episodes. Some of them demonstrated what analyzing data could accomplish, while others demonstrated the ways in which it goes wrong, and the second group proved to be just as instructive as the first.
 
-**Moneyball (2002–2003).** The Oakland Athletics, working with one of the smallest payrolls in baseball, used statistical analysis to find players the traditional scouting system undervalued, and put together a season that included a twenty-game winning streak. Michael Lewis's book made the story famous [@lewis2003]. Careful analysis of ordinary, publicly available numbers had beaten the judgment of experts in a domain those experts were certain they understood.
 
-**The Netflix Prize (2006–2009).** Netflix offered a million dollars to anyone who could improve its recommendations by 10%, and released a large dataset of ratings so that anyone could try. A combined team won in September 2009 with an improvement of just over 10%. Opening the problem to everyone beat what Netflix's own engineers had managed. Netflix then never put the winning system into production: it was an ensemble, meaning many separate models averaged together, and it was expensive to run and hard to maintain. A winning score on a leaderboard is not the same thing as a useful system. The competition left one more mark. Researchers showed that individuals could be identified in the supposedly anonymous ratings data by matching it against their public reviews on another film site [@narayanan2008], and in 2010 Netflix cancelled the planned sequel competition.
+Outside of universities, what made the field visible was a run of public episodes in the first two decades of this century. In 2002 the Oakland Athletics, working with one of the smallest payrolls in baseball, used statistical analysis of ordinary published numbers to find players the scouting system had undervalued, and put together a season that included a twenty-game winning streak. Michael Lewis's 2003 book about it, *Moneyball*, reached an audience far beyond baseball [@lewis2003]. In 2006 the Netflix Prize offered a million dollars to anyone who could improve the company's recommendations by 10%, along with a large dataset of ratings so that anyone could try, and in 2009 a team assembled from outsiders beat what Netflix's own engineers had managed. Nate Silver's statistical models at FiveThirtyEight called 49 of 50 states in the 2008 presidential election and all 50 in 2012, at a time when television coverage ran on the intuition of experienced commentators. By 2012 a *Harvard Business Review* article was calling the data scientist "the sexiest job of the 21st century" [@davenport2012], and universities began launching degrees and renaming departments to match.
 
-**FiveThirtyEight and election forecasting (2008–2016).** Nate Silver's statistical models called 49 of 50 states in the 2008 presidential election and all 50 in 2012, at a time when television coverage ran on the intuition of experienced commentators. Data journalism became a public genre. Then 2016 turned into the more instructive case. FiveThirtyEight gave Donald Trump roughly a 29% chance of winning, higher than most other forecasters, several of whom put it below 2%. He won, and forecasting was widely described as having failed. Whether a 29% forecast of something that then happens is a failure is a real question with a real answer, and answering it requires understanding what a probability claims in the first place. @sec-statistical-inference takes it up.
-
-**Google Flu Trends (2008–2013).** Google found that the volume of flu-related searches tracked influenza rates, and built a system that estimated flu activity faster than the Centers for Disease Control could report it. It was held up as proof that with enough data, careful modeling mattered less than sheer scale. Over time, however, its estimates drifted away from reality. By 2013 it was estimating roughly double the actual rate of flu-related doctor visits, in part because the model had been fitted years earlier and never refitted while both the world and Google's own search behavior changed underneath it [@lazer2014]. The service was eventually shut down. It is the standard cautionary example: more data did not remove the need to ask where the data came from.
-
-**Data science gets a job title (2012).** A *Harvard Business Review* article by Thomas Davenport and D.J. Patil called the data scientist "the sexiest job of the 21st century" and put the role in front of every executive who read the magazine [@davenport2012]. Kaggle, founded in 2010, had already made the work competitive and public. The label mattered practically: it created job postings, degree programs, and a shared name for work people had been doing under half a dozen others. Universities followed, launching data science degrees and renaming departments. Yale renamed its Department of Statistics to the Department of Statistics and Data Science in March 2017.
-
-**Weapons of Math Destruction (2016).** Cathy O'Neil's book documented predictive models used in sentencing, hiring, lending, and school evaluation that encoded existing inequities and applied them at scale, with little recourse for the people affected [@oneil2016]. The same year, ProPublica's investigation of the COMPAS recidivism model found that Black defendants were roughly twice as likely as white defendants to be wrongly flagged as high risk. Together these accounts established that the potential harms of predictive modeling were not hypothetical.
+The failures taught as much as the successes. Netflix never put the winning algorithm into production, because it averaged together so many separate models that it was expensive to run and hard to maintain, and researchers then showed that individuals could be identified in the supposedly anonymous ratings by matching them against public reviews on another film site [@narayanan2008]. Google Flu Trends estimated influenza activity from the volume of flu-related searches, faster than the Centers for Disease Control could report it, and was held up as proof that with enough data careful modeling mattered less than sheer scale. Its estimates then drifted, reaching roughly double the true rate of flu-related doctor visits by 2013, in part because the model had been fitted years earlier and never refitted while the world changed underneath it [@lazer2014]. In 2016 Cathy O'Neil's *Weapons of Math Destruction* documented models used in sentencing, hiring, lending, and school evaluation that encoded existing inequities and applied them at scale [@oneil2016], and ProPublica's investigation of the COMPAS recidivism model found that Black defendants were roughly twice as likely as white defendants to be wrongly flagged as high risk. That same year produced the sharpest argument about forecasting, when FiveThirtyEight gave Donald Trump roughly a 29% chance of winning, he won, and forecasting was widely described as having failed. Whether a 29% forecast of something that then happens is a failure is a real question with a real answer, and @sec-statistical-inference takes it up.
 
 ```{python}
 #| echo: false
@@ -166,7 +123,54 @@ plt.show()
 
 ```
 
-The conclusion of this story is comparatively undramatic. The job title gradually stopped being exotic and settled into an ordinary role in most industries. The useful parts of the initial excitement outlasted the excitement itself, and attention to the potential harms became a standard part of the work rather than an afterthought. The most recent wave of attention has moved to large language models, which @sec-where-next takes up at the end of the book.
+The job title has since stopped being exotic and settled into an ordinary role in most industries, and attention to the potential harms became a standard part of the work rather than an afterthought. The most recent wave of attention has moved to large language models, which @sec-where-next takes up at the end of the book.
+
+
+### New approaches to analyzing data
+
+When data and computating power became abundant, data analysis drastically changed in many fields. Records that once had to be gathered deliberately began accumulating as a byproduct of ordinary activity, whether a purchase, a search, a card application, or a sensor reading, and the internet turned the resulting files into something a stranger can download in seconds. At the same time, programming languages made analysis something you could carry out without deriving it first. The baby-name data at the start of this chapter shows both. Nobody ran a study to produce it, the records exist because people applied for Social Security cards, and retrieving all 2,181,032 rows took a single line of code.
+
+This rise is larger data also changed which skills were needed. In Fisher's era the limiting factor was the data itself, and mathematics allowed one understand larger patterns from this limited data. In the past couple decades, data is frequently abundant but disorganized, arriving in the wrong shape, spread across several files, full of missing entries and inconsistent spellings. The skill that allows one to handel this constraint is programming: finding a file, reshaping it, drawing it, and running the whole process again unchanged when the file is updated next year. This is why the early chapters of this book are about Python rather than probability.
+
+The rise of large data sets also frequently changes how much of the older theory you need. Much of classical statistics answers one question: given a small sample, how confident can I be that the pattern I see is not an accident of which few individuals happened to end up in my study? That question is pressing when you have thirty observations. It is much less pressing when you have two million. Nobody needs a significance test to establish that the name Linda rose in 1947, because the rise is enormous, the records run to millions of births a year, and you can see it in the plot. With data of that size the hard part moves elsewhere, to getting the data into a usable shape and then seeing what is in it. That is why this book spends whole chapters on reshaping data (@sec-data-tables) and on visualization (@sec-data-visualization) before it takes up inference at all.
+
+Programming also opened a genuinely different way of analyzing data, known as **machine learning**: instead of writing down a mathematical model of how the data arose, you let an algorithm search for patterns that predict well. The obvious worry is that an algorithm flexible enough to find any pattern will find ones that are not really there. The answer is not a proof but a simple procedure. You hide part of your data, let the algorithm learn from the rest, and then check its predictions against the part it never saw. If it does well on data it has not seen, the pattern it found is likely real. Repeating this with different parts held back each time is called **cross-validation**, and @sec-classification builds one.
+
+The same instinct applies when you do need to answer a question about chance, and it replaces mathematical theory with repetition. Suppose you find that girls in some dataset score two points higher than boys, and you want to know whether a gap that big could show up by chance alone. Classical statistics would answer with a formula derived under assumptions about the population. You can instead answer it by brute force: shuffle the labels so that "girl" and "boy" are assigned to the scores at random, recompute the gap, and repeat several thousand times. If a gap of two points almost never appears in the shuffled versions, chance alone is a poor explanation of the real one. This is a **permutation test**, and it needs no formula, only a computer willing to repeat something ten thousand times. @sec-hypothesis-testing builds these tests directly.
+
+None of this makes statistical reasoning optional, and the book teaches both. What has changed is the order in which they become useful: you now have to get the data and look at it before there is anything to reason about.
+
+
+### How data scientists and statistician approach problems
+
+Statisticians and data scientists also often take a different approach to analyzing data. A statistician's instinct is to fit a mathematical (probability) model to the data and draw conclusions based on properties of the model. A data scientist's instinct is to try several approaches and see which one gives the most accurate predictions and most valuable practical insights (often this involves fitting the method on most of the data, then checking its predictions against a subset of data deliberately kept aside). One camp says the proof is in the math; the other says the proof is in the pudding (i.e., do the results give practical insights). Both instincts are correct, and both fail in characteristic ways when used alone.
+
+The boundary between the two is not a sharp one, and most practitioners move back and forth across it depending on the problem in front of them. The table below characterizes how these different approaches typically approach problems. 
+
+
+| | Statistics | Data science |
+|---|---|---|
+| Where the data comes from | Often collected deliberately, to answer a specific question | Often collected for some other purpose, and reused |
+| Typical size | Small enough to handle by hand or with a single command | Often large enough that retrieving it is part of the problem |
+| Why a method is trusted | It has mathematical guarantees under stated assumptions | It performs well when tested against data it has not seen |
+| How much programming | Sometimes little | Usually substantial |
+| What comes out | An estimate, an interval, a test result | Any of those, plus predictions, visualizations, and working systems |
+
+: Two emphases in the analysis of data {#tbl-stats-vs-ds}
+
+
+
+### What data cannot do
+
+Two cautions belong at the beginning of a book like this rather than at the end.
+
+The first is that data is a record of the world that produced it, and that record includes the world's mistakes. A model trained on past hiring decisions learns the decisions that were actually made, biases included, and applying such a model at scale can spread those biases far faster than any individual could.
+
+The second is that a pattern in data is not, by itself, evidence of a cause. We encountered this a few pages ago, when the plot showed the name Linda rising sharply in 1947 and the song was offered as an explanation from outside the data. The fact that two things move together does not establish that one of them produces the other, and separating these two possibilities accounts for much of the work involved in interpreting a result honestly.
+
+Both problems recur throughout this book, because both are ordinary features of working with data rather than rare special cases.
+
+
 
 ::: {.callout-tip title="Exercise" #exercise-introduction-news-story}
 
@@ -189,19 +193,6 @@ There is no single correct answer here, but a good one is specific. As an exampl
 Point 3 is the one worth practicing. Most weak data journalism is weak because a change over time is presented as an effect of one particular cause.
 
 :::
-
-
-
-### What data cannot do
-
-Two cautions belong at the beginning of a book like this rather than at the end.
-
-The first is that data is a record of the world that produced it, and that record includes the world's mistakes. A model trained on past hiring decisions learns the decisions that were actually made, biases included, and applying such a model at scale can spread those biases far faster than any individual could.
-
-The second is that a pattern in data is not, by itself, evidence of a cause. We encountered this a few pages ago, when the plot showed the name Linda rising sharply in 1947 and the song was offered as an explanation from outside the data. The fact that two things move together does not establish that one of them produces the other, and separating these two possibilities accounts for much of the work involved in interpreting a result honestly.
-
-Both problems recur throughout this book, because both are ordinary features of working with data rather than rare special cases.
-
 
 
 ## What a data science project looks like
