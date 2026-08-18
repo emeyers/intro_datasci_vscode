@@ -317,18 +317,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Do you know how popular your name was when you were born? Most people have only a vague sense of it. They may recall that their name felt ordinary in their class, or that they were the only one who had it, or that they tend to meet the name mostly among people either much older or much younger than they are.</p>
-<p>This vague sense can be replaced with a more precise quantitative answer. The U.S. Social Security Administration has kept a record of the first names on Social Security card applications going back to 1880, and it publishes number of babies born with a given name for each sex in each year. If more than 5 babies were born with. your name in a given year, then somewhere in that file is your name, and from this data we can determine when your name was most popular and whether it is currently increasing or decreasing in popularity.</p>
+<p>This vague sense can be replaced with a more precise quantitative answer. The U.S. Social Security Administration has kept a record of the first names on Social Security card applications going back to 1880, and it publishes number of babies born with a given name for each sex in each year. If at least 5 babies were born with your name in a given year, then somewhere in that file is your name, and from this data we can determine when your name was most popular and whether it is currently increasing or decreasing in popularity.</p>
 <p>This book is about turning questions like this into answers. The tools involved are a programming language, statistical methods, and ways to think about evidence. These are the skills we aim to develop over the course of this book.</p>
 <section id="a-first-look-at-a-data-science-analysis" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="a-first-look-at-a-data-science-analysis"><span class="header-section-number">1.1</span> A first look at a data science analysis</h2>
-<p>Before defining what the field of Data Science is, it is useful to see what a small analysis that is typical of a Data Science project. The code below loads the baby-name compiiled from the Social Security Administration records and plots the popularity of four female names over time.</p>
+<p>Before defining what the field of Data Science is, it is useful to see what a small analysis typical of a Data Science project looks like. The code below loads the baby-name data, which covers every name given to at least five babies in a year, and plots the popularity of four female names over time.</p>
 <p>You are not expected to understand this code. It is here so you know what you are working toward. Its pieces arrive over the next several chapters: <span class="quarto-unresolved-ref">?sec-descriptive-stats</span> teaches the plotting, <span class="quarto-unresolved-ref">?sec-data-tables</span> teaches how to load a file and pull out the rows for one name, and <a href="iteration_and_functions.html" class="quarto-xref"><span>Chapter 9</span></a> covers the <code>for</code> line that repeats the work for each name.</p>
-<div id="6ebcf5c3" class="cell" data-execution_count="1">
+<div id="7bba6f53" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One row per name, per year, per sex: the 1,000 most common names each</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># year from 1880 to 2025</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One row per name, per year, per sex, for every name given to at least</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># five babies in a year, from 1880 to 2025</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names_all.csv.gz"</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>names.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
@@ -353,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>John</td>
 <td>boy</td>
 <td>9655</td>
-<td>8.1546</td>
+<td>8.154630</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
@@ -361,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>William</td>
 <td>boy</td>
 <td>9532</td>
-<td>8.0507</td>
+<td>8.050744</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
@@ -369,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>James</td>
 <td>boy</td>
 <td>5927</td>
-<td>5.0060</td>
+<td>5.005954</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
@@ -377,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Charles</td>
 <td>boy</td>
 <td>5348</td>
-<td>4.5169</td>
+<td>4.516930</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
@@ -385,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>George</td>
 <td>boy</td>
 <td>5126</td>
-<td>4.3294</td>
+<td>4.329428</td>
 </tr>
 </tbody>
 </table>
@@ -393,9 +393,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>As a first step in any analysis, it is important to understand the data one is working with. For the baby names data, each row corresponds to one name, in one year, for one sex. The <code>count</code> column gives the number of babies who received that name, and the <code>percent</code> column expresses that count as a percentage of all babies of that sex born in that year. The first row therefore says that 9,655 boys born in 1880 were named John, and that those boys made up 8.1546% of all the boys born that year.</p>
+<p>As a first step in any analysis, it is important to understand the data one is working with. For the baby names data, each row corresponds to one name, in one year, for one sex. The <code>count</code> column gives the number of babies who received that name, and the <code>percent</code> column expresses that count as a percentage of all babies of that sex born in that year. The first row therefore says that 9,655 boys born in 1880 were named John, and that those boys made up 8.15463% of all the boys born that year.</p>
 <p>With the contents of the file established, we can plot how the popularity of individual names has changed over time:</p>
-<div id="710cf03d" class="cell" data-execution_count="2">
+<div id="d367c0d6" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>girls <span class="op">=</span> names[names[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"girl"</span>]</span>
@@ -514,7 +514,7 @@ Table&nbsp;1.1: Two emphases in the analysis of data
 <p><strong>Google Flu Trends (2008–2013).</strong> Google found that the volume of flu-related searches tracked influenza rates, and built a system that estimated flu activity faster than the Centers for Disease Control could report it. It was held up as proof that with enough data, careful modeling mattered less than sheer scale. Over time, however, its estimates drifted away from reality. By 2013 it was estimating roughly double the actual rate of flu-related doctor visits, in part because the model had been fitted years earlier and never refitted while both the world and Google’s own search behavior changed underneath it <span class="citation" data-cites="lazer2014">(<a href="#ref-lazer2014" role="doc-biblioref"><strong>lazer2014?</strong></a>)</span>. The service was eventually shut down. It is the standard cautionary example: more data did not remove the need to ask where the data came from.</p>
 <p><strong>Data science gets a job title (2012).</strong> A <em>Harvard Business Review</em> article by Thomas Davenport and D.J. Patil called the data scientist “the sexiest job of the 21st century” and put the role in front of every executive who read the magazine <span class="citation" data-cites="davenport2012">(<a href="#ref-davenport2012" role="doc-biblioref"><strong>davenport2012?</strong></a>)</span>. Kaggle, founded in 2010, had already made the work competitive and public. The label mattered practically: it created job postings, degree programs, and a shared name for work people had been doing under half a dozen others. Universities followed, launching data science degrees and renaming departments. Yale renamed its Department of Statistics to the Department of Statistics and Data Science in March 2017.</p>
 <p><strong>Weapons of Math Destruction (2016).</strong> Cathy O’Neil’s book documented predictive models used in sentencing, hiring, lending, and school evaluation that encoded existing inequities and applied them at scale, with little recourse for the people affected <span class="citation" data-cites="oneil2016">(<a href="#ref-oneil2016" role="doc-biblioref"><strong>oneil2016?</strong></a>)</span>. The same year, ProPublica’s investigation of the COMPAS recidivism model found that Black defendants were roughly twice as likely as white defendants to be wrongly flagged as high risk. Together these accounts established that the potential harms of predictive modeling were not hypothetical.</p>
-<div id="d2fcc4a2" class="cell" data-execution_count="3">
+<div id="fd87f2f5" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -569,7 +569,7 @@ Table&nbsp;1.1: Two emphases in the analysis of data
 <section id="what-a-data-science-project-looks-like" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="what-a-data-science-project-looks-like"><span class="header-section-number">1.3</span> What a data science project looks like</h2>
 <p>Projects vary, but most of them pass through the same stages.</p>
-<div id="e7ba83dc" class="cell" data-execution_count="4">
+<div id="3a3e4263" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -639,7 +639,7 @@ Table&nbsp;1.2: Where each stage is covered
 <h3 data-number="1.4.1" class="anchored" data-anchor-id="jupyter-notebooks"><span class="header-section-number">1.4.1</span> Jupyter notebooks</h3>
 <p>A <strong>Jupyter notebook</strong> is a document built on that idea. It consists of a sequence of cells of two kinds. <strong>Markdown cells</strong> hold text, which is where the explanation, the reasoning, the headings, and any equations belong, while <strong>code cells</strong> hold the code itself. When a code cell is run, its output appears directly beneath it and remains there as part of the document.</p>
 <p>Markdown is a plain-text way of marking up formatting. You type <code>## A heading</code> to get a heading and <code>**important**</code> to get bold, and the notebook renders it when you run the cell. The markdown cell in the diagram below shows what you type rather than how it looks once rendered.</p>
-<div id="4c861195" class="cell" data-execution_count="5">
+<div id="6ed88064" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -772,7 +772,7 @@ Table&nbsp;1.3: The main packages used in this book
 </figure>
 </div>
 <p>These packages are layered on one another rather than independent. NumPy provides the array of numbers that nearly everything else stores its data in; pandas builds tables on top of NumPy arrays; scikit-learn expects its input as arrays or tables.</p>
-<div id="3f6e72d9" class="cell" data-execution_count="6">
+<div id="50be66a9" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -816,7 +816,7 @@ Table&nbsp;1.3: The main packages used in this book
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="b49cfb90" class="cell" data-execution_count="7">
+<div id="f73a00f5" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.__version__)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -863,7 +863,7 @@ Table&nbsp;1.3: The main packages used in this book
 <div class="callout-body-container callout-body">
 <p>Return to the code at the start of this chapter and plot your own first name, or the name of someone you know.</p>
 <p>Change the list of names in the <code>for</code> line to the name you want, and change <code>"girl"</code> to <code>"boy"</code> if appropriate. Then read off the plot: in what year was the name most popular, and roughly what percentage of babies received it that year?</p>
-<p>There are two limitations of the data to be aware of. The records stop in 2025, and they include only the thousand most common names for each sex in each year, so an uncommon name may not appear in them at all.</p>
+<p>One limitation of the data to be aware of: the records stop in 2025, and a name given to fewer than five babies in a year is withheld to protect privacy, so a very rare name may not appear at all.</p>
 </div>
 </div>
 <div id="solution-introduction-your-name" class="callout callout-style-default callout-note callout-titled" title="Solution">
@@ -879,7 +879,7 @@ Table&nbsp;1.3: The main packages used in this book
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Only two strings in the original cell need to change. Using “Ethan” as the example:</p>
-<div id="0f9c9379" class="cell" data-execution_count="8">
+<div id="177ed45b" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>boys <span class="op">=</span> names[names[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"boy"</span>]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name <span class="kw">in</span> [<span class="st">"Ethan"</span>]:</span>
@@ -900,7 +900,7 @@ Table&nbsp;1.3: The main packages used in this book
 </div>
 <p>The name sits close to zero for a century and then climbs sharply from the late 1980s, peaking a little above 1% shortly after 2000. Reading that off the plot is all the exercise asked for.</p>
 <p>If you want the exact figures rather than an eyeballed estimate, pandas can find them. You are not expected to write this yet; the tools appear in <span class="quarto-unresolved-ref">?sec-data-tables</span>.</p>
-<div id="49f53991" class="cell" data-execution_count="9">
+<div id="f8b0a7a8" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ethan <span class="op">=</span> boys[boys[<span class="st">"name"</span>] <span class="op">==</span> <span class="st">"Ethan"</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>peak <span class="op">=</span> ethan.loc[ethan[<span class="st">"percent"</span>].idxmax()]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(peak[<span class="st">"year"</span>], <span class="bu">round</span>(peak[<span class="st">"percent"</span>], <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
