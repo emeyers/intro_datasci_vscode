@@ -57,11 +57,11 @@ WAYBACK_CDX = "http://web.archive.org/cdx/search/cdx"
 SEX_NAMES = {"M": "boy", "F": "girl"}
 
 # Enough decimal places to keep three significant figures for the rarest name in
-# each file. The smallest proportion among the top 1,000 names is about 2.6e-05,
+# each file. The smallest percentage among the top 1,000 names is about 0.0026,
 # while the full file goes down to five births in a year of nearly two million,
-# or about 2.7e-06.
-TOP_DECIMALS = 6
-FULL_DECIMALS = 8
+# or about 0.00027.
+TOP_DECIMALS = 4
+FULL_DECIMALS = 6
 
 # The two hosts want opposite things from a client. The SSA's front end refuses
 # requests that do not look like they came from a browser, while the Internet
@@ -209,6 +209,10 @@ def read_name_counts(archive):
 def build_rows(counts, births, limit=None):
     """Generate the rows of the output file, in year order and boys before girls.
 
+    `percent` is a true percentage rather than a proportion, so that the column
+    name matches what the column holds: John in 1880 comes out as 8.1546, not
+    0.081546.
+
     `limit` caps how many names are kept per sex per year; `None` keeps them all.
     """
     for year in sorted(counts):
@@ -219,7 +223,7 @@ def build_rows(counts, births, limit=None):
             total = births[year][sex]
             names = counts[year][sex]
             for name, count in names[:limit] if limit else names:
-                yield year, name, count / total, sex, count
+                yield year, name, sex, count, 100 * count / total
 
 
 def write_names_csv(path, rows, decimals):
@@ -227,9 +231,9 @@ def write_names_csv(path, rows, decimals):
     written = 0
     with opener(path, "wt", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
-        writer.writerow(["year", "name", "percent", "sex", "count"])
-        for year, name, proportion, sex, count in rows:
-            writer.writerow([year, name, f"{proportion:.{decimals}f}", sex, count])
+        writer.writerow(["year", "name", "sex", "count", "percent"])
+        for year, name, sex, count, percent in rows:
+            writer.writerow([year, name, sex, count, f"{percent:.{decimals}f}"])
             written += 1
     size_mb = path.stat().st_size / 1e6
     log(f"Wrote {path} ({written:,} rows, {size_mb:.1f} MB)")

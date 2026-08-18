@@ -2,9 +2,9 @@
 
 Do you know how popular your name was when you were born? Most people have only a vague sense of it. They may recall that their name felt ordinary in their class, or that they were the only one who had it, or that they tend to meet the name mostly among people either much older or much younger than they are.
 
-This vague sense can be replaced with a more precise quantitative answer. The U.S. Social Security Administration has kept a record of the first names on Social Security card applications going back to 1880, and it publishes the thousand most common names for each sex in each year. If your name was somewhat popular, then somewhere in that file is the year your name peaked, and whether it is currently increasing or decreasing in popularity. 
+This vague sense can be replaced with a more precise quantitative answer. The U.S. Social Security Administration has kept a record of the first names on Social Security card applications going back to 1880, and it publishes number of babies born with a given name for each sex in each year. If more than 5 babies were born with. your name in a given year, then somewhere in that file is your name, and from this data we can determine when your name was most popular and whether it is currently increasing or decreasing in popularity. 
 
-This book is about turning questions like this into answers. The tools involved are a programming language, some statistical concepts, and ways of thiking about evidence. These are the skills we aim to develop over the course of this book. 
+This book is about turning questions like this into answers. The tools involved are a programming language, statistical methods, and ways to think about evidence. These are the skills we aim to develop over the course of this book. 
 
 
 ## A first look at a data science analysis
@@ -25,7 +25,7 @@ names.head()
 
 ```
 
-Before computing anything, it is important to understand the data we are working with. Each row in the data records one name, in one year, for one sex. The `count` column gives the number of babies who received that name, and the `percent` column expresses the same quantity as a share of all babies of that sex born that year. That share is stored as a proportion rather than as a percentage, so the value `0.081546` in the first row means that 8.2% of boys born in 1880 were named John.
+As a first step in any analysis, it is important to understand the data one is working with. For the baby names data, each row corresponds to one name, in one year, for one sex. The `count` column gives the number of babies who received that name, and the `percent` column expresses that count as a percentage of all babies of that sex born in that year. The first row therefore says that 9,655 boys born in 1880 were named John, and that those boys made up 8.1546% of all the boys born that year.
 
 With the contents of the file established, we can plot how the popularity of individual names has changed over time:
 
@@ -37,7 +37,7 @@ girls = names[names["sex"] == "girl"]
 
 for name in ["Mary", "Linda", "Jennifer", "Emily"]:
     one_name = girls[girls["name"] == name]
-    plt.plot(one_name["year"], one_name["percent"] * 100, label=name)
+    plt.plot(one_name["year"], one_name["percent"], label=name)
 
 plt.xlabel("Year")
 plt.ylabel("Percentage of girls given the name")
@@ -68,6 +68,11 @@ The last of these three is the one most easily underrated. Nothing in the baby-n
 
 Data science and statistics overlap heavily, and the difference between them is one of emphasis rather than of subject matter. Both are concerned with drawing conclusions from data. They tend to differ in where the data comes from, and in what counts as a good reason to trust a method.
 
+A statistician's instinct is to fit a mathematical (probability) model to the data and draw conclusions based on properties of the model. A data scientist's instinct is to try several approaches and see which one gives the most accurate predictions and most valuable practical insights (often this involves fitting the method on most of the data, then checking its predictions against a subset of data deliberately kept aside). One camp says the proof is in the math; the other says the proof is in the pudding (i.e., do the results give practical insights). Both instincts are correct, and both fail in characteristic ways when used alone.
+
+The boundary between the two is not a sharp one, and most practitioners move back and forth across it depending on the problem in front of them. The table below characterizes how these different approaches typically approach problems. 
+
+
 | | Statistics | Data science |
 |---|---|---|
 | Where the data comes from | Often collected deliberately, to answer a specific question | Often collected for some other purpose, and reused |
@@ -77,10 +82,6 @@ Data science and statistics overlap heavily, and the difference between them is 
 | What comes out | An estimate, an interval, a test result | Any of those, plus predictions, visualizations, and working systems |
 
 : Two emphases in the analysis of data {#tbl-stats-vs-ds}
-
-A statistician's instinct is to ask what model produced this data and what follows mathematically if that model is right. A data scientist's instinct is to try several approaches and see which one predicts best on data held back for the purpose. In practice that means fitting the method on most of the rows, then checking its predictions against rows deliberately kept aside. One camp says the proof is in the math; the other says the proof is in the pudding. Both instincts are correct, and both fail in characteristic ways when used alone.
-
-The boundary between the two is not a sharp one, and most practitioners move back and forth across it depending on the problem in front of them. The table above describes two habits of mind rather than two distinct kinds of person.
 
 
 ### What data cannot do
@@ -94,11 +95,36 @@ The second is that a pattern in data is not, by itself, evidence of a cause. We 
 Both problems recur throughout this book, because both are ordinary features of working with data rather than rare special cases.
 
 
+### From statistics to data science
+
+The practice of analyzing data is old, but the name "data science" is recent. Governments have counted people, land, and harvests for as long as they have collected taxes, and the word "statistics" still carries that origin. Gottfried Achenwall coined the German *Statistik* in 1749 to mean the description of a state's resources, and the word reached English through John Sinclair's *Statistical Account of Scotland* in 1791. For most of that long history, working with data meant tabulating it and reading off the totals.
+
+The step from counting to inference came earlier than the word did. In 1662 John Graunt worked through the weekly bills of mortality that recorded deaths in London's parishes and published *Natural and Political Observations Made upon the Bills of Mortality*, which contained the first life table: a set of estimates of how likely a person was to survive to each age. The bills had been compiled to track outbreaks of plague, and Graunt used them to answer questions nobody had collected them to answer. Reusing records gathered for some other purpose is a habit the field never lost, and it is the first row of @tbl-stats-vs-ds.
+
+What turned this into a mathematical subject was probability. Blaise Pascal and Pierre de Fermat exchanged letters in 1654 about how to divide the stakes of an interrupted game of chance, and Jacob Bernoulli's *Ars Conjectandi*, published in 1713 after his death, showed that the observed frequency of an event settles toward its underlying probability as observations accumulate. Astronomers pushed the ideas further, because they had to reconcile repeated measurements of the same object that disagreed with one another, and the method of least squares appeared in print from Adrien-Marie Legendre in 1805 and from Carl Friedrich Gauss in 1809.
+
+The discipline a modern reader would recognize formed between roughly 1885 and 1940, and it formed around specific practical problems. Francis Galton, studying inheritance in the 1880s, found that the children of unusually tall parents tended to fall closer to average height than their parents did, and he named the effect regression. Karl Pearson introduced the chi-squared test in 1900, founded the journal *Biometrika* in 1901, and set up the first university statistics department at University College London in 1911. William Gosset, a brewer at Guinness in Dublin, needed conclusions from the small samples a brewery could actually run, and in 1908 he published the distribution now taught as Student's t under the pen name "Student", because Guinness did not permit its staff to publish under their own names.
+
+The generation that followed built the framework still taught today. Ronald Fisher spent 1919 to 1933 at Rothamsted Experimental Station working through decades of agricultural field trials, and out of that came randomized experiments, the analysis of variance, and the convention that a probability below 0.05 marks a result as deserving attention. His *Statistical Methods for Research Workers* (1925) and *The Design of Experiments* (1935) taught the methods to a generation of scientists. Jerzy Neyman and Egon Pearson gave hypothesis testing a formal theory in 1933, and Neyman introduced the confidence interval in 1937. Several of these ideas have chapters of their own later in this book, starting with @sec-statistical-inference.
+
+One thing all of these people shared was the situation they worked in. Data was expensive, slow to obtain, and scarce. Fisher's field trials took a growing season each, and Gosset's samples were limited to what a brewery could brew and taste. The mathematics was doing work the data could not do on its own, because when you hold a few dozen observations, assumptions about the process that produced them are what make any conclusion possible at all. Statistical theory grew up as a way of extracting the most from scarce data, and it succeeded at that.
+
+The first sustained objection came from inside the field. In 1962 John Tukey opened "The Future of Data Analysis" by admitting doubt about his own subject: "For a long time I have thought I was a statistician, interested in inferences from the particular to the general. But as I have watched mathematical statistics evolve, I have had cause to wonder and to doubt." [@tukey1962] His argument was that the real activity, which he called data analysis, is a science in its own right, and that mathematical statistics forms only part of it. He listed four influences then acting on data analysis: the formal theories of statistics, accelerating developments in computers and display devices, the challenge in many fields of ever larger bodies of data, and the emphasis on quantification across a widening range of disciplines. Three of those four describe circumstances rather than mathematics, and the list is easy to mistake for one written decades later.
+
+Tukey put the argument into practice with *Exploratory Data Analysis* in 1977 [@tukey1977], a book about looking at data before modeling it. The call was then repeated at intervals. John Chambers argued in 1993 for a "greater statistics" that would treat data preparation and presentation as seriously as modeling [@chambers1993], and C. F. Jeff Wu proposed, in a November 1997 lecture at the University of Michigan, that statistics rename itself data science. In 2001 William Cleveland published a plan for that enlarged field under exactly that name [@cleveland2001]. The same year, Leo Breiman described the field as split into two cultures [@breiman2001]. One assumes the data came from a stochastic model and reasons about the mechanism that produced it, an outlook Breiman estimated covered 98% of academic statisticians. The other treats the mechanism as unknown and judges an algorithm by how accurately it predicts, which was Breiman's own position and that of most of machine learning.
+
+What eventually changed the practice was not the arguments but the computing, and it changed it in two ways.
+
+The first is that data became abundant and largely automatic. Records that once had to be gathered deliberately now accumulate as a byproduct of ordinary activity, whether a purchase, a search, a card application, or a sensor reading, and the internet turned the resulting files into something a stranger can download in seconds. The baby-name data at the start of this chapter is an ordinary example of this. Nobody ran a study to produce it, the records exist because people applied for Social Security cards, and retrieving all 291,876 rows took a single line of code.
+
+The second is that programming languages made analysis something you could carry out without deriving it first. John Chambers and Rick Becker began building the S language at Bell Labs in the mid-1970s, Ross Ihaka and Robert Gentleman released the open-source R in the 1990s, and the Python libraries used in this book followed: Matplotlib in 2003, NumPy in 2005, scikit-learn in 2007, and pandas in 2009. You will use all four.
+
+Together these two changes shifted what the work demands of a person. In Fisher's era the binding constraint was scarce data, and the skill that loosened it was mathematics. Data is now frequently abundant and disorganized, and the skill that loosens that constraint is programming: finding a file, reshaping it, drawing it, and running the whole process again when the file changes. Statistical reasoning is still what tells you whether an answer means anything, so this book teaches both, and it begins with Python rather than probability.
+
+David Donoho's "50 Years of Data Science" [@donoho2017] reviews this history in detail and argues that data science, taken seriously, is the science Tukey described in 1962, made practical at last by the computing that now exists to support it.
+
+
 ### How data science became a field
-
-The practice of analyzing data is very old, but the name given to it here is recent.
-
-Most of the pieces were in place well before the label existed. John Tukey argued in 1962 that data analysis deserved to be treated as a subject in its own right, broader than the mathematics it grew out of [@tukey1962]. In 2001 William Cleveland proposed "data science" for an expanded version of statistics that took computing seriously [@cleveland2001], and Leo Breiman described the field as split between two cultures, one building probability models and one building algorithms judged by how well they predict [@breiman2001]. The tools followed: Matplotlib in 2003, NumPy in 2005, scikit-learn in 2007, pandas in 2009. You will use all four in this book.
 
 What made the field visible outside of universities was a series of public episodes. Some of them demonstrated what analyzing data could accomplish, while others demonstrated the ways in which it goes wrong, and the second group proved to be just as instructive as the first.
 
@@ -259,7 +285,7 @@ cells = [
      0.78, 0.18, "a markdown cell:\nyour explanation"),
     ("code", "linda = girls[girls['name'] == 'Linda']\nlinda['percent'].max()",
      0.66, 0.0, "a code cell:\nthe code you ran"),
-    ("output", "0.055203", 0.42, 0.18, "its output, attached\ndirectly below"),
+    ("output", "5.5213", 0.42, 0.18, "its output, attached\ndirectly below"),
 ]
 
 face = {"markdown": "#f6f2e8", "code": "#eef3f8", "output": "white"}
@@ -480,7 +506,7 @@ Return to the code at the start of this chapter and plot your own first name, or
 
 Change the list of names in the `for` line to the name you want, and change `"girl"` to `"boy"` if appropriate. Then read off the plot: in what year was the name most popular, and roughly what percentage of babies received it that year?
 
-There are two limitations of the data to be aware of. The records stop in 2008, and they include only the thousand most common names for each sex in each year, so an uncommon name may not appear in them at all.
+There are two limitations of the data to be aware of. The records stop in 2025, and they include only the thousand most common names for each sex in each year, so an uncommon name may not appear in them at all.
 
 :::
 
@@ -494,7 +520,7 @@ boys = names[names["sex"] == "boy"]
 
 for name in ["Ethan"]:
     one_name = boys[boys["name"] == name]
-    plt.plot(one_name["year"], one_name["percent"] * 100, label=name)
+    plt.plot(one_name["year"], one_name["percent"], label=name)
 
 plt.xlabel("Year")
 plt.ylabel("Percentage of boys given the name")
@@ -511,7 +537,7 @@ If you want the exact figures rather than an eyeballed estimate, pandas can find
 
 ethan = boys[boys["name"] == "Ethan"]
 peak = ethan.loc[ethan["percent"].idxmax()]
-print(peak["year"], round(peak["percent"] * 100, 2))
+print(peak["year"], round(peak["percent"], 2))
 
 ```
 

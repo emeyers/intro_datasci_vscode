@@ -9,8 +9,8 @@ at 2008; this version currently covers **1880–2025**.
 
 | File | Contents |
 |---|---|
-| `baby_names.csv` | The 1,000 most common names per sex per year. 291,876 rows, 8.8 MB. This is the file the book loads. |
-| `baby_names_all.csv.gz` | Every name the SSA publishes, gzipped. 2,181,032 rows, 10.9 MB. `pd.read_csv` reads it directly, no decompression step needed. |
+| `baby_names.csv` | The 1,000 most common names per sex per year. 291,876 rows, 8.2 MB. This is the file the book loads. |
+| `baby_names_all.csv.gz` | Every name the SSA publishes, gzipped. 2,181,032 rows, 10.8 MB. `pd.read_csv` reads it directly, no decompression step needed. |
 | `us_births_by_sex.csv` | The denominators used to compute `percent`, saved so the build can run when the SSA's page is unreachable. |
 | `make_babynames.py` | The script that generates all three. |
 
@@ -20,18 +20,19 @@ Both name files have the same five columns:
 |---|---|
 | `year` | Year of birth, 1880–2025 |
 | `name` | The given name, 2 to 15 characters |
-| `percent` | `count` divided by the number of card holders of that sex born that year, stored as a proportion (`0.081546`, not `8.1546`) |
 | `sex` | `boy` or `girl` |
 | `count` | Number of babies given the name that year |
+| `percent` | `count` as a percentage of all card holders of that sex born that year. A true percentage, so John in 1880 is `8.1546`, meaning 8.1546% |
 
-`percent` carries six decimal places in `baby_names.csv` and eight in
-`baby_names_all.csv.gz`. The smallest proportion among the top 1,000 names is
-about 2.6 × 10⁻⁵, whereas the full file goes down to five births in a year of
-nearly two million, so the extra places keep three significant figures in each
-file rather than rounding the rarest names toward zero.
+`percent` carries four decimal places in `baby_names.csv` and six in
+`baby_names_all.csv.gz`. The smallest percentage among the top 1,000 names is
+about 0.0026, whereas the full file goes down to five births in a year of nearly
+two million, so the extra places keep three significant figures in each file
+rather than rounding the rarest names toward zero.
 
-The column names and the `boy`/`girl` spelling are carried over from the older
-dataset so that code written against it keeps working; `count` is new.
+The `boy`/`girl` spelling is carried over from the older dataset. Note that
+`percent` there held a *proportion* (`0.081546`) despite its name, which this
+version corrects; `count` is new.
 
 ## Where the data comes from
 
@@ -61,7 +62,9 @@ The two-source approach is the one used by
 [babynames](https://github.com/hadley/babynames) package. Rebuilding the years
 those datasets already cover reproduces them: of the 258,000 rows in
 `hadley/data-baby-names`, 257,498 match on year, name, and sex, with a mean
-absolute difference in `percent` of 7 × 10⁻⁷. The remaining rows are names that
+absolute difference in `percent` of 7 × 10⁻⁵ percentage points (the older
+dataset stored proportions, so the two are compared on the same scale). The
+remaining rows are names that
 moved across the rank-1,000 boundary and a small number of counts the SSA has
 revised since 2008.
 
