@@ -255,8 +255,9 @@ An analysis is best understood as an argument, and like any argument it is worth
 
 Meeting that standard is harder than it sounds. Over the past decade, researchers across many fields have tried to reproduce published findings and repeatedly failed, sometimes because the original work was wrong and often because the description of what was done was not detailed enough to repeat. This came to be called the **replication crisis**. A written summary of an analysis leaves out exactly the details that matter: which rows were dropped, and which version of the data was used.
 
-Donald Knuth proposed a fix for a related problem in the 1980s. He argued that programs should be written to be read by people, with the explanation and the code composed together as a single document [@knuth1984]. He called this **literate programming**. Applied to data analysis, the idea is that the writing, the code, and the results belong in one document, so that a reader can follow the reasoning and see precisely what produced each number.
+Donald Knuth proposed a fix for a related problem in the 1980s. He argued that programs should be written to be read by people, with the explanation and the code composed together as a single document [@knuth1984]. He called this **literate programming**. Applied to data analysis, the idea is that the writing, the code, and the results belong in one document, so that a reader can follow the reasoning and see precisely what produced each number.  
 
+Several tools put this idea into practice, differing mainly in which programming languages they support and in how a finished document is shared. The one most widely used with Python is the Jupyter notebook, and it is the one this book uses.
 
 
 ### Jupyter notebooks
