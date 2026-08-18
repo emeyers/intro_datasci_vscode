@@ -372,7 +372,7 @@ window.Quarto = {
 </figure>
 </div>
 <p>Below we load in the data into a Pandas DataFrame and displays the first few rows of the data. We will discuss the Pandas package later in this book so for now you should ignore what this code is doing for now.</p>
-<div id="85668e7a" class="cell" data-execution_count="1">
+<div id="84eb883e" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the Bechdel movie data and remove all rows with missing values</span></span>
@@ -489,7 +489,7 @@ window.Quarto = {
 </ul>
 <p>We could have created these lists using the square brackets as we did in the previous chapter (e.g., <code>budget_2013_dollars = [13000000, 45658735, 20000000, ...]</code>). However, given that there are 1794 movies in each of these lists, entering this data manually would be very inconvenient.</p>
 <p>Since these are just ordinary lists, we can use the list operations we discussed in the previous chapter. For example, we can extract a subset of elements from the list using slicing, and we can get the number of elements in the list using the <code>len()</code> function:</p>
-<div id="3a3f8977" class="cell" data-execution_count="2">
+<div id="8bbfb237" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print out the budgets of the first 5 movies in the data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(budget_2013_dollars[<span class="dv">0</span>:<span class="dv">5</span>])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -504,7 +504,7 @@ window.Quarto = {
 </div>
 <p>From looking out the output, we can see that there are 1794 movies in our data set.</p>
 <p>Importantly for our analyses, the data in four lists all ordered the same way such that information about particular movie is at the same index in all the lists. For example, the code below prints out information about the 11th movie in our list <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<div id="d30bc326" class="cell" data-execution_count="3">
+<div id="70b24615" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movie_titles[<span class="dv">10</span>])</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(bechdel_status[<span class="dv">10</span>])</span>
@@ -534,7 +534,7 @@ ok
 <div class="callout-body-container callout-body">
 <p>Create a variable called <code>index_number</code> that refers to the index number of a particular movie. Then modify the code above so that it print out information about the movie at the index that <code>index_number</code> is set to (e.g., if <code>index_number = 10</code> it will print out information about the 11th movie).</p>
 <p>Also, try to use f-strings, as discussed in the previous chapter, to print out the text that describes what each value refers to along with the value. For example, the output for the 11th movie should be:</p>
-<div id="f555ee4b" class="cell" data-execution_count="4">
+<div id="d4441daa" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>index: 10
 title: American Hustle
@@ -559,7 +559,7 @@ gross dollars: 148430908.0</code></pre>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="68509cab" class="cell" data-execution_count="5">
+<div id="830bb839" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>index_number <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"index: </span><span class="sc">{</span>index_number<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -674,7 +674,7 @@ gross dollars: 148430908.0</code></pre>
 <p>As we explore our data, we will often want to create numerical summaries of key features of the data. A <strong>statistic</strong> is a single number that describes or summarizes some characteristic of a dataset. For example, the average budget of the movies in the <code>budget_2013_dollars</code> list would both be a statistic. In the sections that follow, we will delve into the common statistics and plot types used for both categorical and quantitative data.</p>
 <p><strong>Visualizing data with Matplotlib</strong></p>
 <p>To visualize data we will use the <code>pyplot</code> module in the Matplotlib library. As we discussed in the previous chapter, to use a library we first need to install it (if it is not already installed). Once the library has been installed (which we only need to do once), we can load using an <code>import</code> statement. To use <code>Matplotlib</code> it is standard practice to import the <code>pyplot</code> module into the name <code>plt</code> using the following code.</p>
-<div id="7a982360" class="cell" data-execution_count="6">
+<div id="0e41afe6" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Once this module has been imported, we can access functions within the module. For example (and as we discuss in more detail below) we can create bar graphs using <code>plt.bar()</code> and pie charts using <code>plt.pie()</code>.</p>
@@ -690,7 +690,7 @@ gross dollars: 148430908.0</code></pre>
 <p>A <strong>frequency table</strong> is a simple table that shows each category and the number of times it appears in your dataset (its frequency).</p>
 <p>Let’s consider our <code>bechdel_reason</code> list, which contains the reason each movie passed or failed the Bechdel test. To create a frequency table, we can count how many movies fall into each category: <code>'ok'</code>, <code>'dubious'</code>, <code>'men'</code>, <code>'notalk'</code>, and <code>'nowomen'</code>. Python’s <code>list.count()</code> method is handy for this. For example, if we want to count how many movies failed the Bechdel test because there weren’t two named women in the movie we could use <code>bechdel_reason.count("nowomen")</code>.</p>
 <p>To create a full frequency table, we just need to count how many items there are in each of the category levels. We can then store these results in a list:</p>
-<div id="a3c9398b" class="cell" data-execution_count="7">
+<div id="b7969b9f" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>reason_counts <span class="op">=</span> [bechdel_reason.count(<span class="st">"notalk"</span>),</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    bechdel_reason.count(<span class="st">"men"</span>),</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    bechdel_reason.count(<span class="st">"nowomen"</span>),</span>
@@ -762,7 +762,7 @@ gross dollars: 148430908.0</code></pre>
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="8ad3967b" class="cell" data-execution_count="8">
+<div id="72343768" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>num_passed <span class="op">=</span> bechdel_status.count(<span class="st">"PASS"</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>num_failed <span class="op">=</span> bechdel_status.count(<span class="st">"FAIL"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -803,7 +803,7 @@ gross dollars: 148430908.0</code></pre>
 <h4 data-number="3.4.1.2" class="anchored" data-anchor-id="proportions"><span class="header-section-number">3.4.1.2</span> Proportions</h4>
 <p>While frequencies are useful, sometimes we want to know the <strong>proportion</strong> (or relative frequency) of each category. A proportion is the fraction of the total dataset that each category represents.</p>
 <p>You calculate it by dividing the frequency of a category by the total number of data points. We can do this in Python using:</p>
-<div id="7b1a564f" class="cell" data-execution_count="9">
+<div id="ded0cf35" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>reason_proportions <span class="op">=</span> [bechdel_reason.count(<span class="st">"notalk"</span>)<span class="op">/</span><span class="dv">1776</span>,</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    bechdel_reason.count(<span class="st">"men"</span>)<span class="op">/</span><span class="dv">1776</span>,</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    bechdel_reason.count(<span class="st">"nowomen"</span>)<span class="op">/</span><span class="dv">1776</span>,</span>
@@ -878,7 +878,7 @@ gross dollars: 148430908.0</code></pre>
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="c0c40c04" class="cell" data-execution_count="10">
+<div id="f336996e" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prop_passed <span class="op">=</span> bechdel_status.count(<span class="st">"PASS"</span>)<span class="op">/</span><span class="dv">1776</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>prop_failed <span class="op">=</span> bechdel_status.count(<span class="st">"FAIL"</span>)<span class="op">/</span><span class="dv">1776</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -928,7 +928,7 @@ gross dollars: 148430908.0</code></pre>
 <li>a list of counts or frequencies for each category (y-axis values)</li>
 </ul>
 <p>For example, to plot the reasons that movies failed the Bechdel test, we can create a list of strings called <code>reason_names</code> which has all the names of the reasons why movies passed or failed the Bechdel test. We can then use this list, along with the <code>reason_counts</code> list we created above, to create the bar graph:</p>
-<div id="d6dda40f" class="cell" data-execution_count="11">
+<div id="646a7223" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import the pyplot module to plot the data</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -950,7 +950,7 @@ gross dollars: 148430908.0</code></pre>
 <h4 data-number="3.4.2.2" class="anchored" data-anchor-id="pie-charts"><span class="header-section-number">3.4.2.2</span> Pie charts</h4>
 <p>A <strong>pie chart</strong> is another statistical graphic that can be used to display proportions. In a pie chart, a circle is divided into slices, where the arc length of each slice (and consequently its central angle and area), is proportional to the proportion of data points in each category.</p>
 <p>We can create a pie chart using Matplotlib’s <code>plt.pie()</code> function. Let’s create a pie chart displaying the proportions of reasons why movies did not pass the Bechdel test using the <code>reason_counts</code> list we created above.</p>
-<div id="6c707ef4" class="cell" data-execution_count="12">
+<div id="8288e148" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.pie(reason_counts)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -961,7 +961,7 @@ gross dollars: 148430908.0</code></pre>
 </div>
 </div>
 <p>While this chart looks interesting, clearly it is hard to gain any insights from it because each slice is not labeled with the category name. We can add the category name to each slice using the the <code>labels</code> argument, which we can set to the <code>reason_names</code> we created above.</p>
-<div id="36997e03" class="cell" data-execution_count="13">
+<div id="aca6d08a" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.pie(reason_counts, labels <span class="op">=</span> reason_names)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1005,7 +1005,7 @@ gross dollars: 148430908.0</code></pre>
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="84a38d72" class="cell" data-execution_count="14">
+<div id="29be943b" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>num_passed <span class="op">=</span> bechdel_status.count(<span class="st">"PASS"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>num_failed <span class="op">=</span> bechdel_status.count(<span class="st">"FAIL"</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1021,7 +1021,7 @@ gross dollars: 148430908.0</code></pre>
 </div>
 </div>
 </div>
-<div id="dd7fd7cc" class="cell" data-execution_count="15">
+<div id="2b08de56" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.pie(bechdel_counts, labels <span class="op">=</span> bechdel_names)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1047,7 +1047,7 @@ gross dollars: 148430908.0</code></pre>
 </ul>
 <p>Without these labels, your plot is just a collection of shapes and colors, and its meaning can be lost or misinterpreted.</p>
 <p>As an illustration, let’s improve on our bar chart of the reasons movies fail the Bechdel test by adding the appropriate labels.</p>
-<div id="4b7311aa" class="cell" data-execution_count="16">
+<div id="01f30826" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.bar(reason_names, reason_counts)<span class="op">;</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Reason for Bechdel Test Result"</span>)<span class="op">;</span></span>
@@ -1112,7 +1112,7 @@ gross dollars: 148430908.0</code></pre>
 </table>
 <p>A histogram would then plot these bins on the x-axis and the frequency of movies in each bin on the y-axis.</p>
 <p>We can create histograms in Python using the <code>plt.hist()</code> function from Matplotlib. This function automatically creates bins for us, but we can also specify the number of bins, or the bin edges, if we want more control over how the data is grouped using the <code>bins</code> argument.</p>
-<div id="c5d164ea" class="cell" data-execution_count="18">
+<div id="ab28d2d7" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the bin edges for the histogram (matching the edges in our table above)</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>bin_edges <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">50000000</span>, <span class="dv">100000000</span>, <span class="dv">150000000</span>, <span class="dv">200000000</span>, <span class="dv">250000000</span>, <span class="bu">float</span>(<span class="st">'inf'</span>)]</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1152,7 +1152,7 @@ gross dollars: 148430908.0</code></pre>
 <li><strong>Bimodal Distribution:</strong> Has two peaks. This might indicate two different groups in your data.</li>
 </ul></li>
 </ul>
-<div id="5bcb6e16" class="cell" data-execution_count="19">
+<div id="50bb46fa" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1186,7 +1186,7 @@ gross dollars: 148430908.0</code></pre>
 </div>
 <div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="85d222dd" class="cell" data-execution_count="20">
+<div id="f466944a" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.hist(domestic_gross_2013_dollars, bins<span class="op">=</span><span class="dv">10</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)<span class="op">;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Domestic Gross (2013 Dollars)"</span>)<span class="op">;</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of Movies"</span>)<span class="op">;</span></span>
@@ -1222,7 +1222,7 @@ gross dollars: 148430908.0</code></pre>
 <h2 data-number="3.7" class="anchored" data-anchor-id="statistics-for-quantitative-data"><span class="header-section-number">3.7</span> Statistics for quantitative data</h2>
 <p>Beyond visualizations, we use numerical summaries (statistics) to describe quantitative data. These statistics help us quantify values that characterize the center of the data and how the data is spread, as well as identify other important characteristics of the data.</p>
 <p>To calculate these statistics, we will use the <code>statistics</code> module in Python, which provides functions for calculating common statistics. To use this module, we first need to import it:</p>
-<div id="e3d2c3c3" class="cell" data-execution_count="21">
+<div id="d1591da3" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="measure-of-central-tendency-1-the-mean" class="level3" data-number="3.7.1">
@@ -1230,7 +1230,7 @@ gross dollars: 148430908.0</code></pre>
 <p>The <strong>mean</strong>, often called the average, is the most common measure of central tendency.</p>
 <p><strong>Calculation:</strong> It’s calculated by summing all the values in a dataset and then dividing by the number of values: <code>Mean = (Sum of all values) / (Number of values)</code>.</p>
 <p>In Python, we can calculate the mean using the <code>statistics.mean()</code> function.</p>
-<div id="507fb840" class="cell" data-execution_count="22">
+<div id="9eddee0f" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the mean by taking the sum of all values and dividing by the number of values</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>mean_budget_manual <span class="op">=</span> <span class="bu">sum</span>(budget_2013_dollars) <span class="op">/</span> <span class="bu">len</span>(budget_2013_dollars)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1253,7 +1253,7 @@ The mean budget (calculated manually) is: $55,889,828.76</code></pre>
 <p>The <strong>median</strong> is another measure of central tendency. It is the middle value in a dataset that has been sorted in ascending order.</p>
 <p><strong>Calculation:</strong> 1. Sort the data from smallest to largest. 2. If the number of data points (n) is <strong>odd</strong>, the median is the middle value at position <code>(n+1)/2</code>. 3. If the number of data points (n) is <strong>even</strong>, the median is the average of the two middle values at positions <code>n/2</code> and <code>(n/2) + 1</code>.</p>
 <p>In Python, we can calculate the median using the <code>statistics.median()</code> function.</p>
-<div id="87c21e52" class="cell" data-execution_count="23">
+<div id="fa01e6f5" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the sorted function to sort the data and return a new list with the sorted values</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>sorted_data <span class="op">=</span> <span class="bu">sorted</span>(budget_2013_dollars)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1282,7 +1282,7 @@ The median budget (calculated manually) is: $37,157,440.00</code></pre>
 <p>Consider this income data: <code>[30000, 32000, 35000, 40000, 1000000]</code> * Mean: <code>$227,400</code> = <code>(30000+32000+35000+40000+1000000) / 5</code> * Median: <code>$35,000</code> = middle value after sorting: <code>[30000, 32000, 35000, 40000, 1000000]</code></p>
 <p>The mean is heavily influenced by the one very high income, while the median gives a more typical representation.</p>
 <p>Let’s visualize the mean and median on a histogram of our movie budgets to see how they compare visually.</p>
-<div id="82033643" class="cell" data-execution_count="24">
+<div id="72e5db76" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing Mean vs. Median on a Histogram</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.hist(budget_2013_dollars, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
@@ -1340,7 +1340,7 @@ The median budget (calculated manually) is: $37,157,440.00</code></pre>
 <div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Solution: Calculate Median Age and Impact of Outlier</strong></p>
-<div id="c4c21579" class="cell" data-execution_count="25">
+<div id="289a8bd2" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> [<span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">33</span>, <span class="dv">35</span>, <span class="dv">37</span>, <span class="dv">40</span>, <span class="dv">42</span>, <span class="dv">45</span>, <span class="dv">45</span>, <span class="dv">48</span>, <span class="dv">50</span>, <span class="dv">52</span>, <span class="dv">55</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">28</span>, <span class="dv">38</span>, <span class="dv">46</span>, <span class="dv">58</span>]</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Median of original ages</span></span>
@@ -1393,7 +1393,7 @@ Median age with outlier: 45</code></pre>
 <p><span class="math inline">\(s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2}\)</span></p>
 <p>where <span class="math inline">\(x_i\)</span> represents each data point, <span class="math inline">\(\bar{x}\)</span> is the average of the data points, and <span class="math inline">\(n\)</span> is the number of data points.</p>
 <p>We can calculate the standard deviation in Python using the <code>statistics.stdev()</code> function from the <code>statistics</code> module.</p>
-<div id="2f6a04ca" class="cell" data-execution_count="26">
+<div id="d81deeee" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the standard deviation using the statistics module</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>std_dev_budget <span class="op">=</span> statistics.stdev(budget_2013_dollars)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1429,7 +1429,7 @@ Median age with outlier: 45</code></pre>
 </div>
 <div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="4105098e" class="cell" data-execution_count="27">
+<div id="28c6424c" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the standard deviation of movie budgets</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>stdev_budget <span class="op">=</span> statistics.stdev(budget_2013_dollars)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1459,7 +1459,7 @@ The standard deviation of movie revenues is: $125,965,348.89</code></pre>
 <p><strong>Interquartile Range (IQR)</strong></p>
 <p>The <strong>Interquartile Range (IQR)</strong> is the difference between the third quartile (Q3) and the first quartile (Q1): <code>IQR = Q3 - Q1</code>. The IQR represents the range of the middle 50% of your data. It’s a robust measure of spread because it’s not affected by outliers.</p>
 <p><strong>Python Calculation:</strong> The <code>statistics</code> module’s <code>quantiles()</code> function can be used. Let’s use our <code>budget_2013_dollars</code>.</p>
-<div id="ea56583e" class="cell" data-execution_count="28">
+<div id="23558de5" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the quartiles using the statistics module</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>quartile_values <span class="op">=</span> statistics.quantiles(budget_2013_dollars, n<span class="op">=</span><span class="dv">4</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>Q1 <span class="op">=</span> quartile_values[<span class="dv">0</span>]</span>
@@ -1511,7 +1511,7 @@ IQR (Interquartile Range): $63,123,864.75</code></pre>
 </div>
 <div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="0ad876ef" class="cell" data-execution_count="29">
+<div id="d00e0f7f" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the quartiles for movie revenues</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>quartile_values_revenue <span class="op">=</span> statistics.quantiles(domestic_gross_2013_dollars, n<span class="op">=</span><span class="dv">4</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>Q1_revenue <span class="op">=</span> quartile_values_revenue[<span class="dv">0</span>]</span>
@@ -1551,7 +1551,7 @@ Standard Deviation for revenues: $125,965,348.89</code></pre>
 </ul>
 <p><strong>Python Code for Box Plot using Matplotlib:</strong></p>
 <p>Let’s create a box plot for our <code>budget_2013_dollars</code>.</p>
-<div id="ce8a8fcb" class="cell" data-execution_count="30">
+<div id="28ffe76e" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plt.boxplot(budget_2013_dollars, patch_artist<span class="op">=</span><span class="va">True</span>)  <span class="co"># patch_artist fills the box</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Box Plot of Sample Movie Budgets (2013 Dollars)"</span>)</span>
@@ -1594,7 +1594,7 @@ Standard Deviation for revenues: $125,965,348.89</code></pre>
 </div>
 <div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="7df33c45" class="cell" data-execution_count="31">
+<div id="15aad7a8" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>plt.boxplot(domestic_gross_2013_dollars, patch_artist<span class="op">=</span><span class="va">True</span>)  <span class="co"># patch_artist fills the box</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Box Plot of Domestic Gross Revenue (2013 Dollars)"</span>)</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Revenue (2013 Dollars)"</span>)</span>
@@ -1640,7 +1640,7 @@ Standard Deviation for revenues: $125,965,348.89</code></pre>
 <p>Any data point that falls below the lower fence or above the upper fence is considered a suspected outlier.</p>
 <p><strong>Example (using our <code>budget_2013_dollars</code> data):</strong></p>
 <p>Let’s calculate which values would be considered outliers in the <code>budget_2013_dollars</code>.</p>
-<div id="053075e0" class="cell" data-execution_count="32">
+<div id="7e7b6be8" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate quartiles and IQR for movie budgets</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>q_rev_values <span class="op">=</span> statistics.quantiles(budget_2013_dollars, n<span class="op">=</span><span class="dv">4</span>)</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>q1_rev <span class="op">=</span> q_rev_values[<span class="dv">0</span>]</span>
@@ -1704,7 +1704,7 @@ Upper Fence: $174,043,878.88</code></pre>
 </div>
 <div id="callout-24" class="callout-24-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="33fca88f" class="cell" data-execution_count="33">
+<div id="2c083da3" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the maximum value in the budget_2013_dollars list</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>max_revenue <span class="op">=</span> <span class="bu">max</span>(domestic_gross_2013_dollars)</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>max_revenue_index <span class="op">=</span> domestic_gross_2013_dollars.index(max_revenue)</span>
@@ -1840,7 +1840,7 @@ The movie FAILED the Bechdel test.</code></pre>
 </tbody>
 </table>
 <p>If we calculate the Z-score for Nikola Jokić’s for each of these statistics, we can see how his performance compares to the average player in the league to determine which statistic is the most impressive relative to the rest of the league.</p>
-<div id="31d339ae" class="cell" data-execution_count="35">
+<div id="f1e5fb2b" class="cell" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>zscore_points <span class="op">=</span> (<span class="fl">26.4</span> <span class="op">-</span> <span class="fl">12.5</span>) <span class="op">/</span> <span class="fl">6.5</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>zscore_rebounds <span class="op">=</span> (<span class="fl">12.4</span> <span class="op">-</span> <span class="fl">4.6</span>) <span class="op">/</span> <span class="fl">2.4</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>zscore_assists <span class="op">=</span> (<span class="fl">9.0</span> <span class="op">-</span> <span class="fl">2.9</span>) <span class="op">/</span> <span class="fl">2.0</span></span>
@@ -1901,7 +1901,7 @@ The movie FAILED the Bechdel test.</code></pre>
 </div>
 <div id="callout-26" class="callout-26-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="8a0c8410" class="cell" data-execution_count="36">
+<div id="f22c0365" class="cell" data-execution_count="36">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>star_wars_revenue <span class="op">=</span> <span class="dv">1771682790</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>mean_revenue <span class="op">=</span> statistics.mean(domestic_gross_2013_dollars)</span>
@@ -1929,7 +1929,7 @@ The movie FAILED the Bechdel test.</code></pre>
 <p><strong>Purpose:</strong> * To see if there’s a relationship between the two variables. * To identify the general pattern or trend of the relationship. * To spot any unusual observations (outliers) that don’t fit the general pattern.</p>
 <p>We can create a scatter plot using the <code>matplotlib</code> library using either the <code>plt.plot()</code> or <code>plt.scatter()</code> functions. The <code>plt.scatter()</code> function is typically preferred for scatter plots because it allows you to specify the color and size of the points, making it easier to visualize the data.</p>
 <p>Let’s visualize the relationship between movie budgets and their domestic gross revenues using our sample data.</p>
-<div id="91b2a5b8" class="cell" data-execution_count="37">
+<div id="b0bec809" class="cell" data-execution_count="37">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(budget_2013_dollars, domestic_gross_2013_dollars)<span class="op">;</span> <span class="co">#, color='darkcyan', alpha=0.7) # alpha for transparency</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1997,7 +1997,7 @@ The movie FAILED the Bechdel test.</code></pre>
 </div>
 <div id="callout-28" class="callout-28-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="7c3e0bb7" class="cell" data-execution_count="38">
+<div id="77422c39" class="cell" data-execution_count="38">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(domestic_gross_2013_dollars, int_gross_2013_dollars, color<span class="op">=</span><span class="st">'darkcyan'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Domestic vs. International Gross Revenue (2013 Dollars)"</span>)</span>
@@ -2041,7 +2041,7 @@ The movie FAILED the Bechdel test.</code></pre>
 <p>We can understand this formula in term z-scores. The correlation coefficient <code>r</code> is the average of the product of the z-scores of the two variables. In other words, it measures how much the z-scores of one variable tend to increase or decrease with the z-scores of the other variable.</p>
 <p><strong>Python Calculation:</strong></p>
 <p>In Python, we can use the <code>statistics.correlation()</code> to calculate the correlation coefficient <code>r</code>. Let’s calculate it for our sample movie budgets and revenues.</p>
-<div id="49ca296a" class="cell" data-execution_count="39">
+<div id="70c6c628" class="cell" data-execution_count="39">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>statistics.correlation(budget_2013_dollars, domestic_gross_2013_dollars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="37">
 <pre><code>0.46126114596466505</code></pre>
@@ -2080,7 +2080,7 @@ The movie FAILED the Bechdel test.</code></pre>
 </div>
 <div id="callout-30" class="callout-30-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="53c97138" class="cell" data-execution_count="40">
+<div id="92ecd383" class="cell" data-execution_count="40">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>correlation_budget_int_gross <span class="op">=</span> statistics.correlation(domestic_gross_2013_dollars, int_gross_2013_dollars)</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation between movie budgets and international gross revenues: </span><span class="sc">{</span>correlation_budget_int_gross<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -2172,7 +2172,7 @@ The movie FAILED the Bechdel test.</code></pre>
 </table></li>
 <li><p><strong>Bar Graph Code:</strong></p></li>
 </ol>
-<div id="1ef2f03c" class="cell" data-execution_count="41">
+<div id="a5e7f6ec" class="cell" data-execution_count="41">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pet preference data</span></span>
@@ -2209,7 +2209,7 @@ The movie FAILED the Bechdel test.</code></pre>
 <ol type="1">
 <li><strong>Pie Chart Code:</strong></li>
 </ol>
-<div id="51b86f54" class="cell" data-execution_count="42">
+<div id="50c8b758" class="cell" data-execution_count="42">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pet preference data</span></span>
@@ -2254,7 +2254,7 @@ The movie FAILED the Bechdel test.</code></pre>
 <ol type="1">
 <li><strong>Histogram Code:</strong></li>
 </ol>
-<div id="23d99141" class="cell" data-execution_count="43">
+<div id="dfeb33f9" class="cell" data-execution_count="43">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> [<span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">33</span>, <span class="dv">35</span>, <span class="dv">37</span>, <span class="dv">40</span>, <span class="dv">42</span>, <span class="dv">45</span>, <span class="dv">45</span>, <span class="dv">48</span>, <span class="dv">50</span>, <span class="dv">52</span>, <span class="dv">55</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">28</span>, <span class="dv">38</span>, <span class="dv">46</span>, <span class="dv">58</span>]</span>
@@ -2285,7 +2285,7 @@ The movie FAILED the Bechdel test.</code></pre>
 </div>
 <div class="proof solution">
 <p><span class="proof-title"><em>Solution</em>. </span><strong>Solution: Calculate Mean Age</strong></p>
-<div id="283c00d5" class="cell" data-execution_count="44">
+<div id="350349d4" class="cell" data-execution_count="44">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> [<span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">33</span>, <span class="dv">35</span>, <span class="dv">37</span>, <span class="dv">40</span>, <span class="dv">42</span>, <span class="dv">45</span>, <span class="dv">45</span>, <span class="dv">48</span>, <span class="dv">50</span>, <span class="dv">52</span>, <span class="dv">55</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">28</span>, <span class="dv">38</span>, <span class="dv">46</span>, <span class="dv">58</span>]</span>
@@ -2311,7 +2311,7 @@ The movie FAILED the Bechdel test.</code></pre>
 <ol type="1">
 <li><strong>Python Code:</strong></li>
 </ol>
-<div id="a9240bff" class="cell" data-execution_count="45">
+<div id="a88dbf16" class="cell" data-execution_count="45">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> [<span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">33</span>, <span class="dv">35</span>, <span class="dv">37</span>, <span class="dv">40</span>, <span class="dv">42</span>, <span class="dv">45</span>, <span class="dv">45</span>, <span class="dv">48</span>, <span class="dv">50</span>, <span class="dv">52</span>, <span class="dv">55</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">28</span>, <span class="dv">38</span>, <span class="dv">46</span>, <span class="dv">58</span>]</span>
@@ -2369,7 +2369,7 @@ IQR: 16.25
 <ol type="1">
 <li><strong>Box Plot Code:</strong></li>
 </ol>
-<div id="d70c2bd7" class="cell" data-execution_count="46">
+<div id="fefa9637" class="cell" data-execution_count="46">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2442,7 +2442,7 @@ IQR: 16.25
 <ol type="1">
 <li><strong>Python Code:</strong></li>
 </ol>
-<div id="8daade4b" class="cell" data-execution_count="47">
+<div id="21564be9" class="cell" data-execution_count="47">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> [<span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">33</span>, <span class="dv">35</span>, <span class="dv">37</span>, <span class="dv">40</span>, <span class="dv">42</span>, <span class="dv">45</span>, <span class="dv">45</span>, <span class="dv">48</span>, <span class="dv">50</span>, <span class="dv">52</span>, <span class="dv">55</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">28</span>, <span class="dv">38</span>, <span class="dv">46</span>, <span class="dv">58</span>]</span>
@@ -2492,7 +2492,7 @@ Both these ages are relatively far from the mean but are not typically considere
 <ol type="1">
 <li><strong>Scatter Plot Code:</strong></li>
 </ol>
-<div id="1457c3f5" class="cell" data-execution_count="48">
+<div id="08c1c591" class="cell" data-execution_count="48">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>car_age <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>]</span>
@@ -2537,7 +2537,7 @@ Both these ages are relatively far from the mean but are not typically considere
 <ol type="1">
 <li><strong>Python Code:</strong></li>
 </ol>
-<div id="39867fba" class="cell" data-execution_count="49">
+<div id="74702213" class="cell" data-execution_count="49">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>car_age <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>]</span>
@@ -2622,7 +2622,7 @@ Correlation coefficient for car age and price (r): -0.980
 <div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Solution: Comprehensive Student Data Exploration</strong></p>
-<div id="89f5a5b0" class="cell" data-execution_count="50">
+<div id="a45a28a4" class="cell" data-execution_count="50">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
 <span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2779,7 +2779,7 @@ IQR of Exam Scores: 15.25</code></pre>
 <pre><code>Histogram Shape: The histogram appears roughly symmetric, possibly slightly left-skewed as higher scores are more frequent.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_2777/3181809601.py:76: MatplotlibDeprecationWarning: vert: bool was deprecated in Matplotlib 3.11 and will be removed in 3.13. Use orientation: {'vertical', 'horizontal'} instead.
+<pre><code>/tmp/ipykernel_2782/3181809601.py:76: MatplotlibDeprecationWarning: vert: bool was deprecated in Matplotlib 3.11 and will be removed in 3.13. Use orientation: {'vertical', 'horizontal'} instead.
   plt.boxplot(exam_scores, vert=True, patch_artist=True)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
