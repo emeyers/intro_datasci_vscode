@@ -2,14 +2,14 @@
 
 Do you know how popular your name was when you were born? Most people have only a vague sense of it. They may recall that their name felt ordinary in their class, or that they were the only one who had it, or that they tend to meet the name mostly among people either much older or much younger than they are.
 
-This vague sense can be replaced with a more precise quantitative answer. The U.S. Social Security Administration has kept a record of the first names on Social Security card applications going back to 1880, and it publishes number of babies born with a given name for each sex in each year. If more than 5 babies were born with. your name in a given year, then somewhere in that file is your name, and from this data we can determine when your name was most popular and whether it is currently increasing or decreasing in popularity. 
+This vague sense can be replaced with a more precise quantitative answer. The U.S. Social Security Administration has kept a record of the first names on Social Security card applications going back to 1880, and it publishes number of babies born with a given name for each sex in each year. If at least 5 babies were born with your name in a given year, then somewhere in that file is your name, and from this data we can determine when your name was most popular and whether it is currently increasing or decreasing in popularity. 
 
 This book is about turning questions like this into answers. The tools involved are a programming language, statistical methods, and ways to think about evidence. These are the skills we aim to develop over the course of this book. 
 
 
 ## A first look at a data science analysis
 
-Before defining what the field of Data Science is, it is useful to see what a small analysis that is typical of a Data Science project. The code below loads the baby-name compiiled from the Social Security Administration records and plots the popularity of four female names over time. 
+Before defining what the field of Data Science is, it is useful to see what a small analysis typical of a Data Science project looks like. The code below loads the baby-name data, which covers every name given to at least five babies in a year, and plots the popularity of four female names over time. 
 
 You are not expected to understand this code. It is here so you know what you are working toward. Its pieces arrive over the next several chapters: @sec-descriptive-stats teaches the plotting, @sec-data-tables teaches how to load a file and pull out the rows for one name, and @sec-iteration-functions covers the `for` line that repeats the work for each name.
 
@@ -17,15 +17,15 @@ You are not expected to understand this code. It is here so you know what you ar
 
 import pandas as pd
 
-# One row per name, per year, per sex: the 1,000 most common names each
-# year from 1880 to 2025
-names = pd.read_csv("https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names.csv")
+# One row per name, per year, per sex, for every name given to at least
+# five babies in a year, from 1880 to 2025
+names = pd.read_csv("https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names_all.csv.gz")
 
 names.head()
 
 ```
 
-As a first step in any analysis, it is important to understand the data one is working with. For the baby names data, each row corresponds to one name, in one year, for one sex. The `count` column gives the number of babies who received that name, and the `percent` column expresses that count as a percentage of all babies of that sex born in that year. The first row therefore says that 9,655 boys born in 1880 were named John, and that those boys made up 8.1546% of all the boys born that year.
+As a first step in any analysis, it is important to understand the data one is working with. For the baby names data, each row corresponds to one name, in one year, for one sex. The `count` column gives the number of babies who received that name, and the `percent` column expresses that count as a percentage of all babies of that sex born in that year. The first row therefore says that 9,655 boys born in 1880 were named John, and that those boys made up 8.15463% of all the boys born that year.
 
 With the contents of the file established, we can plot how the popularity of individual names has changed over time:
 
@@ -506,7 +506,7 @@ Return to the code at the start of this chapter and plot your own first name, or
 
 Change the list of names in the `for` line to the name you want, and change `"girl"` to `"boy"` if appropriate. Then read off the plot: in what year was the name most popular, and roughly what percentage of babies received it that year?
 
-There are two limitations of the data to be aware of. The records stop in 2025, and they include only the thousand most common names for each sex in each year, so an uncommon name may not appear in them at all.
+One limitation of the data to be aware of: the records stop in 2025, and a name given to fewer than five babies in a year is withheld to protect privacy, so a very rare name may not appear at all.
 
 :::
 

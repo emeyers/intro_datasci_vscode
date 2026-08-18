@@ -9,8 +9,8 @@ at 2008; this version currently covers **1880–2025**.
 
 | File | Contents |
 |---|---|
-| `baby_names.csv` | The 1,000 most common names per sex per year. 291,876 rows, 8.2 MB. This is the file the book loads. |
-| `baby_names_all.csv.gz` | Every name the SSA publishes, gzipped. 2,181,032 rows, 10.8 MB. `pd.read_csv` reads it directly, no decompression step needed. |
+| `baby_names_all.csv.gz` | Every name the SSA publishes, gzipped. 2,181,032 rows, 10.8 MB. **This is the file the book loads.** `pd.read_csv` reads it directly from a URL, no decompression step needed, and being gzipped it transfers faster than the smaller uncompressed file below. |
+| `baby_names.csv` | The 1,000 most common names per sex per year. 291,876 rows, 8.2 MB. Kept for analyses that only want well-known names. |
 | `us_births_by_sex.csv` | The denominators used to compute `percent`, saved so the build can run when the SSA's page is unreachable. |
 | `make_babynames.py` | The script that generates all three. |
 
@@ -22,10 +22,10 @@ Both name files have the same five columns:
 | `name` | The given name, 2 to 15 characters |
 | `sex` | `boy` or `girl` |
 | `count` | Number of babies given the name that year |
-| `percent` | `count` as a percentage of all card holders of that sex born that year. A true percentage, so John in 1880 is `8.1546`, meaning 8.1546% |
+| `percent` | `count` as a percentage of all card holders of that sex born that year. A true percentage rather than a proportion, so John in 1880 is `8.154630` in the full file and `8.1546` in the top-1,000 file, both meaning 8.15% |
 
-`percent` carries four decimal places in `baby_names.csv` and six in
-`baby_names_all.csv.gz`. The smallest percentage among the top 1,000 names is
+`percent` carries six decimal places in `baby_names_all.csv.gz` and four in
+`baby_names.csv`. The smallest percentage among the top 1,000 names is
 about 0.0026, whereas the full file goes down to five births in a year of nearly
 two million, so the extra places keep three significant figures in each file
 rather than rounding the rarest names toward zero.
