@@ -23,6 +23,8 @@ book:
     - unsupervised_learning.qmd
     - web_data.qmd
     - where_next.qmd
+  appendices:
+    - setting_up_python.qmd
 
 bibliography: references.bib
 

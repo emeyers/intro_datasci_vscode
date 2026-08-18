@@ -1,4 +1,4 @@
-# Descriptive statistics and plots
+# Descriptive statistics and plots {#sec-descriptive-stats}
 
 Now that you've got a handle on Python basics, we're ready to being to learn the basics of analyzing data. 
 We will focus on some of the basic ways to plot data in order to see patterns, and on descriptive statistics, which are numerical summaries of data.

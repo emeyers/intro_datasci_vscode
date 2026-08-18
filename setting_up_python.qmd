@@ -1,0 +1,224 @@
+# Setting up Python {#sec-setup}
+
+To run the code in this book you need three things:
+
+1. **Python itself.** The language, installed on your computer.
+2. **The packages.** pandas, Matplotlib, NumPy, and the others introduced along the way. None of them come with Python; each is installed separately.
+3. **A way to run notebooks.** Something that opens a `.ipynb` file, lets you edit cells, and runs them.
+
+This appendix covers three ways to install all of that, plus a fourth option that installs nothing at all. Read the section for whichever tool you are using and skip the rest. If you have no preference, use uv.
+
+This book was written with Python 3.12. Anything from version 3.10 onward will run the code.
+
+The commands below are typed at a **command line**, not in a notebook. On macOS that is the Terminal application; on Windows it is PowerShell or Command Prompt; on Linux it is whatever terminal your system provides. Where a command differs between operating systems, both versions are shown.
+
+
+## Virtual environments, and why you need one
+
+It is tempting to install every package straight onto your computer and be done. The reason to avoid it is that different projects need different versions.
+
+Suppose you install pandas today and write an analysis with it. Six months later you start another project that needs a newer pandas, so you upgrade. Something in the new version was renamed, and your first analysis no longer runs. Multiply this by every package and every project.
+
+A **virtual environment** solves it. An environment is a self-contained folder holding one project's Python and one project's packages. Two projects on the same computer can use different versions of pandas without either knowing about the other, and deleting a project's environment removes its packages without touching anything else.
+
+Every tool below creates environments. They differ mainly in the commands you type.
+
+
+## The recommended path: uv
+
+`uv` is a recent tool that does all of this: installing Python, creating the environment, installing packages, and recording exactly what was installed. It is faster than the alternatives, and it is what this book was written with.
+
+**Install uv.** On macOS or Linux:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+On Windows, in PowerShell:
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Close and reopen your terminal afterward, then check that it worked:
+
+```bash
+uv --version
+```
+
+**Create a project.** `uv init` makes a new folder and sets it up; then move into it:
+
+```bash
+uv init my-data-project
+cd my-data-project
+```
+
+**Add the packages you need:**
+
+```bash
+uv add pandas matplotlib numpy jupyterlab
+```
+
+`uv add` installs each package into this project's environment and records it. You do not need to create or activate an environment yourself; uv does it.
+
+**Start JupyterLab:**
+
+```bash
+uv run jupyter lab
+```
+
+A browser window opens with a file browser. Create a new notebook from the launcher, and you are ready to work through the book.
+
+`uv run` is the general pattern: it runs a command inside the project's environment. To run a Python script rather than a notebook, use `uv run python my_script.py`.
+
+### The two files uv creates
+
+Look inside the project folder and you will find `pyproject.toml` and `uv.lock`.
+
+`pyproject.toml` lists the packages you asked for. It is short and meant to be read by people.
+
+`uv.lock` records the exact version of every package that was actually installed, including the packages your packages depend on. It is long and not meant to be read.
+
+The lock file is what makes an analysis reproducible. Hand someone your project folder and they can run `uv sync` to recreate your environment exactly, down to the version numbers, and get the same results you did. This is the practical version of the argument in @sec-introduction about analyses that others can check. An analysis that only runs on your machine is one a reader cannot verify.
+
+
+## The classic path: pip and venv
+
+`pip` is Python's original package installer and `venv` is its built-in tool for creating environments. Both come with Python, so if you already have Python installed, you already have these. You will see them throughout documentation and older tutorials.
+
+First install Python from [python.org](https://www.python.org/downloads/) if you do not have it. Then make a folder for your project and, inside it:
+
+**Create an environment.** This makes a folder named `.venv` holding the project's own copy of Python:
+
+```bash
+python -m venv .venv
+```
+
+On some systems the command is `python3` rather than `python`.
+
+**Activate it.** This is the step people forget. On macOS or Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+On Windows, in PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Your prompt changes to show the environment name once it is active. Activation applies to that terminal window only, so you repeat it each time you open a new terminal to work on the project.
+
+**Install packages and start JupyterLab:**
+
+```bash
+pip install pandas matplotlib numpy jupyterlab
+jupyter lab
+```
+
+**Record what you installed** so someone else can reproduce it:
+
+```bash
+pip freeze > requirements.txt
+```
+
+They can then recreate your environment with `pip install -r requirements.txt`. This is a weaker guarantee than uv's lock file, but it is far better than recording nothing.
+
+
+## The scientific-computing path: conda
+
+`conda` is common in universities and research labs, particularly in fields that use packages with large non-Python components. Its advantage is that it installs those components too, rather than assuming your system already has them.
+
+Two versions exist. **Anaconda** is a large distribution that comes with hundreds of packages already installed. **Miniconda** installs conda and little else, leaving you to add what you need. Miniconda is the better choice for this book; Anaconda takes several gigabytes and most of it goes unused.
+
+Install Miniconda from [the conda documentation site](https://docs.conda.io/projects/miniconda/), then:
+
+```bash
+conda create -n datascience python=3.12
+conda activate datascience
+conda install pandas matplotlib numpy jupyterlab
+jupyter lab
+```
+
+`-n datascience` names the environment. As with `venv`, you activate it once per terminal session, and `conda deactivate` leaves it.
+
+To record an environment for someone else:
+
+```bash
+conda env export > environment.yml
+```
+
+One warning before you start: mixing `conda install` and `pip install` in the same environment sometimes produces broken installations, because the two tools do not know about each other's work. If you are using conda, prefer `conda install` and fall back to pip only for packages conda does not have.
+
+
+## The no-install path: notebooks in a browser
+
+If you cannot install software on the computer you are using, or you want to start immediately and deal with installation later, you can run notebooks in a browser.
+
+**Google Colab** ([colab.research.google.com](https://colab.research.google.com)) provides free notebooks that run on Google's machines. It requires a Google account and nothing else. Colab comes with pandas, Matplotlib, NumPy, and scikit-learn already installed.
+
+Because every dataset in this book is loaded from a URL, the code in these chapters runs in Colab without any extra setup. Files you upload yourself are a different matter: they disappear when the session ends, as do any packages you install, so a `pip install` has to be repeated each session. Sessions also shut down after a period of inactivity, which clears everything in memory.
+
+Many universities run their own notebook servers, which work the same way and usually have the packages a course needs already installed. If you are reading this for a class, check whether one is available before installing anything.
+
+
+## Checking that it worked
+
+Whichever route you took, open a new notebook and run this in a code cell:
+
+```{python}
+
+import sys
+import pandas as pd
+import matplotlib
+import numpy as np
+
+print("Python", sys.version.split()[0])
+print("pandas", pd.__version__)
+print("matplotlib", matplotlib.__version__)
+print("numpy", np.__version__)
+
+```
+
+If four lines print, your setup works. The exact version numbers do not need to match the ones above.
+
+
+## When something goes wrong
+
+**`ModuleNotFoundError: No module named 'pandas'`**
+
+This is the most common problem, and it almost never means the installation failed. It means the notebook is running a different Python than the one you installed pandas into.
+
+Find out which Python the notebook is actually using by running this in a cell:
+
+```python
+import sys
+print(sys.executable)
+```
+
+The path it prints should point inside your project's environment folder, something like:
+
+```
+/Users/you/my-data-project/.venv/bin/python
+```
+
+If instead it points somewhere general, such as `/usr/bin/python3`, the notebook is connected to the wrong Python. The environment a notebook uses is called its **kernel**. JupyterLab shows it in the top right corner of the notebook, and you can switch it from the Kernel menu under "Change Kernel". Pick the one matching your project.
+
+The reliable way to avoid this is to start Jupyter from inside the environment, which is what `uv run jupyter lab` does, and what running `jupyter lab` after activating a `venv` or conda environment does.
+
+**`command not found: uv`** (or `python`, or `jupyter`)
+
+The program installed but your terminal does not know where to find it. Close the terminal and open a new one. That is enough in most cases, because installers change settings that only take effect in new sessions. If the problem persists after a restart, the installer's output will usually name a directory that needs to be added to your `PATH`.
+
+**Activation fails on Windows with a message about execution policies**
+
+PowerShell blocks scripts by default. Running this once allows scripts you created yourself while still blocking unsigned downloaded ones:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+**A package installs but the wrong version arrives**
+
+Ask for the version explicitly, using `uv add "pandas==2.2.3"`, `pip install "pandas==2.2.3"`, or `conda install pandas=2.2.3`. This comes up most often when following a tutorial written against an older version of a package.

@@ -1,4 +1,4 @@
-# Array computations
+# Array computations {#sec-array-computations}
 
 In the previous chapter we stored data in plain Python lists, and we used the `statistics` module (and considerable manual work) to summarize it. That approach worked, but it was tedious. To do almost anything to *every* value in a list (add a tax to every price, convert every value to different units, or just add two lists of numbers together), we had to handle the values one at a time.
 

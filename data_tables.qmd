@@ -1,2 +1,2 @@
-# Data tables
+# Data tables {#sec-data-tables}
 

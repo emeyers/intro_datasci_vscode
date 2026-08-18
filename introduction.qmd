@@ -262,7 +262,7 @@ Several tools put this idea into practice, differing mainly in which programming
 
 ### Jupyter notebooks
 
-A **Jupyter notebook** is a document built on that idea. It consists of a sequence of cells of two kinds. **Markdown cells** hold text, which is where the explanation, the reasoning, the headings, and any equations belong, while **code cells** hold the code itself. When a code cell is run, its output appears directly beneath it and remains there as part of the document.
+A **Jupyter notebook** is a document built on the idea of literate programming and reproducible analyses. It consists of a sequence of cells of two kinds. **Markdown cells** hold text, which is where the explanation, the reasoning, the headings, and any equations belong, while **code cells** hold the code itself. When a code cell is run, its output appears directly beneath it and remains there as part of the document.
 
 Markdown is a plain-text way of marking up formatting. You type `## A heading` to get a heading and `**important**` to get bold, and the notebook renders it when you run the cell. The markdown cell in the diagram below shows what you type rather than how it looks once rendered.
 
@@ -309,7 +309,7 @@ plt.show()
 
 The number in brackets beside a code cell is its **execution count**. The first cell run in a session is labeled `[1]`, the next `[2]`, and so on. The count records the order in which the cells were actually executed, which is not necessarily the order in which they appear on the page. This number is worth keeping in mind, because the next section concerns what happens when those two orders disagree.
 
-To run a cell, click on it and press `Shift+Enter`. You can return to a cell, change it, and run it again as often as you like. That freedom to revise is what makes a notebook well suited to exploring data, and it is also the source of one difficulty that you should understand before encountering it.
+To run a cell, click on it and press `Command+Return` on a Mac, or `Shift+Enter` if you are using a Windows computer. You can return to a cell, change it, and run it again as often as you like. That freedom to revise is what makes a notebook well suited to exploring data, and it is also the source of one difficulty that you should understand before encountering it.
 
 
 ### The order cells run in
