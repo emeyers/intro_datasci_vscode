@@ -19,9 +19,10 @@
 # fallbacks (e.g. the gas-price data, in case FRED is unreachable in CI)
 data/*
 !data/gas_prices_GASREGW_2025.csv
-# the baby-name dataset is built here and served from this repo, so both the
-# generated files and the script that generates them are tracked
+# the baby-name and NYC-flight datasets are built here and served from this
+# repo, so both the generated files and the scripts that generate them are tracked
 !data/babynames/
+!data/nycflights/
 
 .env
 # quarto leaves both `foo.quarto_ipynb` and numbered `foo.quarto_ipynb_1` copies
