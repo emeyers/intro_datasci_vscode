@@ -26,10 +26,45 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -75,6 +110,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -243,8 +281,31 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#from-arrays-to-a-series" id="toc-from-arrays-to-a-series" class="nav-link active" data-scroll-target="#from-arrays-to-a-series"><span class="header-section-number">5.1</span> From arrays to a Series</a>
+  <ul class="collapse">
+  <li><a href="#looking-things-up-by-label-and-by-position" id="toc-looking-things-up-by-label-and-by-position" class="nav-link" data-scroll-target="#looking-things-up-by-label-and-by-position"><span class="header-section-number">5.1.1</span> Looking things up by label and by position</a></li>
+  <li><a href="#everything-you-learned-about-arrays-still-works" id="toc-everything-you-learned-about-arrays-still-works" class="nav-link" data-scroll-target="#everything-you-learned-about-arrays-still-works"><span class="header-section-number">5.1.2</span> Everything you learned about arrays still works</a></li>
+  </ul></li>
+  <li><a href="#tables-of-data-the-dataframe" id="toc-tables-of-data-the-dataframe" class="nav-link" data-scroll-target="#tables-of-data-the-dataframe"><span class="header-section-number">5.2</span> Tables of data: the DataFrame</a></li>
+  <li><a href="#selecting-columns-and-rows" id="toc-selecting-columns-and-rows" class="nav-link" data-scroll-target="#selecting-columns-and-rows"><span class="header-section-number">5.3</span> Selecting columns and rows</a>
+  <ul class="collapse">
+  <li><a href="#columns" id="toc-columns" class="nav-link" data-scroll-target="#columns"><span class="header-section-number">5.3.1</span> Columns</a></li>
+  <li><a href="#rows" id="toc-rows" class="nav-link" data-scroll-target="#rows"><span class="header-section-number">5.3.2</span> Rows</a></li>
+  </ul></li>
+  <li><a href="#a-more-readable-filter-.query" id="toc-a-more-readable-filter-.query" class="nav-link" data-scroll-target="#a-more-readable-filter-.query"><span class="header-section-number">5.4</span> A more readable filter: <code>.query()</code></a></li>
+  <li><a href="#sorting-and-adding-columns" id="toc-sorting-and-adding-columns" class="nav-link" data-scroll-target="#sorting-and-adding-columns"><span class="header-section-number">5.5</span> Sorting and adding columns</a></li>
+  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data"><span class="header-section-number">5.6</span> Missing data</a></li>
+  <li><a href="#summarizing-by-group" id="toc-summarizing-by-group" class="nav-link" data-scroll-target="#summarizing-by-group"><span class="header-section-number">5.7</span> Summarizing by group</a></li>
+  <li><a href="#joining-two-tables" id="toc-joining-two-tables" class="nav-link" data-scroll-target="#joining-two-tables"><span class="header-section-number">5.8</span> Joining two tables</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.9</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">5.10</span> Exercises</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -268,8 +329,2652 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Twice already this book has asked you to run a line of code and then ignore it. In <a href="descriptive_stats_and_plots.html" class="quarto-xref"><span>Chapter 3</span></a> we loaded a file of movies and immediately turned its columns into lists, and in <a href="array_computations.html" class="quarto-xref"><span>Chapter 4</span></a> we did the same thing to gas prices and turned them into arrays. Both times the loading was done by a package called <strong>pandas</strong>, and both times you were told the details could wait.</p>
+<p>They can wait no longer. Pandas is the tool most Python analyses use to hold and manipulate data, and what <code>pd.read_csv</code> has been handing back is a <strong>DataFrame</strong>: a table of rows and columns, where each column can hold a different kind of value and every column knows its own name. Almost everything you do with real data begins by getting it into a table like this and ends by pulling something out of one.</p>
+<p>This chapter is about the two objects pandas is built from. A <strong>Series</strong> is a single column of values with labels attached, and a DataFrame is a set of Series that share those labels. By the end you will be able to load a file into a table, look at what arrived, select the rows and columns you want, add new columns computed from old ones, decide what to do about values that are missing, summarize a table one group at a time, and combine two tables into one.</p>
+<div id="8045228f" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="from-arrays-to-a-series" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="from-arrays-to-a-series"><span class="header-section-number">5.1</span> From arrays to a Series</h2>
+<p>At the end of <a href="array_computations.html" class="quarto-xref"><span>Chapter 4</span></a> we were holding a year of gas prices in two separate NumPy arrays: <code>gas_prices</code> held 52 numbers and <code>gas_dates</code> held the 52 dates those numbers belonged to. The cell below loads them again, exactly as before.</p>
+<div id="3b725955" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try to download the data live from FRED; if that fails (for example, when there</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># is no internet connection), fall back to a saved snapshot of the same year.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> pandas_datareader.fred <span class="im">import</span> FredReader</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    gas_data_all <span class="op">=</span> FredReader(<span class="st">"GASREGW"</span>, start<span class="op">=</span><span class="st">"2024-06-01"</span>, end<span class="op">=</span><span class="st">"2026-01-15"</span>).read().reset_index()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    gas_year <span class="op">=</span> gas_data_all[(gas_data_all[<span class="st">"DATE"</span>] <span class="op">&gt;=</span> <span class="st">"2025-01-01"</span>) <span class="op">&amp;</span> (gas_data_all[<span class="st">"DATE"</span>] <span class="op">&lt;</span> <span class="st">"2026-01-01"</span>)]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span>:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    gas_year <span class="op">=</span> pd.read_csv(<span class="st">"data/gas_prices_GASREGW_2025.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">"DATE"</span>])</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>gas_prices <span class="op">=</span> gas_year[<span class="st">"GASREGW"</span>].values</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>gas_dates <span class="op">=</span> gas_year[<span class="st">"DATE"</span>].values</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>gas_prices[<span class="dv">0</span>:<span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>array([3.047, 3.043, 3.109])</code></pre>
+</div>
+</div>
+<p>Two arrays held that data, and nothing in Python knew they belonged together. The connection lived entirely in our heads and in the fact that we never disturbed either array. Sort the prices to find the cheapest weeks and the dates no longer line up. Drop a week from one array and every position in the other becomes wrong. We also could not ask the question a reader most naturally asks, which is what the price was in some particular week, because a date is not a position and NumPy indexes only by position.</p>
+<p>A <strong>Series</strong> solves this by carrying the labels along with the values. We build one by handing pandas the values and the labels we want attached to them:</p>
+<div id="81ec8db6" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The values come first, then the labels to attach to them</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>gas <span class="op">=</span> pd.Series(gas_prices, index<span class="op">=</span>pd.to_datetime(gas_dates))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>gas.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>2025-01-06    3.047
+2025-01-13    3.043
+2025-01-20    3.109
+2025-01-27    3.103
+2025-02-03    3.082
+dtype: float64</code></pre>
+</div>
+</div>
+<p>The left-hand column is the <strong>index</strong>, which holds the labels, and the right-hand column holds the values. They are now one object, so anything that happens to the values happens to the labels too.</p>
+<p>Both halves are available separately when you want them. The values come back as the same NumPy array we started with, and the index is its own object:</p>
+<div id="edd059af" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>[gas.values[<span class="dv">0</span>:<span class="dv">3</span>], gas.index[<span class="dv">0</span>:<span class="dv">3</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>[array([3.047, 3.043, 3.109]),
+ DatetimeIndex(['2025-01-06', '2025-01-13', '2025-01-20'], dtype='datetime64[us]', freq=None)]</code></pre>
+</div>
+</div>
+<section id="looking-things-up-by-label-and-by-position" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="looking-things-up-by-label-and-by-position"><span class="header-section-number">5.1.1</span> Looking things up by label and by position</h3>
+<p>Because a Series has both labels and positions, it needs two ways of getting at a value, and pandas gives them different names. <code>.iloc</code> takes a <strong>position</strong>, counting from zero the way a list or an array does:</p>
+<div id="1d0cd75c" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The first price of the year, by position</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>gas.iloc[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>np.float64(3.047)</code></pre>
+</div>
+</div>
+<p><code>.loc</code> takes a <strong>label</strong>, which here means an actual date:</p>
+<div id="eae3d952" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The price in the week of April 7th, by label</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>gas.loc[<span class="st">"2025-04-07"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>np.float64(3.243)</code></pre>
+</div>
+</div>
+<p>Keeping these two apart is worth a moment, because confusing them is the single most common source of puzzlement for people new to pandas. The rule is short: <code>.iloc</code> is about <em>where a value sits</em>, and <code>.loc</code> is about <em>what it is called</em>. On this Series the label <code>"2025-04-07"</code> and the position <code>13</code> refer to the same price, but only one of them stays correct if the data is sorted or filtered.</p>
+<div id="d56b5de1" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_tables_files/figure-html/cell-8-output-1.png" width="570" height="248" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="everything-you-learned-about-arrays-still-works" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="everything-you-learned-about-arrays-still-works"><span class="header-section-number">5.1.2</span> Everything you learned about arrays still works</h3>
+<p>A Series is built on top of a NumPy array, so the vectorized arithmetic and Boolean masking from <a href="array_computations.html" class="quarto-xref"><span>Chapter 4</span></a> carry over unchanged. Arithmetic applies to every value at once:</p>
+<div id="a99da14b" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert every price from dollars to cents</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>(gas <span class="op">*</span> <span class="dv">100</span>).head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>2025-01-06    304.7
+2025-01-13    304.3
+2025-01-20    310.9
+dtype: float64</code></pre>
+</div>
+</div>
+<p>A comparison produces a Series of <code>True</code> and <code>False</code> values, and using it to index the Series keeps the rows where it is <code>True</code>:</p>
+<div id="2fc89a9c" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>expensive <span class="op">=</span> gas[gas <span class="op">&gt;</span> <span class="fl">3.15</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>expensive</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>2025-03-31    3.162
+2025-04-07    3.243
+2025-04-14    3.168
+2025-05-19    3.173
+2025-05-26    3.160
+2025-06-23    3.213
+2025-06-30    3.164
+2025-09-01    3.177
+2025-09-08    3.192
+2025-09-15    3.168
+2025-09-22    3.173
+dtype: float64</code></pre>
+</div>
+</div>
+<p>The difference from a plain array is visible in that output. The result tells us not just <em>how many</em> weeks were expensive but <em>which</em> ones, because each surviving value brought its date along with it.</p>
+<p>That also means the summary functions can now answer questions in terms of labels. <code>.idxmax()</code> gives the label of the largest value rather than its position:</p>
+<div id="7c6a9427" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Which week of 2025 had the highest average price?</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>[gas.idxmax(), gas.<span class="bu">max</span>()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>[Timestamp('2025-04-07 00:00:00'), np.float64(3.243)]</code></pre>
+</div>
+</div>
+<p>In <a href="array_computations.html" class="quarto-xref"><span>Chapter 4</span></a> we could only say that prices peaked sometime in April. With a labeled index we can say that the peak was the week of April 7th, at just over $3.24, without counting positions by hand.</p>
+<div id="exercise-data_tables-series" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using the <code>gas</code> Series:</p>
+<ol type="1">
+<li>Find the price in the week of September 1st, 2025.</li>
+<li>Find the <em>lowest</em> price of the year and the week it occurred, using <code>.idxmin()</code> and <code>.min()</code>.</li>
+<li>Count how many weeks had a price below $3.00.</li>
+</ol>
+</div>
+</div>
+<div id="solution-data_tables-series" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="f4126f83" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. A specific week, looked up by its label</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>gas.loc[<span class="st">"2025-09-01"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>np.float64(3.177)</code></pre>
+</div>
+</div>
+<div id="3e70843b" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. The cheapest week of the year</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>[gas.idxmin(), gas.<span class="bu">min</span>()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>[Timestamp('2025-12-29 00:00:00'), np.float64(2.811)]</code></pre>
+</div>
+</div>
+<div id="75b91160" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. A comparison gives True/False, and summing counts the True values</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>(gas <span class="op">&lt;</span> <span class="fl">3.00</span>).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>np.int64(5)</code></pre>
+</div>
+</div>
+<p>Prices bottomed out in the last week of December at about $2.81, and only 5 of the 52 weeks were below $3.00.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tables-of-data-the-dataframe" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="tables-of-data-the-dataframe"><span class="header-section-number">5.2</span> Tables of data: the DataFrame</h2>
+<p>A Series holds one column. Most data has many, and they are rarely all the same kind of thing. The dataset we will use for the rest of this chapter records every flight that departed one of New York City’s three main airports during 2025: the date, the airline, where the plane was going, how far it flew, and how late it left. Some of those are numbers, some are text, and a table needs to hold both.</p>
+<p>The data comes from the <strong>Bureau of Transportation Statistics</strong>, the U.S. agency that collects on-time performance records from every domestic airline. Run the cell below to load it. As with the loading code in earlier chapters, you do not need to follow the details yet, though by the end of this chapter you will.</p>
+<div id="a6564e42" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> pd.read_csv(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/nycflights/flights.csv.gz"</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>flights.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
 
 
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day</th>
+<th data-quarto-table-cell-role="th">dep_time</th>
+<th data-quarto-table-cell-role="th">sched_dep_time</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+<th data-quarto-table-cell-role="th">arr_time</th>
+<th data-quarto-table-cell-role="th">sched_arr_time</th>
+<th data-quarto-table-cell-role="th">arr_delay</th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">tailnum</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">air_time</th>
+<th data-quarto-table-cell-role="th">distance</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">minute</th>
+<th data-quarto-table-cell-role="th">time_hour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>453.0</td>
+<td>500</td>
+<td>-7.0</td>
+<td>810.0</td>
+<td>820</td>
+<td>-10.0</td>
+<td>AA</td>
+<td>1196</td>
+<td>N338ST</td>
+<td>EWR</td>
+<td>MIA</td>
+<td>151.0</td>
+<td>1085</td>
+<td>5</td>
+<td>0</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>500.0</td>
+<td>501</td>
+<td>-1.0</td>
+<td>755.0</td>
+<td>804</td>
+<td>-9.0</td>
+<td>B6</td>
+<td>713</td>
+<td>N2044J</td>
+<td>JFK</td>
+<td>FLL</td>
+<td>156.0</td>
+<td>1069</td>
+<td>5</td>
+<td>1</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>459.0</td>
+<td>501</td>
+<td>-2.0</td>
+<td>810.0</td>
+<td>801</td>
+<td>9.0</td>
+<td>B6</td>
+<td>1683</td>
+<td>N559JB</td>
+<td>JFK</td>
+<td>MCO</td>
+<td>148.0</td>
+<td>944</td>
+<td>5</td>
+<td>1</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>507.0</td>
+<td>510</td>
+<td>-3.0</td>
+<td>806.0</td>
+<td>812</td>
+<td>-6.0</td>
+<td>NK</td>
+<td>993</td>
+<td>N684NK</td>
+<td>EWR</td>
+<td>MCO</td>
+<td>144.0</td>
+<td>937</td>
+<td>5</td>
+<td>10</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>523.0</td>
+<td>525</td>
+<td>-2.0</td>
+<td>832.0</td>
+<td>845</td>
+<td>-13.0</td>
+<td>AA</td>
+<td>655</td>
+<td>N324RN</td>
+<td>JFK</td>
+<td>MIA</td>
+<td>156.0</td>
+<td>1089</td>
+<td>5</td>
+<td>25</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Each row is one flight. The <code>dep_delay</code> column records how many minutes late it left, and a negative value means it left early. Two rows in that first handful have blanks shown as <code>NaN</code>, which is how pandas displays a missing value; we will come back to what those mean shortly.</p>
+<p>Before computing anything, it is worth finding out what actually arrived. <code>.shape</code> gives the number of rows and columns:</p>
+<div id="40205908" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>flights.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>(360771, 19)</code></pre>
+</div>
+</div>
+<p>That is 360,771 flights described by 19 columns. This is the first dataset in this book that would be genuinely painful to handle as lists, which is much of the reason for learning pandas at all.</p>
+<p><code>.columns</code> lists the column names, and <code>.dtypes</code> reports what kind of value each one holds:</p>
+<div id="03157467" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>flights.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>year                int64
+month               int64
+day                 int64
+dep_time          float64
+sched_dep_time      int64
+dep_delay         float64
+arr_time          float64
+sched_arr_time      int64
+arr_delay         float64
+carrier               str
+flight              int64
+tailnum               str
+origin                str
+dest                  str
+air_time          float64
+distance            int64
+hour                int64
+minute              int64
+time_hour             str
+dtype: object</code></pre>
+</div>
+</div>
+<p><code>object</code> is how pandas labels a column of text. Notice that <code>dep_delay</code> is a floating-point column even though a delay is always a whole number of minutes; that happens because some flights are missing a delay, and the missing marker <code>NaN</code> is itself a floating-point value.</p>
+<p><code>.describe()</code> summarizes every numeric column at once, giving the count, mean, standard deviation and quartiles you met in <a href="descriptive_stats_and_plots.html" class="quarto-xref"><span>Chapter 3</span></a>:</p>
+<div id="c45cd1a6" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Just the delay column, rounded, so the numbers are readable</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>flights[<span class="st">"dep_delay"</span>].describe().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>count    352137.0
+mean         15.1
+std          58.7
+min         -52.0
+25%          -7.0
+50%          -3.0
+75%          10.0
+max        2590.0
+Name: dep_delay, dtype: float64</code></pre>
+</div>
+</div>
+<p>There is a lot in that summary. The mean departure delay is about 15 minutes, but the median is <strong>−3</strong>, meaning a typical flight actually pushes back from the gate slightly <em>early</em>. The largest delay in the file is 2,590 minutes, which is a little over 43 hours. That gap between mean and median is the signature of a right-skewed distribution, exactly as in <a href="descriptive_stats_and_plots.html" class="quarto-xref"><span>Chapter 3</span></a>: most flights are close to on time, and a long tail of severe delays drags the average upward.</p>
+<p>A histogram makes the shape visible. Because of that long tail, plotting the raw column would produce a single spike, so we restrict the range to the delays that most flights actually experience:</p>
+<div id="0e60b6bb" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>plt.hist(flights[<span class="st">"dep_delay"</span>], bins<span class="op">=</span><span class="dv">40</span>, <span class="bu">range</span><span class="op">=</span>(<span class="op">-</span><span class="dv">30</span>, <span class="dv">120</span>))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Departure delay (minutes)"</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of flights"</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Most flights leave close to on time"</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_tables_files/figure-html/cell-19-output-1.png" width="619" height="451" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The peak sits just below zero, and the tail stretches to the right. Keep this picture in mind, because the rest of the chapter is largely about asking which flights sit in that tail.</p>
+<div id="exercise-data_tables-inspect" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using the <code>flights</code> table:</p>
+<ol type="1">
+<li>How many columns does it have? Get the answer from <code>.shape</code> rather than counting.</li>
+<li>Display the <em>last</em> five rows using <code>.tail()</code>.</li>
+<li>Use <code>.describe()</code> on the <code>distance</code> column. What are the shortest and longest flights in the data?</li>
+</ol>
+</div>
+</div>
+<div id="solution-data_tables-inspect" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="0963d329" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. .shape gives (rows, columns), so the second value is the column count</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>flights.shape[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>19</code></pre>
+</div>
+</div>
+<div id="51be7656" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. The last five rows</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>flights.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day</th>
+<th data-quarto-table-cell-role="th">dep_time</th>
+<th data-quarto-table-cell-role="th">sched_dep_time</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+<th data-quarto-table-cell-role="th">arr_time</th>
+<th data-quarto-table-cell-role="th">sched_arr_time</th>
+<th data-quarto-table-cell-role="th">arr_delay</th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">tailnum</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">air_time</th>
+<th data-quarto-table-cell-role="th">distance</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">minute</th>
+<th data-quarto-table-cell-role="th">time_hour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">360766</th>
+<td>2025</td>
+<td>12</td>
+<td>31</td>
+<td>1619.0</td>
+<td>2230</td>
+<td>1069.0</td>
+<td>1909.0</td>
+<td>106</td>
+<td>1083.0</td>
+<td>F9</td>
+<td>1157</td>
+<td>N613FR</td>
+<td>EWR</td>
+<td>ATL</td>
+<td>109.0</td>
+<td>746</td>
+<td>22</td>
+<td>30</td>
+<td>2025-12-31 22:00:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">360767</th>
+<td>2025</td>
+<td>12</td>
+<td>31</td>
+<td>2233.0</td>
+<td>2235</td>
+<td>-2.0</td>
+<td>2335.0</td>
+<td>2359</td>
+<td>-24.0</td>
+<td>B6</td>
+<td>2516</td>
+<td>N618JB</td>
+<td>JFK</td>
+<td>SYR</td>
+<td>44.0</td>
+<td>209</td>
+<td>22</td>
+<td>35</td>
+<td>2025-12-31 22:00:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">360768</th>
+<td>2025</td>
+<td>12</td>
+<td>31</td>
+<td>2246.0</td>
+<td>2255</td>
+<td>-9.0</td>
+<td>119.0</td>
+<td>123</td>
+<td>-4.0</td>
+<td>F9</td>
+<td>3161</td>
+<td>N342FR</td>
+<td>LGA</td>
+<td>DEN</td>
+<td>234.0</td>
+<td>1620</td>
+<td>22</td>
+<td>55</td>
+<td>2025-12-31 22:00:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">360769</th>
+<td>2025</td>
+<td>12</td>
+<td>31</td>
+<td>2305.0</td>
+<td>2259</td>
+<td>6.0</td>
+<td>28.0</td>
+<td>16</td>
+<td>12.0</td>
+<td>B6</td>
+<td>1118</td>
+<td>N3261J</td>
+<td>JFK</td>
+<td>BOS</td>
+<td>43.0</td>
+<td>187</td>
+<td>22</td>
+<td>59</td>
+<td>2025-12-31 22:00:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">360770</th>
+<td>2025</td>
+<td>12</td>
+<td>31</td>
+<td>2324.0</td>
+<td>2259</td>
+<td>25.0</td>
+<td>16.0</td>
+<td>2359</td>
+<td>17.0</td>
+<td>B6</td>
+<td>675</td>
+<td>N3260J</td>
+<td>JFK</td>
+<td>BDL</td>
+<td>30.0</td>
+<td>106</td>
+<td>22</td>
+<td>59</td>
+<td>2025-12-31 22:00:00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="54b3d2c8" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Summary of the distance column</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>flights[<span class="st">"distance"</span>].describe().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>count    360771.0
+mean       1070.0
+std         708.9
+min          96.0
+25%         544.0
+50%         944.0
+75%        1391.0
+max        4983.0
+Name: distance, dtype: float64</code></pre>
+</div>
+</div>
+<p>The shortest flight in the data covers 96 miles and the longest 4,983 miles, with half of all flights falling between 544 and 1,391 miles.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="selecting-columns-and-rows" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="selecting-columns-and-rows"><span class="header-section-number">5.3</span> Selecting columns and rows</h2>
+<p>A table is only useful if you can get at the parts of it you want. Pandas separates this into two questions: which columns, and which rows.</p>
+<section id="columns" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="columns"><span class="header-section-number">5.3.1</span> Columns</h3>
+<p>Passing a single column name in square brackets gives that column back as a Series, the object from the start of this chapter:</p>
+<div id="ccba3f2d" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>flights[<span class="st">"dep_delay"</span>].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>0   -7.0
+1   -1.0
+2   -2.0
+3   -3.0
+4   -2.0
+Name: dep_delay, dtype: float64</code></pre>
+</div>
+</div>
+<p>Passing a <em>list</em> of names instead gives back a DataFrame containing those columns:</p>
+<div id="d32c1f8d" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>flights[[<span class="st">"carrier"</span>, <span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"dep_delay"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>AA</td>
+<td>EWR</td>
+<td>MIA</td>
+<td>-7.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>B6</td>
+<td>JFK</td>
+<td>FLL</td>
+<td>-1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>B6</td>
+<td>JFK</td>
+<td>MCO</td>
+<td>-2.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>NK</td>
+<td>EWR</td>
+<td>MCO</td>
+<td>-3.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>AA</td>
+<td>JFK</td>
+<td>MIA</td>
+<td>-2.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The difference between those two is a common early stumbling block, because the second form looks like the first with an extra pair of brackets. It helps to read the inner brackets as an ordinary Python list: <code>flights[["carrier", "dest"]]</code> is asking for <em>a list of columns</em>, so the answer is a table. <code>flights["carrier"]</code> is asking for <em>one column</em>, so the answer is a single Series.</p>
+</section>
+<section id="rows" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="rows"><span class="header-section-number">5.3.2</span> Rows</h3>
+<p>Rows work the way they did for a Series. <code>.iloc</code> selects by position:</p>
+<div id="17c89bbc" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The first three rows</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>flights.iloc[<span class="dv">0</span>:<span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day</th>
+<th data-quarto-table-cell-role="th">dep_time</th>
+<th data-quarto-table-cell-role="th">sched_dep_time</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+<th data-quarto-table-cell-role="th">arr_time</th>
+<th data-quarto-table-cell-role="th">sched_arr_time</th>
+<th data-quarto-table-cell-role="th">arr_delay</th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">tailnum</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">air_time</th>
+<th data-quarto-table-cell-role="th">distance</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">minute</th>
+<th data-quarto-table-cell-role="th">time_hour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>453.0</td>
+<td>500</td>
+<td>-7.0</td>
+<td>810.0</td>
+<td>820</td>
+<td>-10.0</td>
+<td>AA</td>
+<td>1196</td>
+<td>N338ST</td>
+<td>EWR</td>
+<td>MIA</td>
+<td>151.0</td>
+<td>1085</td>
+<td>5</td>
+<td>0</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>500.0</td>
+<td>501</td>
+<td>-1.0</td>
+<td>755.0</td>
+<td>804</td>
+<td>-9.0</td>
+<td>B6</td>
+<td>713</td>
+<td>N2044J</td>
+<td>JFK</td>
+<td>FLL</td>
+<td>156.0</td>
+<td>1069</td>
+<td>5</td>
+<td>1</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>459.0</td>
+<td>501</td>
+<td>-2.0</td>
+<td>810.0</td>
+<td>801</td>
+<td>9.0</td>
+<td>B6</td>
+<td>1683</td>
+<td>N559JB</td>
+<td>JFK</td>
+<td>MCO</td>
+<td>148.0</td>
+<td>944</td>
+<td>5</td>
+<td>1</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Both <code>.loc</code> and <code>.iloc</code> can take a second argument to say which columns you want as well as which rows, separated by a comma:</p>
+<div id="7a059784" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The first three rows, and only two of the columns</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>flights.loc[<span class="dv">0</span>:<span class="dv">2</span>, [<span class="st">"carrier"</span>, <span class="st">"dep_delay"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>AA</td>
+<td>-7.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>B6</td>
+<td>-1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>B6</td>
+<td>-2.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The most useful way to choose rows, though, is not by position at all but by asking a question about them. In <a href="array_computations.html" class="quarto-xref"><span>Chapter 4</span></a> a comparison on a NumPy array produced an array of <code>True</code> and <code>False</code> values that could be used to keep only the values you wanted. The same idea works on a table, and this is where it earns its keep:</p>
+<div id="0ea3ceba" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># True for every flight that left from JFK</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>from_jfk <span class="op">=</span> flights[<span class="st">"origin"</span>] <span class="op">==</span> <span class="st">"JFK"</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>flights[from_jfk].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day</th>
+<th data-quarto-table-cell-role="th">dep_time</th>
+<th data-quarto-table-cell-role="th">sched_dep_time</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+<th data-quarto-table-cell-role="th">arr_time</th>
+<th data-quarto-table-cell-role="th">sched_arr_time</th>
+<th data-quarto-table-cell-role="th">arr_delay</th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">tailnum</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">air_time</th>
+<th data-quarto-table-cell-role="th">distance</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">minute</th>
+<th data-quarto-table-cell-role="th">time_hour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>500.0</td>
+<td>501</td>
+<td>-1.0</td>
+<td>755.0</td>
+<td>804</td>
+<td>-9.0</td>
+<td>B6</td>
+<td>713</td>
+<td>N2044J</td>
+<td>JFK</td>
+<td>FLL</td>
+<td>156.0</td>
+<td>1069</td>
+<td>5</td>
+<td>1</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>459.0</td>
+<td>501</td>
+<td>-2.0</td>
+<td>810.0</td>
+<td>801</td>
+<td>9.0</td>
+<td>B6</td>
+<td>1683</td>
+<td>N559JB</td>
+<td>JFK</td>
+<td>MCO</td>
+<td>148.0</td>
+<td>944</td>
+<td>5</td>
+<td>1</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>523.0</td>
+<td>525</td>
+<td>-2.0</td>
+<td>832.0</td>
+<td>845</td>
+<td>-13.0</td>
+<td>AA</td>
+<td>655</td>
+<td>N324RN</td>
+<td>JFK</td>
+<td>MIA</td>
+<td>156.0</td>
+<td>1089</td>
+<td>5</td>
+<td>25</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>541.0</td>
+<td>545</td>
+<td>-4.0</td>
+<td>845.0</td>
+<td>910</td>
+<td>-25.0</td>
+<td>B6</td>
+<td>523</td>
+<td>N4022J</td>
+<td>JFK</td>
+<td>LAX</td>
+<td>340.0</td>
+<td>2475</td>
+<td>5</td>
+<td>45</td>
+<td>2025-01-01 05:00:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12</th>
+<td>2025</td>
+<td>1</td>
+<td>1</td>
+<td>557.0</td>
+<td>600</td>
+<td>-3.0</td>
+<td>925.0</td>
+<td>940</td>
+<td>-15.0</td>
+<td>AA</td>
+<td>76</td>
+<td>N101NN</td>
+<td>JFK</td>
+<td>SFO</td>
+<td>366.0</td>
+<td>2586</td>
+<td>6</td>
+<td>0</td>
+<td>2025-01-01 06:00:00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="51f4d144" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many of the year's flights left from JFK?</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>from_jfk.<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>np.int64(104760)</code></pre>
+</div>
+</div>
+<p>Conditions can be combined with <code>&amp;</code> for “and” and <code>|</code> for “or”. Each condition needs its own parentheses, because <code>&amp;</code> binds more tightly than <code>==</code> does and Python will otherwise try to compare the wrong things:</p>
+<div id="36ccf8ed" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights from JFK that left more than an hour late</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>badly_delayed <span class="op">=</span> flights[(flights[<span class="st">"origin"</span>] <span class="op">==</span> <span class="st">"JFK"</span>) <span class="op">&amp;</span> (flights[<span class="st">"dep_delay"</span>] <span class="op">&gt;</span> <span class="dv">60</span>)]</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>badly_delayed.shape[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>8889</code></pre>
+</div>
+</div>
+<p>Nearly nine thousand flights out of JFK left over an hour behind schedule during the year.</p>
+<div id="exercise-data_tables-select" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Select just the <code>carrier</code>, <code>flight</code> and <code>dest</code> columns, and show the first three rows.</li>
+<li>How many flights departed from Newark (<code>EWR</code>)?</li>
+<li>How many flights left from LaGuardia (<code>LGA</code>) and flew more than 1,000 miles?</li>
+</ol>
+</div>
+</div>
+<div id="solution-data_tables-select" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="5ec0ba68" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. A list of column names gives back a table</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>flights[[<span class="st">"carrier"</span>, <span class="st">"flight"</span>, <span class="st">"dest"</span>]].head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>AA</td>
+<td>1196</td>
+<td>MIA</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>B6</td>
+<td>713</td>
+<td>FLL</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>B6</td>
+<td>1683</td>
+<td>MCO</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="a314ce1c" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. A comparison gives True/False, and summing counts the True values</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>(flights[<span class="st">"origin"</span>] <span class="op">==</span> <span class="st">"EWR"</span>).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>np.int64(120286)</code></pre>
+</div>
+</div>
+<div id="da566899" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Two conditions, each in its own parentheses</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>long_from_lga <span class="op">=</span> flights[(flights[<span class="st">"origin"</span>] <span class="op">==</span> <span class="st">"LGA"</span>) <span class="op">&amp;</span> (flights[<span class="st">"distance"</span>] <span class="op">&gt;</span> <span class="dv">1000</span>)]</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>long_from_lga.shape[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>45087</code></pre>
+</div>
+</div>
+<p>Newark handled 120,286 departures, and 45,087 flights left LaGuardia for a destination more than 1,000 miles away.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="a-more-readable-filter-.query" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="a-more-readable-filter-.query"><span class="header-section-number">5.4</span> A more readable filter: <code>.query()</code></h2>
+<p>Boolean masking is the workhorse, and you will see it everywhere. It does have a cost, though, which is that the name of the table appears three times in a single line:</p>
+<div id="07cace67" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>flights[(flights[<span class="st">"origin"</span>] <span class="op">==</span> <span class="st">"JFK"</span>) <span class="op">&amp;</span> (flights[<span class="st">"dep_delay"</span>] <span class="op">&gt;</span> <span class="dv">60</span>)].shape[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>8889</code></pre>
+</div>
+</div>
+<p>Pandas offers <code>.query()</code>, which takes the condition as a string and lets you refer to columns by bare name:</p>
+<div id="d3a0516b" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>flights.query(<span class="st">'origin == "JFK" and dep_delay &gt; 60'</span>).shape[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>8889</code></pre>
+</div>
+</div>
+<p>The two give exactly the same 8,889 rows. Inside a query you write <code>and</code>, <code>or</code> and <code>not</code> rather than <code>&amp;</code>, <code>|</code> and <code>~</code>, which is closer to how you would say the condition out loud. Because the whole condition is a string, the quotes have to alternate: the example above wraps the query in single quotes so that the string <code>"JFK"</code> inside it can use double ones.</p>
+<p>To use a value held in a Python variable, put <code>@</code> in front of its name:</p>
+<div id="d04d5166" class="cell" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>cutoff <span class="op">=</span> <span class="dv">180</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>flights.query(<span class="st">"dep_delay &gt; @cutoff"</span>).shape[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>7442</code></pre>
+</div>
+</div>
+<p>There is one limitation worth knowing. Because <code>.query()</code> refers to columns as though they were variable names, it only works when a column name is a legal Python name. A column called <code>budget_2013$</code>, like the one in the movie data from <a href="descriptive_stats_and_plots.html" class="quarto-xref"><span>Chapter 3</span></a>, cannot be referred to this way, and there you would need the Boolean form.</p>
+<p>Neither style is more correct. Use whichever makes a particular line easier to read; this book uses masking by default, because it is what you will encounter most often.</p>
+<div id="exercise-data_tables-query" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Rewrite each of these using <code>.query()</code>, and check that you get the same number of rows:</p>
+<ol type="1">
+<li><code>flights[flights["dest"] == "LAX"]</code></li>
+<li><code>flights[(flights["origin"] == "EWR") &amp; (flights["distance"] &lt; 500)]</code></li>
+</ol>
+</div>
+</div>
+<div id="solution-data_tables-query" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="1e775c71" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. A single condition on a text column</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>[flights[flights[<span class="st">"dest"</span>] <span class="op">==</span> <span class="st">"LAX"</span>].shape[<span class="dv">0</span>],</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a> flights.query(<span class="st">'dest == "LAX"'</span>).shape[<span class="dv">0</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>[15496, 15496]</code></pre>
+</div>
+</div>
+<div id="af4a6cc7" class="cell" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Two conditions joined with "and" rather than "&amp;"</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>[flights[(flights[<span class="st">"origin"</span>] <span class="op">==</span> <span class="st">"EWR"</span>) <span class="op">&amp;</span> (flights[<span class="st">"distance"</span>] <span class="op">&lt;</span> <span class="dv">500</span>)].shape[<span class="dv">0</span>],</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a> flights.query(<span class="st">'origin == "EWR" and distance &lt; 500'</span>).shape[<span class="dv">0</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>[21367, 21367]</code></pre>
+</div>
+</div>
+<p>Both pairs agree: 15,496 flights went to Los Angeles, and 21,367 short flights left Newark.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sorting-and-adding-columns" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="sorting-and-adding-columns"><span class="header-section-number">5.5</span> Sorting and adding columns</h2>
+<p><code>.sort_values()</code> reorders the rows by a column. Adding <code>ascending=False</code> puts the largest first:</p>
+<div id="10444b53" class="cell" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The five longest departure delays of the year</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>flights.sort_values(<span class="st">"dep_delay"</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">5</span>)[</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"month"</span>, <span class="st">"day"</span>, <span class="st">"carrier"</span>, <span class="st">"flight"</span>, <span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"dep_delay"</span>]</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day</th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145859</th>
+<td>5</td>
+<td>31</td>
+<td>AA</td>
+<td>2051</td>
+<td>LGA</td>
+<td>CLT</td>
+<td>2590.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">253103</th>
+<td>9</td>
+<td>16</td>
+<td>AA</td>
+<td>3211</td>
+<td>LGA</td>
+<td>MIA</td>
+<td>2092.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">269010</th>
+<td>10</td>
+<td>2</td>
+<td>AA</td>
+<td>1303</td>
+<td>EWR</td>
+<td>DFW</td>
+<td>2084.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">343662</th>
+<td>12</td>
+<td>14</td>
+<td>AA</td>
+<td>2646</td>
+<td>JFK</td>
+<td>PHX</td>
+<td>2050.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">122430</th>
+<td>5</td>
+<td>6</td>
+<td>AA</td>
+<td>2933</td>
+<td>EWR</td>
+<td>MIA</td>
+<td>1725.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>If you want the single worst row rather than the top few, <code>.idxmax()</code> gives the index label of the largest value, and <code>.loc</code> then fetches that row. This is the pattern promised back in <a href="introduction.html" class="quarto-xref"><span>Chapter 1</span></a>, where we used it on the baby-name data without explaining it:</p>
+<div id="ba406cfe" class="cell" data-execution_count="38">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The label of the row with the largest delay, then the row itself</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>worst <span class="op">=</span> flights.loc[flights[<span class="st">"dep_delay"</span>].idxmax()]</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>worst[[<span class="st">"month"</span>, <span class="st">"day"</span>, <span class="st">"carrier"</span>, <span class="st">"flight"</span>, <span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"dep_delay"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>month             5
+day              31
+carrier          AA
+flight         2051
+origin          LGA
+dest            CLT
+dep_delay    2590.0
+Name: 145859, dtype: object</code></pre>
+</div>
+</div>
+<p>A new column is created by assigning to a name that does not exist yet, and the calculation applies to every row at once, exactly as arithmetic did on arrays:</p>
+<div id="2b851570" class="cell" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How much time a flight made up in the air: positive means it caught up</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>flights[<span class="st">"time_made_up"</span>] <span class="op">=</span> flights[<span class="st">"dep_delay"</span>] <span class="op">-</span> flights[<span class="st">"arr_delay"</span>]</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>flights[[<span class="st">"carrier"</span>, <span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"dep_delay"</span>, <span class="st">"arr_delay"</span>, <span class="st">"time_made_up"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+<th data-quarto-table-cell-role="th">arr_delay</th>
+<th data-quarto-table-cell-role="th">time_made_up</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>AA</td>
+<td>EWR</td>
+<td>MIA</td>
+<td>-7.0</td>
+<td>-10.0</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>B6</td>
+<td>JFK</td>
+<td>FLL</td>
+<td>-1.0</td>
+<td>-9.0</td>
+<td>8.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>B6</td>
+<td>JFK</td>
+<td>MCO</td>
+<td>-2.0</td>
+<td>9.0</td>
+<td>-11.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>NK</td>
+<td>EWR</td>
+<td>MCO</td>
+<td>-3.0</td>
+<td>-6.0</td>
+<td>3.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>AA</td>
+<td>JFK</td>
+<td>MIA</td>
+<td>-2.0</td>
+<td>-13.0</td>
+<td>11.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Columns are renamed by passing a dictionary, the data structure from <a href="python_basics.html" class="quarto-xref"><span>Chapter 2</span></a>, whose keys are the old names and whose values are the new ones:</p>
+<div id="d6eb69cb" class="cell" data-execution_count="40">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights.rename(columns<span class="op">=</span>{<span class="st">"dep_delay"</span>: <span class="st">"departure_delay"</span>})</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>flights.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<pre><code>Index(['year', 'month', 'day', 'dep_time', 'sched_dep_time', 'departure_delay',
+       'arr_time', 'sched_arr_time', 'arr_delay', 'carrier', 'flight',
+       'tailnum', 'origin', 'dest', 'air_time', 'distance', 'hour', 'minute',
+       'time_hour', 'time_made_up'],
+      dtype='str')</code></pre>
+</div>
+</div>
+<p>That change makes the rest of this chapter harder to read rather than easier, so we will put it straight back:</p>
+<div id="55d9dc43" class="cell" data-execution_count="41">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights.rename(columns<span class="op">=</span>{<span class="st">"departure_delay"</span>: <span class="st">"dep_delay"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="exercise-data_tables-sort" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Sort the flights by <code>distance</code> and show the three longest.</li>
+<li>Add a column called <code>speed</code> holding each flight’s average speed in miles per hour, which is <code>distance</code> divided by <code>air_time</code>, multiplied by 60 because <code>air_time</code> is in minutes.</li>
+<li>Use <code>.idxmax()</code> to find the single fastest flight in the data.</li>
+</ol>
+</div>
+</div>
+<div id="solution-data_tables-sort" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="0c851c3d" class="cell" data-execution_count="42">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Sort descending and take the top three</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>flights.sort_values(<span class="st">"distance"</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">3</span>)[</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"carrier"</span>, <span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"distance"</span>]</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">distance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">153971</th>
+<td>DL</td>
+<td>JFK</td>
+<td>HNL</td>
+<td>4983</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">22991</th>
+<td>DL</td>
+<td>JFK</td>
+<td>HNL</td>
+<td>4983</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">286156</th>
+<td>HA</td>
+<td>JFK</td>
+<td>HNL</td>
+<td>4983</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="d23dbbeb" class="cell" data-execution_count="43">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. air_time is in minutes, so multiply by 60 to get miles per hour</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>flights[<span class="st">"speed"</span>] <span class="op">=</span> flights[<span class="st">"distance"</span>] <span class="op">/</span> flights[<span class="st">"air_time"</span>] <span class="op">*</span> <span class="dv">60</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>flights[[<span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"distance"</span>, <span class="st">"air_time"</span>, <span class="st">"speed"</span>]].head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">distance</th>
+<th data-quarto-table-cell-role="th">air_time</th>
+<th data-quarto-table-cell-role="th">speed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>EWR</td>
+<td>MIA</td>
+<td>1085</td>
+<td>151.0</td>
+<td>431.125828</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>JFK</td>
+<td>FLL</td>
+<td>1069</td>
+<td>156.0</td>
+<td>411.153846</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>JFK</td>
+<td>MCO</td>
+<td>944</td>
+<td>148.0</td>
+<td>382.702703</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cdd4d47b" class="cell" data-execution_count="44">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. The row with the largest value in the new column</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>fastest <span class="op">=</span> flights.loc[flights[<span class="st">"speed"</span>].idxmax()]</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>fastest[[<span class="st">"carrier"</span>, <span class="st">"flight"</span>, <span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"distance"</span>, <span class="st">"air_time"</span>, <span class="st">"speed"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<pre><code>carrier             NK
+flight            2422
+origin             LGA
+dest               CLT
+distance           544
+air_time          39.0
+speed       836.923077
+Name: 135181, dtype: object</code></pre>
+</div>
+</div>
+<p>The longest flights run from JFK to Honolulu, a distance of 4,983 miles. The fastest works out at about 837 miles per hour, which ought to give you pause. No airliner cruises that fast, only four flights in the entire year come out above 700, and the median is around 405. The likely explanation is that this flight’s recorded air time is wrong, not that the aircraft broke a record. A result that disagrees with what you already know about the world is usually telling you something about the data rather than about the world.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="missing-data" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="missing-data"><span class="header-section-number">5.6</span> Missing data</h2>
+<p>Those <code>NaN</code> values in the very first rows we looked at were not a mistake in the file. A <strong>cancelled flight</strong> still appears in the data, because it was scheduled and then did not happen: it has a scheduled departure time but no actual one, and so no delay.</p>
+<p><code>.isna()</code> marks every missing value with <code>True</code>, and since summing a Boolean column counts the <code>True</code> values, the two together count what is missing:</p>
+<div id="de078e9a" class="cell" data-execution_count="45">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>flights[[<span class="st">"dep_delay"</span>, <span class="st">"arr_delay"</span>, <span class="st">"tailnum"</span>]].isna().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<pre><code>dep_delay     8634
+arr_delay    10284
+tailnum       1333
+dtype: int64</code></pre>
+</div>
+</div>
+<p>So 8,634 of the year’s 360,771 flights never left, about 2.4% of the schedule. That is information rather than an error, and it is worth noticing that the number of missing <em>arrival</em> delays is larger still: a flight can take off and then be diverted, so it departs but never arrives where it meant to.</p>
+<p>Most calculations skip missing values automatically. The mean delay we computed earlier was the mean of the flights that actually departed, and pandas did that silently. When you want to work only with complete rows, <code>.dropna()</code> removes the rest. Passing <code>subset=</code> restricts the check to the columns you care about, which matters here because dropping every row with <em>any</em> missing value would also discard the flights whose <code>tailnum</code> was never recorded:</p>
+<div id="ac7ba306" class="cell" data-execution_count="46">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>departed <span class="op">=</span> flights.dropna(subset<span class="op">=</span>[<span class="st">"dep_delay"</span>])</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>[flights.shape[<span class="dv">0</span>], departed.shape[<span class="dv">0</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<pre><code>[360771, 352137]</code></pre>
+</div>
+</div>
+<p>Deciding what to do about missing values is a judgment call rather than a technical one. Dropping the cancelled flights is the right choice when you are asking how late departures run, and the wrong choice when you are asking how reliable an airline is, since cancelling a flight is the most severe way of failing a passenger. The data cannot make that decision for you.</p>
+<div id="exercise-data_tables-missing" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>How many flights are missing an <code>air_time</code>?</li>
+<li>Cancelled flights have no <code>dep_time</code>. Use a Boolean mask with <code>.isna()</code> to select them, and find how many were scheduled to leave JFK.</li>
+</ol>
+</div>
+</div>
+<div id="solution-data_tables-missing" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="e3b16a72" class="cell" data-execution_count="47">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Count the missing values in one column</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>flights[<span class="st">"air_time"</span>].isna().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="47">
+<pre><code>np.int64(10284)</code></pre>
+</div>
+</div>
+<div id="a77fe047" class="cell" data-execution_count="48">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. .isna() gives a True/False column, which selects rows like any other mask</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>cancelled <span class="op">=</span> flights[flights[<span class="st">"dep_time"</span>].isna()]</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>(cancelled[<span class="st">"origin"</span>] <span class="op">==</span> <span class="st">"JFK"</span>).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>np.int64(1914)</code></pre>
+</div>
+</div>
+<p>10,284 flights have no recorded air time, and 1,914 of the cancelled flights were due to leave JFK.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="summarizing-by-group" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="summarizing-by-group"><span class="header-section-number">5.7</span> Summarizing by group</h2>
+<p>Here is a question the table can answer but no single number can: which airline should you avoid? Answering it means splitting the flights into groups by airline, computing the mean delay within each group, and collecting the results into a new table. That three-step pattern is common enough to have a name, <strong>split-apply-combine</strong>, and <code>.groupby()</code> performs it.</p>
+<div id="c771f73d" class="cell" data-execution_count="49">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_tables_files/figure-html/cell-50-output-1.png" width="585" height="263" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In code, that is one call. <code>.groupby("carrier")</code> forms the groups, and <code>.agg()</code> says what to compute for each one. The form used here names each output column and says which input column and which statistic it comes from:</p>
+<div id="ff292a9f" class="cell" data-execution_count="50">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>by_carrier <span class="op">=</span> flights.groupby(<span class="st">"carrier"</span>).agg(</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>    flights<span class="op">=</span>(<span class="st">"flight"</span>, <span class="st">"count"</span>),</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>    mean_delay<span class="op">=</span>(<span class="st">"dep_delay"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>by_carrier.<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="50">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">flights</th>
+<th data-quarto-table-cell-role="th">mean_delay</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">AA</th>
+<td>37242</td>
+<td>17.4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">AS</th>
+<td>6929</td>
+<td>17.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">B6</th>
+<td>45897</td>
+<td>17.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">DL</th>
+<td>66308</td>
+<td>16.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">F9</th>
+<td>6873</td>
+<td>27.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">G4</th>
+<td>668</td>
+<td>12.4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">HA</th>
+<td>367</td>
+<td>18.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">MQ</th>
+<td>902</td>
+<td>21.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">NK</th>
+<td>15107</td>
+<td>16.8</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">OO</th>
+<td>2704</td>
+<td>15.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">UA</th>
+<td>75948</td>
+<td>15.4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">WN</th>
+<td>11714</td>
+<td>20.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">YX</th>
+<td>90112</td>
+<td>9.7</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The carrier codes have become the index of the result, which is why they sit to the left in bold. Sorting turns this into an answer:</p>
+<div id="c9a5baad" class="cell" data-execution_count="51">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>by_carrier.sort_values(<span class="st">"mean_delay"</span>, ascending<span class="op">=</span><span class="va">False</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">flights</th>
+<th data-quarto-table-cell-role="th">mean_delay</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">F9</th>
+<td>6873</td>
+<td>27.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">MQ</th>
+<td>902</td>
+<td>21.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">WN</th>
+<td>11714</td>
+<td>20.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">HA</th>
+<td>367</td>
+<td>18.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">B6</th>
+<td>45897</td>
+<td>17.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">AA</th>
+<td>37242</td>
+<td>17.4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">AS</th>
+<td>6929</td>
+<td>17.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">NK</th>
+<td>15107</td>
+<td>16.8</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">DL</th>
+<td>66308</td>
+<td>16.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">OO</th>
+<td>2704</td>
+<td>15.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">UA</th>
+<td>75948</td>
+<td>15.4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">G4</th>
+<td>668</td>
+<td>12.4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">YX</th>
+<td>90112</td>
+<td>9.7</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Frontier is the worst, at about 27 minutes of average delay, and Republic the best at under 10. Before repeating that anywhere, look at the <code>flights</code> column beside it. Frontier’s figure rests on 6,873 flights, which is plenty, but Envoy Air sits second-worst on the strength of only 902, and Hawaiian’s 367 flights are too few to say much at all. An average computed from a handful of observations bounces around, and a table sorted by that average will tend to put small groups at both ends. Reporting the group size alongside the statistic is the habit that keeps this visible.</p>
+<div id="exercise-data_tables-groupby" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Group the flights by <code>origin</code> and compute the mean departure delay for each of the three airports.</li>
+<li>Group by <code>month</code> and compute both the mean delay and the number of flights. Which month is worst, and does the answer make sense?</li>
+</ol>
+</div>
+</div>
+<div id="solution-data_tables-groupby" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="ba200a8f" class="cell" data-execution_count="52">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. One row per airport</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>flights.groupby(<span class="st">"origin"</span>).agg(mean_delay<span class="op">=</span>(<span class="st">"dep_delay"</span>, <span class="st">"mean"</span>)).<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="52">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean_delay</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">EWR</th>
+<td>15.9</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">JFK</th>
+<td>14.2</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">LGA</th>
+<td>15.2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="28a7e827" class="cell" data-execution_count="53">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Two statistics per month</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>by_month <span class="op">=</span> flights.groupby(<span class="st">"month"</span>).agg(</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>    flights<span class="op">=</span>(<span class="st">"flight"</span>, <span class="st">"count"</span>),</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>    mean_delay<span class="op">=</span>(<span class="st">"dep_delay"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>by_month.<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="53">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">flights</th>
+<th data-quarto-table-cell-role="th">mean_delay</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1</th>
+<td>29376</td>
+<td>8.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2</th>
+<td>27307</td>
+<td>11.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3</th>
+<td>30606</td>
+<td>10.4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">4</th>
+<td>29474</td>
+<td>9.5</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">5</th>
+<td>29434</td>
+<td>18.8</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">6</th>
+<td>29153</td>
+<td>22.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">7</th>
+<td>31436</td>
+<td>28.5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8</th>
+<td>31102</td>
+<td>14.5</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9</th>
+<td>29900</td>
+<td>8.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">10</th>
+<td>31508</td>
+<td>13.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">11</th>
+<td>30606</td>
+<td>15.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">12</th>
+<td>30869</td>
+<td>21.9</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The three airports are close together, between about 14 and 16 minutes. The month-by-month pattern is much stronger: July is worst at 28.5 minutes and January best at 8.3. Summer combines the heaviest travel demand with thunderstorm season, and a plane held up by an afternoon storm is late for every leg it flies afterwards.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="joining-two-tables" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="joining-two-tables"><span class="header-section-number">5.8</span> Joining two tables</h2>
+<p>The result above is still hard to read, because <code>F9</code> and <code>YX</code> are codes rather than names. The codes are explained in a second file, which lists every airline that appears in the data:</p>
+<div id="d6787095" class="cell" data-execution_count="54">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>airlines <span class="op">=</span> pd.read_csv(</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/nycflights/airlines.csv"</span></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>airlines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="54">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>AA</td>
+<td>American Airlines Inc.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>AS</td>
+<td>Alaska Airlines Inc.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>B6</td>
+<td>JetBlue Airways</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>DL</td>
+<td>Delta Air Lines Inc.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>F9</td>
+<td>Frontier Airlines Inc.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>G4</td>
+<td>Allegiant Air</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>HA</td>
+<td>Hawaiian Airlines Inc.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>MQ</td>
+<td>Envoy Air</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>NK</td>
+<td>Spirit Air Lines</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>OO</td>
+<td>SkyWest Airlines Inc.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">10</th>
+<td>UA</td>
+<td>United Air Lines Inc.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">11</th>
+<td>WN</td>
+<td>Southwest Airlines Co.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12</th>
+<td>YX</td>
+<td>Republic Airline</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This is the situation a <strong>join</strong> exists for: two tables that share a column, holding different information about the same things. <code>.merge()</code> combines them, matching rows wherever the shared column agrees:</p>
+<div id="6e5bac6c" class="cell" data-execution_count="55">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>named <span class="op">=</span> flights.merge(airlines, on<span class="op">=</span><span class="st">"carrier"</span>)</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>named[[<span class="st">"carrier"</span>, <span class="st">"name"</span>, <span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"dep_delay"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="55">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>AA</td>
+<td>American Airlines Inc.</td>
+<td>EWR</td>
+<td>MIA</td>
+<td>-7.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>B6</td>
+<td>JetBlue Airways</td>
+<td>JFK</td>
+<td>FLL</td>
+<td>-1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>B6</td>
+<td>JetBlue Airways</td>
+<td>JFK</td>
+<td>MCO</td>
+<td>-2.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>NK</td>
+<td>Spirit Air Lines</td>
+<td>EWR</td>
+<td>MCO</td>
+<td>-3.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>AA</td>
+<td>American Airlines Inc.</td>
+<td>JFK</td>
+<td>MIA</td>
+<td>-2.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Every flight has kept its own data and gained the <code>name</code> column from the airlines table. The <code>on=</code> argument names the column to match on; when the two tables call it different things, <code>left_on=</code> and <code>right_on=</code> let you say so.</p>
+<p>The remaining question is what happens to rows that find no match. That is what <code>how=</code> controls, and the four choices are easiest to see drawn:</p>
+<div id="3096c97d" class="cell" data-execution_count="56">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_tables_files/figure-html/cell-57-output-1.png" width="749" height="219" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The default is <code>how="inner"</code>, which keeps only the rows that matched on both sides. Here every carrier in the flights table has an entry in the airlines table, so nothing is lost and the row count is unchanged:</p>
+<div id="77b2b8ff" class="cell" data-execution_count="57">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>[flights.shape[<span class="dv">0</span>], named.shape[<span class="dv">0</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="57">
+<pre><code>[360771, 360771]</code></pre>
+</div>
+</div>
+<p>That check is worth performing every time you merge. A join that silently drops rows, because a key was spelled differently or a lookup table was incomplete, is one of the easier ways to get a wrong answer that looks entirely reasonable. If you want to be sure nothing is discarded, <code>how="left"</code> keeps every row of the left-hand table whether or not it found a match, filling the new columns with <code>NaN</code> where it did not.</p>
+<p>We can now put the whole chapter together. Load a table, join it to a second one, group the result, summarize each group, and sort:</p>
+<div id="b2729bdb" class="cell" data-execution_count="58">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>delay_by_airline <span class="op">=</span> (</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>    flights</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    .merge(airlines, on<span class="op">=</span><span class="st">"carrier"</span>)</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"name"</span>)</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>    .agg(flights<span class="op">=</span>(<span class="st">"flight"</span>, <span class="st">"count"</span>), mean_delay<span class="op">=</span>(<span class="st">"dep_delay"</span>, <span class="st">"mean"</span>))</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"mean_delay"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>delay_by_airline.<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="58">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">flights</th>
+<th data-quarto-table-cell-role="th">mean_delay</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Frontier Airlines Inc.</th>
+<td>6873</td>
+<td>27.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Envoy Air</th>
+<td>902</td>
+<td>21.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Southwest Airlines Co.</th>
+<td>11714</td>
+<td>20.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Hawaiian Airlines Inc.</th>
+<td>367</td>
+<td>18.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">JetBlue Airways</th>
+<td>45897</td>
+<td>17.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">American Airlines Inc.</th>
+<td>37242</td>
+<td>17.4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Alaska Airlines Inc.</th>
+<td>6929</td>
+<td>17.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Spirit Air Lines</th>
+<td>15107</td>
+<td>16.8</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Delta Air Lines Inc.</th>
+<td>66308</td>
+<td>16.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">SkyWest Airlines Inc.</th>
+<td>2704</td>
+<td>15.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">United Air Lines Inc.</th>
+<td>75948</td>
+<td>15.4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Allegiant Air</th>
+<td>668</td>
+<td>12.4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Republic Airline</th>
+<td>90112</td>
+<td>9.7</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>That is a readable answer to the question we started with, built from five operations that each did one thing.</p>
+<div id="exercise-data_tables-join" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Merge <code>flights</code> with <code>airlines</code>, then find the mean delay for JetBlue flights only.</li>
+<li>Repeat the airline summary, but group by both <code>name</code> and <code>origin</code> by passing a list to <code>.groupby()</code>. Which airline and airport combination has the worst average delay among pairings with at least 5,000 flights?</li>
+</ol>
+</div>
+</div>
+<div id="solution-data_tables-join" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="a28fd3ba" class="cell" data-execution_count="59">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Merge first, then filter to one airline</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>jetblue <span class="op">=</span> named[named[<span class="st">"name"</span>] <span class="op">==</span> <span class="st">"JetBlue Airways"</span>]</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>jetblue[<span class="st">"dep_delay"</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<pre><code>np.float64(17.6)</code></pre>
+</div>
+</div>
+<div id="ff13d264" class="cell" data-execution_count="60">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. A list of columns groups by every combination of them</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>pairs <span class="op">=</span> named.groupby([<span class="st">"name"</span>, <span class="st">"origin"</span>]).agg(</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>    flights<span class="op">=</span>(<span class="st">"flight"</span>, <span class="st">"count"</span>),</span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>    mean_delay<span class="op">=</span>(<span class="st">"dep_delay"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the pairings with enough flights to be meaningful, then sort</span></span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>big_pairs <span class="op">=</span> pairs[pairs[<span class="st">"flights"</span>] <span class="op">&gt;=</span> <span class="dv">5000</span>]</span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>big_pairs.sort_values(<span class="st">"mean_delay"</span>, ascending<span class="op">=</span><span class="va">False</span>).<span class="bu">round</span>(<span class="dv">1</span>).head(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="60">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">flights</th>
+<th data-quarto-table-cell-role="th">mean_delay</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Delta Air Lines Inc.</th>
+<th data-quarto-table-cell-role="th">EWR</th>
+<td>6581</td>
+<td>25.8</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Southwest Airlines Co.</th>
+<th data-quarto-table-cell-role="th">LGA</th>
+<td>11714</td>
+<td>20.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">American Airlines Inc.</th>
+<th data-quarto-table-cell-role="th">LGA</th>
+<td>16821</td>
+<td>20.4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Spirit Air Lines</th>
+<th data-quarto-table-cell-role="th">EWR</th>
+<td>9067</td>
+<td>20.2</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">JetBlue Airways</th>
+<th data-quarto-table-cell-role="th">EWR</th>
+<td>5309</td>
+<td>19.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>JetBlue averages 17.6 minutes. Among pairings with at least 5,000 flights, Delta out of Newark is worst at 25.8 minutes, well above Delta’s overall figure of 16.3, which suggests the problem lies with that particular operation rather than with the airline as a whole. Note how grouping by two columns produces a row for each combination that actually occurs, rather than for every pairing imaginable.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="summary" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.9</span> Summary</h2>
+<ul>
+<li>A <strong>Series</strong> is a one-dimensional column of values with an <strong>index</strong> of labels attached. The labels travel with the values, so filtering or sorting cannot break the correspondence between them.</li>
+<li><code>.loc</code> selects by label and <code>.iloc</code> selects by position. Keeping the two apart avoids most early confusion with pandas.</li>
+<li>A <strong>DataFrame</strong> is a table whose columns are Series sharing one index. <code>pd.read_csv</code> returns one.</li>
+<li>Look at data before computing on it: <code>.head()</code>, <code>.shape</code>, <code>.dtypes</code>, <code>.describe()</code>, and a plot.</li>
+<li><code>df["col"]</code> gives a Series; <code>df[["col1", "col2"]]</code> gives a DataFrame.</li>
+<li>Rows are selected with a Boolean mask, the same idea as in <a href="array_computations.html" class="quarto-xref"><span>Chapter 4</span></a>, or with <code>.query()</code> when a string reads more clearly.</li>
+<li>New columns are made by assigning to a new name, and the calculation applies to every row at once.</li>
+<li>A missing value is not always an error. In this data it marks a cancelled flight, and deciding whether to drop such rows depends on the question being asked.</li>
+<li><code>.groupby()</code> with <code>.agg()</code> performs <strong>split-apply-combine</strong>. Report the size of each group alongside the statistic, because averages over small groups are unreliable.</li>
+<li><code>.merge()</code> joins two tables on a shared column. Check the row count afterwards to be sure the join did not quietly discard data.</li>
+</ul>
+</section>
+<section id="exercises" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="exercises"><span class="header-section-number">5.10</span> Exercises</h2>
+<div id="exercise-data_tables-babynames" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Load the baby-name data from <a href="introduction.html" class="quarto-xref"><span>Chapter 1</span></a> and answer the question that chapter left hanging: in what year was a given name most popular?</p>
+<div id="6ca2c890" class="cell" data-execution_count="61">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> pd.read_csv(</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names_all.csv.gz"</span></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Pick a name, select the rows for that name and one sex, and use <code>.idxmax()</code> with <code>.loc</code> to find the year in which its <code>percent</code> was highest.</p>
+</div>
+</div>
+<div id="solution-data_tables-babynames" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="62dc2867" class="cell" data-execution_count="62">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> pd.read_csv(</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names_all.csv.gz"</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Two conditions: the name we want, and one sex</span></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>mary <span class="op">=</span> names[(names[<span class="st">"name"</span>] <span class="op">==</span> <span class="st">"Mary"</span>) <span class="op">&amp;</span> (names[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"girl"</span>)]</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>peak <span class="op">=</span> mary.loc[mary[<span class="st">"percent"</span>].idxmax()]</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>peak[[<span class="st">"year"</span>, <span class="st">"name"</span>, <span class="st">"count"</span>, <span class="st">"percent"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="61">
+<pre><code>year           1880
+name           Mary
+count          7065
+percent    7.238433
+Name: 1058, dtype: object</code></pre>
+</div>
+</div>
+<p>Mary peaked in 1880, the first year in the data, when 7.24% of girls were given the name. This is the code <a href="introduction.html" class="quarto-xref"><span>Chapter 1</span></a> showed you and asked you to take on trust.</p>
+</div>
+</div>
+</div>
+<div id="exercise-data_tables-bechdel" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Load the Bechdel test movie data from <a href="descriptive_stats_and_plots.html" class="quarto-xref"><span>Chapter 3</span></a>, which you previously handled as lists:</p>
+<div id="3249f9b4" class="cell" data-execution_count="63">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/bechdel/movies.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Group the movies by <code>binary</code>, which records whether each one passed or failed, and compute the number of films and the median <code>budget_2013$</code> in each group. What do you find?</p>
+</div>
+</div>
+<div id="solution-data_tables-bechdel" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="71b667a5" class="cell" data-execution_count="64">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/bechdel/movies.csv"</span>)</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>movies.groupby(<span class="st">"binary"</span>).agg(</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>    films<span class="op">=</span>(<span class="st">"title"</span>, <span class="st">"count"</span>),</span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>    median_budget<span class="op">=</span>(<span class="st">"budget_2013$"</span>, <span class="st">"median"</span>),</span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="62">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">films</th>
+<th data-quarto-table-cell-role="th">median_budget</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">binary</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FAIL</th>
+<td>991</td>
+<td>44016858.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">PASS</th>
+<td>803</td>
+<td>31459218.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Films that pass the test were made on noticeably smaller budgets: a median of about $31.7 million against $44.9 million for those that fail. This was the finding behind FiveThirtyEight’s original article. Notice what it does <em>not</em> establish: the data records what budgets were assigned, not why, and the question of whether studios were funding these films less generously is one the table alone cannot settle.</p>
+</div>
+</div>
+</div>
+<div id="exercise-data_tables-dest" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Which destinations do flights leave New York for most often? Group the flights by <code>dest</code>, count them, and show the ten most common. Then find the mean delay for flights to those destinations.</p>
+</div>
+</div>
+<div id="solution-data_tables-dest" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="2f2a468c" class="cell" data-execution_count="65">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>by_dest <span class="op">=</span> flights.groupby(<span class="st">"dest"</span>).agg(</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>    flights<span class="op">=</span>(<span class="st">"flight"</span>, <span class="st">"count"</span>),</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>    mean_delay<span class="op">=</span>(<span class="st">"dep_delay"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>by_dest.sort_values(<span class="st">"flights"</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="63">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">flights</th>
+<th data-quarto-table-cell-role="th">mean_delay</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">ORD</th>
+<td>19474</td>
+<td>18.2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">ATL</th>
+<td>18162</td>
+<td>19.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">MCO</th>
+<td>16871</td>
+<td>17.2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">BOS</th>
+<td>16314</td>
+<td>16.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">LAX</th>
+<td>15496</td>
+<td>14.5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">MIA</th>
+<td>15173</td>
+<td>18.4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FLL</th>
+<td>12872</td>
+<td>17.4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">DFW</th>
+<td>12521</td>
+<td>19.2</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">SFO</th>
+<td>11110</td>
+<td>16.2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">CLT</th>
+<td>10686</td>
+<td>16.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Chicago O’Hare and Atlanta come first, both of them major connecting hubs, followed by Orlando. The mean delays across these ten busy routes sit within about five minutes of one another, between 14.5 and 19.6, so no single destination stands out as unusually troubled.</p>
+</div>
+</div>
+</div>
+<div id="exercise-data_tables-weekend" class="callout callout-style-default callout-tip callout-titled" title="Exercise">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>time_hour</code> column records the scheduled departure. Flights scheduled later in the day tend to run later, because a delay early in the day is carried by the same aircraft all afternoon.</p>
+<p>Group the flights by the <code>hour</code> column and compute the mean departure delay for each hour. Then plot the result with <code>plt.plot()</code> to see the pattern.</p>
+</div>
+</div>
+<div id="solution-data_tables-weekend" class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="887ff37a" class="cell" data-execution_count="66">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>by_hour <span class="op">=</span> flights.groupby(<span class="st">"hour"</span>).agg(mean_delay<span class="op">=</span>(<span class="st">"dep_delay"</span>, <span class="st">"mean"</span>))</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>plt.plot(by_hour.index, by_hour[<span class="st">"mean_delay"</span>], <span class="st">".-"</span>)</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Scheduled departure hour"</span>)</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Mean departure delay (minutes)"</span>)</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Delays accumulate through the day"</span>)</span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_tables_files/figure-html/cell-67-output-1.png" width="585" height="451" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Delay climbs steadily from under 3 minutes in the early morning to over 30 by 10pm. The first flights of the day leave close to on time because their aircraft spent the night at the gate; every later flight inherits whatever delay the day has accumulated so far. The dip in the final hour should be treated with care rather than read as good news: only 87 flights all year were scheduled to leave at 11pm, against more than 19,000 at 8pm, so that last point is an average over a very small group.</p>
+</div>
+</div>
+</div>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
