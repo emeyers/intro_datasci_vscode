@@ -1,2 +1,1082 @@
 # Data tables {#sec-data-tables}
 
+Twice already this book has asked you to run a line of code and then ignore it. In @sec-descriptive-stats we loaded a file of movies and immediately turned its columns into lists, and in @sec-array-computations we did the same thing to gas prices and turned them into arrays. Both times the loading was done by a package called **pandas**, and both times you were told the details could wait.
+
+They can wait no longer. Pandas is the tool most Python analyses use to hold and manipulate data, and what `pd.read_csv` has been handing back is a **DataFrame**: a table of rows and columns, where each column can hold a different kind of value and every column knows its own name. Almost everything you do with real data begins by getting it into a table like this and ends by pulling something out of one.
+
+This chapter is about the two objects pandas is built from. A **Series** is a single column of values with labels attached, and a DataFrame is a set of Series that share those labels. By the end you will be able to load a file into a table, look at what arrived, select the rows and columns you want, add new columns computed from old ones, decide what to do about values that are missing, summarize a table one group at a time, and combine two tables into one.
+
+```{python}
+
+import pandas as pd
+
+```
+
+
+## From arrays to a Series
+
+At the end of @sec-array-computations we were holding a year of gas prices in two separate NumPy arrays: `gas_prices` held 52 numbers and `gas_dates` held the 52 dates those numbers belonged to. The cell below loads them again, exactly as before.
+
+```{python}
+
+# Try to download the data live from FRED; if that fails (for example, when there
+# is no internet connection), fall back to a saved snapshot of the same year.
+try:
+    from pandas_datareader.fred import FredReader
+    gas_data_all = FredReader("GASREGW", start="2024-06-01", end="2026-01-15").read().reset_index()
+    gas_year = gas_data_all[(gas_data_all["DATE"] >= "2025-01-01") & (gas_data_all["DATE"] < "2026-01-01")]
+except Exception:
+    gas_year = pd.read_csv("data/gas_prices_GASREGW_2025.csv", parse_dates=["DATE"])
+
+gas_prices = gas_year["GASREGW"].values
+gas_dates = gas_year["DATE"].values
+
+gas_prices[0:3]
+
+```
+
+Two arrays held that data, and nothing in Python knew they belonged together. The connection lived entirely in our heads and in the fact that we never disturbed either array. Sort the prices to find the cheapest weeks and the dates no longer line up. Drop a week from one array and every position in the other becomes wrong. We also could not ask the question a reader most naturally asks, which is what the price was in some particular week, because a date is not a position and NumPy indexes only by position.
+
+A **Series** solves this by carrying the labels along with the values. We build one by handing pandas the values and the labels we want attached to them:
+
+```{python}
+
+# The values come first, then the labels to attach to them
+gas = pd.Series(gas_prices, index=pd.to_datetime(gas_dates))
+
+gas.head()
+
+```
+
+The left-hand column is the **index**, which holds the labels, and the right-hand column holds the values. They are now one object, so anything that happens to the values happens to the labels too.
+
+Both halves are available separately when you want them. The values come back as the same NumPy array we started with, and the index is its own object:
+
+```{python}
+
+[gas.values[0:3], gas.index[0:3]]
+
+```
+
+
+### Looking things up by label and by position
+
+Because a Series has both labels and positions, it needs two ways of getting at a value, and pandas gives them different names. `.iloc` takes a **position**, counting from zero the way a list or an array does:
+
+```{python}
+
+# The first price of the year, by position
+gas.iloc[0]
+
+```
+
+`.loc` takes a **label**, which here means an actual date:
+
+```{python}
+
+# The price in the week of April 7th, by label
+gas.loc["2025-04-07"]
+
+```
+
+Keeping these two apart is worth a moment, because confusing them is the single most common source of puzzlement for people new to pandas. The rule is short: `.iloc` is about *where a value sits*, and `.loc` is about *what it is called*. On this Series the label `"2025-04-07"` and the position `13` refer to the same price, but only one of them stays correct if the data is sorted or filtered.
+
+```{python}
+#| echo: false
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+
+fig, ax = plt.subplots(figsize=(7.4, 3.1))
+
+blue, amber, grey = "#cfe3f7", "#fde2a8", "#7a7a7a"
+labels = ["2025-01-06", "2025-01-13", "2025-01-20"]
+values = ["3.047", "3.043", "3.109"]
+
+# Left panel: two arrays whose pairing exists only by convention. Right panel:
+# one Series in which each label is bound to its value. Both panels are drawn
+# from the same row geometry so the two representations line up for comparison.
+row_y = [2.0, 1.4, 0.8]
+box_w, box_h = 1.05, 0.44
+
+
+def cell(x, y, text, colour):
+    ax.add_patch(patches.FancyBboxPatch(
+        (x, y), box_w, box_h, boxstyle="round,pad=0.012",
+        fc=colour, ec="#9ab", lw=1.0))
+    ax.text(x + box_w / 2, y + box_h / 2, text, ha="center", va="center", fontsize=8.5)
+
+
+# --- left: two unconnected arrays ---
+for y, lab, val in zip(row_y, labels, values):
+    cell(0.15, y, lab, amber)
+    cell(1.60, y, val, blue)
+ax.text(0.15 + box_w / 2, row_y[0] + 0.62, "gas_dates", ha="center", fontsize=9,
+        family="monospace", color="#7a5a10")
+ax.text(1.60 + box_w / 2, row_y[0] + 0.62, "gas_prices", ha="center", fontsize=9,
+        family="monospace", color="#1c4f80")
+ax.text(1.45, row_y[1] + box_h / 2, "?", ha="center", va="center", fontsize=15,
+        color="#c0392b", style="italic")
+ax.text(1.45, 0.30, "paired only by position", ha="center", fontsize=8.5,
+        style="italic", color="#c0392b")
+
+# --- right: one Series ---
+x_lab, x_val = 4.05, 5.20
+for y, lab, val in zip(row_y, labels, values):
+    cell(x_lab, y, lab, amber)
+    cell(x_val, y, val, blue)
+    # a tie bar showing the two halves are one object
+    ax.plot([x_lab + box_w, x_val], [y + box_h / 2] * 2, color=grey, lw=1.4, zorder=0)
+ax.text(x_lab + box_w / 2, row_y[0] + 0.62, "index", ha="center", fontsize=9,
+        family="monospace", color="#7a5a10")
+ax.text(x_val + box_w / 2, row_y[0] + 0.62, "values", ha="center", fontsize=9,
+        family="monospace", color="#1c4f80")
+
+# one bracket around the whole Series
+ax.add_patch(patches.FancyBboxPatch(
+    (x_lab - 0.13, row_y[-1] - 0.13), (x_val + box_w) - x_lab + 0.26,
+    (row_y[0] + box_h) - row_y[-1] + 0.26,
+    boxstyle="round,pad=0.02", fc="none", ec=grey, lw=1.4, linestyle="--"))
+ax.text((x_lab + x_val + box_w) / 2, 0.30, "one object: labels travel with values",
+        ha="center", fontsize=8.5, style="italic", color="#2e6b2e")
+
+ax.text(1.68, 2.92, "two NumPy arrays", ha="center", fontsize=10, weight="bold")
+ax.text(5.30, 2.92, "one pandas Series", ha="center", fontsize=10, weight="bold")
+
+ax.set_xlim(-0.05, 6.6)
+ax.set_ylim(0.10, 3.15)
+ax.axis("off")
+plt.show()
+
+```
+
+
+### Everything you learned about arrays still works
+
+A Series is built on top of a NumPy array, so the vectorized arithmetic and Boolean masking from @sec-array-computations carry over unchanged. Arithmetic applies to every value at once:
+
+```{python}
+
+# Convert every price from dollars to cents
+(gas * 100).head(3)
+
+```
+
+A comparison produces a Series of `True` and `False` values, and using it to index the Series keeps the rows where it is `True`:
+
+```{python}
+
+expensive = gas[gas > 3.15]
+
+expensive
+
+```
+
+The difference from a plain array is visible in that output. The result tells us not just *how many* weeks were expensive but *which* ones, because each surviving value brought its date along with it.
+
+That also means the summary functions can now answer questions in terms of labels. `.idxmax()` gives the label of the largest value rather than its position:
+
+```{python}
+
+# Which week of 2025 had the highest average price?
+[gas.idxmax(), gas.max()]
+
+```
+
+In @sec-array-computations we could only say that prices peaked sometime in April. With a labeled index we can say that the peak was the week of April 7th, at just over \$3.24, without counting positions by hand.
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-series}
+
+Using the `gas` Series:
+
+1. Find the price in the week of September 1st, 2025.
+2. Find the *lowest* price of the year and the week it occurred, using `.idxmin()` and `.min()`.
+3. Count how many weeks had a price below \$3.00.
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-series collapse="true"}
+
+```{python}
+
+# 1. A specific week, looked up by its label
+gas.loc["2025-09-01"]
+
+```
+
+```{python}
+
+# 2. The cheapest week of the year
+[gas.idxmin(), gas.min()]
+
+```
+
+```{python}
+
+# 3. A comparison gives True/False, and summing counts the True values
+(gas < 3.00).sum()
+
+```
+
+Prices bottomed out in the last week of December at about \$2.81, and only 5 of the 52 weeks were below \$3.00.
+
+:::
+
+
+## Tables of data: the DataFrame
+
+A Series holds one column. Most data has many, and they are rarely all the same kind of thing. The dataset we will use for the rest of this chapter records every flight that departed one of New York City's three main airports during 2025: the date, the airline, where the plane was going, how far it flew, and how late it left. Some of those are numbers, some are text, and a table needs to hold both.
+
+The data comes from the **Bureau of Transportation Statistics**, the U.S. agency that collects on-time performance records from every domestic airline. Run the cell below to load it. As with the loading code in earlier chapters, you do not need to follow the details yet, though by the end of this chapter you will.
+
+```{python}
+
+flights = pd.read_csv(
+    "https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/nycflights/flights.csv.gz"
+)
+
+flights.head()
+
+```
+
+Each row is one flight. The `dep_delay` column records how many minutes late it left, and a negative value means it left early. Two rows in that first handful have blanks shown as `NaN`, which is how pandas displays a missing value; we will come back to what those mean shortly.
+
+Before computing anything, it is worth finding out what actually arrived. `.shape` gives the number of rows and columns:
+
+```{python}
+
+flights.shape
+
+```
+
+That is 360,771 flights described by 19 columns. This is the first dataset in this book that would be genuinely painful to handle as lists, which is much of the reason for learning pandas at all.
+
+`.columns` lists the column names, and `.dtypes` reports what kind of value each one holds:
+
+```{python}
+
+flights.dtypes
+
+```
+
+`object` is how pandas labels a column of text. Notice that `dep_delay` is a floating-point column even though a delay is always a whole number of minutes; that happens because some flights are missing a delay, and the missing marker `NaN` is itself a floating-point value.
+
+`.describe()` summarizes every numeric column at once, giving the count, mean, standard deviation and quartiles you met in @sec-descriptive-stats:
+
+```{python}
+
+# Just the delay column, rounded, so the numbers are readable
+flights["dep_delay"].describe().round(1)
+
+```
+
+There is a lot in that summary. The mean departure delay is about 15 minutes, but the median is **−3**, meaning a typical flight actually pushes back from the gate slightly *early*. The largest delay in the file is 2,590 minutes, which is a little over 43 hours. That gap between mean and median is the signature of a right-skewed distribution, exactly as in @sec-descriptive-stats: most flights are close to on time, and a long tail of severe delays drags the average upward.
+
+A histogram makes the shape visible. Because of that long tail, plotting the raw column would produce a single spike, so we restrict the range to the delays that most flights actually experience:
+
+```{python}
+
+import matplotlib.pyplot as plt
+
+plt.hist(flights["dep_delay"], bins=40, range=(-30, 120))
+plt.xlabel("Departure delay (minutes)")
+plt.ylabel("Number of flights")
+plt.title("Most flights leave close to on time")
+plt.show()
+
+```
+
+The peak sits just below zero, and the tail stretches to the right. Keep this picture in mind, because the rest of the chapter is largely about asking which flights sit in that tail.
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-inspect}
+
+Using the `flights` table:
+
+1. How many columns does it have? Get the answer from `.shape` rather than counting.
+2. Display the *last* five rows using `.tail()`.
+3. Use `.describe()` on the `distance` column. What are the shortest and longest flights in the data?
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-inspect collapse="true"}
+
+```{python}
+
+# 1. .shape gives (rows, columns), so the second value is the column count
+flights.shape[1]
+
+```
+
+```{python}
+
+# 2. The last five rows
+flights.tail()
+
+```
+
+```{python}
+
+# 3. Summary of the distance column
+flights["distance"].describe().round(1)
+
+```
+
+The shortest flight in the data covers 96 miles and the longest 4,983 miles, with half of all flights falling between 544 and 1,391 miles.
+
+:::
+
+
+## Selecting columns and rows
+
+A table is only useful if you can get at the parts of it you want. Pandas separates this into two questions: which columns, and which rows.
+
+### Columns
+
+Passing a single column name in square brackets gives that column back as a Series, the object from the start of this chapter:
+
+```{python}
+
+flights["dep_delay"].head()
+
+```
+
+Passing a *list* of names instead gives back a DataFrame containing those columns:
+
+```{python}
+
+flights[["carrier", "origin", "dest", "dep_delay"]].head()
+
+```
+
+The difference between those two is a common early stumbling block, because the second form looks like the first with an extra pair of brackets. It helps to read the inner brackets as an ordinary Python list: `flights[["carrier", "dest"]]` is asking for *a list of columns*, so the answer is a table. `flights["carrier"]` is asking for *one column*, so the answer is a single Series.
+
+### Rows
+
+Rows work the way they did for a Series. `.iloc` selects by position:
+
+```{python}
+
+# The first three rows
+flights.iloc[0:3]
+
+```
+
+Both `.loc` and `.iloc` can take a second argument to say which columns you want as well as which rows, separated by a comma:
+
+```{python}
+
+# The first three rows, and only two of the columns
+flights.loc[0:2, ["carrier", "dep_delay"]]
+
+```
+
+The most useful way to choose rows, though, is not by position at all but by asking a question about them. In @sec-array-computations a comparison on a NumPy array produced an array of `True` and `False` values that could be used to keep only the values you wanted. The same idea works on a table, and this is where it earns its keep:
+
+```{python}
+
+# True for every flight that left from JFK
+from_jfk = flights["origin"] == "JFK"
+
+flights[from_jfk].head()
+
+```
+
+```{python}
+
+# How many of the year's flights left from JFK?
+from_jfk.sum()
+
+```
+
+Conditions can be combined with `&` for "and" and `|` for "or". Each condition needs its own parentheses, because `&` binds more tightly than `==` does and Python will otherwise try to compare the wrong things:
+
+```{python}
+
+# Flights from JFK that left more than an hour late
+badly_delayed = flights[(flights["origin"] == "JFK") & (flights["dep_delay"] > 60)]
+
+badly_delayed.shape[0]
+
+```
+
+Nearly nine thousand flights out of JFK left over an hour behind schedule during the year.
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-select}
+
+1. Select just the `carrier`, `flight` and `dest` columns, and show the first three rows.
+2. How many flights departed from Newark (`EWR`)?
+3. How many flights left from LaGuardia (`LGA`) and flew more than 1,000 miles?
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-select collapse="true"}
+
+```{python}
+
+# 1. A list of column names gives back a table
+flights[["carrier", "flight", "dest"]].head(3)
+
+```
+
+```{python}
+
+# 2. A comparison gives True/False, and summing counts the True values
+(flights["origin"] == "EWR").sum()
+
+```
+
+```{python}
+
+# 3. Two conditions, each in its own parentheses
+long_from_lga = flights[(flights["origin"] == "LGA") & (flights["distance"] > 1000)]
+
+long_from_lga.shape[0]
+
+```
+
+Newark handled 120,286 departures, and 45,087 flights left LaGuardia for a destination more than 1,000 miles away.
+
+:::
+
+
+## A more readable filter: `.query()`
+
+Boolean masking is the workhorse, and you will see it everywhere. It does have a cost, though, which is that the name of the table appears three times in a single line:
+
+```{python}
+
+flights[(flights["origin"] == "JFK") & (flights["dep_delay"] > 60)].shape[0]
+
+```
+
+Pandas offers `.query()`, which takes the condition as a string and lets you refer to columns by bare name:
+
+```{python}
+
+flights.query('origin == "JFK" and dep_delay > 60').shape[0]
+
+```
+
+The two give exactly the same 8,889 rows. Inside a query you write `and`, `or` and `not` rather than `&`, `|` and `~`, which is closer to how you would say the condition out loud. Because the whole condition is a string, the quotes have to alternate: the example above wraps the query in single quotes so that the string `"JFK"` inside it can use double ones.
+
+To use a value held in a Python variable, put `@` in front of its name:
+
+```{python}
+
+cutoff = 180
+
+flights.query("dep_delay > @cutoff").shape[0]
+
+```
+
+There is one limitation worth knowing. Because `.query()` refers to columns as though they were variable names, it only works when a column name is a legal Python name. A column called `budget_2013$`, like the one in the movie data from @sec-descriptive-stats, cannot be referred to this way, and there you would need the Boolean form.
+
+Neither style is more correct. Use whichever makes a particular line easier to read; this book uses masking by default, because it is what you will encounter most often.
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-query}
+
+Rewrite each of these using `.query()`, and check that you get the same number of rows:
+
+1. `flights[flights["dest"] == "LAX"]`
+2. `flights[(flights["origin"] == "EWR") & (flights["distance"] < 500)]`
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-query collapse="true"}
+
+```{python}
+
+# 1. A single condition on a text column
+[flights[flights["dest"] == "LAX"].shape[0],
+ flights.query('dest == "LAX"').shape[0]]
+
+```
+
+```{python}
+
+# 2. Two conditions joined with "and" rather than "&"
+[flights[(flights["origin"] == "EWR") & (flights["distance"] < 500)].shape[0],
+ flights.query('origin == "EWR" and distance < 500').shape[0]]
+
+```
+
+Both pairs agree: 15,496 flights went to Los Angeles, and 21,367 short flights left Newark.
+
+:::
+
+
+## Sorting and adding columns
+
+`.sort_values()` reorders the rows by a column. Adding `ascending=False` puts the largest first:
+
+```{python}
+
+# The five longest departure delays of the year
+flights.sort_values("dep_delay", ascending=False).head(5)[
+    ["month", "day", "carrier", "flight", "origin", "dest", "dep_delay"]
+]
+
+```
+
+If you want the single worst row rather than the top few, `.idxmax()` gives the index label of the largest value, and `.loc` then fetches that row. This is the pattern promised back in @sec-introduction, where we used it on the baby-name data without explaining it:
+
+```{python}
+
+# The label of the row with the largest delay, then the row itself
+worst = flights.loc[flights["dep_delay"].idxmax()]
+
+worst[["month", "day", "carrier", "flight", "origin", "dest", "dep_delay"]]
+
+```
+
+A new column is created by assigning to a name that does not exist yet, and the calculation applies to every row at once, exactly as arithmetic did on arrays:
+
+```{python}
+
+# How much time a flight made up in the air: positive means it caught up
+flights["time_made_up"] = flights["dep_delay"] - flights["arr_delay"]
+
+flights[["carrier", "origin", "dest", "dep_delay", "arr_delay", "time_made_up"]].head()
+
+```
+
+Columns are renamed by passing a dictionary, the data structure from @sec-python-basics, whose keys are the old names and whose values are the new ones:
+
+```{python}
+
+flights = flights.rename(columns={"dep_delay": "departure_delay"})
+
+flights.columns
+
+```
+
+That change makes the rest of this chapter harder to read rather than easier, so we will put it straight back:
+
+```{python}
+
+flights = flights.rename(columns={"departure_delay": "dep_delay"})
+
+```
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-sort}
+
+1. Sort the flights by `distance` and show the three longest.
+2. Add a column called `speed` holding each flight's average speed in miles per hour, which is `distance` divided by `air_time`, multiplied by 60 because `air_time` is in minutes.
+3. Use `.idxmax()` to find the single fastest flight in the data.
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-sort collapse="true"}
+
+```{python}
+
+# 1. Sort descending and take the top three
+flights.sort_values("distance", ascending=False).head(3)[
+    ["carrier", "origin", "dest", "distance"]
+]
+
+```
+
+```{python}
+
+# 2. air_time is in minutes, so multiply by 60 to get miles per hour
+flights["speed"] = flights["distance"] / flights["air_time"] * 60
+
+flights[["origin", "dest", "distance", "air_time", "speed"]].head(3)
+
+```
+
+```{python}
+
+# 3. The row with the largest value in the new column
+fastest = flights.loc[flights["speed"].idxmax()]
+
+fastest[["carrier", "flight", "origin", "dest", "distance", "air_time", "speed"]]
+
+```
+
+The longest flights run from JFK to Honolulu, a distance of 4,983 miles. The fastest works out at about 837 miles per hour, which ought to give you pause. No airliner cruises that fast, only four flights in the entire year come out above 700, and the median is around 405. The likely explanation is that this flight's recorded air time is wrong, not that the aircraft broke a record. A result that disagrees with what you already know about the world is usually telling you something about the data rather than about the world.
+
+:::
+
+
+## Missing data
+
+Those `NaN` values in the very first rows we looked at were not a mistake in the file. A **cancelled flight** still appears in the data, because it was scheduled and then did not happen: it has a scheduled departure time but no actual one, and so no delay.
+
+`.isna()` marks every missing value with `True`, and since summing a Boolean column counts the `True` values, the two together count what is missing:
+
+```{python}
+
+flights[["dep_delay", "arr_delay", "tailnum"]].isna().sum()
+
+```
+
+So 8,634 of the year's 360,771 flights never left, about 2.4% of the schedule. That is information rather than an error, and it is worth noticing that the number of missing *arrival* delays is larger still: a flight can take off and then be diverted, so it departs but never arrives where it meant to.
+
+Most calculations skip missing values automatically. The mean delay we computed earlier was the mean of the flights that actually departed, and pandas did that silently. When you want to work only with complete rows, `.dropna()` removes the rest. Passing `subset=` restricts the check to the columns you care about, which matters here because dropping every row with *any* missing value would also discard the flights whose `tailnum` was never recorded:
+
+```{python}
+
+departed = flights.dropna(subset=["dep_delay"])
+
+[flights.shape[0], departed.shape[0]]
+
+```
+
+Deciding what to do about missing values is a judgment call rather than a technical one. Dropping the cancelled flights is the right choice when you are asking how late departures run, and the wrong choice when you are asking how reliable an airline is, since cancelling a flight is the most severe way of failing a passenger. The data cannot make that decision for you.
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-missing}
+
+1. How many flights are missing an `air_time`?
+2. Cancelled flights have no `dep_time`. Use a Boolean mask with `.isna()` to select them, and find how many were scheduled to leave JFK.
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-missing collapse="true"}
+
+```{python}
+
+# 1. Count the missing values in one column
+flights["air_time"].isna().sum()
+
+```
+
+```{python}
+
+# 2. .isna() gives a True/False column, which selects rows like any other mask
+cancelled = flights[flights["dep_time"].isna()]
+
+(cancelled["origin"] == "JFK").sum()
+
+```
+
+10,284 flights have no recorded air time, and 1,914 of the cancelled flights were due to leave JFK.
+
+:::
+
+
+## Summarizing by group
+
+Here is a question the table can answer but no single number can: which airline should you avoid? Answering it means splitting the flights into groups by airline, computing the mean delay within each group, and collecting the results into a new table. That three-step pattern is common enough to have a name, **split-apply-combine**, and `.groupby()` performs it.
+
+```{python}
+#| echo: false
+
+import matplotlib.patches as patches
+
+fig, ax = plt.subplots(figsize=(7.6, 3.3))
+
+blue, amber, green = "#cfe3f7", "#fde2a8", "#d6ecd2"
+rows = [("AA", 12), ("B6", 4), ("AA", 20), ("DL", 6), ("B6", 8), ("DL", 10)]
+groups = [("AA", [12, 20], 16.0, amber), ("B6", [4, 8], 6.0, blue), ("DL", [6, 10], 8.0, green)]
+colour_of = {"AA": amber, "B6": blue, "DL": green}
+
+box_w, box_h = 0.92, 0.34
+
+
+def cell(x, y, text, colour, width=box_w):
+    ax.add_patch(patches.FancyBboxPatch(
+        (x, y), width, box_h, boxstyle="round,pad=0.01", fc=colour, ec="#9ab", lw=0.9))
+    ax.text(x + width / 2, y + box_h / 2, text, ha="center", va="center", fontsize=8)
+
+
+# stage 1: the original table, coloured by the group each row belongs to
+top = 2.30
+for i, (carrier, delay) in enumerate(rows):
+    y = top - i * 0.40
+    cell(0.10, y, f"{carrier}   {delay}", colour_of[carrier], width=1.30)
+ax.text(0.75, top + 0.52, "the table", ha="center", fontsize=9, weight="bold")
+
+# stage 2: split into one block per carrier
+x_split = 2.65
+y_cursor = top + 0.06
+block_centres = []
+for carrier, delays, _, colour in groups:
+    block_top = y_cursor
+    for d in delays:
+        cell(x_split, y_cursor, f"{carrier}   {d}", colour, width=1.30)
+        y_cursor -= 0.40
+    # centre of this block, taken from the rows just drawn rather than guessed
+    block_centres.append((block_top + (y_cursor + 0.40)) / 2)
+    y_cursor -= 0.18
+ax.text(x_split + 0.65, top + 0.52, "split", ha="center", fontsize=9, weight="bold")
+
+# stage 3: one mean per group, positioned at the vertical centre of its block
+x_out = 5.55
+for (carrier, _, mean, colour), cy in zip(groups, block_centres):
+    cell(x_out, cy, f"{carrier}   {mean:.1f}", colour, width=1.30)
+ax.text(x_out + 0.65, top + 0.52, "apply, then combine", ha="center", fontsize=9, weight="bold")
+
+# arrows between the stages, labelled at their midpoints
+for x0, x1, label in ((1.48, 2.55, "by carrier"), (4.03, 5.45, "mean")):
+    ax.annotate("", xy=(x1, 1.30), xytext=(x0, 1.30),
+                arrowprops=dict(arrowstyle="->", color="0.35", lw=1.4))
+    ax.text((x0 + x1) / 2, 1.40, label, ha="center", fontsize=8.5,
+            style="italic", color="0.3")
+
+ax.set_xlim(0.0, 7.2)
+ax.set_ylim(-0.05, 3.0)
+ax.axis("off")
+plt.show()
+
+```
+
+In code, that is one call. `.groupby("carrier")` forms the groups, and `.agg()` says what to compute for each one. The form used here names each output column and says which input column and which statistic it comes from:
+
+```{python}
+
+by_carrier = flights.groupby("carrier").agg(
+    flights=("flight", "count"),
+    mean_delay=("dep_delay", "mean"),
+)
+
+by_carrier.round(1)
+
+```
+
+The carrier codes have become the index of the result, which is why they sit to the left in bold. Sorting turns this into an answer:
+
+```{python}
+
+by_carrier.sort_values("mean_delay", ascending=False).round(1)
+
+```
+
+Frontier is the worst, at about 27 minutes of average delay, and Republic the best at under 10. Before repeating that anywhere, look at the `flights` column beside it. Frontier's figure rests on 6,873 flights, which is plenty, but Envoy Air sits second-worst on the strength of only 902, and Hawaiian's 367 flights are too few to say much at all. An average computed from a handful of observations bounces around, and a table sorted by that average will tend to put small groups at both ends. Reporting the group size alongside the statistic is the habit that keeps this visible.
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-groupby}
+
+1. Group the flights by `origin` and compute the mean departure delay for each of the three airports.
+2. Group by `month` and compute both the mean delay and the number of flights. Which month is worst, and does the answer make sense?
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-groupby collapse="true"}
+
+```{python}
+
+# 1. One row per airport
+flights.groupby("origin").agg(mean_delay=("dep_delay", "mean")).round(1)
+
+```
+
+```{python}
+
+# 2. Two statistics per month
+by_month = flights.groupby("month").agg(
+    flights=("flight", "count"),
+    mean_delay=("dep_delay", "mean"),
+)
+
+by_month.round(1)
+
+```
+
+The three airports are close together, between about 14 and 16 minutes. The month-by-month pattern is much stronger: July is worst at 28.5 minutes and January best at 8.3. Summer combines the heaviest travel demand with thunderstorm season, and a plane held up by an afternoon storm is late for every leg it flies afterwards.
+
+:::
+
+
+## Joining two tables
+
+The result above is still hard to read, because `F9` and `YX` are codes rather than names. The codes are explained in a second file, which lists every airline that appears in the data:
+
+```{python}
+
+airlines = pd.read_csv(
+    "https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/nycflights/airlines.csv"
+)
+
+airlines
+
+```
+
+This is the situation a **join** exists for: two tables that share a column, holding different information about the same things. `.merge()` combines them, matching rows wherever the shared column agrees:
+
+```{python}
+
+named = flights.merge(airlines, on="carrier")
+
+named[["carrier", "name", "origin", "dest", "dep_delay"]].head()
+
+```
+
+Every flight has kept its own data and gained the `name` column from the airlines table. The `on=` argument names the column to match on; when the two tables call it different things, `left_on=` and `right_on=` let you say so.
+
+The remaining question is what happens to rows that find no match. That is what `how=` controls, and the four choices are easiest to see drawn:
+
+```{python}
+#| echo: false
+
+import numpy as np
+
+fig, axes = plt.subplots(1, 4, figsize=(7.9, 2.6))
+
+# The two circles, and a pixel grid used to work out which region each point
+# falls in. Shading a computed mask rather than the circles themselves is what
+# lets each panel highlight exactly the rows a given join keeps.
+cx_left, cx_right, cy, radius = 0.40, 0.60, 0.52, 0.27
+grid = np.linspace(0, 1, 420)
+gx, gy = np.meshgrid(grid, grid)
+in_left = (gx - cx_left) ** 2 + (gy - cy) ** 2 <= radius ** 2
+in_right = (gx - cx_right) ** 2 + (gy - cy) ** 2 <= radius ** 2
+
+regions = {
+    "left_only": in_left & ~in_right,
+    "both": in_left & in_right,
+    "right_only": in_right & ~in_left,
+}
+keys = {"left_only": ["AA"], "both": ["B6", "DL"], "right_only": ["F9"]}
+kept_by_join = {
+    "inner": ["both"],
+    "left": ["left_only", "both"],
+    "right": ["both", "right_only"],
+    "outer": ["left_only", "both", "right_only"],
+}
+captions = {
+    "inner": "only rows in both",
+    "left": "every row of flights",
+    "right": "every row of airlines",
+    "outer": "everything from both",
+}
+
+fill = np.array([0.807, 0.890, 0.968])
+pale = np.array([0.960, 0.960, 0.960])
+
+for ax, (how, kept) in zip(axes, kept_by_join.items()):
+    shaded = np.ones(in_left.shape + (3,))
+    shaded[in_left | in_right] = pale
+    for region in kept:
+        shaded[regions[region]] = fill
+    ax.imshow(shaded, origin="lower", extent=(0, 1, 0, 1), interpolation="nearest")
+
+    ax.add_patch(patches.Circle((cx_left, cy), radius, fc="none", ec="#4a7fb5", lw=1.3))
+    ax.add_patch(patches.Circle((cx_right, cy), radius, fc="none", ec="#c99a2e", lw=1.3))
+
+    # Each region's keys sit at that region's centroid, computed from the same
+    # masks that were shaded, so the labels follow if the circles are moved.
+    for region, mask in regions.items():
+        ys, xs = np.nonzero(mask)
+        colour = "#222222" if region in kept else "#b0b0b0"
+        ax.text(grid[int(round(xs.mean()))], grid[int(round(ys.mean()))],
+                "\n".join(keys[region]), ha="center", va="center",
+                fontsize=7.5, color=colour)
+
+    ax.set_title(f'how="{how}"', fontsize=9, family="monospace", pad=6)
+    ax.text(0.5, 0.02, captions[how], ha="center", fontsize=7.5,
+            style="italic", color="0.3")
+    ax.set_xlim(0.02, 0.98)
+    ax.set_ylim(-0.02, 1.0)
+    ax.axis("off")
+
+axes[0].text(cx_left - radius * 0.75, cy + radius + 0.07, "flights",
+             fontsize=8, color="#4a7fb5", ha="center")
+axes[0].text(cx_right + radius * 0.75, cy + radius + 0.07, "airlines",
+             fontsize=8, color="#c99a2e", ha="center")
+
+plt.tight_layout()
+plt.show()
+
+```
+
+The default is `how="inner"`, which keeps only the rows that matched on both sides. Here every carrier in the flights table has an entry in the airlines table, so nothing is lost and the row count is unchanged:
+
+```{python}
+
+[flights.shape[0], named.shape[0]]
+
+```
+
+That check is worth performing every time you merge. A join that silently drops rows, because a key was spelled differently or a lookup table was incomplete, is one of the easier ways to get a wrong answer that looks entirely reasonable. If you want to be sure nothing is discarded, `how="left"` keeps every row of the left-hand table whether or not it found a match, filling the new columns with `NaN` where it did not.
+
+We can now put the whole chapter together. Load a table, join it to a second one, group the result, summarize each group, and sort:
+
+```{python}
+
+delay_by_airline = (
+    flights
+    .merge(airlines, on="carrier")
+    .groupby("name")
+    .agg(flights=("flight", "count"), mean_delay=("dep_delay", "mean"))
+    .sort_values("mean_delay", ascending=False)
+)
+
+delay_by_airline.round(1)
+
+```
+
+That is a readable answer to the question we started with, built from five operations that each did one thing.
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-join}
+
+1. Merge `flights` with `airlines`, then find the mean delay for JetBlue flights only.
+2. Repeat the airline summary, but group by both `name` and `origin` by passing a list to `.groupby()`. Which airline and airport combination has the worst average delay among pairings with at least 5,000 flights?
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-join collapse="true"}
+
+```{python}
+
+# 1. Merge first, then filter to one airline
+jetblue = named[named["name"] == "JetBlue Airways"]
+
+jetblue["dep_delay"].mean().round(1)
+
+```
+
+```{python}
+
+# 2. A list of columns groups by every combination of them
+pairs = named.groupby(["name", "origin"]).agg(
+    flights=("flight", "count"),
+    mean_delay=("dep_delay", "mean"),
+)
+
+# Keep only the pairings with enough flights to be meaningful, then sort
+big_pairs = pairs[pairs["flights"] >= 5000]
+
+big_pairs.sort_values("mean_delay", ascending=False).round(1).head(5)
+
+```
+
+JetBlue averages 17.6 minutes. Among pairings with at least 5,000 flights, Delta out of Newark is worst at 25.8 minutes, well above Delta's overall figure of 16.3, which suggests the problem lies with that particular operation rather than with the airline as a whole. Note how grouping by two columns produces a row for each combination that actually occurs, rather than for every pairing imaginable.
+
+:::
+
+
+## Summary
+
+- A **Series** is a one-dimensional column of values with an **index** of labels attached. The labels travel with the values, so filtering or sorting cannot break the correspondence between them.
+- `.loc` selects by label and `.iloc` selects by position. Keeping the two apart avoids most early confusion with pandas.
+- A **DataFrame** is a table whose columns are Series sharing one index. `pd.read_csv` returns one.
+- Look at data before computing on it: `.head()`, `.shape`, `.dtypes`, `.describe()`, and a plot.
+- `df["col"]` gives a Series; `df[["col1", "col2"]]` gives a DataFrame.
+- Rows are selected with a Boolean mask, the same idea as in @sec-array-computations, or with `.query()` when a string reads more clearly.
+- New columns are made by assigning to a new name, and the calculation applies to every row at once.
+- A missing value is not always an error. In this data it marks a cancelled flight, and deciding whether to drop such rows depends on the question being asked.
+- `.groupby()` with `.agg()` performs **split-apply-combine**. Report the size of each group alongside the statistic, because averages over small groups are unreliable.
+- `.merge()` joins two tables on a shared column. Check the row count afterwards to be sure the join did not quietly discard data.
+
+
+## Exercises
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-babynames}
+
+Load the baby-name data from @sec-introduction and answer the question that chapter left hanging: in what year was a given name most popular?
+
+```{python}
+#| eval: false
+
+names = pd.read_csv(
+    "https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names_all.csv.gz"
+)
+
+```
+
+Pick a name, select the rows for that name and one sex, and use `.idxmax()` with `.loc` to find the year in which its `percent` was highest.
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-babynames collapse="true"}
+
+```{python}
+
+names = pd.read_csv(
+    "https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names_all.csv.gz"
+)
+
+# Two conditions: the name we want, and one sex
+mary = names[(names["name"] == "Mary") & (names["sex"] == "girl")]
+
+peak = mary.loc[mary["percent"].idxmax()]
+
+peak[["year", "name", "count", "percent"]]
+
+```
+
+Mary peaked in 1880, the first year in the data, when 7.24% of girls were given the name. This is the code @sec-introduction showed you and asked you to take on trust.
+
+:::
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-bechdel}
+
+Load the Bechdel test movie data from @sec-descriptive-stats, which you previously handled as lists:
+
+```{python}
+#| eval: false
+
+movies = pd.read_csv("https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/bechdel/movies.csv")
+
+```
+
+Group the movies by `binary`, which records whether each one passed or failed, and compute the number of films and the median `budget_2013$` in each group. What do you find?
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-bechdel collapse="true"}
+
+```{python}
+
+movies = pd.read_csv("https://raw.githubusercontent.com/fivethirtyeight/data/refs/heads/master/bechdel/movies.csv")
+
+movies.groupby("binary").agg(
+    films=("title", "count"),
+    median_budget=("budget_2013$", "median"),
+)
+
+```
+
+Films that pass the test were made on noticeably smaller budgets: a median of about \$31.7 million against \$44.9 million for those that fail. This was the finding behind FiveThirtyEight's original article. Notice what it does *not* establish: the data records what budgets were assigned, not why, and the question of whether studios were funding these films less generously is one the table alone cannot settle.
+
+:::
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-dest}
+
+Which destinations do flights leave New York for most often? Group the flights by `dest`, count them, and show the ten most common. Then find the mean delay for flights to those destinations.
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-dest collapse="true"}
+
+```{python}
+
+by_dest = flights.groupby("dest").agg(
+    flights=("flight", "count"),
+    mean_delay=("dep_delay", "mean"),
+)
+
+by_dest.sort_values("flights", ascending=False).head(10).round(1)
+
+```
+
+Chicago O'Hare and Atlanta come first, both of them major connecting hubs, followed by Orlando. The mean delays across these ten busy routes sit within about five minutes of one another, between 14.5 and 19.6, so no single destination stands out as unusually troubled.
+
+:::
+
+::: {.callout-tip title="Exercise" #exercise-data_tables-weekend}
+
+The `time_hour` column records the scheduled departure. Flights scheduled later in the day tend to run later, because a delay early in the day is carried by the same aircraft all afternoon.
+
+Group the flights by the `hour` column and compute the mean departure delay for each hour. Then plot the result with `plt.plot()` to see the pattern.
+
+:::
+
+::: {.callout-note title="Solution" #solution-data_tables-weekend collapse="true"}
+
+```{python}
+
+by_hour = flights.groupby("hour").agg(mean_delay=("dep_delay", "mean"))
+
+plt.plot(by_hour.index, by_hour["mean_delay"], ".-")
+plt.xlabel("Scheduled departure hour")
+plt.ylabel("Mean departure delay (minutes)")
+plt.title("Delays accumulate through the day")
+plt.show()
+
+```
+
+Delay climbs steadily from under 3 minutes in the early morning to over 30 by 10pm. The first flights of the day leave close to on time because their aircraft spent the night at the gate; every later flight inherits whatever delay the day has accumulated so far. The dip in the final hour should be treated with care rather than read as good news: only 87 flights all year were scheduled to leave at 11pm, against more than 19,000 at 8pm, so that last point is an average over a very small group.
+
+:::
