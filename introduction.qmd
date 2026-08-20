@@ -94,7 +94,7 @@ The changes described so far were mostly visible to the people already doing the
 
 One event that had a signifant impact showing the value of these new data analysis methods occured in Major League Baseball. In 2002 the Oakland Athletics, working with one of the smallest payrolls in baseball, used statistical analysis of ordinary published numbers to find players the scouting system had undervalued, and put together a season that included a twenty-game winning streak. Michael Lewis's 2003 book about it, *Moneyball*, reached an audience far beyond baseball [@lewis2003] and led most major league baseball teams to invest in increasinly larger analytics departments. Another event that drew attention to using machine learning for analyzing data occurred in 2006 when Netflix offered a million dollar prize to anyone who could improve the company's recommendations by 10%, along with a large dataset of ratings so that anyone could try, and in 2009 a team assembled from outsiders beat what Netflix's own engineers had managed. And a third source that showed the public the power of data analysis was due to Nate Silver's statistical models at FiveThirtyEight website, where predicted 49 of 50 states in the 2008 presidential election and all 50 in 2012, at a time when television coverage ran on the intuition of experienced commentators. By 2012 a *Harvard Business Review* article called the data scientist "the sexiest job of the 21st century" [@davenport2012], and universities began launching degrees and renaming departments to match.
 
-As the field begain to mature, failures and negative consequences began to become visible. Netflix never put the winning algorithm into production, because it averaged together so many separate models that it was expensive to run and hard to maintain, and researchers then showed that individuals could be identified in the supposedly anonymous ratings by matching them against public reviews on another film site [@narayanan2008]. Google Flu Trends estimated influenza activity from the volume of flu-related searches, faster than the Centers for Disease Control could report it, and was held up as proof that with enough data careful modeling mattered less than sheer scale. Its estimates then drifted, reaching roughly double the true rate of flu-related doctor visits by 2013, in part because the model had been fitted years earlier and never refitted while the world changed underneath it [@lazer2014]. In 2016 Cathy O'Neil's *Weapons of Math Destruction* documented models used in sentencing, hiring, lending, and school evaluation that encoded existing inequities and applied them at scale [@oneil2016], and ProPublica's investigation of the COMPAS recidivism model found that Black defendants were roughly twice as likely as white defendants to be wrongly flagged as high risk. That same year produced the sharpest argument about forecasting, when FiveThirtyEight gave Donald Trump roughly a 29% chance of winning, he won, and forecasting was widely described as having failed. Whether a 29% forecast of something that then happens is a failure is a real question with a real answer, and @sec-statistical-inference takes it up.
+As the field begain to mature, failures and negative consequences began to become visible. Netflix never put the winning algorithm into production, because it averaged together so many separate models that it was expensive to run and hard to maintain, and researchers then showed that individuals could be identified in the supposedly anonymous ratings by matching them against public reviews on another film site [@narayanan2008]. Google Flu Trends estimated influenza activity from the volume of flu-related searches, faster than the Centers for Disease Control could report it, and was held up as proof that with enough data careful modeling mattered less than sheer scale. Its estimates then drifted, reaching roughly double the true rate of flu-related doctor visits by 2013, in part because the model had been fitted years earlier and never refitted while the world changed underneath it [@lazer2014]. In 2016 Cathy O'Neil's *Weapons of Math Destruction* documented models used in sentencing, hiring, lending, and school evaluation that encoded existing inequities and applied them at scale [@oneil2016], and ProPublica's investigation of the COMPAS recidivism model found that Black defendants were roughly twice as likely as white defendants to be wrongly flagged as high risk. That same year produced the sharpest argument about forecasting. FiveThirtyEight gave Donald Trump roughly a 29% chance of winning, and was the most cautious of the major forecasters by a wide margin. The Upshot, at the *New York Times*, put Clinton's chances at 85%, HuffPost at 98%, and Sam Wang's Princeton Election Consortium at 99%. Trump won, and forecasting was widely described as having failed. Two separate questions came out of that. The first is whether a 29% forecast of something that then happens is a failure at all, which is a real question with a real answer, and @sec-statistical-inference takes it up. The second is why forecasters looking at substantially the same polls disagreed by nearly thirty percentage points about how certain the result was. The models differed less in what they knew than in how they handled the chance that the polls were wrong everywhere in the same direction at once, which is exactly what happened.
 
 ```{python}
 #| echo: false
@@ -105,7 +105,7 @@ fig, ax = plt.subplots(figsize=(7.5, 3.6))
 ax.annotate("", xy=(2019.2, 0), xytext=(2001, 0),
             arrowprops=dict(arrowstyle="->", color="0.35", lw=1.5))
 
-# The same six episodes discussed above, placed at the year each is most
+# Five of the episodes discussed above, placed at the year each is most
 # identified with. Milestones sit above the line, cautionary episodes below.
 # 2012 carries two of the episodes, so it gets one marker with a two-part
 # label. Each stem height is set so that a label's lines clear its neighbors:
@@ -114,7 +114,7 @@ above = [(2003, 0.30, "2003\nMoneyball"),
          (2009, 0.30, "2009\nThe Netflix Prize"),
          (2012, 0.78, "2012\nFiveThirtyEight calls all 50 states\n\"Sexiest job of the 21st century\"")]
 below = [(2013, 0.30, "2013\nGoogle Flu Trends\nbreaks down"),
-         (2016, 0.72, "2016\nWeapons of\nMath Destruction")]
+         (2016, 0.78, "2016\nElection forecasts put Clinton\nbetween 71% and 99% to win")]
 
 for points, sign, colour in ((above, 1, "#1f77b4"), (below, -1, "#c0392b")):
     for year, height, label in points:
@@ -560,5 +560,45 @@ Answers will vary. As a worked example, take the question "are the buses on my r
 6. **Interpret and communicate.** Write the result up with the plot, state what the data does not cover, and say plainly whether the change is large enough to matter to a rider.
 
 The most common weak point in a sketch like this is stage 2. Questions that are easy to ask are frequently attached to data that nobody collected.
+
+:::
+
+::: {.callout-tip title="Exercise" #exercise-introduction-poisoned-name}
+
+Some names fall out of favor gradually. Others fall off a cliff.
+
+Using the plotting code from the start of this chapter, plot the girls' names `"Hilary"` and `"Hillary"` together. Then answer three things:
+
+1. In which year does each name collapse?
+2. Which of the two spellings falls further, and is that the one you would have guessed?
+3. What does the data establish about *why* it happened, and what would you have to bring from outside the data?
+
+This example is due to the statistician Hilary Parker, whose 2013 analysis of it [@parker2013] is one of the better-known pieces of writing about this dataset.
+
+:::
+
+::: {.callout-note title="Solution" #solution-introduction-poisoned-name collapse="true"}
+
+```{python}
+
+girls = names[names["sex"] == "girl"]
+
+for name in ["Hilary", "Hillary"]:
+    one_name = girls[girls["name"] == name]
+    plt.plot(one_name["year"], one_name["percent"], label=name)
+
+plt.xlabel("Year")
+plt.ylabel("Percentage of girls given the name")
+plt.xlim(1960, 2025)
+plt.legend()
+plt.show()
+
+```
+
+1. **Both collapse after 1992.** From 1992 to 1993 the share of girls named Hilary fell by 70%, and Hillary by 57%. Neither has recovered in the thirty years since.
+
+2. **Hilary, the one-`l` spelling, falls further**, which is the opposite of what most people guess. Hillary Clinton spells her name with two, and 1992 was the year her husband was elected president. The spelling that was not hers dropped the more sharply of the two. Notice also that Hillary *rose* through 1992, peaking in the election year itself, before collapsing the following year.
+
+3. The data establishes the **timing** and nothing more. It shows two names falling together, immediately after a particular year, and it cannot tell you what parents were thinking. That a newly prominent public figure made the name feel like a statement rather than a name is an explanation brought to the data from outside it, in exactly the way the song "Linda" was earlier in this chapter. It is a good explanation, and the file of names and counts cannot confirm it.
 
 :::
