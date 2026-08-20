@@ -55,7 +55,7 @@ int_gross_2013_dollars = bechdel_df["intgross_2013$"].tolist()
 
 ```
 
-The code above also extracts four lists from the Pandas DataFrame. We will analyze the data in these four lists throughout this chapter. These lists are: 
+The code above also extracts six lists from the Pandas DataFrame. We will analyze the data in these six lists throughout this chapter. These lists are: 
 
 - `movie_titles`: The titles of the movies.
 
@@ -94,7 +94,7 @@ print(len(budget_2013_dollars))
 
 From looking out the output, we can see that there are 1794 movies in our data set.
 
-Importantly for our analyses, the data in four lists all ordered the same way such that information about particular movie is at the same index in all the lists.  For example, the code below prints out information about the 11th movie in our list ^[remember, Python starts index counts at 0, so to get information about the 11th movie, we use index number 10].
+Importantly for our analyses, the data in all six lists is ordered the same way such that information about particular movie is at the same index in all the lists.  For example, the code below prints out information about the 11th movie in our list ^[remember, Python starts index counts at 0, so to get information about the 11th movie, we use index number 10].
 
 ```{python}
 

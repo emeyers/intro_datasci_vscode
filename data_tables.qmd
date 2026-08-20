@@ -1,10 +1,12 @@
 # Data tables {#sec-data-tables}
 
-Twice already this book has asked you to run a line of code and then ignore it. In @sec-descriptive-stats we loaded a file of movies and immediately turned its columns into lists, and in @sec-array-computations we did the same thing to gas prices and turned them into arrays. Both times the loading was done by a package called **pandas**, and both times you were told the details could wait.
+Suppose you are booking a flight out of New York and you would rather not spend the evening sitting on a runway. Which airline leaves late most often? Does it matter whether you fly out of Newark, JFK or LaGuardia, or whether you take a morning flight instead of an evening one? These are ordinary questions, and the U.S. government publishes the records needed to settle them: every domestic flight, with the airline that operated it, the airport it left from, when it was scheduled to go, and when it actually went.
 
-They can wait no longer. Pandas is the tool most Python analyses use to hold and manipulate data, and what `pd.read_csv` has been handing back is a **DataFrame**: a table of rows and columns, where each column can hold a different kind of value and every column knows its own name. Almost everything you do with real data begins by getting it into a table like this and ends by pulling something out of one.
+Answering any of those questions means holding several facts about the *same* flight together. To compare airlines you need each flight's carrier and its delay, attached to each other, for hundreds of thousands of flights at once. The tools from the last two chapters cannot really do this. In @sec-descriptive-stats the movie data was split across six separate lists, and that chapter had to warn you that the lists lined up only because the movies sat at the same index in each one. @sec-array-computations left the gas prices in the same condition, with the prices in one array and their dates in another. Sort one of a pair like that and the correspondence between them is silently destroyed.
 
-This chapter is about the two objects pandas is built from. A **Series** is a single column of values with labels attached, and a DataFrame is a set of Series that share those labels. By the end you will be able to load a file into a table, look at what arrived, select the rows and columns you want, add new columns computed from old ones, decide what to do about values that are missing, summarize a table one group at a time, and combine two tables into one.
+A **table** makes the connection permanent. Each row is one thing in the world, a single flight or movie or week, and each column is one measurement made on it, so a row keeps a thing's facts together no matter how the table is sorted or filtered. Columns can hold different kinds of value, text in one and numbers in the next, which is what lets a single object describe something as varied as a flight. Almost all recorded data arrives in this shape, from spreadsheets to survey results to the tables inside databases. In Python, tables come from a package called **pandas**, and a pandas table is called a **DataFrame**. You have in fact been creating DataFrames since @sec-descriptive-stats, in the loading cells you were told you could skip past for now.
+
+This chapter covers the two objects pandas is built from: a **Series**, which is a single column of values with labels attached, and a DataFrame, which is a set of Series sharing those labels. By the end you will be able to load a file into a table, look at what arrived, select the rows and columns you want, add new columns computed from old ones, decide what to do about values that are missing, summarize a table one group at a time, and combine two tables into one. The last of those is what finally answers the question we opened with, and the final section of this chapter does exactly that.
 
 ```{python}
 
@@ -15,7 +17,9 @@ import pandas as pd
 
 ## From arrays to a Series
 
-At the end of @sec-array-computations we were holding a year of gas prices in two separate NumPy arrays: `gas_prices` held 52 numbers and `gas_dates` held the 52 dates those numbers belonged to. The cell below loads them again, exactly as before.
+A table is built out of columns, so it is easier to start with a single one. The gas prices from @sec-array-computations are the smallest possible version of the problem described above, and fixing them there will show what a table does on a larger scale.
+
+At the end of that chapter we were holding a year of gas prices in two separate NumPy arrays: `gas_prices` held 52 numbers and `gas_dates` held the 52 dates those numbers belonged to. The cell below loads them again, exactly as before.
 
 ```{python}
 
