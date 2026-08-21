@@ -44,7 +44,88 @@ gas_prices[0:3]
 
 Because this data was held in separate arrays, nothing in Python knew they belonged together. The connection lived entirely in our own knowledge of the data, and we needed to be very careful to keep these arrays in the same order. Sort the prices to find the cheapest price and the dates no longer line up. Drop a week from one array and every position in the other becomes wrong. It was also difficult to ask the very simple question of given a particular week, what was the price of the gas during that week. 
 
-A **Series** solves this by carrying the labels (called an **Index**) along with the values. The values are just a regular ndarray that we saw in @sec-array-computations and the Index allows us to easily access these array values through a set of labels. We a pandas Series by handing pandas the values and the Index labels we want attached to them:
+A **Series** solves this by carrying the labels (called an **Index**) along with the values. The values are just a regular ndarray that we saw in @sec-array-computations and the Index allows us to easily access these array values through a set of labels. 
+
+
+```{python}
+#| echo: false
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+
+fig, ax = plt.subplots(figsize=(7.4, 3.1))
+
+blue, amber, grey = "#cfe3f7", "#fde2a8", "#7a7a7a"
+labels = ["2025-01-06", "2025-01-13", "2025-01-20"]
+values = ["3.047", "3.043", "3.109"]
+
+# Left panel: two arrays whose pairing exists only by convention. Right panel:
+# one Series in which each label is bound to its value. Both panels are drawn
+# from the same row geometry so the two representations line up for comparison.
+row_y = [2.0, 1.4, 0.8]
+box_w, box_h = 1.05, 0.44
+
+# Everything above the cells is positioned off the cells themselves, so the
+# column labels keep their clearance from the dashed bracket if the rows move.
+bracket_pad = 0.13
+bracket_top = row_y[0] + box_h + bracket_pad + 0.02   # + the boxstyle's own pad
+label_y = bracket_top + 0.20
+title_y = label_y + 0.30
+
+
+def cell(x, y, text, colour):
+    ax.add_patch(patches.FancyBboxPatch(
+        (x, y), box_w, box_h, boxstyle="round,pad=0.012",
+        fc=colour, ec="#9ab", lw=1.0))
+    ax.text(x + box_w / 2, y + box_h / 2, text, ha="center", va="center", fontsize=8.5)
+
+
+# --- left: two unconnected arrays ---
+for y, lab, val in zip(row_y, labels, values):
+    cell(0.15, y, lab, amber)
+    cell(1.60, y, val, blue)
+ax.text(0.15 + box_w / 2, label_y, "gas_dates", ha="center", fontsize=9,
+        family="monospace", color="#7a5a10")
+ax.text(1.60 + box_w / 2, label_y, "gas_prices", ha="center", fontsize=9,
+        family="monospace", color="#1c4f80")
+ax.text(1.45, row_y[1] + box_h / 2, "?", ha="center", va="center", fontsize=15,
+        color="#c0392b", style="italic")
+ax.text(1.45, 0.30, "paired only by position", ha="center", fontsize=8.5,
+        style="italic", color="#c0392b")
+
+# --- right: one Series ---
+x_lab, x_val = 4.05, 5.20
+for y, lab, val in zip(row_y, labels, values):
+    cell(x_lab, y, lab, amber)
+    cell(x_val, y, val, blue)
+    # a tie bar showing the two halves are one object
+    ax.plot([x_lab + box_w, x_val], [y + box_h / 2] * 2, color=grey, lw=1.4, zorder=0)
+ax.text(x_lab + box_w / 2, label_y, "Index", ha="center", fontsize=9,
+        family="monospace", color="#7a5a10")
+ax.text(x_val + box_w / 2, label_y, "values", ha="center", fontsize=9,
+        family="monospace", color="#1c4f80")
+
+# one bracket around the whole Series
+ax.add_patch(patches.FancyBboxPatch(
+    (x_lab - bracket_pad, row_y[-1] - bracket_pad),
+    (x_val + box_w) - x_lab + 2 * bracket_pad,
+    (row_y[0] + box_h) - row_y[-1] + 2 * bracket_pad,
+    boxstyle="round,pad=0.02", fc="none", ec=grey, lw=1.4, linestyle="--"))
+ax.text((x_lab + x_val + box_w) / 2, 0.30, "one object: labels travel with values",
+        ha="center", fontsize=8.5, style="italic", color="#2e6b2e")
+
+ax.text(1.68, title_y, "Two NumPy arrays", ha="center", fontsize=10, weight="bold")
+ax.text(5.30, title_y, "One pandas Series", ha="center", fontsize=10, weight="bold")
+
+ax.set_xlim(-0.05, 6.6)
+ax.set_ylim(0.10, title_y + 0.22)
+ax.axis("off")
+plt.show()
+
+```
+
+
+We can create pandas Series by handing pandas the values and the Index labels we want attached to them:
 
 ```{python}
 
@@ -64,6 +145,8 @@ We can extract both the Index values and the data values separately if you want 
 [gas.values[0:3], gas.index[0:3]]
 
 ```
+
+
 
 
 ### Looking up values by Index label and by position
@@ -92,77 +175,7 @@ Confusing `.iloc` and `.loc` is the single most common source of puzzlement for 
 - `.iloc` is about *where a value sits*; i.e., the position in the array
 - `.loc` is about *what it is called*; i.e., the Index name
 
-On this Series the label `"2025-04-07"` and the position `13` refer to the same price, but only the former stays correct if the data is sorted or values are removed from the array. 
-
-```{python}
-#| echo: false
-
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-
-fig, ax = plt.subplots(figsize=(7.4, 3.1))
-
-blue, amber, grey = "#cfe3f7", "#fde2a8", "#7a7a7a"
-labels = ["2025-01-06", "2025-01-13", "2025-01-20"]
-values = ["3.047", "3.043", "3.109"]
-
-# Left panel: two arrays whose pairing exists only by convention. Right panel:
-# one Series in which each label is bound to its value. Both panels are drawn
-# from the same row geometry so the two representations line up for comparison.
-row_y = [2.0, 1.4, 0.8]
-box_w, box_h = 1.05, 0.44
-
-
-def cell(x, y, text, colour):
-    ax.add_patch(patches.FancyBboxPatch(
-        (x, y), box_w, box_h, boxstyle="round,pad=0.012",
-        fc=colour, ec="#9ab", lw=1.0))
-    ax.text(x + box_w / 2, y + box_h / 2, text, ha="center", va="center", fontsize=8.5)
-
-
-# --- left: two unconnected arrays ---
-for y, lab, val in zip(row_y, labels, values):
-    cell(0.15, y, lab, amber)
-    cell(1.60, y, val, blue)
-ax.text(0.15 + box_w / 2, row_y[0] + 0.62, "gas_dates", ha="center", fontsize=9,
-        family="monospace", color="#7a5a10")
-ax.text(1.60 + box_w / 2, row_y[0] + 0.62, "gas_prices", ha="center", fontsize=9,
-        family="monospace", color="#1c4f80")
-ax.text(1.45, row_y[1] + box_h / 2, "?", ha="center", va="center", fontsize=15,
-        color="#c0392b", style="italic")
-ax.text(1.45, 0.30, "paired only by position", ha="center", fontsize=8.5,
-        style="italic", color="#c0392b")
-
-# --- right: one Series ---
-x_lab, x_val = 4.05, 5.20
-for y, lab, val in zip(row_y, labels, values):
-    cell(x_lab, y, lab, amber)
-    cell(x_val, y, val, blue)
-    # a tie bar showing the two halves are one object
-    ax.plot([x_lab + box_w, x_val], [y + box_h / 2] * 2, color=grey, lw=1.4, zorder=0)
-ax.text(x_lab + box_w / 2, row_y[0] + 0.62, "index", ha="center", fontsize=9,
-        family="monospace", color="#7a5a10")
-ax.text(x_val + box_w / 2, row_y[0] + 0.62, "values", ha="center", fontsize=9,
-        family="monospace", color="#1c4f80")
-
-# one bracket around the whole Series
-ax.add_patch(patches.FancyBboxPatch(
-    (x_lab - 0.13, row_y[-1] - 0.13), (x_val + box_w) - x_lab + 0.26,
-    (row_y[0] + box_h) - row_y[-1] + 0.26,
-    boxstyle="round,pad=0.02", fc="none", ec=grey, lw=1.4, linestyle="--"))
-ax.text((x_lab + x_val + box_w) / 2, 0.30, "one object: labels travel with values",
-        ha="center", fontsize=8.5, style="italic", color="#2e6b2e")
-
-ax.text(1.68, 2.92, "two NumPy arrays", ha="center", fontsize=10, weight="bold")
-ax.text(5.30, 2.92, "one pandas Series", ha="center", fontsize=10, weight="bold")
-
-ax.set_xlim(-0.05, 6.6)
-ax.set_ylim(0.10, 3.15)
-ax.axis("off")
-plt.show()
-
-```
-
+On this Series above, the label `"2025-04-07"` and the position `13` refer to the same price, but only the former stays correct if the data is sorted or values are removed from the array. 
 
 ### Everything you learned about arrays still works
 
