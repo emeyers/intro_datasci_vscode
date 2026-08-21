@@ -1,12 +1,14 @@
 # Data tables {#sec-data-tables}
 
-Suppose you are booking a flight out of New York and you would rather not spend the evening sitting on a runway. Which airline leaves late most often? Does it matter whether you fly out of Newark, JFK or LaGuardia, or whether you take a morning flight instead of an evening one? These are ordinary questions, and the U.S. government publishes the records needed to settle them: every domestic flight, with the airline that operated it, the airport it left from, when it was scheduled to go, and when it actually went.
+Suppose you are booking a flight out of New York and you would rather not spend the evening sitting on a runway. Which airline has the most frequent departure delays? Does it matter whether you fly out of Newark, JFK or LaGuardia, or whether you take a morning flight instead of an evening one? The U.S. government publishes data on every domestic flight, the airline that operated it, the airport it left from, the time it was scheduled to leave, and the time when it actually left. Using this data, it is possible to answer these questions.
 
-Answering any of those questions means holding several facts about the *same* flight together. To compare airlines you need each flight's carrier and its delay, attached to each other, for hundreds of thousands of flights at once. The tools from the last two chapters cannot really do this. In @sec-descriptive-stats the movie data was split across six separate lists, and that chapter had to warn you that the lists lined up only because the movies sat at the same index in each one. @sec-array-computations left the gas prices in the same condition, with the prices in one array and their dates in another. Sort one of a pair like that and the correspondence between them is silently destroyed.
+When answering these questions it is important to keep information about the *same* flight together; i.e., you need each flight's carrier, the time the flight was scheduled to depart, its delay, etc. attached to each other, for all flights. This is difficult to do using the the list and arrays discussed in the last two chapters. 
 
-A **table** makes the connection permanent. Each row is one thing in the world, a single flight or movie or week, and each column is one measurement made on it, so a row keeps a thing's facts together no matter how the table is sorted or filtered. Columns can hold different kinds of value, text in one and numbers in the next, which is what lets a single object describe something as varied as a flight. Almost all recorded data arrives in this shape, from spreadsheets to survey results to the tables inside databases. In Python, tables come from a package called **pandas**, and a pandas table is called a **DataFrame**. You have in fact been creating DataFrames since @sec-descriptive-stats, in the loading cells you were told you could skip past for now.
+A **table** makes the connection explicit. Each row corresponds to one item in the world, such as a single flight (or a movie or a particular week in the year), and each column is one measurement made on the item. This allows us to keep information about an item together when the table is sorted or a subset of the rows are selected. Columns can hold different types of information, such as text in one column and numbers in the next. In fact, data tables are one of the most frequently used formats when analyzing data, from spreadsheets to survey results to the tables inside databases. 
 
-This chapter covers the two objects pandas is built from: a **Series**, which is a single column of values with labels attached, and a DataFrame, which is a set of Series sharing those labels. By the end you will be able to load a file into a table, look at what arrived, select the rows and columns you want, add new columns computed from old ones, decide what to do about values that are missing, summarize a table one group at a time, and combine two tables into one. The last of those is what finally answers the question we opened with, and the final section of this chapter does exactly that.
+In Python, the most popular package for representing and manipulating table data is **pandas**. The pandas package is built around two key data structures: a **Series**, which is a single sequence of values with labels attached, and a **DataFrame** which is a table of data. By the end you will be able to load a file into a table, select the rows and columns you want, add new columns computed from old ones, decide what to do about values that are missing, summarize a table one group at a time, and combine two tables into one. These operations will allow us to answer the questions about flight delays we posed above. 
+
+
 
 ```{python}
 
@@ -15,11 +17,11 @@ import pandas as pd
 ```
 
 
-## From arrays to a Series
+## From arrays to Series
 
-A table is built out of columns, so it is easier to start with a single one. The gas prices from @sec-array-computations are the smallest possible version of the problem described above, and fixing them there will show what a table does on a larger scale.
+As mentioned above, the pandas package contains two key data structures: **Series**, and **DataFrames**. Let's start by discussing the pandas Series and once we have understood this data structure we will go on to discuss DataFrames. 
 
-At the end of that chapter we were holding a year of gas prices in two separate NumPy arrays: `gas_prices` held 52 numbers and `gas_dates` held the 52 dates those numbers belonged to. The cell below loads them again, exactly as before.
+At the end of @sec-array-computations we were storing data on a year of gas prices in two separate NumPy arrays: `gas_prices` held 52 prices as numbers and `gas_dates` held the 52 dates those numbers belonged to. The cell below loads them again, exactly as before.
 
 ```{python}
 
@@ -39,22 +41,23 @@ gas_prices[0:3]
 
 ```
 
-Two arrays held that data, and nothing in Python knew they belonged together. The connection lived entirely in our heads and in the fact that we never disturbed either array. Sort the prices to find the cheapest weeks and the dates no longer line up. Drop a week from one array and every position in the other becomes wrong. We also could not ask the question a reader most naturally asks, which is what the price was in some particular week, because a date is not a position and NumPy indexes only by position.
 
-A **Series** solves this by carrying the labels along with the values. We build one by handing pandas the values and the labels we want attached to them:
+Because this data was held in separate arrays, nothing in Python knew they belonged together. The connection lived entirely in our own knowledge of the data, and we needed to be very careful to keep these arrays in the same order. Sort the prices to find the cheapest price and the dates no longer line up. Drop a week from one array and every position in the other becomes wrong. It was also difficult to ask the very simple question of given a particular week, what was the price of the gas during that week. 
+
+A **Series** solves this by carrying the labels (called an **Index**) along with the values. The values are just a regular ndarray that we saw in @sec-array-computations and the Index allows us to easily access these array values through a set of labels. We a pandas Series by handing pandas the values and the Index labels we want attached to them:
 
 ```{python}
 
 # The values come first, then the labels to attach to them
-gas = pd.Series(gas_prices, index=pd.to_datetime(gas_dates))
+gas = pd.Series(gas_prices, index=gas_dates)
 
 gas.head()
 
 ```
 
-The left-hand column is the **index**, which holds the labels, and the right-hand column holds the values. They are now one object, so anything that happens to the values happens to the labels too.
+When we call the `.head()` method, the left-hand column is the **Index**, which holds the labels, and the right-hand column holds the values. They are now one object, so anything that happens to the values happens to the labels too.
 
-Both halves are available separately when you want them. The values come back as the same NumPy array we started with, and the index is its own object:
+We can extract both the Index values and the data values separately if you want them. Using the `.values` property extracts the same NumPy array we started with, and using the `.index` property returns the Index values:
 
 ```{python}
 
@@ -63,9 +66,9 @@ Both halves are available separately when you want them. The values come back as
 ```
 
 
-### Looking things up by label and by position
+### Looking up values by Index label and by position
 
-Because a Series has both labels and positions, it needs two ways of getting at a value, and pandas gives them different names. `.iloc` takes a **position**, counting from zero the way a list or an array does:
+We can extract values from a Series object by the position in the Series and by the Index label. To extract data by position, we use `.iloc` which takes a **position**, counting from zero the way a list or an array does, and returns the value at that position.
 
 ```{python}
 
@@ -74,7 +77,7 @@ gas.iloc[0]
 
 ```
 
-`.loc` takes a **label**, which here means an actual date:
+To extract a value based on an Index label, we use `.loc` which takes a **label**, (which here means an actual date), and returns the value at that given label.
 
 ```{python}
 
@@ -83,7 +86,13 @@ gas.loc["2025-04-07"]
 
 ```
 
-Keeping these two apart is worth a moment, because confusing them is the single most common source of puzzlement for people new to pandas. The rule is short: `.iloc` is about *where a value sits*, and `.loc` is about *what it is called*. On this Series the label `"2025-04-07"` and the position `13` refer to the same price, but only one of them stays correct if the data is sorted or filtered.
+
+Confusing `.iloc` and `.loc` is the single most common source of puzzlement for people new to pandas so please be sure you understand the difference before proceeding to the rest of this chapter. The rule to understand them is short:
+
+- `.iloc` is about *where a value sits*; i.e., the position in the array
+- `.loc` is about *what it is called*; i.e., the Index name
+
+On this Series the label `"2025-04-07"` and the position `13` refer to the same price, but only the former stays correct if the data is sorted or values are removed from the array. 
 
 ```{python}
 #| echo: false
