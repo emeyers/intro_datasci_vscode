@@ -70,7 +70,7 @@ box_w, box_h = 1.05, 0.44
 bracket_pad = 0.13
 bracket_top = row_y[0] + box_h + bracket_pad + 0.02   # + the boxstyle's own pad
 label_y = bracket_top + 0.20
-title_y = label_y + 0.30
+title_y = label_y + 0.52
 
 
 def cell(x, y, text, colour):
@@ -90,7 +90,7 @@ ax.text(1.60 + box_w / 2, label_y, "gas_prices", ha="center", fontsize=9,
         family="monospace", color="#1c4f80")
 ax.text(1.45, row_y[1] + box_h / 2, "?", ha="center", va="center", fontsize=15,
         color="#c0392b", style="italic")
-ax.text(1.45, 0.30, "paired only by position", ha="center", fontsize=8.5,
+ax.text(1.45, 0.30, "Paired only by position", ha="center", fontsize=8.5,
         style="italic", color="#c0392b")
 
 # --- right: one Series ---
@@ -111,7 +111,7 @@ ax.add_patch(patches.FancyBboxPatch(
     (x_val + box_w) - x_lab + 2 * bracket_pad,
     (row_y[0] + box_h) - row_y[-1] + 2 * bracket_pad,
     boxstyle="round,pad=0.02", fc="none", ec=grey, lw=1.4, linestyle="--"))
-ax.text((x_lab + x_val + box_w) / 2, 0.30, "one object: labels travel with values",
+ax.text((x_lab + x_val + box_w) / 2, 0.30, "One object: labels travel with values",
         ha="center", fontsize=8.5, style="italic", color="#2e6b2e")
 
 ax.text(1.68, title_y, "Two NumPy arrays", ha="center", fontsize=10, weight="bold")
@@ -170,7 +170,7 @@ gas.loc["2025-04-07"]
 ```
 
 
-Confusing `.iloc` and `.loc` is the single most common source of puzzlement for people new to pandas so please be sure you understand the difference before proceeding to the rest of this chapter. The rule to understand them is short:
+It is worth pausing here to make sure you understand the difference between `.iloc` and `.loc` is the single most common source of puzzlement for people new to pandas. The rule to understand them is short:
 
 - `.iloc` is about *where a value sits*; i.e., the position in the array
 - `.loc` is about *what it is called*; i.e., the Index name
