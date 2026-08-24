@@ -661,7 +661,7 @@ The fastest works out at about 837 miles per hour, which ought to give you pause
 
 When we looked at `.dtypes` earlier, `dep_delay` turned out to be a floating-point column even though a delay is a whole number of minutes, and the reason given was that some flights have no delay recorded at all. Those gaps are not a mistake in the file. A **cancelled flight** still appears in the data, because it was scheduled and then did not happen: it has a scheduled departure time but no actual one, and so no delay. Pandas writes such a missing value as `NaN`.
 
-`.isna()` marks every missing value with `True`, and since summing a Boolean column counts the `True` values, the two together count what is missing:
+The `.isna()` method marks every missing value with `True`, and since summing a Boolean column counts the `True` values, the two together count what is missing:
 
 ```{python}
 
@@ -671,7 +671,7 @@ flights[["dep_delay", "arr_delay", "tailnum"]].isna().sum()
 
 So 8,634 of the year's 360,771 flights never left, about 2.4% of the schedule. That is information rather than an error, and it is worth noticing that the number of missing *arrival* delays is larger still: a flight can take off and then be diverted, so it departs but never arrives where it meant to.
 
-Most calculations skip missing values automatically. The mean delay we computed earlier was the mean of the flights that actually departed, and pandas did that silently. When you want to work only with complete rows, `.dropna()` removes the rest. Passing `subset=` restricts the check to the columns you care about, which matters here because dropping every row with *any* missing value would also discard the flights whose `tailnum` was never recorded:
+Most calculations skip missing values automatically. The mean delay we computed earlier was the mean of the flights that actually departed, and pandas did that silently. When you want to work only with complete rows, `.dropna()` method removes any rows that contain missing data. Passing `subset=` restricts the check to the columns you care about, which matters here because dropping every row with *any* missing value would also discard the flights whose `tailnum` was never recorded:
 
 ```{python}
 
@@ -681,7 +681,7 @@ departed = flights.dropna(subset=["dep_delay"])
 
 ```
 
-Deciding what to do about missing values is a judgment call rather than a technical one. Dropping the cancelled flights is the right choice when you are asking how late departures run, and the wrong choice when you are asking how reliable an airline is, since cancelling a flight is the most severe way of failing a passenger. The data cannot make that decision for you.
+Deciding what to do about missing values is a judgment call rather than a technical issue. Dropping the cancelled flights is the right choice when you are asking how late departures run, and the wrong choice when you are asking how reliable an airline is, since cancelling a flight is the most severe way of failing a passenger. The data cannot make that decision for you.
 
 ::: {.callout-tip title="Exercise" #exercise-data_tables-missing}
 
@@ -715,7 +715,9 @@ cancelled = flights[flights["dep_delay"].isna()]
 
 ## Summarizing by group
 
-Here is a question the table can answer but no single number can: which airline should you avoid? Answering it means splitting the flights into groups by airline, computing the mean delay within each group, and collecting the results into a new table. That three-step pattern is common enough to have a name, **split-apply-combine**, and `.groupby()` performs it.
+Suppose we are interested in calculating the average delay for each airline so that we can avoid the airlines that have the longest average delays.  A convenient format for the results would be a table, where each row corresponds to one airline and there is a column that shows the average delay.  
+
+To create this result table, we need to split the orignal `flights` DataFrame into a separate group for each airline, computing the mean delay within each group, and the collect the results the new result table. That three-step pattern is common enough to have a name, **split-apply-combine**, and `.groupby()` methods performs these steps.
 
 ```{python}
 #| echo: false
@@ -779,20 +781,25 @@ plt.show()
 
 ```
 
-In code, that is one call. `.groupby("carrier")` forms the groups, and `.agg()` says what to compute for each one. The form used here names each output column and says which input column and which statistic it comes from:
+To calculate results separately for each airline, we need to use  `.groupby("carrier")` which forms the groups for each airline. We then use the `.agg()` method to calculate the mean separately for each group. Inside the `.agg()` method we will use the syntax `result_col_name = ("input_col", "agg_function")` where:
+
+- `result_col_name` is the name of the column in the result DataFrame (e.g., `mean_delay`)  
+- `"input_col"` is the name of the column we want to apply our aggregate on (e.g., `dep_delay`)
+- `"agg_function"` is the name of the function we want to apply (e.g., `mean`)
+
+Using this syntax, we can calcualte the average delay for each airline as:
 
 ```{python}
 
 by_carrier = flights.groupby("carrier").agg(
-    flights=("flight", "count"),
-    mean_delay=("dep_delay", "mean"),
+    mean_delay = ("dep_delay", "mean"),
 )
 
 by_carrier.round(1)
 
 ```
 
-The carrier codes have become the index of the result, which is why they sit to the left in bold. Sorting turns this into an answer:
+The airline "carrier codes" become the Index in the result DataFrame, which is why they sit to the left in bold. Sorting gives our answer:
 
 ```{python}
 
@@ -800,7 +807,21 @@ by_carrier.sort_values("mean_delay", ascending=False).round(1)
 
 ```
 
-Frontier is the worst, at about 27 minutes of average delay, and Republic the best at under 10. Before repeating that anywhere, look at the `flights` column beside it. Frontier's figure rests on 6,873 flights, which is plenty, but Envoy Air sits second-worst on the strength of only 902, and Hawaiian's 367 flights are too few to say much at all. An average computed from a handful of observations bounces around, and a table sorted by that average will tend to put small groups at both ends. Reporting the group size alongside the statistic is the habit that keeps this visible.
+Looking at the results, we see that F9 (Frontier) is the worst, with a mean delay a little over 27 minutes, and YX (Republic Airline) is the best with a mean delay under 10 minutes.
+
+Before we read too much into the results, however, it is imporant to know how many values when into computing the mean delay for each airline. We can calculate the number of airlines in each group, by creating a second result column called `num_flights` where we use the `count` function as our aggregating function: 
+
+```{python}
+
+flights.groupby("carrier").agg(
+    mean_delay = ("dep_delay", "mean"),
+    num_flights = ("dep_delay", "count")
+).sort_values("mean_delay", ascending=False).round(1)
+
+```
+
+The results show that Frontier's mean delay is calcualted from 6,696 flights, which is plenty, but MQ (Envoy Air) sits second-worst on the strength of only 850 flights, and Hawaiian's 366 flights. If an average is computed from too few data points, then we shouldn't believe the mean results will necessarily be an accurate refleciton of what the true delay might be in the future which is a topic we will discuss more in @sec-statistical-inference. Thus, it is usually important to report the group size alongside the statistic.
+
 
 ::: {.callout-tip title="Exercise" #exercise-data_tables-groupby}
 
@@ -849,19 +870,21 @@ airlines
 
 ```
 
-This is the situation a **join** exists for: two tables that share a column, holding different information about the same things. `.merge()` combines them, matching rows wherever the shared column agrees:
+This is the situation a **join** exists for: two tables that share a column, and hold different information about the same items. The `.merge()` method combines the tables, matching rows wherever the values in a particular column are the same:
 
 ```{python}
 
-named = flights.merge(airlines, on="carrier")
+flights_named = flights.merge(airlines, on="carrier")
 
-named[["carrier", "name", "origin", "dest", "dep_delay"]].head()
+flights_named[["carrier", "name", "origin", "dest", "dep_delay"]].head()
 
 ```
 
-Every flight has kept its own data and gained the `name` column from the airlines table. The `on=` argument names the column to match on; when the two tables call it different things, `left_on=` and `right_on=` let you say so.
+Looking at the results, we see that every flight has kept its own data and additionally has gained the `name` column from the `airlines` table so now we have a more meaningful name for airline carrier for each flight. 
 
-The remaining question is what happens to rows that find no match. That is what `how=` controls, and the four choices are easiest to see drawn:
+In the code above, we called the `.merge()` method on the `flights` DataFrame, and we passed the `airlines` DataFrame as an argument to the `.merge()` method. Using the standard terminology for joining tables, we would call the `flights` DataFrame the "left" DataFrame because it appears on the left, and the `airlines` DataFrame the "right" DataFrame because it appears on the right. Additionally, the `on=` argument names the column to match on. When we want to align the DataFrames on by columns with different names, we can use `left_on=` and `right_on=` to specify which columns to use in the left and right DataFrames.
+
+The remaining question is what happens to rows that find no match when we try to line how the values in the columns. That is what `how=` arguments controls, and the four choices are easiest to see drawn:
 
 ```{python}
 #| echo: false
@@ -884,7 +907,6 @@ regions = {
     "both": in_left & in_right,
     "right_only": in_right & ~in_left,
 }
-keys = {"left_only": ["AA"], "both": ["B6", "DL"], "right_only": ["F9"]}
 kept_by_join = {
     "inner": ["both"],
     "left": ["left_only", "both"],
@@ -893,59 +915,55 @@ kept_by_join = {
 }
 captions = {
     "inner": "only rows in both",
-    "left": "every row of flights",
-    "right": "every row of airlines",
-    "outer": "everything from both",
+    "left": "all rows from the left",
+    "right": "all rows from the right",
+    "outer": "all rows from both",
 }
 
-fill = np.array([0.807, 0.890, 0.968])
-pale = np.array([0.960, 0.960, 0.960])
+# The outlines are neutral so that colour carries one meaning only: filled means
+# the join keeps those rows, pale means they are dropped.
+kept_fill = np.array([0.62, 0.79, 0.88])
+dropped_fill = np.array([0.94, 0.94, 0.94])
+outline = "#1a1a1a"
 
 for ax, (how, kept) in zip(axes, kept_by_join.items()):
     shaded = np.ones(in_left.shape + (3,))
-    shaded[in_left | in_right] = pale
+    shaded[in_left | in_right] = dropped_fill
     for region in kept:
-        shaded[regions[region]] = fill
+        shaded[regions[region]] = kept_fill
     ax.imshow(shaded, origin="lower", extent=(0, 1, 0, 1), interpolation="nearest")
 
-    ax.add_patch(patches.Circle((cx_left, cy), radius, fc="none", ec="#4a7fb5", lw=1.3))
-    ax.add_patch(patches.Circle((cx_right, cy), radius, fc="none", ec="#c99a2e", lw=1.3))
-
-    # Each region's keys sit at that region's centroid, computed from the same
-    # masks that were shaded, so the labels follow if the circles are moved.
-    for region, mask in regions.items():
-        ys, xs = np.nonzero(mask)
-        colour = "#222222" if region in kept else "#b0b0b0"
-        ax.text(grid[int(round(xs.mean()))], grid[int(round(ys.mean()))],
-                "\n".join(keys[region]), ha="center", va="center",
-                fontsize=7.5, color=colour)
+    ax.add_patch(patches.Circle((cx_left, cy), radius, fc="none", ec=outline, lw=1.2))
+    ax.add_patch(patches.Circle((cx_right, cy), radius, fc="none", ec=outline, lw=1.2))
 
     ax.set_title(f'how="{how}"', fontsize=9, family="monospace", pad=6)
     ax.text(0.5, 0.02, captions[how], ha="center", fontsize=7.5,
             style="italic", color="0.3")
     ax.set_xlim(0.02, 0.98)
-    ax.set_ylim(-0.02, 1.0)
+    ax.set_ylim(-0.02, 1.06)
     ax.axis("off")
 
-axes[0].text(cx_left - radius * 0.75, cy + radius + 0.07, "flights",
-             fontsize=8, color="#4a7fb5", ha="center")
-axes[0].text(cx_right + radius * 0.75, cy + radius + 0.07, "airlines",
-             fontsize=8, color="#c99a2e", ha="center")
+# Named once, on the first panel, since the circles mean the same thing in all
+# four. The offsets come from the circle geometry so the labels follow it.
+axes[0].text(cx_left - radius * 0.62, cy + radius + 0.06, "Left\nDataFrame",
+             fontsize=7.5, color=outline, ha="center", va="bottom", linespacing=1.25)
+axes[0].text(cx_right + radius * 0.62, cy + radius + 0.06, "Right\nDataFrame",
+             fontsize=7.5, color=outline, ha="center", va="bottom", linespacing=1.25)
 
 plt.tight_layout()
 plt.show()
 
 ```
 
-The default is `how="inner"`, which keeps only the rows that matched on both sides. Here every carrier in the flights table has an entry in the airlines table, so nothing is lost and the row count is unchanged:
+The default is `how="inner"`, which keeps only the rows that matched on both DataFrames. Here every carrier in the flights table has an entry in the airlines table, so nothing is lost and the row count is unchanged:
 
 ```{python}
 
-[flights.shape[0], named.shape[0]]
+[flights.shape[0], flights_named.shape[0]]
 
 ```
 
-That check is worth performing every time you merge. A join that silently drops rows, because a key was spelled differently or a lookup table was incomplete, is one of the easier ways to get a wrong answer that looks entirely reasonable. If you want to be sure nothing is discarded, `how="left"` keeps every row of the left-hand table whether or not it found a match, filling the new columns with `NaN` where it did not.
+That check is worth performing every time you merge DataFrames. A join that silently drops rows, because a key was spelled differently or a lookup table was incomplete, is one of the easier ways to get a wrong answer that looks entirely reasonable. If you want to be sure nothing is discarded, `how="left"` keeps every row of the left-hand table whether or not it found a match, filling the new columns with `NaN` where it did not.
 
 We can now put the whole chapter together. Load a table, join it to a second one, group the result, summarize each group, and sort:
 
@@ -977,7 +995,7 @@ That is a readable answer to the question we started with, built from five opera
 ```{python}
 
 # 1. Merge first, then filter to one airline
-jetblue = named[named["name"] == "JetBlue Airways"]
+jetblue = flights_named[flights_named["name"] == "JetBlue Airways"]
 
 jetblue["dep_delay"].mean().round(1)
 
@@ -986,7 +1004,7 @@ jetblue["dep_delay"].mean().round(1)
 ```{python}
 
 # 2. A list of columns groups by every combination of them
-pairs = named.groupby(["name", "origin"]).agg(
+pairs = flights_named.groupby(["name", "origin"]).agg(
     flights=("flight", "count"),
     mean_delay=("dep_delay", "mean"),
 )
