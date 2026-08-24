@@ -264,7 +264,7 @@ flights_all_columns.head()
 
 ```
 
-Each row is one flight, and the columns contain information about each flight. For example, the `dep_delay` column records how many minutes late it left, and a negative value means it left early. Two rows in that first handful have blanks shown as `NaN`, which is how pandas displays a missing value; we will come back to what those mean shortly.
+Each row is one flight, and the columns contain information about each flight. For example, the `dep_delay` column records how many minutes late it left, and a negative value means it left early.
 
 Like Series objects, DataFrames also have an Index that allows use to refer to rows by labels that are useful. Here the Index are just successive integer values so are not particularly useful. Later in the chapter we will explore setting the Index labels to more meaningful names to do useful operations on particular rows. 
 
@@ -436,7 +436,6 @@ flights2.head()
 ```
 
 
-
 Usually, however, the most useful way to extract rows is not by position or by using Index names, but instead "filtering" rows that match particular conditions based on values in particular coloumns. In @sec-array-computations a comparison on a NumPy array produced an array of `True` and `False` values that could be used to keep only the values you wanted. The same idea works on a DataFrame, which is a powerful way to get only rows we are interested in. For example, we can get only the flights that left JFK airport using the code below: 
 
 ```{python}
@@ -605,7 +604,7 @@ flights = flights.rename(columns={"departure_delay": "dep_delay"})
 ```
 
 
-We can use `.sort_values()` method to reorder the rows by values in a column. By default the values are sorted from smallest to largest. Adding `ascending=False` argument puts the largest first. We can get the flights with the longest delays using: 
+Finally, we can use `.sort_values()` method to reorder the rows by values in a column. By default the values are sorted from smallest to largest. Adding `ascending=False` argument puts the largest first. We can get the flights with the longest delays using: 
 
 ```{python}
 
@@ -618,49 +617,49 @@ flights.sort_values("dep_delay", ascending=False).head(5)
 
 ::: {.callout-tip title="Exercise" #exercise-data_tables-sort}
 
-1. Sort the flights by `distance` and show the three longest.
-2. Add a column called `speed` holding each flight's average speed in miles per hour, which is `distance` divided by `air_time`, multiplied by 60 because `air_time` is in minutes.
-3. Use `.idxmax()` to find the single fastest flight in the data.
+1. Create a new DataFrame called `flight_speed` add a column called `speed` holding each flight's average speed in miles per hour, which is `distance` divided by `air_time`, multiplied by 60 because `air_time` is in minutes.
+2. Reduce the `flight_speed` DataFrame to only have the columns "origin", "dest", "distance", "air_time", "speed". 
+3. Sort the `flight_speed` DataFrame by `speed` to order the data from the fast to the slowest flight and display the 6 flights with the fastest speed.
 
 :::
 
 ::: {.callout-note title="Solution" #solution-data_tables-sort collapse="true"}
 
-```{python}
-
-# 1. Sort descending and take the top three
-flights.sort_values("distance", ascending=False).head(3)[
-    ["carrier", "origin", "dest", "distance"]
-]
-
-```
 
 ```{python}
 
-# 2. air_time is in minutes, so multiply by 60 to get miles per hour
-flights["speed"] = (flights["distance"] / flights["air_time"]) * 60
+# 1. air_time is in minutes, so multiply by 60 to get miles per hour
+flight_speed = flights.copy()
 
-flights[["origin", "dest", "distance", "air_time", "speed"]].head(3)
+flight_speed["speed"] = (flights["distance"] / flights["air_time"]) * 60
 
 ```
+
 
 ```{python}
 
-# 3. The row with the largest value in the new column
-fastest = flights.loc[flights["speed"].idxmax()]
-
-fastest[["carrier", "flight", "origin", "dest", "distance", "air_time", "speed"]]
+# 2. Select only the 
+flight_speed = flight_speed[["origin", "dest", "distance", "air_time", "tailnum", "speed"]]
 
 ```
 
-The longest flights run from JFK to Honolulu, a distance of 4,983 miles. The fastest works out at about 837 miles per hour, which ought to give you pause. No airliner cruises that fast, only four flights in the entire year come out above 700, and the median is around 405. The likely explanation is that this flight's recorded air time is wrong, not that the aircraft broke a record. A result that disagrees with what you already know about the world is usually telling you something about the data rather than about the world.
+
+```{python}
+
+# 3. Sort descending and show the first 6 rows
+flight_speed.sort_values("speed", ascending=False).head()
+
+```
+
+
+The fastest works out at about 837 miles per hour, which ought to give you pause. No airliner cruises that fast, only four flights in the entire year come out above 700, and the median is around 405. The likely explanation is that this flight's recorded air time is wrong, not that the aircraft broke a record. A result that disagrees with what you already know about the world is usually telling you something about a mistake in the data rather than about the world.
 
 :::
 
 
 ## Missing data
 
-Those `NaN` values in the very first rows we looked at were not a mistake in the file. A **cancelled flight** still appears in the data, because it was scheduled and then did not happen: it has a scheduled departure time but no actual one, and so no delay.
+When we looked at `.dtypes` earlier, `dep_delay` turned out to be a floating-point column even though a delay is a whole number of minutes, and the reason given was that some flights have no delay recorded at all. Those gaps are not a mistake in the file. A **cancelled flight** still appears in the data, because it was scheduled and then did not happen: it has a scheduled departure time but no actual one, and so no delay. Pandas writes such a missing value as `NaN`.
 
 `.isna()` marks every missing value with `True`, and since summing a Boolean column counts the `True` values, the two together count what is missing:
 
