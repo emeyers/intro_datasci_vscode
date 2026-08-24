@@ -148,8 +148,7 @@ We can extract both the Index values and the data values separately if you want 
 
 
 
-
-### Looking up values by Index label and by position
+### Looking up values by label and by position
 
 We can extract values from a Series object by the position in the Series and by the Index label. To extract data by position, we use `.iloc` which takes a **position**, counting from zero the way a list or an array does, and returns the value at that position.
 
@@ -177,9 +176,9 @@ It is worth pausing here to make sure you understand the difference between `.il
 
 On this Series above, the label `"2025-04-07"` and the position `13` refer to the same price, but only the former stays correct if the data is sorted or values are removed from the array. 
 
-### Everything you learned about arrays still works
+### All NumPy array operations works for Series
 
-A Series is built on top of a NumPy array, so the vectorized arithmetic and Boolean masking from @sec-array-computations carry over unchanged. Arithmetic applies to every value at once:
+A Series is built on top of a NumPy array, so the vectorized arithmetic and Boolean masking from @sec-array-computations carry over unchanged. Arithmetic applies to every value at once and the Index labels remain unchanged:
 
 ```{python}
 
@@ -198,9 +197,9 @@ expensive
 
 ```
 
-The difference from a plain array is visible in that output. The result tells us not just *how many* weeks were expensive but *which* ones, because each surviving value brought its date along with it.
+The difference from a plain NumPy array is visible in that output. The result don't just show us the expensive gas prices but they also show us *which*  weeks were the expensive ones, because each value brought its Index date along with it.
 
-That also means the summary functions can now answer questions in terms of labels. `.idxmax()` gives the label of the largest value rather than its position:
+That also means the summary functions can now answer questions in terms of labels. The `.idxmax()` method gives the Index label of the largest value rather than its position which can be much more informative:
 
 ```{python}
 
@@ -251,52 +250,54 @@ Prices bottomed out in the last week of December at about \$2.81, and only 5 of 
 
 ## Tables of data: the DataFrame
 
-A Series holds one column. Most data has many, and they are rarely all the same kind of thing. The dataset we will use for the rest of this chapter records every flight that departed one of New York City's three main airports during 2025: the date, the airline, where the plane was going, how far it flew, and how late it left. Some of those are numbers, some are text, and a table needs to hold both.
+A Series holds one column of data. Most data has many columns, and they are rarely all the same kind of data. The dataset we will use for the rest of this chapter records every flight that departed one of New York City's three main airports during 2025 including the date, the airline, where the plane was going, how far it flew, and how late it left. Some of those are numbers, some are text, and a table needs to hold both.
 
 The data comes from the **Bureau of Transportation Statistics**, the U.S. agency that collects on-time performance records from every domestic airline. Run the cell below to load it. As with the loading code in earlier chapters, you do not need to follow the details yet, though by the end of this chapter you will.
 
 ```{python}
 
-flights = pd.read_csv(
+flights_all_columns = pd.read_csv(
     "https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/nycflights/flights.csv.gz"
 )
 
-flights.head()
+flights_all_columns.head()
 
 ```
 
-Each row is one flight. The `dep_delay` column records how many minutes late it left, and a negative value means it left early. Two rows in that first handful have blanks shown as `NaN`, which is how pandas displays a missing value; we will come back to what those mean shortly.
+Each row is one flight, and the columns contain information about each flight. For example, the `dep_delay` column records how many minutes late it left, and a negative value means it left early. Two rows in that first handful have blanks shown as `NaN`, which is how pandas displays a missing value; we will come back to what those mean shortly.
 
-Before computing anything, it is worth finding out what actually arrived. `.shape` gives the number of rows and columns:
+Like Series objects, DataFrames also have an Index that allows use to refer to rows by labels that are useful. Here the Index are just successive integer values so are not particularly useful. Later in the chapter we will explore setting the Index labels to more meaningful names to do useful operations on particular rows. 
+
+Before computing anything, it is worth finding out how larege the DataFrame is. The `.shape` property gives the number of rows and columns:
 
 ```{python}
 
-flights.shape
+flights_all_columns.shape
 
 ```
 
-That is 360,771 flights described by 19 columns. This is the first dataset in this book that would be genuinely painful to handle as lists, which is much of the reason for learning pandas at all.
+As we can see from this output, there are 360,771 flights described by 19 columns. This is the first dataset in this book that would be genuinely painful to handle as lists.
 
-`.columns` lists the column names, and `.dtypes` reports what kind of value each one holds:
+The `.columns` property shows the column names, and `.dtypes` reports what kind of value each column holds:
 
 ```{python}
 
-flights.dtypes
+flights_all_columns.dtypes
 
 ```
 
-`object` is how pandas labels a column of text. Notice that `dep_delay` is a floating-point column even though a delay is always a whole number of minutes; that happens because some flights are missing a delay, and the missing marker `NaN` is itself a floating-point value.
+ Notice that `dep_delay` is a floating-point column even though a delay is always a whole number of minutes; that happens because some flights are missing a delay, and the missing marker `NaN` is itself a floating-point value. Also, text here is contained in the `object` data type. 
 
-`.describe()` summarizes every numeric column at once, giving the count, mean, standard deviation and quartiles you met in @sec-descriptive-stats:
+The `.describe()` method summarizes numeric columns, giving the count, mean, standard deviation and quartiles you met in @sec-descriptive-stats. Let's look at these statistics for just the departure delay column: 
 
 ```{python}
 
 # Just the delay column, rounded, so the numbers are readable
-flights["dep_delay"].describe().round(1)
+flights_all_columns["dep_delay"].describe().round(1)
 
 ```
 
-There is a lot in that summary. The mean departure delay is about 15 minutes, but the median is **−3**, meaning a typical flight actually pushes back from the gate slightly *early*. The largest delay in the file is 2,590 minutes, which is a little over 43 hours. That gap between mean and median is the signature of a right-skewed distribution, exactly as in @sec-descriptive-stats: most flights are close to on time, and a long tail of severe delays drags the average upward.
+The output shows that the mean departure delay is about 15 minutes, but the median (50% percentile) is **−3** minutes, meaning a typical flight actually pushes back from the gate slightly *early*. The largest delay in the file is 2,590 minutes, which is a little over 43 hours. That gap between mean and median is the signature of a right-skewed distribution, exactly as in @sec-descriptive-stats: most flights are close to on time, and a long tail of severe delays drags the average upward.
 
 A histogram makes the shape visible. Because of that long tail, plotting the raw column would produce a single spike, so we restrict the range to the delays that most flights actually experience:
 
@@ -304,7 +305,7 @@ A histogram makes the shape visible. Because of that long tail, plotting the raw
 
 import matplotlib.pyplot as plt
 
-plt.hist(flights["dep_delay"], bins=40, range=(-30, 120))
+plt.hist(flights_all_columns["dep_delay"], edgecolor = "k", bins=40, range=(-30, 120))
 plt.xlabel("Departure delay (minutes)")
 plt.ylabel("Number of flights")
 plt.title("Most flights leave close to on time")
@@ -316,7 +317,7 @@ The peak sits just below zero, and the tail stretches to the right. Keep this pi
 
 ::: {.callout-tip title="Exercise" #exercise-data_tables-inspect}
 
-Using the `flights` table:
+Using the `flights_all_columns` table:
 
 1. How many columns does it have? Get the answer from `.shape` rather than counting.
 2. Display the *last* five rows using `.tail()`.
@@ -329,21 +330,21 @@ Using the `flights` table:
 ```{python}
 
 # 1. .shape gives (rows, columns), so the second value is the column count
-flights.shape[1]
+flights_all_columns.shape[1]
 
 ```
 
 ```{python}
 
 # 2. The last five rows
-flights.tail()
+flights_all_columns.tail()
 
 ```
 
 ```{python}
 
 # 3. Summary of the distance column
-flights["distance"].describe().round(1)
+flights_all_columns["distance"].describe().round(1)
 
 ```
 
@@ -354,7 +355,7 @@ The shortest flight in the data covers 96 miles and the longest 4,983 miles, wit
 
 ## Selecting columns and rows
 
-A table is only useful if you can get at the parts of it you want. Pandas separates this into two questions: which columns, and which rows.
+A table is only useful if you can analyze the parts of it that you are interested in. Pandas separates this into two questions: which columns, and which rows.
 
 ### Columns
 
@@ -362,7 +363,7 @@ Passing a single column name in square brackets gives that column back as a Seri
 
 ```{python}
 
-flights["dep_delay"].head()
+flights_all_columns["dep_delay"].head()
 
 ```
 
@@ -370,15 +371,31 @@ Passing a *list* of names instead gives back a DataFrame containing those column
 
 ```{python}
 
-flights[["carrier", "origin", "dest", "dep_delay"]].head()
+flights_all_columns[["carrier", "origin", "dest", "dep_delay"]].head()
 
 ```
 
-The difference between those two is a common early stumbling block, because the second form looks like the first with an extra pair of brackets. It helps to read the inner brackets as an ordinary Python list: `flights[["carrier", "dest"]]` is asking for *a list of columns*, so the answer is a table. `flights["carrier"]` is asking for *one column*, so the answer is a single Series.
+The difference between those two is a common stumbling block when learning first pandas, because the second form looks like the first with an extra pair of brackets. It helps to read the inner brackets as an ordinary Python list: `flights_all_columns[["carrier", "dest"]]` is asking for *a list of columns*, so the answer is a DataFrame. The `flights_all_columns["carrier"]` is just a single *string* inside the square brackets, so the answer is a Series. Note, a DataFrame is also returned if a list with a single string is also used, so `flights_all_columns[["dest"]]` returns a DataFrame with one column, while `flights_all_columns["dest"]` returns a Series.
+
+Selecting columns is also how we make a table easier to live with. Nineteen columns is more than fits comfortably on a page, and this chapter only needs about half of them, so let us keep those in a table called `flights` and use it from here on:
+
+```{python}
+
+flights = flights_all_columns[["month", "day", "carrier", "flight", "tailnum",
+                               "origin", "dest", "dep_delay", "arr_delay",
+                               "air_time", "distance", "hour"]].copy()
+
+flights.head()
+
+```
+
+The `.copy()` on the end is the same method used on an array in @sec-array-computations, and it is there for the same reason: it makes `flights` an independent table rather than a view onto the original, so that adding a column to it later cannot disturb `flights_all_columns`.
+
+Every one of the 360,771 flights is still here, since selecting columns does not remove any rows. What has changed is how much of each flight we are carrying: twelve columns instead of nineteen, which is narrow enough to display whole. The original table is still available as `flights_all_columns` whenever one of the columns we dropped is needed.
 
 ### Rows
 
-Rows work the way they did for a Series. `.iloc` selects by position:
+We can extract a subset of rows in the same way they as we did for a Series. In particular, the `.iloc` selects rows by position:
 
 ```{python}
 
@@ -387,22 +404,47 @@ flights.iloc[0:3]
 
 ```
 
-Both `.loc` and `.iloc` can take a second argument to say which columns you want as well as which rows, separated by a comma:
+We can also select columns based on the Index name using the `.loc` method, in the same way as we did for Series. As mentioned above, the Index names in `flights` DataFrame Iare just successive integers which is not particularly useful. Let's use set the Index to the destination of where the flight is going using the the `.set_index()` method. 
 
 ```{python}
 
-# The first three rows, and only two of the columns
-flights.loc[0:2, ["carrier", "dep_delay"]]
+flights2 = flights.set_index("dest")
+
+flights2.head()
 
 ```
 
-The most useful way to choose rows, though, is not by position at all but by asking a question about them. In @sec-array-computations a comparison on a NumPy array produced an array of `True` and `False` values that could be used to keep only the values you wanted. The same idea works on a table, and this is where it earns its keep:
+We can then use the the `.loc` method to extract only flights that are going to Miami using: 
+
+```{python}
+
+flights2 = flights2.loc["MIA"] 
+
+flights2.head()
+
+```
+
+
+We can also return the Index names as as return column using the `reset_index()` method. In this case, it will make `dest` a regular a column again and will once again set the Index to successive integers.
+
+```{python}
+
+flights2 = flights2.reset_index()
+
+flights2.head()
+
+```
+
+
+
+Usually, however, the most useful way to extract rows is not by position or by using Index names, but instead "filtering" rows that match particular conditions based on values in particular coloumns. In @sec-array-computations a comparison on a NumPy array produced an array of `True` and `False` values that could be used to keep only the values you wanted. The same idea works on a DataFrame, which is a powerful way to get only rows we are interested in. For example, we can get only the flights that left JFK airport using the code below: 
 
 ```{python}
 
 # True for every flight that left from JFK
 from_jfk = flights["origin"] == "JFK"
 
+# Extracting just the flights from JFK
 flights[from_jfk].head()
 
 ```
@@ -414,7 +456,7 @@ from_jfk.sum()
 
 ```
 
-Conditions can be combined with `&` for "and" and `|` for "or". Each condition needs its own parentheses, because `&` binds more tightly than `==` does and Python will otherwise try to compare the wrong things:
+Conditions can be combined with `&` for "and" and `|` for "or". Each condition needs its own parentheses:
 
 ```{python}
 
@@ -465,9 +507,9 @@ Newark handled 120,286 departures, and 45,087 flights left LaGuardia for a desti
 :::
 
 
-## A more readable filter: `.query()`
+## The `.query()` method: A more readible way to filter data
 
-Boolean masking is the workhorse, and you will see it everywhere. It does have a cost, though, which is that the name of the table appears three times in a single line:
+Boolean masking is very common way to get a subset of rows that meet particular conditions, and you will see it everywhere. However the syntax can be a little cumbersome. For example, the name of the table appears three times in a single line in the code below:
 
 ```{python}
 
@@ -475,7 +517,7 @@ flights[(flights["origin"] == "JFK") & (flights["dep_delay"] > 60)].shape[0]
 
 ```
 
-Pandas offers `.query()`, which takes the condition as a string and lets you refer to columns by bare name:
+Pandas also has a `.query()` method, which takes the condition as a string and lets you refer to columns by their names: 
 
 ```{python}
 
@@ -495,9 +537,9 @@ flights.query("dep_delay > @cutoff").shape[0]
 
 ```
 
-There is one limitation worth knowing. Because `.query()` refers to columns as though they were variable names, it only works when a column name is a legal Python name. A column called `budget_2013$`, like the one in the movie data from @sec-descriptive-stats, cannot be referred to this way, and there you would need the Boolean form.
+There is one limitation worth knowing. Because `.query()` refers to columns as though they were variable names, it only works when a column name is a legal Python variable name. A column called `budget_2013$`, like the one in the movie data from @sec-descriptive-stats, cannot be referred to this way since it ends in a dollar sign, so in this case you would need to use Boolean indexing to extract data from this row. Likewise, we can't use the `.query()` method to refer to columns that have spaces in their names. 
 
-Neither style is more correct. Use whichever makes a particular line easier to read; this book uses masking by default, because it is what you will encounter most often.
+Neither style is more correct. Using whichever makes a particular code easier to read is generally perferred.
 
 ::: {.callout-tip title="Exercise" #exercise-data_tables-query}
 
@@ -531,31 +573,9 @@ Both pairs agree: 15,496 flights went to Los Angeles, and 21,367 short flights l
 :::
 
 
-## Sorting and adding columns
+## Adding, renaming, and sorting columns 
 
-`.sort_values()` reorders the rows by a column. Adding `ascending=False` puts the largest first:
-
-```{python}
-
-# The five longest departure delays of the year
-flights.sort_values("dep_delay", ascending=False).head(5)[
-    ["month", "day", "carrier", "flight", "origin", "dest", "dep_delay"]
-]
-
-```
-
-If you want the single worst row rather than the top few, `.idxmax()` gives the index label of the largest value, and `.loc` then fetches that row. This is the pattern promised back in @sec-introduction, where we used it on the baby-name data without explaining it:
-
-```{python}
-
-# The label of the row with the largest delay, then the row itself
-worst = flights.loc[flights["dep_delay"].idxmax()]
-
-worst[["month", "day", "carrier", "flight", "origin", "dest", "dep_delay"]]
-
-```
-
-A new column is created by assigning to a name that does not exist yet, and the calculation applies to every row at once, exactly as arithmetic did on arrays:
+A new column can be added to a DataFrame by assigning an array, Series that is the same length as the DataFrame, to a name that does not exist yet.
 
 ```{python}
 
@@ -584,6 +604,18 @@ flights = flights.rename(columns={"departure_delay": "dep_delay"})
 
 ```
 
+
+We can use `.sort_values()` method to reorder the rows by values in a column. By default the values are sorted from smallest to largest. Adding `ascending=False` argument puts the largest first. We can get the flights with the longest delays using: 
+
+```{python}
+
+# The five longest departure delays of the year
+flights.sort_values("dep_delay", ascending=False).head(5)
+
+```
+
+
+
 ::: {.callout-tip title="Exercise" #exercise-data_tables-sort}
 
 1. Sort the flights by `distance` and show the three longest.
@@ -606,7 +638,7 @@ flights.sort_values("distance", ascending=False).head(3)[
 ```{python}
 
 # 2. air_time is in minutes, so multiply by 60 to get miles per hour
-flights["speed"] = flights["distance"] / flights["air_time"] * 60
+flights["speed"] = (flights["distance"] / flights["air_time"]) * 60
 
 flights[["origin", "dest", "distance", "air_time", "speed"]].head(3)
 
@@ -655,7 +687,7 @@ Deciding what to do about missing values is a judgment call rather than a techni
 ::: {.callout-tip title="Exercise" #exercise-data_tables-missing}
 
 1. How many flights are missing an `air_time`?
-2. Cancelled flights have no `dep_time`. Use a Boolean mask with `.isna()` to select them, and find how many were scheduled to leave JFK.
+2. Cancelled flights have no `dep_delay`. Use a Boolean mask with `.isna()` to select them, and find how many were scheduled to leave JFK.
 
 :::
 
@@ -671,13 +703,13 @@ flights["air_time"].isna().sum()
 ```{python}
 
 # 2. .isna() gives a True/False column, which selects rows like any other mask
-cancelled = flights[flights["dep_time"].isna()]
+cancelled = flights[flights["dep_delay"].isna()]
 
 (cancelled["origin"] == "JFK").sum()
 
 ```
 
-10,284 flights have no recorded air time, and 1,914 of the cancelled flights were due to leave JFK.
+10,284 flights have no recorded air time, and 1,915 of the cancelled flights were due to leave JFK.
 
 :::
 
@@ -1083,7 +1115,7 @@ Chicago O'Hare and Atlanta come first, both of them major connecting hubs, follo
 
 ::: {.callout-tip title="Exercise" #exercise-data_tables-weekend}
 
-The `time_hour` column records the scheduled departure. Flights scheduled later in the day tend to run later, because a delay early in the day is carried by the same aircraft all afternoon.
+The `hour` column records the hour a flight was scheduled to leave. Flights scheduled later in the day tend to run later, because a delay early in the day is carried by the same aircraft all afternoon.
 
 Group the flights by the `hour` column and compute the mean departure delay for each hour. Then plot the result with `plt.plot()` to see the pattern.
 
