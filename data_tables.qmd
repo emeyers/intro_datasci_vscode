@@ -1,6 +1,6 @@
 # Data tables {#sec-data-tables}
 
-Suppose you are booking a flight out of New York and you would rather not spend the evening sitting on a runway. Which airline has the most frequent departure delays? Does it matter whether you fly out of Newark, JFK or LaGuardia, or whether you take a morning flight instead of an evening one? The U.S. government publishes data on every domestic flight, the airline that operated it, the airport it left from, the time it was scheduled to leave, and the time when it actually left. Using this data, it is possible to answer these questions.
+Suppose you are booking a flight out of New York and you would rather not spend the evening sitting on a runway. Which airline has the longest delays on average? Does it matter whether you fly out of Newark, JFK or LaGuardia, or whether you take a morning flight instead of an evening one? The U.S. government publishes data on every domestic flight, the airline that operated it, the airport it left from, the time it was scheduled to leave, and the time when it actually left. Using this data, it is possible to answer these questions.
 
 When answering these questions it is important to keep information about the *same* flight together; i.e., you need each flight's carrier, the time the flight was scheduled to depart, its delay, etc. attached to each other, for all flights. This is difficult to do using the the list and arrays discussed in the last two chapters. 
 
@@ -963,7 +963,7 @@ The default is `how="inner"`, which keeps only the rows that matched on both Dat
 
 ```
 
-That check is worth performing every time you merge DataFrames. A join that silently drops rows, because a key was spelled differently or a lookup table was incomplete, is one of the easier ways to get a wrong answer that looks entirely reasonable. If you want to be sure nothing is discarded, `how="left"` keeps every row of the left-hand table whether or not it found a match, filling the new columns with `NaN` where it did not.
+Checking the size of the DataFrames before and after a join is worth performing every time you join DataFrames. A join that silently drops rows, because a key was spelled differently or one of the DataFrames was incomplete, is one of the easier ways to get a wrong answer that looks entirely reasonable. If you want to be sure nothing is discarded, `how="left"` keeps every row of the left-hand table whether or not it found a match, filling the new columns with `NaN` where it did not. 
 
 We can now put the whole chapter together. Load a table, join it to a second one, group the result, summarize each group, and sort:
 
@@ -1025,14 +1025,14 @@ JetBlue averages 17.6 minutes. Among pairings with at least 5,000 flights, Delta
 
 - A **Series** is a one-dimensional column of values with an **index** of labels attached. The labels travel with the values, so filtering or sorting cannot break the correspondence between them.
 - `.loc` selects by label and `.iloc` selects by position. Keeping the two apart avoids most early confusion with pandas.
-- A **DataFrame** is a table whose columns are Series sharing one index. `pd.read_csv` returns one.
-- Look at data before computing on it: `.head()`, `.shape`, `.dtypes`, `.describe()`, and a plot.
+- A **DataFrame** is a table whose columns are Series sharing one index. THe `pd.read_csv()` function reads in a comma-separated-value file and returns a DataFrame.
+- One should look at data before computing on it. Using `.head()`, `.shape`, `.dtypes`, `.describe()`, and plotting the data are useful first steps.
 - `df["col"]` gives a Series; `df[["col1", "col2"]]` gives a DataFrame.
 - Rows are selected with a Boolean mask, the same idea as in @sec-array-computations, or with `.query()` when a string reads more clearly.
 - New columns are made by assigning to a new name, and the calculation applies to every row at once.
 - A missing value is not always an error. In this data it marks a cancelled flight, and deciding whether to drop such rows depends on the question being asked.
-- `.groupby()` with `.agg()` performs **split-apply-combine**. Report the size of each group alongside the statistic, because averages over small groups are unreliable.
-- `.merge()` joins two tables on a shared column. Check the row count afterwards to be sure the join did not quietly discard data.
+- The `.groupby()` method combined with `.agg()` method performs **split-apply-combine**. One should usually report the size of each group alongside the statistic, because statistics calculated over small groups are unreliable.
+- The `.merge()` method joins two tables on a shared column. Check the row count afterwards to be sure the join did not quietly discard data.
 
 
 ## Exercises
