@@ -57,9 +57,27 @@ Each printed line is roughly one slide, in order. The last one or two streams ar
 
 ## Voice and tone: the target register
 
-The book aims to be **warm but precise, approachable but not chatty** — the register used by well-regarded intro data science textbooks. Friendliness should come from *directness and concreteness*, not from loosened, colloquial diction. Speak *with* the reader, not at them: use "you" for instructions and exercises, "we" when walking through reasoning. Motivate ideas with a concrete example or problem before naming and defining them. Define jargon on first use; prefer concrete nouns.
+The book aims to be **warm but precise, approachable but not chatty** — the register used by well-regarded intro data science textbooks. Friendliness should come from *directness and concreteness*, not from loosened, colloquial diction. Speak *with* the reader, not at them: use "we" in body prose, and reserve "you" for instructions and exercises. Motivate ideas with a concrete example or problem before naming and defining them. Define jargon on first use; prefer concrete nouns.
 
-A quick test for the keep/cut line: if a phrase signals *closeness* (a direct "you", a plain imperative, a concrete noun, an honest reassurance) — keep it. If it signals *looseness* (an intensifier, an idiom, a slang adjective, a vague hedge, a joke) — flag it.
+A quick test for the keep/cut line: if a phrase signals *closeness* (a concrete noun, a named method or property, a worked number, an honest reassurance) — keep it. If it signals *looseness* (an intensifier, an idiom, a slang adjective, a vague hedge, a joke) — flag it. Direct "you" and plain imperatives count as closeness only inside exercises.
+
+**Explicitness is the author's strongest preference.** Measured across the author's revisions of `data_tables.qmd`, this is the largest single gap between a generated draft and what the author wants. Flag each of these, with the rewrite:
+
+| Flag | Rewrite |
+|---|---|
+| "`.shape` gives the number of rows" | "The `.shape` **property** gives the number of rows" |
+| "Pandas offers `.query()`" | "Pandas also has a `.query()` **method**" |
+| "That check is worth performing every time you merge" | "Checking the size of the DataFrames before and after a join is worth performing every time we join DataFrames" |
+| "`.dropna()` removes the rest" | "`.dropna()` removes any rows that contain missing data" |
+| "Most data has many, and they are rarely the same kind of thing" | "Most data has many **columns**, and they are rarely the same kind of **data**" |
+| "The left-hand column is the Index" | "**When we call the `.head()` method,** the left-hand column is the Index" |
+| "the median is **−3**" | "the median **(50% percentile)** is **−3** minutes" |
+
+So: name an API element by its kind, replace a pronoun or demonstrative with the noun it stands for even at the cost of repetition, never drop a noun that could be repeated, say which operation produced the output under discussion, and attach units to numbers. Capitalize **Index**, **Series** and **DataFrame**, and prefer "DataFrame" to "table" for the object.
+
+**Length is not the enemy.** The author's revisions run *longer* than the drafts they replace (median sentence 16 → 18 words), because they add the clause explaining why a result matters or what it leaves undisturbed: "…rather than its position **which can be much more informative**", "…at once **and the Index labels remain unchanged**". Do not flag a sentence merely for being long; flag it for being padded.
+
+**But cut editorial asides.** Sentences that set a tone rather than carry information get removed. "There is a lot in that summary." and "this book uses masking by default, because it is what you will encounter most often" were both cut by the author. Do not tell the reader what the book prefers, or what is most common in industry, unless it changes what they should do.
 
 **Sentence register.** This is a textbook, and its sentences should be complete and connected. The most common drift is toward *telegraphic* prose: clipped fragments and two- or three-word sentences used for rhetorical punch, which read as magazine copy. Flag these and supply the spelled-out rewrite. Worked examples, all real fixes from `introduction.qmd`:
 
@@ -77,7 +95,7 @@ Do **not** read this as a mandate for uniformly long sentences, which is its own
 
 **DO**
 
-- Address the reader as "you" for steps/exercises; use "we" for shared reasoning.
+- Use "we" in body prose; address the reader as "you" only in steps and exercises.
 - Introduce concepts example-first or problem-first, then define them.
 - Define every technical term on first use; prefer concrete, tangible nouns.
 - Let warmth come from encouragement and clarity ("This may look unfamiliar at first, but…") and honest framing ("This takes practice").
