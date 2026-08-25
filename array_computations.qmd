@@ -1245,6 +1245,72 @@ In this chapter we introduced NumPy arrays, the standard container for numerical
 
 Nearly every data science tool in Python builds on NumPy. In the chapters ahead we'll use it to work with full data tables and to create richer visualizations.
 
+
+## Code summary
+
+The functions and methods introduced in this chapter. NumPy is imported as `np`.
+
+**Creating arrays**
+
+| Code | What it does |
+|---|---|
+| `np.array([1, 2, 3])` | Builds an array from a list |
+| `np.arange(start, stop)` | Whole numbers from `start` up to but not including `stop` |
+| `np.linspace(start, stop, n)` | `n` evenly spaced values, including both endpoints |
+| `np.zeros(shape)` | An array of the given shape filled with zeros |
+| `arr.astype(float)` | A copy of the array converted to another type |
+| `arr.copy()` | An independent copy, so changing one does not change the other |
+
+**What an array is made of**
+
+| Code | What it does |
+|---|---|
+| `arr.shape` | The size along each dimension, as a tuple |
+| `arr.size`, `arr.ndim` | How many values in total, and how many dimensions |
+| `arr.dtype` | The kind of value the array holds |
+
+**Computing on every value at once**
+
+| Code | What it does |
+|---|---|
+| `arr + 1`, `arr * 2` | Arithmetic applied to every value, without a loop |
+| `np.abs(arr)` | The distance of each value from zero |
+| `np.cumsum(arr)` | A running total, one value per position |
+| `np.diff(arr)` | The gap between each pair of neighbors, giving one fewer value |
+
+**Summarizing an array**
+
+| Code | What it does |
+|---|---|
+| `np.mean(arr)`, `np.median(arr)` | The average and the middle value |
+| `np.std(arr)` | The standard deviation |
+| `np.sum(arr)` | The total |
+| `np.min(arr)`, `np.max(arr)` | The smallest and largest value |
+| `np.argmin(arr)`, `np.argmax(arr)` | The *position* of the smallest or largest value |
+| `np.percentile(arr, p)` | The value below which `p` percent of the data falls |
+
+**Selecting values**
+
+| Code | What it does |
+|---|---|
+| `arr[0]`, `arr[-1]` | One value, by position, counting from zero |
+| `arr[1:4]` | A slice, from position 1 up to but not including 4 |
+| `arr > 3` | An array of `True` and `False`, one per value |
+| `arr[arr > 3]` | Keeps only the values where the condition is `True` |
+| `(arr > 1) & (arr < 4)` | Combines conditions, with `&` for and and `|` for or |
+| `np.sum(mask)`, `np.mean(mask)` | Counts how many are `True`, and what fraction are |
+
+**Two- and three-dimensional arrays**
+
+| Code | What it does |
+|---|---|
+| `matrix[row, col]` | One value, by row and column |
+| `matrix[0:2, 0:2]` | A rectangular block of the array |
+| `np.sum(matrix, axis=0)` | Summarizes down the columns; `axis=1` works across the rows |
+| `imread("file.jpg")` | Reads an image into an array of pixel values |
+| `plt.imshow(img)` | Displays an array as a picture |
+
+
 ## Exercises
 
 ::: {.callout-tip title="Exercise" #exercise-array_computations-cents}

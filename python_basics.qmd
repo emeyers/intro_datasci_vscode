@@ -1236,6 +1236,54 @@ In this chapter, we introduced the fundamental concepts and basic syntax of Pyth
 
 
 
+
+## Code summary
+
+The functions and methods introduced in this chapter.
+
+**Types and conversion**
+
+| Code | What it does |
+|---|---|
+| `type(x)` | Reports what kind of value `x` is |
+| `int(x)`, `float(x)`, `str(x)` | Converts a value to a whole number, a decimal number, or text |
+
+**Numbers**
+
+| Code | What it does |
+|---|---|
+| `abs(x)` | The distance of a number from zero, ignoring its sign |
+| `min(a, b, c)` | The smallest of the values given |
+| `print(x)` | Displays a value, which a script needs in order to show anything |
+
+**Text**
+
+| Code | What it does |
+|---|---|
+| `f"text {value}"` | Builds a string with the value of a variable inserted into it |
+| `s.upper()`, `s.lower()` | A copy of the string in upper or lower case |
+| `s.strip()` | A copy with blank space removed from both ends |
+| `s.replace(old, new)` | A copy with every occurrence of one piece of text swapped for another |
+| `s.split(sep)` | Breaks a string into a list, cutting it wherever `sep` appears |
+| `s.find(sub)` | The position where `sub` first appears, or `-1` if it never does |
+| `s.count(sub)` | How many times `sub` appears |
+
+**Lists, tuples and dictionaries**
+
+| Code | What it does |
+|---|---|
+| `[1, 2, 3]` | Creates a list |
+| `(1, 2, 3)` | Creates a tuple, which works like a list but cannot be changed |
+| `{"a": 1}` | Creates a dictionary, which looks values up by key rather than by position |
+| `len(x)` | How many items a list, tuple, dictionary or string holds |
+| `x[0]`, `x[-1]` | The first and last item, counting from zero |
+| `x[1:4]` | A slice, from position 1 up to but not including 4 |
+| `my_list.append(v)` | Adds a value to the end of a list, changing the list itself |
+| `my_list.count(v)` | How many times a value appears |
+| `my_list.index(v)` | The position of the first occurrence of a value |
+| `sorted(x)` | A new list with the items in order, leaving the original alone |
+
+
 ## Exercises
 
 

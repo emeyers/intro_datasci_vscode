@@ -1544,6 +1544,47 @@ The descriptive statistics and visualization techniques you've learned here are 
 
 
 
+
+## Code summary
+
+The functions and methods introduced in this chapter. The plotting calls all come from Matplotlib, imported as `plt`, and the statistics from Python's built-in `statistics` module.
+
+**Summarizing a list of numbers**
+
+| Code | What it does |
+|---|---|
+| `sum(x)`, `len(x)` | The total of the values, and how many there are |
+| `min(x)`, `max(x)` | The smallest and largest value |
+| `statistics.mean(x)` | The average: the total divided by the count |
+| `statistics.median(x)` | The middle value once the data is put in order |
+| `statistics.stdev(x)` | The standard deviation, a measure of how spread out the values are |
+| `statistics.quantiles(x)` | Cut points that divide the data into equal-sized groups, giving the quartiles by default |
+| `statistics.correlation(x, y)` | How closely two lists of numbers move together, between `-1` and `1` |
+
+**Plots**
+
+| Code | What it does |
+|---|---|
+| `plt.bar(labels, heights)` | A bar graph, for comparing categories |
+| `plt.pie(sizes)` | A pie chart, for parts of a whole |
+| `plt.hist(x, bins=n)` | A histogram, showing the shape of a distribution |
+| `plt.boxplot(x)` | A box plot, showing the median, quartiles and outliers |
+| `plt.scatter(x, y)` | A scatter plot, for the relationship between two quantities |
+| `plt.show()` | Draws the figure that the calls above have built up |
+
+**Labeling a plot**
+
+| Code | What it does |
+|---|---|
+| `plt.xlabel(s)`, `plt.ylabel(s)` | Labels an axis |
+| `plt.title(s)` | Puts a title above the plot |
+| `plt.legend()` | Adds a key naming each series |
+| `plt.xticks(rotation=45)` | Controls the tick marks, here turning the labels so they do not overlap |
+| `plt.figure(figsize=(w, h))` | Sets the size of the figure before drawing it |
+| `plt.axvline(x)` | Draws a vertical line across the plot, useful for marking a mean or a cutoff |
+| `plt.grid()` | Adds grid lines |
+
+
 ## Exercises
 
 

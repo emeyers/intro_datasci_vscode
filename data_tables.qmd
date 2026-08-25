@@ -1035,6 +1035,70 @@ JetBlue averages 17.6 minutes. Among pairings with at least 5,000 flights, Delta
 - The `.merge()` method joins two tables on a shared column. Check the row count afterwards to be sure the join did not quietly discard data.
 
 
+
+## Code summary
+
+The functions and methods introduced in this chapter. Pandas is imported as `pd`.
+
+**Series**
+
+| Code | What it does |
+|---|---|
+| `pd.Series(values, index=labels)` | Builds a Series, pairing each value with a label |
+| `s.index`, `s.values` | The labels, and the values, as separate objects |
+| `s.loc[label]` | The value with a given label |
+| `s.iloc[position]` | The value at a given position, counting from zero |
+| `s.idxmax()`, `s.idxmin()` | The *label* of the largest or smallest value |
+
+**Loading a table and looking at it**
+
+| Code | What it does |
+|---|---|
+| `pd.read_csv(path)` | Reads a CSV file, from a filename or a URL, into a DataFrame |
+| `df.head()`, `df.tail()` | The first or last few rows |
+| `df.shape` | The number of rows and columns |
+| `df.columns`, `df.dtypes` | The column names, and the kind of value each column holds |
+| `df.describe()` | Count, mean, standard deviation and quartiles for each numeric column |
+
+**Selecting columns and rows**
+
+| Code | What it does |
+|---|---|
+| `df["col"]` | One column, as a Series |
+| `df[["a", "b"]]` | Several columns, as a DataFrame |
+| `df.loc[label]` | Rows by index label, once a meaningful index has been set |
+| `df.iloc[0:3]` | Rows by position |
+| `df[df["col"] > 5]` | Keeps the rows where a condition is `True` |
+| `df.query('col > 5')` | The same idea written as a string, using `and` and `or` |
+| `df.copy()` | An independent copy, needed before adding a column to a selection |
+
+**Changing a table**
+
+| Code | What it does |
+|---|---|
+| `df["new"] = ...` | Adds a column, computed for every row at once |
+| `df.sort_values("col")` | Reorders the rows; `ascending=False` puts the largest first |
+| `df.rename(columns={"old": "new"})` | Renames columns, using a dictionary of old to new |
+| `df.set_index("col")`, `df.reset_index()` | Makes a column the index, or turns the index back into a column |
+
+**Missing values**
+
+| Code | What it does |
+|---|---|
+| `df.isna()` | Marks every missing value with `True` |
+| `df.isna().sum()` | Counts the missing values in each column |
+| `df.dropna(subset=["col"])` | Removes the rows that are missing a value in the named columns |
+
+**Grouping and combining**
+
+| Code | What it does |
+|---|---|
+| `df.groupby("col")` | Splits the rows into groups sharing a value |
+| `.agg(name=("col", "mean"))` | Computes one statistic per group, naming the result |
+| `df.merge(other, on="key")` | Joins two tables on a shared column |
+| `how="inner"`, `"left"`, `"right"`, `"outer"` | Controls which unmatched rows a merge keeps |
+
+
 ## Exercises
 
 ::: {.callout-tip title="Exercise" #exercise-data_tables-babynames}
