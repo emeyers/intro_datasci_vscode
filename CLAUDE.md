@@ -21,9 +21,17 @@ Publishing is automated: pushing to `main` triggers `.github/workflows/publish.y
 
 `_quarto.yml` defines the book and the **chapter order** — a new chapter only appears in the book if it is added to the `chapters:` list there. Chapters render in listed order:
 
-1. `index.qmd` (welcome) → `introduction.qmd` → `python_basics.qmd` → `descriptive_stats_and_plots.qmd` → `array_computations.qmd` → `data_tables.qmd` → `data_visualization.qmd` → `interactive_visualizations.qmd` → `maps.qmd` → `iteration_and_functions.qmd` → `statistical_inference.qmd` → `hypothesis_testing.qmd` → `confidence_intervals.qmd` → `classification.qmd` → `linear_regression.qmd` → `unsupervised_learning.qmd` → `web_data.qmd` → `where_next.qmd`
+1. `index.qmd` (welcome) → `introduction.qmd` → `python_basics.qmd` → `descriptive_stats_and_plots.qmd` → `array_computations.qmd` → `data_tables.qmd` → `data_visualization.qmd` → `maps.qmd` → `iteration_and_functions.qmd` → `statistical_inference.qmd` → `machine_learning.qmd` → `web_data.qmd` → `where_next.qmd`
 
-The chapters from `data_tables.qmd` onward are stubs to be filled in. Each chapter covers roughly two sessions of the Fall-2025 class (see the mapping comments at the top of each stub); `interactive_visualizations.qmd` and `maps.qmd` split classes 14–15 and deliberately come before `iteration_and_functions.qmd` to match the class order, and the inference chapters depend on loops/functions from the iteration chapter. `web_data.qmd` is the one chapter with **no** matching class material — it is drafted from scratch and sits late so it can use loops, functions, and DataFrames; its scraping cells must target a stable site with a saved fallback (see the note in the stub).
+`data_tables.qmd` is written; the chapters after it are stubs to be filled in. Each stub carries a comment mapping it to the Fall-2025 class sessions it draws on. `data_visualization.qmd` and `maps.qmd` split classes 14–15 between them, taking the plotly/pivot material and the geopandas material respectively, and both deliberately come before `iteration_and_functions.qmd` to match the class order; `statistical_inference.qmd` depends on loops/functions from the iteration chapter.
+
+Three stubs are **deliberately consolidated** and so cover more class sessions than the others:
+
+- `data_visualization.qmd` absorbed the former `interactive_visualizations.qmd` (classes 10–11 for the static half, class 14 and the start of 15 for the interactive half).
+- `statistical_inference.qmd` absorbed the former `hypothesis_testing.qmd` and `confidence_intervals.qmd` (classes 17–22).
+- `machine_learning.qmd` absorbed the former `classification.qmd`, `linear_regression.qmd` and `unsupervised_learning.qmd` (classes 22–25).
+
+In all three, the merged-away chapter labels (`#sec-interactive-visualizations`, `#sec-hypothesis-testing`, `#sec-confidence-intervals`, `#sec-classification`, `#sec-linear-regression`, `#sec-unsupervised-learning`) survive as **section** labels, so cross-references written elsewhere still resolve — keep them if those sections are renamed. If a consolidated chapter grows too large once drafted, splitting it again is the intended escape hatch. `web_data.qmd` is the one chapter with **no** matching class material — it is drafted from scratch and sits late so it can use loops, functions, and DataFrames; its scraping cells must target a stable site with a saved fallback (see the note in the stub).
 
 ## Authoring conventions
 

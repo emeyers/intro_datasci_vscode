@@ -1,0 +1,143 @@
+# Machine learning {#sec-machine-learning}
+
+Machine learning builds models that make predictions from data. Rather than writing down a mathematical model of how the data arose, we let an algorithm search for patterns that predict well, and then check those predictions against data the algorithm never saw.
+
+This chapter covers three kinds of model. The first two are **supervised**, meaning the algorithm learns from examples whose answers we already know: a classifier predicts which category an observation belongs to, and a regression predicts a number. The third is **unsupervised**, working without any answers at all and instead looking for structure that is already present in the data.
+
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+This chapter merges what were three separate stub chapters: classification,
+linear regression, and unsupervised learning. The labels #sec-classification,
+#sec-linear-regression and #sec-unsupervised-learning are kept on the sections
+below so that cross-references written elsewhere in the book still resolve.
+
+Source material: classes 22–25 of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_22.ipynb through class_25.ipynb
+and the matching slides): features (X) and labels (y), the k-Nearest Neighbors
+classifier, cross-validation (including k-fold), building a KNN classifier by
+hand, feature normalization, a look at other classifiers, the regression model
+equation, inference on regression coefficients, clustering, and hierarchical
+clustering.
+
+The regression section depends on @sec-statistical-inference, since asking
+whether a slope could have arisen by chance reuses the hypothesis-testing
+machinery from that chapter.
+
+Because the chapter is now long, consider whether the classification section
+wants to be split across two class sessions when it is drafted.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+
+## Classification {#sec-classification}
+
+<!--
+Formerly a chapter of its own. Introduces the supervised-learning setup as
+well as the first classifier, so it comes before the regression section.
+-->
+
+### Features and labels
+
+<!--
+- The supervised setup: a table of features X and a column of labels y.
+- Training data vs. new observations we want to predict.
+- Exercise.
+-->
+
+### A first classifier: k-Nearest Neighbors
+
+<!--
+- The idea: predict the label of the closest known examples.
+- Fit and predict with scikit-learn; the role of k.
+- Building the classifier by hand to demystify it (class 23).
+- Exercise.
+-->
+
+### How good is the classifier? Cross-validation
+
+<!--
+- Why testing on the training data is cheating.
+- Train/test splits; k-fold cross-validation (class 22/23).
+- Exercise.
+-->
+
+### Feature normalization
+
+<!--
+- Why features on different scales break distance-based classifiers.
+- Standardizing features before fitting (class 23/24).
+- Exercise.
+-->
+
+### Other classifiers
+
+<!--
+- A brief look at swapping in other scikit-learn classifiers with the same
+  fit/predict interface (class 22/23).
+- Exercise.
+-->
+
+## Linear regression {#sec-linear-regression}
+
+<!--
+Formerly a chapter of its own. Classification predicts a category; regression
+predicts a number.
+-->
+
+### Fitting a line to data
+
+<!--
+- Scatter plot first; when a line is a reasonable summary.
+- The regression model equation: intercept and slope (class 24).
+- Fitting the model and plotting the fitted line over the data.
+- Exercise.
+-->
+
+### Interpreting the model
+
+<!--
+- What the slope and intercept mean in the units of the data.
+- Predictions from the fitted line; the danger of extrapolating.
+- Exercise.
+-->
+
+### Inference on regression coefficients
+
+<!--
+- Could a slope this large arise by chance? Connecting back to
+  @sec-hypothesis-testing (class 24/25).
+- Exercise.
+-->
+
+## Unsupervised learning {#sec-unsupervised-learning}
+
+<!--
+Formerly a chapter of its own. The models in the two sections above learned
+from labeled examples; unsupervised learning works without labels, looking for
+structure that is already present in the data.
+-->
+
+### Clustering
+
+<!--
+- The goal: group observations so that points within a group are similar.
+- k-means clustering (class 24/25): the algorithm's idea, choosing k,
+  visualizing the clusters on a scatter plot.
+- No labels means no single right answer; judging whether clusters are useful.
+- Exercise.
+-->
+
+### Hierarchical clustering
+
+<!--
+- Building clusters by repeatedly merging the closest groups (class 24/25).
+- Reading a dendrogram; cutting it at a height to get clusters.
+- Exercise.
+-->
+
+## Summary
+
+## Exercises

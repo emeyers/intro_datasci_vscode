@@ -12,15 +12,10 @@ book:
     - array_computations.qmd
     - data_tables.qmd
     - data_visualization.qmd
-    - interactive_visualizations.qmd
     - maps.qmd
     - iteration_and_functions.qmd
     - statistical_inference.qmd
-    - hypothesis_testing.qmd
-    - confidence_intervals.qmd
-    - classification.qmd
-    - linear_regression.qmd
-    - unsupervised_learning.qmd
+    - machine_learning.qmd
     - web_data.qmd
     - where_next.qmd
   appendices:

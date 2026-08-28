@@ -1,2 +1,100 @@
 # Data visualization {#sec-data-visualization}
 
+Earlier chapters drew plots in the course of answering particular questions. This chapter is about the plots themselves: which kind of plot suits which kind of question, how several plots can be arranged so that they can be compared, and how a chart can be made interactive so that a reader explores it rather than only looking at it.
+
+The first half of the chapter works with static images of the kind we have been drawing since @sec-descriptive-stats. The second half introduces charts that respond to hovering, zooming and playing over time, which are useful while exploring a dataset even when the version that ends up in a printed report is static.
+
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+This chapter merges what was a separate stub chapter on interactive
+visualizations. The label #sec-interactive-visualizations is kept on the
+section below so that cross-references written elsewhere in the book still
+resolve.
+
+Source material: classes 10–11 of the Fall-2025 course for the static half
+(extras/material_from_2025f/class_code/class_10.ipynb, class_11.ipynb and the
+matching slides): boxplots and overlapping histograms for comparing groups,
+scatter plots, subplots, matplotlib as a general drawing canvas, and seaborn
+(relationships between two quantitative variables, a single quantitative
+variable, a quantitative variable split by a categorical one, and pairs
+plots). Class 12 is a review session with no new material.
+
+Source material for the interactive half: class 14 and the start of class 15
+(class_14.ipynb, class_15.ipynb and the matching slides): plotly (line plots,
+scatter plots, animations) and pivot tables with heatmaps. The geographic
+material from those same sessions lives in its own chapter, maps.qmd.
+
+This chapter uses DataFrames throughout, so it depends on @sec-data-tables.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+
+## Comparing groups
+
+<!--
+- Boxplots for comparing a quantitative variable across categories.
+- Overlapping histograms as an alternative, and what each one shows that the
+  other hides (class 10/11, the Bechdel movie data).
+- Exercise.
+-->
+
+## Relationships between two variables
+
+<!--
+- Scatter plots: revenue as a function of year (class 10/11).
+- Reading a scatter plot: direction, strength, outliers.
+- Exercise.
+-->
+
+## Arranging several plots together
+
+<!--
+- Subplots: several panels sharing a figure, and why a shared axis range
+  matters when panels are meant to be compared (class 10/11).
+- Using matplotlib as a general canvas: titles, annotations, reference lines.
+- Exercise.
+-->
+
+## Statistical graphics with seaborn
+
+<!--
+- Seaborn as a layer over matplotlib that takes a DataFrame directly.
+- Relationships between two quantitative variables; a single quantitative
+  variable; a quantitative variable split by a categorical one; pairs plots
+  (class 11, the penguins data).
+- Exercise.
+-->
+
+## Pivot tables and heatmaps
+
+<!--
+- Reshaping a table so rows and columns each carry a variable (pivot).
+- Displaying a pivot table as a heatmap; reading color as magnitude.
+- Exercise.
+-->
+
+## Interactive charts {#sec-interactive-visualizations}
+
+<!--
+Formerly the opening of a chapter of its own.
+
+- plotly express: the same line and scatter plots as before, now with hover,
+  zoom, and pan.
+- When interactivity helps (exploration) vs. when a static plot is better
+  (print, papers).
+- Exercise.
+-->
+
+## Animations
+
+<!--
+- A scatter plot that plays over time (class 14 example).
+- Exercise.
+-->
+
+## Summary
+
+## Exercises

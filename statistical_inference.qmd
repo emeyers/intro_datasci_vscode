@@ -1,18 +1,31 @@
-# Introduction to statistical inference {#sec-statistical-inference}
+# Statistical inference {#sec-statistical-inference}
 
-Descriptive statistics summarize the data we have. Statistical inference asks what that data can tell us about the larger population it came from. This chapter introduces the central idea: comparing an observed result to what chance alone would produce, using simulation.
+Descriptive statistics summarize the data we have. Statistical inference asks what that data can tell us about the larger population it came from. This chapter introduces the central idea, which is comparing an observed result against what chance alone would produce, and then applies that idea to three kinds of question: whether a single observed proportion is surprising, whether two groups really differ, and what range of values for a population quantity the data leaves plausible.
+
+Everything in this chapter is built by simulation rather than by formula. Each technique comes down to repeating an experiment many thousands of times and asking how often chance alone produces a result as extreme as the one we actually observed, so the loops and functions from @sec-iteration-functions are the only machinery we need.
 
 <!--
 CHAPTER OUTLINE (stub) — to be drafted.
 
-Source material: classes 17–19 of the Fall-2025 course
-(extras/material_from_2025f/class_code/class_17.ipynb, class_18.ipynb,
-class_19.ipynb and the matching slides): sampling distributions built by taking
-random samples, faster simulation with coin flips, the five-step hypothesis
-test, and the single-proportion "sinister" (handedness) example.
+This chapter merges what were three separate stub chapters: statistical
+inference, hypothesis testing, and confidence intervals. The labels
+#sec-hypothesis-testing and #sec-confidence-intervals are kept on the sections
+below so that cross-references written elsewhere in the book still resolve.
+
+Source material: classes 17–22 of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_17.ipynb through class_22.ipynb
+and the matching slides): sampling distributions built by taking random
+samples, faster simulation with coin flips, the five-step hypothesis test, the
+single-proportion "sinister" (handedness) example, two-proportion tests, the
+two-means smoking-and-baby-weights example, correlation tests (with
+visualization), two-sided tests, and generating confidence intervals from
+hypothesis tests.
 
 This chapter depends on loops and functions from the iteration chapter — the
 simulations are for loops that repeat an experiment many times.
+
+Because the chapter is now long, consider whether the hypothesis-testing
+section wants to be split across two class sessions when it is drafted.
 
 Keep the book's conventions: executable blocks use the ```{python}``` fence;
 show the data before computing on it; end most sections with an exercise; only
@@ -36,7 +49,14 @@ use tools introduced in this chapter or earlier ones.
 - Exercise.
 -->
 
-## The logic of a hypothesis test
+## Hypothesis testing {#sec-hypothesis-testing}
+
+<!--
+Formerly a chapter of its own. Every test below follows the same five steps,
+which are introduced once in the first subsection and then reused.
+-->
+
+### The logic of a hypothesis test
 
 <!--
 - The five steps used throughout the course:
@@ -48,11 +68,72 @@ use tools introduced in this chapter or earlier ones.
 - Exercise.
 -->
 
-## A complete example: testing a single proportion
+### A complete example: testing a single proportion
 
 <!--
 - The handedness ("sinister") example from class 18/19, walked through all
   five steps with simulation code.
+- Exercise.
+-->
+
+### Comparing two proportions
+
+<!--
+- Question setup: is the proportion different between two groups?
+- Null distribution by shuffling group labels (permutation).
+- All five steps on the class 19/20 example.
+- Exercise.
+-->
+
+### Comparing two means
+
+<!--
+- The smoking and baby weights example (class 20).
+- Same recipe, different statistic (difference in means).
+- Exercise.
+-->
+
+### Testing a correlation
+
+<!--
+- Is an apparent relationship between two quantitative variables real?
+- Null distribution by shuffling one variable (class 21).
+- Visualizing what shuffling does to the scatter plot.
+- Exercise.
+-->
+
+### One-sided and two-sided tests
+
+<!--
+- When the alternative hypothesis has a direction and when it doesn't.
+- How the p-value calculation changes (class 21).
+- Exercise.
+-->
+
+## Confidence intervals {#sec-confidence-intervals}
+
+<!--
+Formerly a chapter of its own. A hypothesis test answers a yes-or-no question
+about the population; a confidence interval answers a different one, which is
+what range of values for the population quantity is plausible given the data.
+Both are built from the same simulation tools.
+-->
+
+### From tests to intervals
+
+<!--
+- The connection: a confidence interval is the set of parameter values a
+  hypothesis test would not reject (the class 21/22 construction).
+- Estimation vs. testing: two questions about the same population quantity.
+- Exercise.
+-->
+
+### Constructing and interpreting an interval
+
+<!--
+- Build an interval for a proportion with simulation.
+- What "95% confident" does and does not mean.
+- Width of the interval: sample size and confidence level.
 - Exercise.
 -->
 

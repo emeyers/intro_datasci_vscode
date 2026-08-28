@@ -238,9 +238,9 @@ The chapters of the book follow these stages in order:
 | Ask a question | Every chapter starts with one |
 | Get the data | @sec-data-tables, @sec-web-data |
 | Clean it | @sec-data-tables |
-| Explore and visualize | @sec-descriptive-stats, @sec-array-computations, @sec-data-visualization, @sec-interactive-visualizations, @sec-maps |
-| Model | @sec-statistical-inference through @sec-unsupervised-learning |
-| Interpret and communicate | @sec-statistical-inference, @sec-hypothesis-testing, @sec-confidence-intervals |
+| Explore and visualize | @sec-descriptive-stats, @sec-array-computations, @sec-data-visualization, @sec-maps |
+| Model | @sec-statistical-inference, @sec-machine-learning |
+| Interpret and communicate | @sec-statistical-inference |
 
 : Where each stage is covered {#tbl-workflow-chapters}
 
@@ -385,9 +385,9 @@ Python is not the only language used for this work. R is the other common choice
 | Matplotlib | Draws plots | @sec-descriptive-stats, @sec-data-visualization |
 | NumPy | Arrays of numbers and fast computation on them | @sec-array-computations |
 | pandas | Data tables: loading, filtering, grouping, joining | @sec-data-tables |
-| seaborn, Plotly | Statistical and interactive graphics | @sec-data-visualization, @sec-interactive-visualizations |
+| seaborn, Plotly | Statistical and interactive graphics | @sec-data-visualization |
 | GeoPandas | Drawing data onto geographic maps | @sec-maps |
-| scikit-learn | Machine learning models | @sec-classification through @sec-unsupervised-learning |
+| scikit-learn | Machine learning models | @sec-machine-learning |
 | Requests, Beautiful Soup | Fetching and reading data from the web | @sec-web-data |
 
 : The main packages used in this book {#tbl-packages}
