@@ -238,7 +238,7 @@ ax.text(0.10, 2.36, "gas.iloc[13]", fontsize=9.5, family="monospace", color=high
 ax.annotate("", xy=(x_pos - 0.22, ty + box_h / 2), xytext=(1.62, 2.38),
             arrowprops=dict(arrowstyle="->", color=highlight, lw=1.3,
                             connectionstyle="arc3,rad=-0.18"))
-ax.text(1.56, 1.98, "by position", fontsize=8, style="italic", color=highlight)
+ax.text(1.40, 1.62, "by position", fontsize=8, style="italic", color=highlight)
 
 ax.text(0.10, 0.30, 'gas.loc["2025-04-07"]', fontsize=9.5, family="monospace",
         color=highlight)
@@ -853,72 +853,94 @@ rows = [("AA", 12), ("B6", 4), ("AA", 20), ("DL", 6), ("B6", 8), ("DL", 10)]
 groups = [("AA", [12, 20], 16.0, amber), ("B6", [4, 8], 6.0, blue), ("DL", [6, 10], 8.0, green)]
 colour_of = {"AA": amber, "B6": blue, "DL": green}
 
-box_w, box_h = 0.92, 0.34
+box_w, box_h = 1.50, 0.34
+
+# The two values in a row are drawn at fixed offsets inside the box rather than
+# as one centred string, so that the carrier codes line up under each other and
+# so do the numbers, however many digits each one has. The offsets are far
+# enough apart to leave a gap under the longest heading, "mean_delay".
+key_dx, value_dx = 0.36, 1.12
 
 
-def cell(x, y, text, colour, width=box_w):
+def cell(x, y, key, value, colour, width=box_w):
     ax.add_patch(patches.FancyBboxPatch(
         (x, y), width, box_h, boxstyle="round,pad=0.01", fc=colour, ec="#9ab", lw=0.9))
-    ax.text(x + width / 2, y + box_h / 2, text, ha="center", va="center", fontsize=8)
+    ax.text(x + key_dx, y + box_h / 2, key, ha="center", va="center",
+            fontsize=8, family="monospace")
+    ax.text(x + value_dx, y + box_h / 2, value, ha="center", va="center",
+            fontsize=8, family="monospace")
 
 
-# Column headings sit just above the first row of each stage, and the stage
-# names above those, so both follow the cells if the row geometry changes.
+def headings(x, key, value):
+    ax.text(x + key_dx, head_y, key, ha="center", fontsize=7.5,
+            family="monospace", color="0.35")
+    ax.text(x + value_dx, head_y, value, ha="center", fontsize=7.5,
+            family="monospace", color="0.35")
+
+
+# Column headings clear the tallest first row of the three stages, which is the
+# split column's, and the stage names sit above those. Both are measured off the
+# cells so they follow if the row geometry changes.
 top = 2.30
-head_y = top + box_h + 0.10
-title_y = head_y + 0.30
+split_top = top + 0.06
+head_y = split_top + box_h + 0.22
+title_y = head_y + 0.32
 
 # stage 1: the original DataFrame, coloured by the group each row belongs to
 for i, (carrier, delay) in enumerate(rows):
     y = top - i * 0.40
-    cell(0.10, y, f"{carrier}   {delay}", colour_of[carrier], width=1.30)
-ax.text(0.75, head_y, "carrier  dep_delay", ha="center", fontsize=7.5,
-        family="monospace", color="0.35")
-ax.text(0.75, title_y, "the DataFrame", ha="center", fontsize=9, weight="bold")
+    cell(0.10, y, carrier, str(delay), colour_of[carrier])
+headings(0.10, "carrier", "dep_delay")
+ax.text(0.10 + box_w / 2, title_y, "the DataFrame", ha="center", fontsize=9,
+        weight="bold")
 
 # stage 2: split into one block per carrier
 x_split = 2.65
-y_cursor = top + 0.06
+y_cursor = split_top
 block_centres = []
 for carrier, delays, _, colour in groups:
     block_top = y_cursor
     for d in delays:
-        cell(x_split, y_cursor, f"{carrier}   {d}", colour, width=1.30)
+        cell(x_split, y_cursor, carrier, str(d), colour)
         y_cursor -= 0.40
     # centre of this block, taken from the rows just drawn rather than guessed
     block_centres.append((block_top + (y_cursor + 0.40)) / 2)
     y_cursor -= 0.18
-ax.text(x_split + 0.65, head_y, "carrier  dep_delay", ha="center", fontsize=7.5,
-        family="monospace", color="0.35")
-ax.text(x_split + 0.65, title_y, "split", ha="center", fontsize=9, weight="bold")
+headings(x_split, "carrier", "dep_delay")
+ax.text(x_split + box_w / 2, title_y, "split", ha="center", fontsize=9,
+        weight="bold")
 
 # stage 3: one mean per group, positioned at the vertical centre of its block
-x_out = 5.55
+x_out = 5.45
 for (carrier, _, mean, colour), cy in zip(groups, block_centres):
-    cell(x_out, cy, f"{carrier}   {mean:.1f}", colour, width=1.30)
-ax.text(x_out + 0.65, head_y, "carrier  mean_delay", ha="center", fontsize=7.5,
-        family="monospace", color="0.35")
-ax.text(x_out + 0.65, title_y, "apply, then combine", ha="center", fontsize=9, weight="bold")
+    cell(x_out, cy, carrier, f"{mean:.1f}", colour)
+headings(x_out, "carrier", "mean_delay")
+ax.text(x_out + box_w / 2, title_y, "apply, then combine", ha="center",
+        fontsize=9, weight="bold")
 
 # The three group means are one DataFrame, not three loose rows: enclosing them
 # is what makes the "combine" step visible. The box is measured from the cells.
 pad = 0.12
 ax.add_patch(patches.FancyBboxPatch(
     (x_out - pad, min(block_centres) - pad),
-    1.30 + 2 * pad,
+    box_w + 2 * pad,
     (max(block_centres) + box_h) - min(block_centres) + 2 * pad,
     boxstyle="round,pad=0.02", fc="none", ec="0.45", lw=1.3, linestyle="--"))
-ax.text(x_out + 0.65, min(block_centres) - pad - 0.22, "one result DataFrame",
+ax.text(x_out + box_w / 2, min(block_centres) - pad - 0.22, "one result DataFrame",
         ha="center", fontsize=8, style="italic", color="0.3")
 
-# arrows between the stages, labelled at their midpoints
-for x0, x1, label in ((1.48, 2.55, "by carrier"), (4.03, 5.45, "mean")):
+# Arrows between the stages, each naming the pandas operation that does the step
+# above the detail it is given. The second stops short of the dashed box.
+for x0, x1, operation, detail in ((1.72, 2.55, "group by", "by carrier"),
+                                  (4.27, 5.23, "aggregate", "mean")):
     ax.annotate("", xy=(x1, 1.30), xytext=(x0, 1.30),
                 arrowprops=dict(arrowstyle="->", color="0.35", lw=1.4))
-    ax.text((x0 + x1) / 2, 1.40, label, ha="center", fontsize=8.5,
-            style="italic", color="0.3")
+    ax.text((x0 + x1) / 2, 1.60, operation, ha="center", fontsize=8.5,
+            weight="bold", color="0.25")
+    ax.text((x0 + x1) / 2, 1.40, detail, ha="center", fontsize=8,
+            style="italic", color="0.35")
 
-ax.set_xlim(0.0, 7.2)
+ax.set_xlim(0.0, 7.25)
 ax.set_ylim(-0.42, title_y + 0.24)
 ax.axis("off")
 plt.show()
