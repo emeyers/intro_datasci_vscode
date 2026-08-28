@@ -14,7 +14,7 @@
     "href": "introduction.html",
     "title": "1  Introduction",
     "section": "",
-    "text": "1.1 A first look at a data science analysis\nDo you know how popular your name was when you were born? Most people have only a vague sense of it. They may recall that their name felt ordinary in their class, or that they were the only one who had it, or that they tend to meet the name mostly among people either much older or much younger than they are.\nThis vague sense can be replaced with a more precise quantitative answer. The U.S. Social Security Administration has kept a record of the first names on Social Security card applications going back to 1880, and it publishes number of babies born with a given name for each sex in each year. If at least 5 babies were born with your name in a given year, then somewhere in that file is your name, and from this data we can determine when your name was most popular and whether it is currently increasing or decreasing in popularity.\nThis book is about turning questions like this into answers. The tools involved are a programming language, statistical methods, and ways to think about evidence. These are the skills we aim to develop over the course of this book.\nBefore defining what the field of Data Science is, it is useful to see what a small analysis typical of a Data Science project looks like. The code below loads the baby-name data, which covers every name given to at least five babies in a year, and plots the popularity of four female names over time.\nYou are not expected to understand this code. It is here so you know what you are working toward. Its pieces arrive over the next several chapters: Chapter 3 teaches the plotting, Chapter 5 teaches how to load a file and pull out the rows for one name, and Chapter 9 covers the for line that repeats the work for each name.\nimport pandas as pd\n\n# One row per name, per year, per sex, for every name given to at least\n# five babies in a year, from 1880 to 2025\nnames = pd.read_csv(\"https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names_all.csv.gz\")\n\nnames.head()\n\n\n\n\n\n\n\n\nyear\nname\nsex\ncount\npercent\n\n\n\n\n0\n1880\nJohn\nboy\n9655\n8.154630\n\n\n1\n1880\nWilliam\nboy\n9532\n8.050744\n\n\n2\n1880\nJames\nboy\n5927\n5.005954\n\n\n3\n1880\nCharles\nboy\n5348\n4.516930\n\n\n4\n1880\nGeorge\nboy\n5126\n4.329428\nAs a first step in any analysis, it is important to understand the data one is working with. For the baby-names data, each row corresponds to one name, in one year, for one sex. The count column gives the number of babies who received that name, and the percent column expresses that count as a percentage of all babies of that sex born in that year. The first row therefore says that 9,655 boys born in 1880 were named John, and that those boys made up 8.15463% of all the boys born that year.\nWith the contents of the file established, we can plot how the popularity of individual names has changed over time:\nimport matplotlib.pyplot as plt\n\ngirls = names[names[\"sex\"] == \"girl\"]\n\nfor name in [\"Mary\", \"Linda\", \"Jennifer\", \"Emily\"]:\n    one_name = girls[girls[\"name\"] == name]\n    plt.plot(one_name[\"year\"], one_name[\"percent\"], label=name)\n\nplt.xlabel(\"Year\")\nplt.ylabel(\"Percentage of girls given the name\")\nplt.legend()\nplt.show()\nEach of these four names dominated a different era. Mary was the most common girls’ name in the United States in 76 of the 82 years from 1880 to 1961, and in 1880 it was given to 7.2% of girls. Jennifer reached its peak in 1974, at 4.0%, and Emily reached its own in 1999, at 1.4%.\nThe trajectory of Linda is the most abrupt of the four. In 1946 the name was given to 3.3% of American girls, and in 1947 that figure jumped to 5.5%. Names rarely move that quickly, and 1947 happens to be the year in which Buddy Clark’s recording of a song called “Linda”, with Ray Noble’s orchestra, reached number one on Billboard’s airplay chart.1\nIt is worth being precise about what that last sentence establishes and what it does not. The data establishes the timing of the increase. The song is an explanation brought to the data from outside it, by someone who already knew that popular music influences what parents name their children. The explanation is plausible, but a file of names and counts cannot confirm it. Distinguishing between what the data shows and what we have supplied ourselves is a skill this book returns to repeatedly.\nA second pattern in the plot is easier to overlook: the peaks grow steadily shorter over time. In 1880 the most common girls’ name was given to 7.2% of girls, whereas in 2025 the most common name, Olivia, was given to only 0.8%. Parents did not stop having favorites, but the pool of names they choose from has grown enormously. This represents a genuine change in American naming practices, and it emerged from nothing more than a file of names and counts.\nThe analysis is worth noting for two reasons. It answered a question that intuition alone could not, and it revealed a pattern that nobody had set out to look for.",
+    "text": "1.1 A first look at a data science analysis\nDo you know how popular your name was when you were born? Most people have only a vague sense of it. They may recall that their name felt ordinary in their class, or that they were the only one who had it, or that they tend to meet the name mostly among people either much older or much younger than they are.\nThis vague sense can be replaced with a more precise quantitative answer. The U.S. Social Security Administration has kept a record of the first names on Social Security card applications going back to 1880, and it publishes number of babies born with a given name for each sex in each year. If at least 5 babies were born with your name in a given year, then somewhere in that file is your name, and from this data we can determine when your name was most popular and whether it is currently increasing or decreasing in popularity.\nThis book is about turning questions like this into answers. The tools involved are a programming language, statistical methods, and ways to think about evidence. These are the skills we aim to develop over the course of this book.\nBefore defining what the field of Data Science is, it is useful to see what a small analysis typical of a Data Science project looks like. The code below loads the baby-name data, which covers every name given to at least five babies in a year, and plots the popularity of four female names over time.\nYou are not expected to understand this code. It is here so you know what you are working toward. Its pieces arrive over the next several chapters: Chapter 3 teaches the plotting, Chapter 5 teaches how to load a file and pull out the rows for one name, and Chapter 8 covers the for line that repeats the work for each name.\nimport pandas as pd\n\n# One row per name, per year, per sex, for every name given to at least\n# five babies in a year, from 1880 to 2025\nnames = pd.read_csv(\"https://raw.githubusercontent.com/emeyers/intro_datascience/main/data/babynames/baby_names_all.csv.gz\")\n\nnames.head()\n\n\n\n\n\n\n\n\nyear\nname\nsex\ncount\npercent\n\n\n\n\n0\n1880\nJohn\nboy\n9655\n8.154630\n\n\n1\n1880\nWilliam\nboy\n9532\n8.050744\n\n\n2\n1880\nJames\nboy\n5927\n5.005954\n\n\n3\n1880\nCharles\nboy\n5348\n4.516930\n\n\n4\n1880\nGeorge\nboy\n5126\n4.329428\nAs a first step in any analysis, it is important to understand the data one is working with. For the baby-names data, each row corresponds to one name, in one year, for one sex. The count column gives the number of babies who received that name, and the percent column expresses that count as a percentage of all babies of that sex born in that year. The first row therefore says that 9,655 boys born in 1880 were named John, and that those boys made up 8.15463% of all the boys born that year.\nWith the contents of the file established, we can plot how the popularity of individual names has changed over time:\nimport matplotlib.pyplot as plt\n\ngirls = names[names[\"sex\"] == \"girl\"]\n\nfor name in [\"Mary\", \"Linda\", \"Jennifer\", \"Emily\"]:\n    one_name = girls[girls[\"name\"] == name]\n    plt.plot(one_name[\"year\"], one_name[\"percent\"], label=name)\n\nplt.xlabel(\"Year\")\nplt.ylabel(\"Percentage of girls given the name\")\nplt.legend()\nplt.show()\nEach of these four names dominated a different era. Mary was the most common girls’ name in the United States in 76 of the 82 years from 1880 to 1961, and in 1880 it was given to 7.2% of girls. Jennifer reached its peak in 1974, at 4.0%, and Emily reached its own in 1999, at 1.4%.\nThe trajectory of Linda is the most abrupt of the four. In 1946 the name was given to 3.3% of American girls, and in 1947 that figure jumped to 5.5%. Names rarely move that quickly, and 1947 happens to be the year in which Buddy Clark’s recording of a song called “Linda”, with Ray Noble’s orchestra, reached number one on Billboard’s airplay chart.1\nIt is worth being precise about what that last sentence establishes and what it does not. The data establishes the timing of the increase. The song is an explanation brought to the data from outside it, by someone who already knew that popular music influences what parents name their children. The explanation is plausible, but a file of names and counts cannot confirm it. Distinguishing between what the data shows and what we have supplied ourselves is a skill this book returns to repeatedly.\nA second pattern in the plot is easier to overlook: the peaks grow steadily shorter over time. In 1880 the most common girls’ name was given to 7.2% of girls, whereas in 2025 the most common name, Olivia, was given to only 0.8%. Parents did not stop having favorites, but the pool of names they choose from has grown enormously. This represents a genuine change in American naming practices, and it emerged from nothing more than a file of names and counts.\nThe analysis is worth noting for two reasons. It answered a question that intuition alone could not, and it revealed a pattern that nobody had set out to look for.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -24,7 +24,7 @@
     "href": "introduction.html#what-is-data-science",
     "title": "1  Introduction",
     "section": "1.2 What is data science?",
-    "text": "1.2 What is data science?\nData science is the practice of using computation and statistical reasoning to answer questions with data. In practice it draws on three things: enough programming to transform data into a useable format, enough statistics to know which conclusions the data supports, and enough subject area knowodlge to ask a question worth asking and to recognize a wrong answer when one appears.\nThe last of these three is the one most easily underrated. Nothing in the baby-names code knows what a name is or what it means for one to be fashionable. The code established that the name Linda rose sharply in 1947, but the connection to a popular song came from a person who already knew that music influences naming and who went looking for such an explanation. An analysis that ignores the subject matter it concerns tends to produce results that are technically correct and of little use to anyone.\n\n1.2.1 From statistics to data science\nThe practice of analyzing data is centuries old, but the name “data science” is very recent. Governments have counted people and harvests for as long as they have collected taxes, and the word “statistics” still carries that origin, since it began as a term for the description of a state’s resources. The field became mathematical when probability was brought to bear on it, and the version of it taught today was largely built between 1885 and 1940 by people working on concrete problems: Francis Galton studying biologically inherited traits, William Gosset drawing conclusions from the small samples a Guinness brewery could actually run, and Ronald Fisher spending fourteen years on agricultural field trials. Several of these ideas created by these early statisticians have chapters of their own later in this book, starting with Chapter 10.\nIn all the research areas where these classic statistical methods were developed, data was expensive, slow to obtain, and scarce. For example, Fisher’s field trials took a growing season each to generate data and Gosset’s samples were limited to what a brewery could brew and taste. When you hold only a few dozen observations, assumptions about the process that produced them are what make any conclusion possible, so the mathematics was doing work the data could not do on its own. Statistical theory grew up as a way of extracting the most from scarce data.\nThe first sustained objection to classical statistical analyses came from inside the field, when John Tukey opened “The Future of Data Analysis” in 1962 by admitting doubt about his own subject and arguing that the real activity, which he called data analysis, is a science in its own right of which mathematical statistics forms only one part (Tukey 1962). The argument was repeated over the following decades, by William Cleveland in 2001 under the name data science (Cleveland 2001) and by Leo Breiman the same year, who described a field split between people who build probability models of how data arose and people who judge an algorithm purely by how accurately it predicts (Breiman 2001). What eventually settled the question was not the arguments but the arrival of cheap computing (Donoho 2017).\n\n\n1.2.2 New approaches to analyzing data\nWhen data and computing power became abundant around the turn of the 21st century, data analysis drastically changed in many fields. Records that once had to be gathered deliberately began accumulating as a byproduct of ordinary activity, whether a purchase, a search, a card application, or a sensor reading, and the internet turned the resulting files into something a stranger can download in seconds. At the same time, programming languages made analysis something you could carry out without deriving it first. The baby-name data at the start of this chapter shows both. Nobody ran a study to produce it, the records exist because people applied for Social Security cards, and retrieving all 2,181,032 rows took a single line of code.\nThis rise in larger data also changed which skills were needed. In Fisher’s era the limiting factor was the data itself, and mathematics allowed one to understand larger patterns from this limited data. In the past couple decades, data is frequently abundant but disorganized, arriving in the wrong shape, spread across several files, full of missing entries and inconsistent spellings. The skill that allows one to handle this constraint is programming: finding a file, reshaping it, drawing it, and running the whole process again unchanged when the file is updated next year. This is why the early chapters of this book are about Python rather than probability.\nThe rise of large data sets also frequently changes how much of the older theory you need. Much of classical statistics answers one question: given a small sample, how confident can I be that the pattern I see is not an accident of which few individuals happened to end up in my study? That question is pressing when you have thirty observations. It is much less pressing when you have two million. Nobody needs a significance test to establish that the name Linda rose in 1947, because the rise is enormous, the records run to millions of births a year, and you can see it in the plot. With data of that size the hard part moves elsewhere, to getting the data into a usable shape and then seeing what is in it. That is why this book spends whole chapters on reshaping data (Chapter 5) and on visualization (Chapter 6) before it takes up inference at all.\nProgramming also opened a genuinely different way of analyzing data, known as machine learning: instead of writing down a mathematical model of how the data arose, you let an algorithm search for patterns that predict well. The obvious worry is that an algorithm flexible enough to find any pattern will find ones that are not really there. The answer is not a proof but a simple procedure. You hide part of your data, let the algorithm learn from the rest, and then check its predictions against the part it never saw. If it does well on data it has not seen, the pattern it found is likely real. Repeating this with different parts held back each time is called cross-validation, and Chapter 13 builds one.\nThe same instinct applies when you do need to answer a question about chance, and it replaces mathematical theory with repetition. Suppose you find that girls in some dataset score two points higher than boys, and you want to know whether a gap that big could show up by chance alone. Classical statistics would answer with a formula derived under assumptions about the population. You can instead answer it by brute force: shuffle the labels so that “girl” and “boy” are assigned to the scores at random, recompute the gap, and repeat several thousand times. If a gap of two points almost never appears in the shuffled versions, chance alone is a poor explanation of the real one. This is a permutation test, and it needs no formula, only a computer willing to repeat something ten thousand times. Chapter 11 builds these tests directly.\nNone of this makes statistical reasoning optional, and the book teaches both. What has changed is the order in which they become useful: you now have to get the data and look at it before there is anything to reason about.\n\n\n1.2.3 The rise of data science\nThe changes described so far were mostly visible to the people already doing the work. What gave data science a public profile, along with job titles and degree programs, was a series of high-profile events over the first two decades of the 21st century. The episodes below are the ones that come up most often, and they shaped both the enthusiasm for the field and the criticism of it.\nOne event that had a signifant impact showing the value of these new data analysis methods occured in Major League Baseball. In 2002 the Oakland Athletics, working with one of the smallest payrolls in baseball, used statistical analysis of ordinary published numbers to find players the scouting system had undervalued, and put together a season that included a twenty-game winning streak. Michael Lewis’s 2003 book about it, Moneyball, reached an audience far beyond baseball (Lewis 2003) and led most major league baseball teams to invest in increasinly larger analytics departments. Another event that drew attention to using machine learning for analyzing data occurred in 2006 when Netflix offered a million dollar prize to anyone who could improve the company’s recommendations by 10%, along with a large dataset of ratings so that anyone could try, and in 2009 a team assembled from outsiders beat what Netflix’s own engineers had managed. And a third source that showed the public the power of data analysis was due to Nate Silver’s statistical models at FiveThirtyEight website, where predicted 49 of 50 states in the 2008 presidential election and all 50 in 2012, at a time when television coverage ran on the intuition of experienced commentators. By 2012 a Harvard Business Review article called the data scientist “the sexiest job of the 21st century” (Davenport and Patil 2012), and universities began launching degrees and renaming departments to match.\nAs the field begain to mature, failures and negative consequences began to become visible. Netflix never put the winning algorithm into production, because it averaged together so many separate models that it was expensive to run and hard to maintain, and researchers then showed that individuals could be identified in the supposedly anonymous ratings by matching them against public reviews on another film site (Narayanan and Shmatikov 2008). Google Flu Trends estimated influenza activity from the volume of flu-related searches, faster than the Centers for Disease Control could report it, and was held up as proof that with enough data careful modeling mattered less than sheer scale. Its estimates then drifted, reaching roughly double the true rate of flu-related doctor visits by 2013, in part because the model had been fitted years earlier and never refitted while the world changed underneath it (Lazer et al. 2014). In 2016 Cathy O’Neil’s Weapons of Math Destruction documented models used in sentencing, hiring, lending, and school evaluation that encoded existing inequities and applied them at scale (O’Neil 2016), and ProPublica’s investigation of the COMPAS recidivism model found that Black defendants were roughly twice as likely as white defendants to be wrongly flagged as high risk. That same year produced the sharpest argument about forecasting. FiveThirtyEight gave Donald Trump roughly a 29% chance of winning, and was the most cautious of the major forecasters by a wide margin. The Upshot, at the New York Times, put Clinton’s chances at 85%, HuffPost at 98%, and Sam Wang’s Princeton Election Consortium at 99%. Trump won, and forecasting was widely described as having failed. Two separate questions came out of that. The first is whether a 29% forecast of something that then happens is a failure at all, which is a real question with a real answer, and Chapter 10 takes it up. The second is why forecasters looking at substantially the same polls disagreed by nearly thirty percentage points about how certain the result was. The models differed less in what they knew than in how they handled the chance that the polls were wrong everywhere in the same direction at once, which is exactly what happened.\n\n\n\n\n\n\n\n\n\nThe job title has since stopped being exotic and settled into an ordinary role in most industries, and attention to the potential harms became a standard part of the work rather than an afterthought. The most recent wave of attention has moved to large language models, which Chapter 17 takes up at the end of the book.\n\n\n1.2.4 How data scientists and statisticians approach problems\nThe rise of data science did not displace statistics. Both fields are active, both are still developing new methods, and a great deal of what a data scientist does on an ordinary day was invented by statisticians. So how do members of the two communities differ?\nThe difference is one of instinct more than of subject matter. A statistician’s instinct is to fit a mathematical (probability) model to the data and draw conclusions based on properties of the model. A data scientist’s instinct is to try several approaches and see which one gives the most accurate predictions and most valuable practical insights (often this involves fitting the method on most of the data, then checking its predictions against a subset of data deliberately kept aside). One camp says the proof is in the math; the other says the proof is in the pudding (i.e., do the results give practical insights). Both instincts are correct, and both fail in characteristic ways when used alone.\nThe boundary between the two is not a sharp one, and most practitioners move back and forth across it depending on the problem in front of them. The table below summarizes where the two emphases typically differ.\n\n\n\nTable 1.1: Two emphases in the analysis of data\n\n\n\n\n\n\n\n\n\n\n\nStatistics\nData science\n\n\n\n\nWhere the data comes from\nOften collected deliberately, to answer a specific question\nOften collected for some other purpose, and reused\n\n\nTypical size\nSmall enough to handle by hand or with a single command\nOften large enough that retrieving it is part of the problem\n\n\nWhy a method is trusted\nIt has mathematical guarantees under stated assumptions\nIt performs well when tested against data it has not seen\n\n\nHow much programming\nSometimes little\nUsually substantial\n\n\nWhat comes out\nAn estimate, an interval, a test result\nAny of those, plus predictions, visualizations, and working systems\n\n\n\n\n\n\n\n\n1.2.5 What data cannot do\nTwo cautions belong at the beginning of a book like this rather than at the end.\nThe first is that data is a record of the world that produced it, and that record includes the world’s mistakes. A model trained on past hiring decisions learns the decisions that were actually made, biases included, and applying such a model at scale can spread those biases far faster than any individual could.\nThe second is that a pattern in data is not, by itself, evidence of a cause. We encountered this a few pages ago, when the plot showed the name Linda rising sharply in 1947 and the song was offered as an explanation from outside the data. The fact that two things move together does not establish that one of them produces the other, and separating these two possibilities accounts for much of the work involved in interpreting a result honestly.\nBoth problems recur throughout this book, because both are ordinary features of working with data rather than rare special cases.\n\n\n\n\n\n\nTipExercise\n\n\n\nFind a recent news article whose central claim rests on data. Write down three things:\n\nThe question the analysis was trying to answer.\nWhere the data came from, and who collected it.\nOne thing the data cannot tell you, even if the analysis is done perfectly.\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\nThere is no single correct answer here, but a good one is specific. As an example, consider an article reporting that a city’s new bike lanes were followed by a drop in cycling injuries.\n\nThe question. Did adding bike lanes reduce injuries to cyclists?\nThe data. Police accident reports, collected by the city for administrative purposes rather than for this analysis. Injuries that were never reported to police are not in the data at all.\nWhat it cannot tell you. Whether the bike lanes caused the drop. Injuries might have fallen because fewer people cycled that year, because the weather was worse, or because a different safety campaign ran at the same time. The data records what happened, not what would have happened otherwise.\n\nPoint 3 is the one worth practicing. Most weak data journalism is weak because a change over time is presented as an effect of one particular cause.",
+    "text": "1.2 What is data science?\nData science is the practice of using computation and statistical reasoning to answer questions with data. In practice it draws on three things: enough programming to transform data into a useable format, enough statistics to know which conclusions the data supports, and enough subject area knowodlge to ask a question worth asking and to recognize a wrong answer when one appears.\nThe last of these three is the one most easily underrated. Nothing in the baby-names code knows what a name is or what it means for one to be fashionable. The code established that the name Linda rose sharply in 1947, but the connection to a popular song came from a person who already knew that music influences naming and who went looking for such an explanation. An analysis that ignores the subject matter it concerns tends to produce results that are technically correct and of little use to anyone.\n\n1.2.1 From statistics to data science\nThe practice of analyzing data is centuries old, but the name “data science” is very recent. Governments have counted people and harvests for as long as they have collected taxes, and the word “statistics” still carries that origin, since it began as a term for the description of a state’s resources. The field became mathematical when probability was brought to bear on it, and the version of it taught today was largely built between 1885 and 1940 by people working on concrete problems: Francis Galton studying biologically inherited traits, William Gosset drawing conclusions from the small samples a Guinness brewery could actually run, and Ronald Fisher spending fourteen years on agricultural field trials. Several of these ideas created by these early statisticians have chapters of their own later in this book, starting with Chapter 9.\nIn all the research areas where these classic statistical methods were developed, data was expensive, slow to obtain, and scarce. For example, Fisher’s field trials took a growing season each to generate data and Gosset’s samples were limited to what a brewery could brew and taste. When you hold only a few dozen observations, assumptions about the process that produced them are what make any conclusion possible, so the mathematics was doing work the data could not do on its own. Statistical theory grew up as a way of extracting the most from scarce data.\nThe first sustained objection to classical statistical analyses came from inside the field, when John Tukey opened “The Future of Data Analysis” in 1962 by admitting doubt about his own subject and arguing that the real activity, which he called data analysis, is a science in its own right of which mathematical statistics forms only one part (Tukey 1962). The argument was repeated over the following decades, by William Cleveland in 2001 under the name data science (Cleveland 2001) and by Leo Breiman the same year, who described a field split between people who build probability models of how data arose and people who judge an algorithm purely by how accurately it predicts (Breiman 2001). What eventually settled the question was not the arguments but the arrival of cheap computing (Donoho 2017).\n\n\n1.2.2 New approaches to analyzing data\nWhen data and computing power became abundant around the turn of the 21st century, data analysis drastically changed in many fields. Records that once had to be gathered deliberately began accumulating as a byproduct of ordinary activity, whether a purchase, a search, a card application, or a sensor reading, and the internet turned the resulting files into something a stranger can download in seconds. At the same time, programming languages made analysis something you could carry out without deriving it first. The baby-name data at the start of this chapter shows both. Nobody ran a study to produce it, the records exist because people applied for Social Security cards, and retrieving all 2,181,032 rows took a single line of code.\nThis rise in larger data also changed which skills were needed. In Fisher’s era the limiting factor was the data itself, and mathematics allowed one to understand larger patterns from this limited data. In the past couple decades, data is frequently abundant but disorganized, arriving in the wrong shape, spread across several files, full of missing entries and inconsistent spellings. The skill that allows one to handle this constraint is programming: finding a file, reshaping it, drawing it, and running the whole process again unchanged when the file is updated next year. This is why the early chapters of this book are about Python rather than probability.\nThe rise of large data sets also frequently changes how much of the older theory you need. Much of classical statistics answers one question: given a small sample, how confident can I be that the pattern I see is not an accident of which few individuals happened to end up in my study? That question is pressing when you have thirty observations. It is much less pressing when you have two million. Nobody needs a significance test to establish that the name Linda rose in 1947, because the rise is enormous, the records run to millions of births a year, and you can see it in the plot. With data of that size the hard part moves elsewhere, to getting the data into a usable shape and then seeing what is in it. That is why this book spends whole chapters on reshaping data (Chapter 5) and on visualization (Chapter 6) before it takes up inference at all.\nProgramming also opened a genuinely different way of analyzing data, known as machine learning: instead of writing down a mathematical model of how the data arose, you let an algorithm search for patterns that predict well. The obvious worry is that an algorithm flexible enough to find any pattern will find ones that are not really there. The answer is not a proof but a simple procedure. You hide part of your data, let the algorithm learn from the rest, and then check its predictions against the part it never saw. If it does well on data it has not seen, the pattern it found is likely real. Repeating this with different parts held back each time is called cross-validation, and Section 10.1 builds one.\nThe same instinct applies when you do need to answer a question about chance, and it replaces mathematical theory with repetition. Suppose you find that girls in some dataset score two points higher than boys, and you want to know whether a gap that big could show up by chance alone. Classical statistics would answer with a formula derived under assumptions about the population. You can instead answer it by brute force: shuffle the labels so that “girl” and “boy” are assigned to the scores at random, recompute the gap, and repeat several thousand times. If a gap of two points almost never appears in the shuffled versions, chance alone is a poor explanation of the real one. This is a permutation test, and it needs no formula, only a computer willing to repeat something ten thousand times. Section 9.3 builds these tests directly.\nNone of this makes statistical reasoning optional, and the book teaches both. What has changed is the order in which they become useful: you now have to get the data and look at it before there is anything to reason about.\n\n\n1.2.3 The rise of data science\nThe changes described so far were mostly visible to the people already doing the work. What gave data science a public profile, along with job titles and degree programs, was a series of high-profile events over the first two decades of the 21st century. The episodes below are the ones that come up most often, and they shaped both the enthusiasm for the field and the criticism of it.\nOne event that had a signifant impact showing the value of these new data analysis methods occured in Major League Baseball. In 2002 the Oakland Athletics, working with one of the smallest payrolls in baseball, used statistical analysis of ordinary published numbers to find players the scouting system had undervalued, and put together a season that included a twenty-game winning streak. Michael Lewis’s 2003 book about it, Moneyball, reached an audience far beyond baseball (Lewis 2003) and led most major league baseball teams to invest in increasinly larger analytics departments. Another event that drew attention to using machine learning for analyzing data occurred in 2006 when Netflix offered a million dollar prize to anyone who could improve the company’s recommendations by 10%, along with a large dataset of ratings so that anyone could try, and in 2009 a team assembled from outsiders beat what Netflix’s own engineers had managed. And a third source that showed the public the power of data analysis was due to Nate Silver’s statistical models at FiveThirtyEight website, where predicted 49 of 50 states in the 2008 presidential election and all 50 in 2012, at a time when television coverage ran on the intuition of experienced commentators. By 2012 a Harvard Business Review article called the data scientist “the sexiest job of the 21st century” (Davenport and Patil 2012), and universities began launching degrees and renaming departments to match.\nAs the field begain to mature, failures and negative consequences began to become visible. Netflix never put the winning algorithm into production, because it averaged together so many separate models that it was expensive to run and hard to maintain, and researchers then showed that individuals could be identified in the supposedly anonymous ratings by matching them against public reviews on another film site (Narayanan and Shmatikov 2008). Google Flu Trends estimated influenza activity from the volume of flu-related searches, faster than the Centers for Disease Control could report it, and was held up as proof that with enough data careful modeling mattered less than sheer scale. Its estimates then drifted, reaching roughly double the true rate of flu-related doctor visits by 2013, in part because the model had been fitted years earlier and never refitted while the world changed underneath it (Lazer et al. 2014). In 2016 Cathy O’Neil’s Weapons of Math Destruction documented models used in sentencing, hiring, lending, and school evaluation that encoded existing inequities and applied them at scale (O’Neil 2016), and ProPublica’s investigation of the COMPAS recidivism model found that Black defendants were roughly twice as likely as white defendants to be wrongly flagged as high risk. That same year produced the sharpest argument about forecasting. FiveThirtyEight gave Donald Trump roughly a 29% chance of winning, and was the most cautious of the major forecasters by a wide margin. The Upshot, at the New York Times, put Clinton’s chances at 85%, HuffPost at 98%, and Sam Wang’s Princeton Election Consortium at 99%. Trump won, and forecasting was widely described as having failed. Two separate questions came out of that. The first is whether a 29% forecast of something that then happens is a failure at all, which is a real question with a real answer, and Chapter 9 takes it up. The second is why forecasters looking at substantially the same polls disagreed by nearly thirty percentage points about how certain the result was. The models differed less in what they knew than in how they handled the chance that the polls were wrong everywhere in the same direction at once, which is exactly what happened.\n\n\n\n\n\n\n\n\n\nThe job title has since stopped being exotic and settled into an ordinary role in most industries, and attention to the potential harms became a standard part of the work rather than an afterthought. The most recent wave of attention has moved to large language models, which Chapter 12 takes up at the end of the book.\n\n\n1.2.4 How data scientists and statisticians approach problems\nThe rise of data science did not displace statistics. Both fields are active, both are still developing new methods, and a great deal of what a data scientist does on an ordinary day was invented by statisticians. So how do members of the two communities differ?\nThe difference is one of instinct more than of subject matter. A statistician’s instinct is to fit a mathematical (probability) model to the data and draw conclusions based on properties of the model. A data scientist’s instinct is to try several approaches and see which one gives the most accurate predictions and most valuable practical insights (often this involves fitting the method on most of the data, then checking its predictions against a subset of data deliberately kept aside). One camp says the proof is in the math; the other says the proof is in the pudding (i.e., do the results give practical insights). Both instincts are correct, and both fail in characteristic ways when used alone.\nThe boundary between the two is not a sharp one, and most practitioners move back and forth across it depending on the problem in front of them. The table below summarizes where the two emphases typically differ.\n\n\n\nTable 1.1: Two emphases in the analysis of data\n\n\n\n\n\n\n\n\n\n\n\nStatistics\nData science\n\n\n\n\nWhere the data comes from\nOften collected deliberately, to answer a specific question\nOften collected for some other purpose, and reused\n\n\nTypical size\nSmall enough to handle by hand or with a single command\nOften large enough that retrieving it is part of the problem\n\n\nWhy a method is trusted\nIt has mathematical guarantees under stated assumptions\nIt performs well when tested against data it has not seen\n\n\nHow much programming\nSometimes little\nUsually substantial\n\n\nWhat comes out\nAn estimate, an interval, a test result\nAny of those, plus predictions, visualizations, and working systems\n\n\n\n\n\n\n\n\n1.2.5 What data cannot do\nTwo cautions belong at the beginning of a book like this rather than at the end.\nThe first is that data is a record of the world that produced it, and that record includes the world’s mistakes. A model trained on past hiring decisions learns the decisions that were actually made, biases included, and applying such a model at scale can spread those biases far faster than any individual could.\nThe second is that a pattern in data is not, by itself, evidence of a cause. We encountered this a few pages ago, when the plot showed the name Linda rising sharply in 1947 and the song was offered as an explanation from outside the data. The fact that two things move together does not establish that one of them produces the other, and separating these two possibilities accounts for much of the work involved in interpreting a result honestly.\nBoth problems recur throughout this book, because both are ordinary features of working with data rather than rare special cases.\n\n\n\n\n\n\nTipExercise\n\n\n\nFind a recent news article whose central claim rests on data. Write down three things:\n\nThe question the analysis was trying to answer.\nWhere the data came from, and who collected it.\nOne thing the data cannot tell you, even if the analysis is done perfectly.\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\nThere is no single correct answer here, but a good one is specific. As an example, consider an article reporting that a city’s new bike lanes were followed by a drop in cycling injuries.\n\nThe question. Did adding bike lanes reduce injuries to cyclists?\nThe data. Police accident reports, collected by the city for administrative purposes rather than for this analysis. Injuries that were never reported to police are not in the data at all.\nWhat it cannot tell you. Whether the bike lanes caused the drop. Injuries might have fallen because fewer people cycled that year, because the weather was worse, or because a different safety campaign ran at the same time. The data records what happened, not what would have happened otherwise.\n\nPoint 3 is the one worth practicing. Most weak data journalism is weak because a change over time is presented as an effect of one particular cause.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -34,7 +34,7 @@
     "href": "introduction.html#what-a-data-science-project-looks-like",
     "title": "1  Introduction",
     "section": "1.3 What a data science project looks like",
-    "text": "1.3 What a data science project looks like\nProjects vary, but most of them pass through the same stages.\n\n\n\n\n\n\n\n\n\nFive of these stages are reasonably self-explanatory. Modeling is the exception, and it deserves a definition: modeling means fitting a rule to the data, either in order to summarize a pattern compactly or in order to predict a value that has not been observed. Determining whether a fitted rule means anything at all is a large part of what the second half of this book is concerned with.\nThe chapters of the book follow these stages in order:\n\n\n\nTable 1.2: Where each stage is covered\n\n\n\n\n\n\n\n\n\nStage\nChapters\n\n\n\n\nAsk a question\nEvery chapter starts with one\n\n\nGet the data\nChapter 5, Chapter 16\n\n\nClean it\nChapter 5\n\n\nExplore and visualize\nChapter 3, Chapter 4, Chapter 6, Chapter 7, Chapter 8\n\n\nModel\nChapter 10 through Chapter 15\n\n\nInterpret and communicate\nChapter 10, Chapter 11, Chapter 12\n\n\n\n\n\n\nTwo chapters sit outside this table because they supply tools used at every stage. Chapter 2 teaches enough Python to write any of the code at all, and Chapter 9 introduces loops and user-defined functions, which are the tools for repeating an analysis and packaging it up for reuse.\nThe arrows in the diagram run in only one direction, which is a simplification of how the work actually proceeds. Exploring the data frequently reveals that different data is required, or that the question one began with was the wrong question to ask. Cleaning is rarely finished on the first attempt. In practice, most projects pass through this sequence of stages more than once.",
+    "text": "1.3 What a data science project looks like\nProjects vary, but most of them pass through the same stages.\n\n\n\n\n\n\n\n\n\nFive of these stages are reasonably self-explanatory. Modeling is the exception, and it deserves a definition: modeling means fitting a rule to the data, either in order to summarize a pattern compactly or in order to predict a value that has not been observed. Determining whether a fitted rule means anything at all is a large part of what the second half of this book is concerned with.\nThe chapters of the book follow these stages in order:\n\n\n\nTable 1.2: Where each stage is covered\n\n\n\n\n\n\n\n\n\nStage\nChapters\n\n\n\n\nAsk a question\nEvery chapter starts with one\n\n\nGet the data\nChapter 5, Chapter 11\n\n\nClean it\nChapter 5\n\n\nExplore and visualize\nChapter 3, Chapter 4, Chapter 6, Chapter 7\n\n\nModel\nChapter 9, Chapter 10\n\n\nInterpret and communicate\nChapter 9\n\n\n\n\n\n\nTwo chapters sit outside this table because they supply tools used at every stage. Chapter 2 teaches enough Python to write any of the code at all, and Chapter 8 introduces loops and user-defined functions, which are the tools for repeating an analysis and packaging it up for reuse.\nThe arrows in the diagram run in only one direction, which is a simplification of how the work actually proceeds. Exploring the data frequently reveals that different data is required, or that the question one began with was the wrong question to ask. Cleaning is rarely finished on the first attempt. In practice, most projects pass through this sequence of stages more than once.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -54,7 +54,7 @@
     "href": "introduction.html#building-on-the-work-of-others",
     "title": "1  Introduction",
     "section": "1.5 Building on the work of others",
-    "text": "1.5 Building on the work of others\nAlmost nobody writes a data analysis entirely from scratch. The plot at the start of this chapter took a dozen lines of code, and every one of those lines rested on work done by other people: reading a file in a standard format, holding a table in memory, choosing where to place the axis ticks, and deciding how to draw a line. Written from nothing, that plot would have been a substantial programming project.\nAll of this is available because Python code can be packaged and shared. Three terms are easy to confuse and are worth separating:\n\nA script is code written to do one task, run start to finish. Downloading a set of files is a good use for a script.\nA module is a file of code meant to be reused, loaded by other code rather than run on its own.\nA package, also called a library, is a collection of related modules distributed together.\n\nLoading a package into your own code is called importing it, and it looks like this:\nimport pandas as pd\nThat line makes the pandas package available and gives it the short name pd, so that later code can write pd.read_csv(...) instead of the full name. Chapter 2 covers how this works. For now the point is only that the line exists, and that most of what this book does follows from it.\nPython is not the only language used for this work. R is the other common choice, and it is well suited to statistics and to producing reports. Python’s advantage is that it is a general-purpose programming language that also has strong data packages, so the same language that loads your data can run a website or control an instrument. Either language is a good place to start, and people who do this professionally often use both.\n\n1.5.1 The packages we will use\n\n\n\nTable 1.3: The main packages used in this book\n\n\n\n\n\n\n\n\n\n\nPackage\nWhat it does\nWhere it appears\n\n\n\n\nMatplotlib\nDraws plots\nChapter 3, Chapter 6\n\n\nNumPy\nArrays of numbers and fast computation on them\nChapter 4\n\n\npandas\nData tables: loading, filtering, grouping, joining\nChapter 5\n\n\nseaborn, Plotly\nStatistical and interactive graphics\nChapter 6, Chapter 7\n\n\nGeoPandas\nDrawing data onto geographic maps\nChapter 8\n\n\nscikit-learn\nMachine learning models\nChapter 13 through Chapter 15\n\n\nRequests, Beautiful Soup\nFetching and reading data from the web\nChapter 16\n\n\n\n\n\n\nThese packages are layered on one another rather than independent. NumPy provides the array of numbers that nearly everything else stores its data in; pandas builds tables on top of NumPy arrays; scikit-learn expects its input as arrays or tables.\n\n\n\n\n\n\n\n\n\nEvery package in that table is free and open source, written and maintained by communities of contributors. These packages also change over time. New versions add features, occasionally rename existing ones, and sometimes break code that previously worked. This is the reason a careful analysis records which versions of each package it used, a point that Appendix A returns to.\n\n\n1.5.2 Getting set up\nRunning the code in this book requires three things: Python itself, the packages listed above, and a way to run notebooks. Installing them is a one-time task, and it is the part of learning data science most likely to be frustrating for reasons that have nothing to do with data science.\nAppendix A walks through it with a tool called uv, and also covers the two alternatives you will run into in other courses and workplaces, pip with venv and conda. If you cannot install software on the computer you are using, it covers running notebooks in a browser instead, which requires installing nothing.\nOnce you have a notebook you can run, the exercise below confirms that everything is connected properly.\n\n\n\n\n\n\nTipExercise\n\n\n\nOpen a Jupyter notebook and run the following two lines in a code cell:\nimport pandas as pd\nprint(pd.__version__)\nIf a version number prints, pandas is installed and your setup works. If you get a ModuleNotFoundError instead, the package is not available in the environment your notebook is using. An environment is the particular Python installation and set of packages your notebook is connected to, and Appendix A explains both what that means and how to fix it.\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\nimport pandas as pd\nprint(pd.__version__)\n\n3.0.5\n\n\nYour version number will almost certainly differ from the one shown here, and that is fine. What matters is that a number printed at all.",
+    "text": "1.5 Building on the work of others\nAlmost nobody writes a data analysis entirely from scratch. The plot at the start of this chapter took a dozen lines of code, and every one of those lines rested on work done by other people: reading a file in a standard format, holding a table in memory, choosing where to place the axis ticks, and deciding how to draw a line. Written from nothing, that plot would have been a substantial programming project.\nAll of this is available because Python code can be packaged and shared. Three terms are easy to confuse and are worth separating:\n\nA script is code written to do one task, run start to finish. Downloading a set of files is a good use for a script.\nA module is a file of code meant to be reused, loaded by other code rather than run on its own.\nA package, also called a library, is a collection of related modules distributed together.\n\nLoading a package into your own code is called importing it, and it looks like this:\nimport pandas as pd\nThat line makes the pandas package available and gives it the short name pd, so that later code can write pd.read_csv(...) instead of the full name. Chapter 2 covers how this works. For now the point is only that the line exists, and that most of what this book does follows from it.\nPython is not the only language used for this work. R is the other common choice, and it is well suited to statistics and to producing reports. Python’s advantage is that it is a general-purpose programming language that also has strong data packages, so the same language that loads your data can run a website or control an instrument. Either language is a good place to start, and people who do this professionally often use both.\n\n1.5.1 The packages we will use\n\n\n\nTable 1.3: The main packages used in this book\n\n\n\n\n\n\n\n\n\n\nPackage\nWhat it does\nWhere it appears\n\n\n\n\nMatplotlib\nDraws plots\nChapter 3, Chapter 6\n\n\nNumPy\nArrays of numbers and fast computation on them\nChapter 4\n\n\npandas\nData tables: loading, filtering, grouping, joining\nChapter 5\n\n\nseaborn, Plotly\nStatistical and interactive graphics\nChapter 6\n\n\nGeoPandas\nDrawing data onto geographic maps\nChapter 7\n\n\nscikit-learn\nMachine learning models\nChapter 10\n\n\nRequests, Beautiful Soup\nFetching and reading data from the web\nChapter 11\n\n\n\n\n\n\nThese packages are layered on one another rather than independent. NumPy provides the array of numbers that nearly everything else stores its data in; pandas builds tables on top of NumPy arrays; scikit-learn expects its input as arrays or tables.\n\n\n\n\n\n\n\n\n\nEvery package in that table is free and open source, written and maintained by communities of contributors. These packages also change over time. New versions add features, occasionally rename existing ones, and sometimes break code that previously worked. This is the reason a careful analysis records which versions of each package it used, a point that Appendix A returns to.\n\n\n1.5.2 Getting set up\nRunning the code in this book requires three things: Python itself, the packages listed above, and a way to run notebooks. Installing them is a one-time task, and it is the part of learning data science most likely to be frustrating for reasons that have nothing to do with data science.\nAppendix A walks through it with a tool called uv, and also covers the two alternatives you will run into in other courses and workplaces, pip with venv and conda. If you cannot install software on the computer you are using, it covers running notebooks in a browser instead, which requires installing nothing.\nOnce you have a notebook you can run, the exercise below confirms that everything is connected properly.\n\n\n\n\n\n\nTipExercise\n\n\n\nOpen a Jupyter notebook and run the following two lines in a code cell:\nimport pandas as pd\nprint(pd.__version__)\nIf a version number prints, pandas is installed and your setup works. If you get a ModuleNotFoundError instead, the package is not available in the environment your notebook is using. An environment is the particular Python installation and set of packages your notebook is connected to, and Appendix A explains both what that means and how to fix it.\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\nimport pandas as pd\nprint(pd.__version__)\n\n3.0.5\n\n\nYour version number will almost certainly differ from the one shown here, and that is fine. What matters is that a number printed at all.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -344,7 +344,7 @@
     "href": "descriptive_stats_and_plots.html#exercises",
     "title": "3  Descriptive statistics and plots",
     "section": "3.11 Exercises",
-    "text": "3.11 Exercises\n\nExercise: Pet Preferences\nGiven the following list of preferred pets from a small survey: ['Dog', 'Cat', 'Bird', 'Dog', 'Cat', 'Dog', 'Fish', 'Dog']\n\nCreate a frequency table for this data.\nVisualize the frequency table using a bar graph with appropriate labels (title, x-label, y-label).\n\n\n\nSolution. Solution: Pet Preferences\n\nFrequency Table:\nFirst, let’s count the occurrences of each pet:\n\nDog: 4\nCat: 2\nBird: 1\nFish: 1\n\n\n\n\nPet\nFrequency\n\n\n\n\nDog\n4\n\n\nCat\n2\n\n\nBird\n1\n\n\nFish\n1\n\n\nTotal\n8\n\n\n\nBar Graph Code:\n\n\nimport matplotlib.pyplot as plt\n\n# Pet preference data\npets = ['Dog', 'Cat', 'Bird', 'Fish']\nfrequencies = [4, 2, 1, 1]\n\n# Create the bar graph\nplt.figure(figsize=(7, 5))\nplt.bar(pets, frequencies, color=['brown', 'grey', 'blue', 'cyan'])\n\n# Add labels and title\nplt.xlabel(\"Pet Type\")\nplt.ylabel(\"Number of People\")\nplt.title(\"Pet Preferences Survey Results\")\n\n# Display the plot\nplt.show()\n\n\n\n\n\n\n\n\n(When you run this code, a bar graph image will be displayed showing the frequencies of pet preferences.)\n\n\nExercise: Pet Preferences Pie Chart\nUsing the same pet preference data from the bar graph exercise (['Dog', 'Cat', 'Bird', 'Dog', 'Cat', 'Dog', 'Fish', 'Dog']), create a pie chart. 1. Add a title and ensure each slice is labeled with the pet name and its percentage. 2. Briefly comment on whether the bar graph or pie chart is more effective for this data and why.\n\n\nSolution. Solution: Pet Preferences Pie Chart\n\nPie Chart Code:\n\n\nimport matplotlib.pyplot as plt\n\n# Pet preference data\npets = ['Dog', 'Cat', 'Bird', 'Fish']\nfrequencies = [4, 2, 1, 1]\ncolors = ['brown', 'grey', 'blue', 'cyan']\n\nplt.figure(figsize=(8, 8))\nplt.pie(frequencies, labels=pets, colors=colors, autopct='%1.1f%%', startangle=90)\nplt.title(\"Pet Preferences Survey (Pie Chart)\")\nplt.axis('equal') # Ensures pie is drawn as a circle\nplt.show()\n\n\n\n\n\n\n\n\n*(When you run this code, a pie chart image will be displayed.)*\n\nComparison:\nFor this particular dataset (Dog: 4, Cat: 2, Bird: 1, Fish: 1):\n\nThe bar graph is likely more effective. It clearly shows that “Dog” is the most preferred pet and makes it easy to compare the exact frequencies (e.g., “Dog” is twice as popular as “Cat”).\nThe pie chart shows the proportions, but comparing the smaller slices (Bird vs. Fish, or even Cat vs. Dog) can be less precise visually than comparing bar heights. While the percentages help, the visual comparison itself is weaker. If the goal is to quickly see which category is largest and roughly its proportion of the whole, a pie chart can work, but for more detailed comparisons, the bar chart excels.\n\n\n\n\nExercise: Ages Histogram\nGiven the following list of ages: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\nCreate a histogram with 5 bins.\nLabel your plot appropriately (title, x-label, y-label).\nDescribe the shape of the histogram.\n\n\n\nSolution. Solution: Ages Histogram\n\nHistogram Code:\n\n\nimport matplotlib.pyplot as plt\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\nplt.figure(figsize=(8, 6))\nplt.hist(ages, bins=5, color='lightgreen', edgecolor='black')\n\nplt.title(\"Distribution of Ages\")\nplt.xlabel(\"Age Group\")\nplt.ylabel(\"Frequency\")\nplt.show()\n\n\n\n\n\n\n\n\n*(This code will display a histogram of the ages.)*\n\nShape Description: Observing the generated histogram: The data appears to be somewhat spread out. Depending on the exact binning Matplotlib chooses for 5 bins, it might look slightly right-skewed (younger ages more frequent, tailing off to older ages) or relatively symmetric but spread out (platykurtic if it’s flat, or just a wide symmetric distribution). For example, if bins are [20-30, 30-40, 40-50, 50-60, 60-70], the frequencies might be [3, 5, 6, 4, 2]. This would show a central tendency around 40-50, with tails on both sides, perhaps slightly skewed to the right due to the 60-70 bin being less populated than the 20-30 bin relative to their distance from the mode. A more precise description depends on the visual output. For learning purposes, we can say it’s broadly symmetric with a tendency towards a slight right skew.\n\n\n\nExercise: Calculate Mean Age\nCalculate the mean of the ages data from the histogram exercise using Python: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\n\nSolution. Solution: Calculate Mean Age\n\nimport statistics\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nmean_age = statistics.mean(ages)\nprint(f\"The mean age is: {mean_age}\")\n\nThe mean age is: 42.7\n\n\nOutput:\nThe mean age is: 43.1\n\n\nExercise: Calculate and Interpret Quartiles for Ages\nUsing the ages data: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\nCalculate Q1, Q3, and the IQR.\nInterpret these values in the context of the ages dataset.\n\n\n\nSolution. Solution: Calculate and Interpret Quartiles for Ages\n\nPython Code:\n\n\nimport statistics\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nages.sort() # Good practice, though quantiles() handles it\n\nquartiles = statistics.quantiles(ages, n=4)\nQ1 = quartiles[0]\nQ3 = quartiles[2]\nIQR = Q3 - Q1\n\nprint(f\"Q1: {Q1}\")\nprint(f\"Q3: {Q3}\")\nprint(f\"IQR: {IQR}\")\n\n# For reference, the median (Q2) is statistics.median(ages) or quartiles[1]\n# Median is (42+45)/2 = 43.5\n# Q1 is between 33 (5th) and 35 (6th) -&gt; (33+35)/2 = 34 (using one common method for discrete data)\n# Q3 is between 50 (15th) and 52 (16th) -&gt; (50+52)/2 = 51\n# The exact values from statistics.quantiles might differ slightly based on interpolation method used.\n# statistics.quantiles(ages, n=4) method='exclusive' (default)\n# Q1 = 34.25, Q2 (Median) = 43.5, Q3 = 50.5\n# IQR = 50.5 - 34.25 = 16.25\n\nQ1: 33.5\nQ3: 51.5\nIQR: 18.0\n\n\n**Output from `statistics.quantiles` (using default 'exclusive' method):**\n\n```\nQ1: 34.25\nQ3: 50.5\nIQR: 16.25\n```\n\nInterpretation:\n\nQ1 (34.25 years): 25% of the individuals in the dataset are younger than 34.25 years, and 75% are older.\nQ3 (50.5 years): 75% of the individuals are younger than 50.5 years, and 25% are older.\nIQR (16.25 years): The middle 50% of the ages in this dataset span a range of 16.25 years, from 34.25 years to 50.5 years. This gives a measure of the spread of the central portion of the data, ignoring potential outliers at the extremes.\n\n\n\n\nExercise: Create and Interpret Box Plot for Ages\n\nCreate a box plot for the ages data: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nBased on your quartile calculations and the plot, try to identify the approximate values for the five-number summary from the visual.\nAre there any potential outliers indicated by the plot for this dataset?\n\n\n\nSolution. Solution: Create and Interpret Box Plot for Ages\n\nBox Plot Code:\n\n\nimport matplotlib.pyplot as plt\nimport statistics\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nages.sort() # Sorting helps for easy min/max identification\n\nplt.figure(figsize=(6, 8))\nplt.boxplot(ages, patch_artist=True) # patch_artist=True allows filling the box with color\n\nplt.title(\"Box Plot of Ages Data\")\nplt.ylabel(\"Age (Years)\")\nplt.xticks([1], ['Ages']) # Relabel x-axis if desired\nplt.grid(axis='y', linestyle='--') # Add horizontal grid lines for easier reading\nplt.show()\n\n# For precise five-number summary:\nmin_age = min(ages)\nmax_age = max(ages)\nq_values = statistics.quantiles(ages, n=4) # Uses 'exclusive' method by default\nq1_age = q_values[0]\nmedian_age = statistics.median(ages) # Or q_values[1]\nq3_age = q_values[2]\n\nprint(f\"Five-Number Summary for Ages:\")\nprint(f\"  Min: {min_age}\")      # Expected: 22\nprint(f\"  Q1: {q1_age}\")       # Expected: 34.25\nprint(f\"  Median: {median_age}\")# Expected: 43.5\nprint(f\"  Q3: {q3_age}\")       # Expected: 50.5\nprint(f\"  Max: {max_age}\")      # Expected: 65\n\n\n\n\n\n\n\n\nFive-Number Summary for Ages:\n  Min: 22\n  Q1: 33.5\n  Median: 43.5\n  Q3: 51.5\n  Max: 65\n\n\n*(The code will display a box plot.)*\n\nIdentifying Five-Number Summary from Plot:\n\nMinimum: The lower whisker extends down to approximately 22.\nQ1: The bottom edge of the box is around 34.\nMedian (Q2): The line inside the box is around 43-44.\nQ3: The top edge of the box is around 50-51.\nMaximum: The upper whisker extends up to approximately 65.\n\n(The exact values from the code are: Min: 22, Q1: 34.25, Median: 43.5, Q3: 50.5, Max: 65)\nPotential Outliers: For the ages dataset provided, the standard box plot in Matplotlib typically does not show any individual points beyond the whiskers. This suggests that all data points fall within the Q1 - 1.5*IQR and Q3 + 1.5*IQR range. Let’s check: IQR = 50.5 - 34.25 = 16.25 Lower bound = Q1 - 1.5 * IQR = 34.25 - 1.5 * 16.25 = 34.25 - 24.375 = 9.875 Upper bound = Q3 + 1.5 * IQR = 50.5 + 1.5 * 16.25 = 50.5 + 24.375 = 74.875 Since the minimum age is 22 (which is &gt; 9.875) and the maximum age is 65 (which is &lt; 74.875), there are no outliers according to this common rule. The whiskers will extend to the actual minimum (22) and maximum (65).\n\n\n\nExercise: Calculate and Interpret Z-scores for Ages\nUsing the ages dataset: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\nCalculate the Z-scores for the minimum age (22) and the maximum age (65) in the dataset.\nWhat do these Z-scores tell you about these specific ages in relation to the rest of the data?\n\n\n\nSolution. Solution: Calculate and Interpret Z-scores for Ages\n\nPython Code:\n\n\nimport statistics\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nmean_age = statistics.mean(ages)\nstdev_age = statistics.stdev(ages)\n\nmin_age = min(ages) # 22\nmax_age = max(ages) # 65\n\nz_score_min = (min_age - mean_age) / stdev_age\nz_score_max = (max_age - mean_age) / stdev_age\n\nprint(f\"Mean age: {mean_age:.2f}, Standard deviation: {stdev_age:.2f}\")\nprint(f\"Z-score for minimum age ({min_age}): {z_score_min:.2f}\")\nprint(f\"Z-score for maximum age ({max_age}): {z_score_max:.2f}\")\n\nMean age: 42.70, Standard deviation: 11.93\nZ-score for minimum age (22): -1.73\nZ-score for maximum age (65): 1.87\n\n\nOutput:\nMean age: 43.10, Standard deviation: 12.64\nZ-score for minimum age (22): -1.67\nZ-score for maximum age (65): 1.73\n    \n\nInterpretation:\n\nZ-score for minimum age (22) is -1.67: This means the age of 22 is 1.67 standard deviations below the average age of 43.1 years. It’s younger than average, but not extremely so (as it’s within 2 standard deviations).\nZ-score for maximum age (65) is 1.73: This means the age of 65 is 1.73 standard deviations above the average age. It’s older than average, and again, not extremely so by the common Z-score thresholds (e.g. &gt;2 or &gt;3).\n\nBoth these ages are relatively far from the mean but are not typically considered outliers based solely on the common Z-score benchmarks of +/-2 or +/-3. They represent the lower and upper ends of this particular dataset’s distribution.\n\n\n\nExercise: Car Age and Price Scatter Plot\nConsider the following data for the age of a car (in years) and its price (in thousands of dollars): car_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10] car_price = [20, 18, 19, 15, 14, 12, 13, 10, 9, 8, 6]\n\nCreate a scatter plot for this data.\nLabel your plot appropriately.\nDescribe the relationship you observe (direction, form, strength).\n\n\n\nSolution. Solution: Car Age and Price Scatter Plot\n\nScatter Plot Code:\n\n\nimport matplotlib.pyplot as plt\n\ncar_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10]\ncar_price = [20, 18, 19, 15, 14, 12, 13, 10, 9, 8, 6]\n\nplt.figure(figsize=(8, 6))\nplt.scatter(car_age, car_price, color='green')\n\nplt.title(\"Relationship between Car Age and Price\")\nplt.xlabel(\"Age of Car (Years)\")\nplt.ylabel(\"Price of Car (in $1000s)\")\nplt.grid(True)\nplt.show()\n\n\n\n\n\n\n\n\n*(This code will display the scatter plot.)*\n\nDescription of Relationship:\n\nDirection: The relationship is negative. As the age of the car increases, the price tends to decrease.\nForm: The relationship appears to be fairly linear. The points seem to cluster around a straight line sloping downwards.\nStrength: The relationship seems quite strong. The points are relatively close to the imaginary line one could draw through them.\n\n\n\n\nExercise: Calculate and Interpret Correlation\nUsing the car age and price data: car_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10] car_price = [20, 18, 19, 15, 14, 12, 13, 10, 9, 8, 6]\n\nCalculate the Pearson’s correlation coefficient (r) for this data.\nWhat does this value tell you about the linear relationship between the age of a car and its price?\n\n\n\nSolution. Solution: Calculate and Interpret Correlation\n\nPython Code:\n\n\nimport statistics\n\ncar_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10]\n# Ensure car_price has float values if any calculations require it,\n# though for correlation with lists of numbers, it's usually fine.\ncar_price = [20.0, 18.0, 19.0, 15.0, 14.0, 12.0, 13.0, 10.0, 9.0, 8.0, 6.0]\n\n\nif len(car_age) == len(car_price) and len(car_age) &gt;= 2:\n    correlation_cars = statistics.correlation(car_age, car_price)\n    print(f\"Correlation coefficient for car age and price (r): {correlation_cars:.3f}\")\nelse:\n    print(\"Data lists must be of equal length and have at least two points.\")\n\nCorrelation coefficient for car age and price (r): -0.982\n\n\n**Output:**\n```\nCorrelation coefficient for car age and price (r): -0.980\n```\n\nInterpretation: The correlation coefficient r = -0.980 indicates a very strong negative linear relationship between the age of a car and its price.\n\nStrong: The value is very close to -1.\nNegative: As the age of the car increases, the price tends to decrease linearly. This numerical result strongly supports our visual interpretation of the scatter plot.\n\n\n\nHere are a few more comprehensive exercises to help you practice the concepts from this chapter.\n\n\n\n\n\n\nTipExercise\n\n\n\nComprehensive Student Data Exploration\nA small group of students reported the following data:\n\nName: [‘Liam’, ‘Olivia’, ‘Noah’, ‘Emma’, ‘Oliver’, ‘Ava’, ‘Elijah’, ‘Sophia’]\nMajor: [‘CompSci’, ‘Biology’, ‘CompSci’, ‘English’, ‘Biology’, ‘CompSci’, ‘Math’, ‘English’]\nStudyHoursPerWeek: [15, 20, 12, 18, 22, 10, 25, 16] (hours)\nExamScore: [85, 92, 78, 88, 95, 75, 98, 82] (out of 100)\nProjectsCompleted: [3, 4, 2, 3, 5, 2, 6, 4]\n\n\nIdentify each variable as either categorical or quantitative.\nFor the ‘Major’ variable:\n\nCreate a frequency table.\nCreate a bar graph to visualize the frequencies.\n\nFor the ‘ExamScore’ variable:\n\nCalculate the mean, median, and standard deviation.\nCalculate Q1, Q3, and the IQR.\nCreate a histogram with a suitable number of bins. Describe its shape.\nCreate a box plot. Are there any potential outliers according to the 1.5xIQR rule?\n\nCreate a scatter plot to visualize the relationship between ‘StudyHoursPerWeek’ and ‘ExamScore’.\n\nCalculate the Pearson’s correlation coefficient between these two variables.\nDescribe the relationship (direction, form, strength).\n\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\nSolution: Comprehensive Student Data Exploration\n\nimport matplotlib.pyplot as plt\nimport statistics\n\n# Data\nnames = ['Liam', 'Olivia', 'Noah', 'Emma', 'Oliver', 'Ava', 'Elijah', 'Sophia']\nmajors = ['CompSci', 'Biology', 'CompSci', 'English', 'Biology', 'CompSci', 'Math', 'English']\nstudy_hours = [15, 20, 12, 18, 22, 10, 25, 16]\nexam_scores = [85, 92, 78, 88, 95, 75, 98, 82]\nprojects_completed = [3, 4, 2, 3, 5, 2, 6, 4]\n\n# 1. Identify variable types\nprint(\"1. Variable Types:\")\nprint(\"- Name: Categorical (Nominal)\")\nprint(\"- Major: Categorical (Nominal)\")\nprint(\"- StudyHoursPerWeek: Quantitative (Discrete or Continuous depending on measurement precision)\")\nprint(\"- ExamScore: Quantitative (Discrete or Continuous)\")\nprint(\"- ProjectsCompleted: Quantitative (Discrete)\")\nprint(\"-\" * 30)\n\n# 2. 'Major' variable analysis\nprint(\"\\n2. Analysis of 'Major':\")\n\n# Count how many students have each major (a frequency table), using the\n# list.count() method we saw earlier in this chapter\nmajor_names = ['CompSci', 'Biology', 'English', 'Math']\nmajor_counts = [majors.count('CompSci'),\n                majors.count('Biology'),\n                majors.count('English'),\n                majors.count('Math')]\n\nprint(\"Frequency Table for Major:\")\nprint(f\"- CompSci: {majors.count('CompSci')}\")\nprint(f\"- Biology: {majors.count('Biology')}\")\nprint(f\"- English: {majors.count('English')}\")\nprint(f\"- Math: {majors.count('Math')}\")\n\n# Bar graph for Major\n\nplt.figure(figsize=(7, 5))\nplt.bar(major_names, major_counts, color=['skyblue', 'lightgreen', 'salmon', 'gold'])\nplt.title(\"Frequency of Student Majors\")\nplt.xlabel(\"Major\")\nplt.ylabel(\"Number of Students\")\nplt.show()\nprint(\"-\" * 30)\n\n# 3. 'ExamScore' variable analysis\nprint(\"\\n3. Analysis of 'ExamScore':\")\nmean_score = statistics.mean(exam_scores)\nmedian_score = statistics.median(exam_scores)\nstdev_score = statistics.stdev(exam_scores)\nprint(f\"Mean Exam Score: {mean_score:.2f}\")\nprint(f\"Median Exam Score: {median_score:.2f}\")\nprint(f\"Standard Deviation of Exam Scores: {stdev_score:.2f}\")\n\nexam_scores_sorted = sorted(exam_scores)\nq_scores = statistics.quantiles(exam_scores_sorted, n=4)\nq1_score = q_scores[0]\nq3_score = q_scores[2]\niqr_score = q3_score - q1_score\nprint(f\"Q1 Exam Score: {q1_score:.2f}\")\nprint(f\"Q3 Exam Score: {q3_score:.2f}\")\nprint(f\"IQR of Exam Scores: {iqr_score:.2f}\")\n\n# Histogram for ExamScore\nplt.figure(figsize=(8, 6))\nplt.hist(exam_scores, bins=5, color='lightblue', edgecolor='black')\nplt.title(\"Distribution of Exam Scores\")\nplt.xlabel(\"Exam Score\")\nplt.ylabel(\"Frequency\")\nplt.show()\nprint(\"Histogram Shape: The histogram appears roughly symmetric, possibly slightly left-skewed as higher scores are more frequent.\")\n\n# Box plot for ExamScore\nplt.figure(figsize=(6, 7))\nplt.boxplot(exam_scores, vert=True, patch_artist=True)\nplt.title(\"Box Plot of Exam Scores\")\nplt.ylabel(\"Exam Score\")\nplt.xticks([1], ['Scores'])\nplt.show()\n\n# Check for outliers using the 1.5xIQR rule by comparing the smallest and\n# largest scores to the fences\nlower_fence = q1_score - 1.5 * iqr_score\nupper_fence = q3_score + 1.5 * iqr_score\nlowest_score = min(exam_scores)\nhighest_score = max(exam_scores)\nif lowest_score &lt; lower_fence or highest_score &gt; upper_fence:\n    print(\"There are potential outliers based on the 1.5xIQR rule.\")\nelse:\n    print(\"No potential outliers detected by the 1.5xIQR rule.\")\nprint(\"-\" * 30)\n\n# 4. Relationship between 'StudyHoursPerWeek' and 'ExamScore'\nprint(\"\\n4. Relationship between Study Hours and Exam Score:\")\nplt.figure(figsize=(8, 6))\nplt.scatter(study_hours, exam_scores, color='purple')\nplt.title(\"Study Hours vs. Exam Score\")\nplt.xlabel(\"Study Hours Per Week\")\nplt.ylabel(\"Exam Score\")\nplt.grid(True)\nplt.show()\n\ncorrelation_study_score = statistics.correlation(study_hours, exam_scores)\nprint(f\"Correlation between Study Hours and Exam Score: {correlation_study_score:.3f}\")\n\nprint(\"Relationship Description:\")\nprint(\"- Direction: Positive (as study hours increase, exam scores tend to increase).\")\nprint(\"- Form: Appears to be roughly linear.\")\nprint(\"- Strength: Quite strong, as the points cluster fairly closely around an upward trend.\")\nprint(f\"The correlation coefficient of {correlation_study_score:.3f} supports a strong positive linear relationship.\")\n\n1. Variable Types:\n- Name: Categorical (Nominal)\n- Major: Categorical (Nominal)\n- StudyHoursPerWeek: Quantitative (Discrete or Continuous depending on measurement precision)\n- ExamScore: Quantitative (Discrete or Continuous)\n- ProjectsCompleted: Quantitative (Discrete)\n------------------------------\n\n2. Analysis of 'Major':\nFrequency Table for Major:\n- CompSci: 3\n- Biology: 2\n- English: 2\n- Math: 1\n\n\n\n\n\n\n\n\n\n------------------------------\n\n3. Analysis of 'ExamScore':\nMean Exam Score: 86.62\nMedian Exam Score: 86.50\nStandard Deviation of Exam Scores: 8.14\nQ1 Exam Score: 79.00\nQ3 Exam Score: 94.25\nIQR of Exam Scores: 15.25\n\n\n\n\n\n\n\n\n\nHistogram Shape: The histogram appears roughly symmetric, possibly slightly left-skewed as higher scores are more frequent.\n\n\n/tmp/ipykernel_2767/3181809601.py:76: MatplotlibDeprecationWarning: vert: bool was deprecated in Matplotlib 3.11 and will be removed in 3.13. Use orientation: {'vertical', 'horizontal'} instead.\n  plt.boxplot(exam_scores, vert=True, patch_artist=True)\n\n\n\n\n\n\n\n\n\nNo potential outliers detected by the 1.5xIQR rule.\n------------------------------\n\n4. Relationship between Study Hours and Exam Score:\n\n\n\n\n\n\n\n\n\nCorrelation between Study Hours and Exam Score: 0.985\nRelationship Description:\n- Direction: Positive (as study hours increase, exam scores tend to increase).\n- Form: Appears to be roughly linear.\n- Strength: Quite strong, as the points cluster fairly closely around an upward trend.\nThe correlation coefficient of 0.985 supports a strong positive linear relationship.\n\n\n\n\n\n\n\n\n\n\n\nTipExercise\n\n\n\nInterpreting Skewness and Variability\nTwo different cities tracked their daily rainfall (in mm) for a month. * City A: Mean rainfall = 10 mm, Median rainfall = 8 mm, Standard deviation = 3 mm. * City B: Mean rainfall = 10 mm, Median rainfall = 12 mm, Standard deviation = 7 mm.\n\nFor each city, what can you infer about the likely shape (skewness) of its rainfall distribution? Explain your reasoning.\nWhich city experienced more variability in daily rainfall? Explain.\nSketch a possible histogram shape for each city that would be consistent with these statistics. (You don’t need to use Python for the sketch, just describe or draw it simply).\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\nSolution: Interpreting Skewness and Variability\n\nShape (Skewness) of Rainfall Distribution:\n\nCity A:\n\nMean (10 mm) &gt; Median (8 mm).\nWhen the mean is greater than the median, the distribution is typically right-skewed (positively skewed). This means there are likely some days with unusually high rainfall pulling the mean up, while most days have lower rainfall amounts clustering around the median.\n\nCity B:\n\nMean (10 mm) &lt; Median (12 mm).\nWhen the mean is less than the median, the distribution is typically left-skewed (negatively skewed). This suggests there might be some days with very low rainfall (or many days with moderately high rainfall and a few with very low rainfall dragging the mean down), with the bulk of the data points being on the higher side of the mean.\n\n\nVariability in Daily Rainfall:\n\nCity B experienced more variability.\nThe standard deviation is a measure of spread or variability. City B has a standard deviation of 7 mm, which is larger than City A’s standard deviation of 3 mm. This indicates that the daily rainfall amounts in City B were more spread out from their average, while in City A they were more tightly clustered around the average.\n\nSketching Possible Histogram Shapes:\n\nCity A (Right-Skewed): Imagine a histogram where the peak is on the left side (around 8 mm), and a tail extends out to the right. The bars would be taller on the left and gradually get shorter towards the right, with potentially a few small bars at higher rainfall values representing the outliers that pull the mean to 10 mm.\nFrequency\n|  ***\n|  *****\n|  *******\n|  *********\n|  *********** ______\n+---------------------&gt; Rainfall (mm)\n   ^ (Median ~8) ^(Mean ~10)\nCity B (Left-Skewed): Imagine a histogram where the peak is on the right side (around 12 mm), and a tail extends out to the left. The bars would be taller on the right and gradually get shorter towards the left. The spread would also be wider overall due to the larger standard deviation.\nFrequency\n|        ***\n|      *****\n|    *******\n|  *********\n|--*********** ______\n+---------------------&gt; Rainfall (mm)\n   ^(Mean ~10) ^ (Median ~12)\n(The spread for City B should look wider than for City A in the sketches).",
+    "text": "3.11 Exercises\n\nExercise: Pet Preferences\nGiven the following list of preferred pets from a small survey: ['Dog', 'Cat', 'Bird', 'Dog', 'Cat', 'Dog', 'Fish', 'Dog']\n\nCreate a frequency table for this data.\nVisualize the frequency table using a bar graph with appropriate labels (title, x-label, y-label).\n\n\n\nSolution. Solution: Pet Preferences\n\nFrequency Table:\nFirst, let’s count the occurrences of each pet:\n\nDog: 4\nCat: 2\nBird: 1\nFish: 1\n\n\n\n\nPet\nFrequency\n\n\n\n\nDog\n4\n\n\nCat\n2\n\n\nBird\n1\n\n\nFish\n1\n\n\nTotal\n8\n\n\n\nBar Graph Code:\n\n\nimport matplotlib.pyplot as plt\n\n# Pet preference data\npets = ['Dog', 'Cat', 'Bird', 'Fish']\nfrequencies = [4, 2, 1, 1]\n\n# Create the bar graph\nplt.figure(figsize=(7, 5))\nplt.bar(pets, frequencies, color=['brown', 'grey', 'blue', 'cyan'])\n\n# Add labels and title\nplt.xlabel(\"Pet Type\")\nplt.ylabel(\"Number of People\")\nplt.title(\"Pet Preferences Survey Results\")\n\n# Display the plot\nplt.show()\n\n\n\n\n\n\n\n\n(When you run this code, a bar graph image will be displayed showing the frequencies of pet preferences.)\n\n\nExercise: Pet Preferences Pie Chart\nUsing the same pet preference data from the bar graph exercise (['Dog', 'Cat', 'Bird', 'Dog', 'Cat', 'Dog', 'Fish', 'Dog']), create a pie chart. 1. Add a title and ensure each slice is labeled with the pet name and its percentage. 2. Briefly comment on whether the bar graph or pie chart is more effective for this data and why.\n\n\nSolution. Solution: Pet Preferences Pie Chart\n\nPie Chart Code:\n\n\nimport matplotlib.pyplot as plt\n\n# Pet preference data\npets = ['Dog', 'Cat', 'Bird', 'Fish']\nfrequencies = [4, 2, 1, 1]\ncolors = ['brown', 'grey', 'blue', 'cyan']\n\nplt.figure(figsize=(8, 8))\nplt.pie(frequencies, labels=pets, colors=colors, autopct='%1.1f%%', startangle=90)\nplt.title(\"Pet Preferences Survey (Pie Chart)\")\nplt.axis('equal') # Ensures pie is drawn as a circle\nplt.show()\n\n\n\n\n\n\n\n\n*(When you run this code, a pie chart image will be displayed.)*\n\nComparison:\nFor this particular dataset (Dog: 4, Cat: 2, Bird: 1, Fish: 1):\n\nThe bar graph is likely more effective. It clearly shows that “Dog” is the most preferred pet and makes it easy to compare the exact frequencies (e.g., “Dog” is twice as popular as “Cat”).\nThe pie chart shows the proportions, but comparing the smaller slices (Bird vs. Fish, or even Cat vs. Dog) can be less precise visually than comparing bar heights. While the percentages help, the visual comparison itself is weaker. If the goal is to quickly see which category is largest and roughly its proportion of the whole, a pie chart can work, but for more detailed comparisons, the bar chart excels.\n\n\n\n\nExercise: Ages Histogram\nGiven the following list of ages: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\nCreate a histogram with 5 bins.\nLabel your plot appropriately (title, x-label, y-label).\nDescribe the shape of the histogram.\n\n\n\nSolution. Solution: Ages Histogram\n\nHistogram Code:\n\n\nimport matplotlib.pyplot as plt\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\nplt.figure(figsize=(8, 6))\nplt.hist(ages, bins=5, color='lightgreen', edgecolor='black')\n\nplt.title(\"Distribution of Ages\")\nplt.xlabel(\"Age Group\")\nplt.ylabel(\"Frequency\")\nplt.show()\n\n\n\n\n\n\n\n\n*(This code will display a histogram of the ages.)*\n\nShape Description: Observing the generated histogram: The data appears to be somewhat spread out. Depending on the exact binning Matplotlib chooses for 5 bins, it might look slightly right-skewed (younger ages more frequent, tailing off to older ages) or relatively symmetric but spread out (platykurtic if it’s flat, or just a wide symmetric distribution). For example, if bins are [20-30, 30-40, 40-50, 50-60, 60-70], the frequencies might be [3, 5, 6, 4, 2]. This would show a central tendency around 40-50, with tails on both sides, perhaps slightly skewed to the right due to the 60-70 bin being less populated than the 20-30 bin relative to their distance from the mode. A more precise description depends on the visual output. For learning purposes, we can say it’s broadly symmetric with a tendency towards a slight right skew.\n\n\n\nExercise: Calculate Mean Age\nCalculate the mean of the ages data from the histogram exercise using Python: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\n\nSolution. Solution: Calculate Mean Age\n\nimport statistics\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nmean_age = statistics.mean(ages)\nprint(f\"The mean age is: {mean_age}\")\n\nThe mean age is: 42.7\n\n\nOutput:\nThe mean age is: 43.1\n\n\nExercise: Calculate and Interpret Quartiles for Ages\nUsing the ages data: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\nCalculate Q1, Q3, and the IQR.\nInterpret these values in the context of the ages dataset.\n\n\n\nSolution. Solution: Calculate and Interpret Quartiles for Ages\n\nPython Code:\n\n\nimport statistics\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nages.sort() # Good practice, though quantiles() handles it\n\nquartiles = statistics.quantiles(ages, n=4)\nQ1 = quartiles[0]\nQ3 = quartiles[2]\nIQR = Q3 - Q1\n\nprint(f\"Q1: {Q1}\")\nprint(f\"Q3: {Q3}\")\nprint(f\"IQR: {IQR}\")\n\n# For reference, the median (Q2) is statistics.median(ages) or quartiles[1]\n# Median is (42+45)/2 = 43.5\n# Q1 is between 33 (5th) and 35 (6th) -&gt; (33+35)/2 = 34 (using one common method for discrete data)\n# Q3 is between 50 (15th) and 52 (16th) -&gt; (50+52)/2 = 51\n# The exact values from statistics.quantiles might differ slightly based on interpolation method used.\n# statistics.quantiles(ages, n=4) method='exclusive' (default)\n# Q1 = 34.25, Q2 (Median) = 43.5, Q3 = 50.5\n# IQR = 50.5 - 34.25 = 16.25\n\nQ1: 33.5\nQ3: 51.5\nIQR: 18.0\n\n\n**Output from `statistics.quantiles` (using default 'exclusive' method):**\n\n```\nQ1: 34.25\nQ3: 50.5\nIQR: 16.25\n```\n\nInterpretation:\n\nQ1 (34.25 years): 25% of the individuals in the dataset are younger than 34.25 years, and 75% are older.\nQ3 (50.5 years): 75% of the individuals are younger than 50.5 years, and 25% are older.\nIQR (16.25 years): The middle 50% of the ages in this dataset span a range of 16.25 years, from 34.25 years to 50.5 years. This gives a measure of the spread of the central portion of the data, ignoring potential outliers at the extremes.\n\n\n\n\nExercise: Create and Interpret Box Plot for Ages\n\nCreate a box plot for the ages data: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nBased on your quartile calculations and the plot, try to identify the approximate values for the five-number summary from the visual.\nAre there any potential outliers indicated by the plot for this dataset?\n\n\n\nSolution. Solution: Create and Interpret Box Plot for Ages\n\nBox Plot Code:\n\n\nimport matplotlib.pyplot as plt\nimport statistics\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nages.sort() # Sorting helps for easy min/max identification\n\nplt.figure(figsize=(6, 8))\nplt.boxplot(ages, patch_artist=True) # patch_artist=True allows filling the box with color\n\nplt.title(\"Box Plot of Ages Data\")\nplt.ylabel(\"Age (Years)\")\nplt.xticks([1], ['Ages']) # Relabel x-axis if desired\nplt.grid(axis='y', linestyle='--') # Add horizontal grid lines for easier reading\nplt.show()\n\n# For precise five-number summary:\nmin_age = min(ages)\nmax_age = max(ages)\nq_values = statistics.quantiles(ages, n=4) # Uses 'exclusive' method by default\nq1_age = q_values[0]\nmedian_age = statistics.median(ages) # Or q_values[1]\nq3_age = q_values[2]\n\nprint(f\"Five-Number Summary for Ages:\")\nprint(f\"  Min: {min_age}\")      # Expected: 22\nprint(f\"  Q1: {q1_age}\")       # Expected: 34.25\nprint(f\"  Median: {median_age}\")# Expected: 43.5\nprint(f\"  Q3: {q3_age}\")       # Expected: 50.5\nprint(f\"  Max: {max_age}\")      # Expected: 65\n\n\n\n\n\n\n\n\nFive-Number Summary for Ages:\n  Min: 22\n  Q1: 33.5\n  Median: 43.5\n  Q3: 51.5\n  Max: 65\n\n\n*(The code will display a box plot.)*\n\nIdentifying Five-Number Summary from Plot:\n\nMinimum: The lower whisker extends down to approximately 22.\nQ1: The bottom edge of the box is around 34.\nMedian (Q2): The line inside the box is around 43-44.\nQ3: The top edge of the box is around 50-51.\nMaximum: The upper whisker extends up to approximately 65.\n\n(The exact values from the code are: Min: 22, Q1: 34.25, Median: 43.5, Q3: 50.5, Max: 65)\nPotential Outliers: For the ages dataset provided, the standard box plot in Matplotlib typically does not show any individual points beyond the whiskers. This suggests that all data points fall within the Q1 - 1.5*IQR and Q3 + 1.5*IQR range. Let’s check: IQR = 50.5 - 34.25 = 16.25 Lower bound = Q1 - 1.5 * IQR = 34.25 - 1.5 * 16.25 = 34.25 - 24.375 = 9.875 Upper bound = Q3 + 1.5 * IQR = 50.5 + 1.5 * 16.25 = 50.5 + 24.375 = 74.875 Since the minimum age is 22 (which is &gt; 9.875) and the maximum age is 65 (which is &lt; 74.875), there are no outliers according to this common rule. The whiskers will extend to the actual minimum (22) and maximum (65).\n\n\n\nExercise: Calculate and Interpret Z-scores for Ages\nUsing the ages dataset: ages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\n\nCalculate the Z-scores for the minimum age (22) and the maximum age (65) in the dataset.\nWhat do these Z-scores tell you about these specific ages in relation to the rest of the data?\n\n\n\nSolution. Solution: Calculate and Interpret Z-scores for Ages\n\nPython Code:\n\n\nimport statistics\n\nages = [22, 25, 30, 33, 35, 37, 40, 42, 45, 45, 48, 50, 52, 55, 60, 65, 28, 38, 46, 58]\nmean_age = statistics.mean(ages)\nstdev_age = statistics.stdev(ages)\n\nmin_age = min(ages) # 22\nmax_age = max(ages) # 65\n\nz_score_min = (min_age - mean_age) / stdev_age\nz_score_max = (max_age - mean_age) / stdev_age\n\nprint(f\"Mean age: {mean_age:.2f}, Standard deviation: {stdev_age:.2f}\")\nprint(f\"Z-score for minimum age ({min_age}): {z_score_min:.2f}\")\nprint(f\"Z-score for maximum age ({max_age}): {z_score_max:.2f}\")\n\nMean age: 42.70, Standard deviation: 11.93\nZ-score for minimum age (22): -1.73\nZ-score for maximum age (65): 1.87\n\n\nOutput:\nMean age: 43.10, Standard deviation: 12.64\nZ-score for minimum age (22): -1.67\nZ-score for maximum age (65): 1.73\n    \n\nInterpretation:\n\nZ-score for minimum age (22) is -1.67: This means the age of 22 is 1.67 standard deviations below the average age of 43.1 years. It’s younger than average, but not extremely so (as it’s within 2 standard deviations).\nZ-score for maximum age (65) is 1.73: This means the age of 65 is 1.73 standard deviations above the average age. It’s older than average, and again, not extremely so by the common Z-score thresholds (e.g. &gt;2 or &gt;3).\n\nBoth these ages are relatively far from the mean but are not typically considered outliers based solely on the common Z-score benchmarks of +/-2 or +/-3. They represent the lower and upper ends of this particular dataset’s distribution.\n\n\n\nExercise: Car Age and Price Scatter Plot\nConsider the following data for the age of a car (in years) and its price (in thousands of dollars): car_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10] car_price = [20, 18, 19, 15, 14, 12, 13, 10, 9, 8, 6]\n\nCreate a scatter plot for this data.\nLabel your plot appropriately.\nDescribe the relationship you observe (direction, form, strength).\n\n\n\nSolution. Solution: Car Age and Price Scatter Plot\n\nScatter Plot Code:\n\n\nimport matplotlib.pyplot as plt\n\ncar_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10]\ncar_price = [20, 18, 19, 15, 14, 12, 13, 10, 9, 8, 6]\n\nplt.figure(figsize=(8, 6))\nplt.scatter(car_age, car_price, color='green')\n\nplt.title(\"Relationship between Car Age and Price\")\nplt.xlabel(\"Age of Car (Years)\")\nplt.ylabel(\"Price of Car (in $1000s)\")\nplt.grid(True)\nplt.show()\n\n\n\n\n\n\n\n\n*(This code will display the scatter plot.)*\n\nDescription of Relationship:\n\nDirection: The relationship is negative. As the age of the car increases, the price tends to decrease.\nForm: The relationship appears to be fairly linear. The points seem to cluster around a straight line sloping downwards.\nStrength: The relationship seems quite strong. The points are relatively close to the imaginary line one could draw through them.\n\n\n\n\nExercise: Calculate and Interpret Correlation\nUsing the car age and price data: car_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10] car_price = [20, 18, 19, 15, 14, 12, 13, 10, 9, 8, 6]\n\nCalculate the Pearson’s correlation coefficient (r) for this data.\nWhat does this value tell you about the linear relationship between the age of a car and its price?\n\n\n\nSolution. Solution: Calculate and Interpret Correlation\n\nPython Code:\n\n\nimport statistics\n\ncar_age = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 10]\n# Ensure car_price has float values if any calculations require it,\n# though for correlation with lists of numbers, it's usually fine.\ncar_price = [20.0, 18.0, 19.0, 15.0, 14.0, 12.0, 13.0, 10.0, 9.0, 8.0, 6.0]\n\n\nif len(car_age) == len(car_price) and len(car_age) &gt;= 2:\n    correlation_cars = statistics.correlation(car_age, car_price)\n    print(f\"Correlation coefficient for car age and price (r): {correlation_cars:.3f}\")\nelse:\n    print(\"Data lists must be of equal length and have at least two points.\")\n\nCorrelation coefficient for car age and price (r): -0.982\n\n\n**Output:**\n```\nCorrelation coefficient for car age and price (r): -0.980\n```\n\nInterpretation: The correlation coefficient r = -0.980 indicates a very strong negative linear relationship between the age of a car and its price.\n\nStrong: The value is very close to -1.\nNegative: As the age of the car increases, the price tends to decrease linearly. This numerical result strongly supports our visual interpretation of the scatter plot.\n\n\n\nHere are a few more comprehensive exercises to help you practice the concepts from this chapter.\n\n\n\n\n\n\nTipExercise\n\n\n\nComprehensive Student Data Exploration\nA small group of students reported the following data:\n\nName: [‘Liam’, ‘Olivia’, ‘Noah’, ‘Emma’, ‘Oliver’, ‘Ava’, ‘Elijah’, ‘Sophia’]\nMajor: [‘CompSci’, ‘Biology’, ‘CompSci’, ‘English’, ‘Biology’, ‘CompSci’, ‘Math’, ‘English’]\nStudyHoursPerWeek: [15, 20, 12, 18, 22, 10, 25, 16] (hours)\nExamScore: [85, 92, 78, 88, 95, 75, 98, 82] (out of 100)\nProjectsCompleted: [3, 4, 2, 3, 5, 2, 6, 4]\n\n\nIdentify each variable as either categorical or quantitative.\nFor the ‘Major’ variable:\n\nCreate a frequency table.\nCreate a bar graph to visualize the frequencies.\n\nFor the ‘ExamScore’ variable:\n\nCalculate the mean, median, and standard deviation.\nCalculate Q1, Q3, and the IQR.\nCreate a histogram with a suitable number of bins. Describe its shape.\nCreate a box plot. Are there any potential outliers according to the 1.5xIQR rule?\n\nCreate a scatter plot to visualize the relationship between ‘StudyHoursPerWeek’ and ‘ExamScore’.\n\nCalculate the Pearson’s correlation coefficient between these two variables.\nDescribe the relationship (direction, form, strength).\n\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\nSolution: Comprehensive Student Data Exploration\n\nimport matplotlib.pyplot as plt\nimport statistics\n\n# Data\nnames = ['Liam', 'Olivia', 'Noah', 'Emma', 'Oliver', 'Ava', 'Elijah', 'Sophia']\nmajors = ['CompSci', 'Biology', 'CompSci', 'English', 'Biology', 'CompSci', 'Math', 'English']\nstudy_hours = [15, 20, 12, 18, 22, 10, 25, 16]\nexam_scores = [85, 92, 78, 88, 95, 75, 98, 82]\nprojects_completed = [3, 4, 2, 3, 5, 2, 6, 4]\n\n# 1. Identify variable types\nprint(\"1. Variable Types:\")\nprint(\"- Name: Categorical (Nominal)\")\nprint(\"- Major: Categorical (Nominal)\")\nprint(\"- StudyHoursPerWeek: Quantitative (Discrete or Continuous depending on measurement precision)\")\nprint(\"- ExamScore: Quantitative (Discrete or Continuous)\")\nprint(\"- ProjectsCompleted: Quantitative (Discrete)\")\nprint(\"-\" * 30)\n\n# 2. 'Major' variable analysis\nprint(\"\\n2. Analysis of 'Major':\")\n\n# Count how many students have each major (a frequency table), using the\n# list.count() method we saw earlier in this chapter\nmajor_names = ['CompSci', 'Biology', 'English', 'Math']\nmajor_counts = [majors.count('CompSci'),\n                majors.count('Biology'),\n                majors.count('English'),\n                majors.count('Math')]\n\nprint(\"Frequency Table for Major:\")\nprint(f\"- CompSci: {majors.count('CompSci')}\")\nprint(f\"- Biology: {majors.count('Biology')}\")\nprint(f\"- English: {majors.count('English')}\")\nprint(f\"- Math: {majors.count('Math')}\")\n\n# Bar graph for Major\n\nplt.figure(figsize=(7, 5))\nplt.bar(major_names, major_counts, color=['skyblue', 'lightgreen', 'salmon', 'gold'])\nplt.title(\"Frequency of Student Majors\")\nplt.xlabel(\"Major\")\nplt.ylabel(\"Number of Students\")\nplt.show()\nprint(\"-\" * 30)\n\n# 3. 'ExamScore' variable analysis\nprint(\"\\n3. Analysis of 'ExamScore':\")\nmean_score = statistics.mean(exam_scores)\nmedian_score = statistics.median(exam_scores)\nstdev_score = statistics.stdev(exam_scores)\nprint(f\"Mean Exam Score: {mean_score:.2f}\")\nprint(f\"Median Exam Score: {median_score:.2f}\")\nprint(f\"Standard Deviation of Exam Scores: {stdev_score:.2f}\")\n\nexam_scores_sorted = sorted(exam_scores)\nq_scores = statistics.quantiles(exam_scores_sorted, n=4)\nq1_score = q_scores[0]\nq3_score = q_scores[2]\niqr_score = q3_score - q1_score\nprint(f\"Q1 Exam Score: {q1_score:.2f}\")\nprint(f\"Q3 Exam Score: {q3_score:.2f}\")\nprint(f\"IQR of Exam Scores: {iqr_score:.2f}\")\n\n# Histogram for ExamScore\nplt.figure(figsize=(8, 6))\nplt.hist(exam_scores, bins=5, color='lightblue', edgecolor='black')\nplt.title(\"Distribution of Exam Scores\")\nplt.xlabel(\"Exam Score\")\nplt.ylabel(\"Frequency\")\nplt.show()\nprint(\"Histogram Shape: The histogram appears roughly symmetric, possibly slightly left-skewed as higher scores are more frequent.\")\n\n# Box plot for ExamScore\nplt.figure(figsize=(6, 7))\nplt.boxplot(exam_scores, vert=True, patch_artist=True)\nplt.title(\"Box Plot of Exam Scores\")\nplt.ylabel(\"Exam Score\")\nplt.xticks([1], ['Scores'])\nplt.show()\n\n# Check for outliers using the 1.5xIQR rule by comparing the smallest and\n# largest scores to the fences\nlower_fence = q1_score - 1.5 * iqr_score\nupper_fence = q3_score + 1.5 * iqr_score\nlowest_score = min(exam_scores)\nhighest_score = max(exam_scores)\nif lowest_score &lt; lower_fence or highest_score &gt; upper_fence:\n    print(\"There are potential outliers based on the 1.5xIQR rule.\")\nelse:\n    print(\"No potential outliers detected by the 1.5xIQR rule.\")\nprint(\"-\" * 30)\n\n# 4. Relationship between 'StudyHoursPerWeek' and 'ExamScore'\nprint(\"\\n4. Relationship between Study Hours and Exam Score:\")\nplt.figure(figsize=(8, 6))\nplt.scatter(study_hours, exam_scores, color='purple')\nplt.title(\"Study Hours vs. Exam Score\")\nplt.xlabel(\"Study Hours Per Week\")\nplt.ylabel(\"Exam Score\")\nplt.grid(True)\nplt.show()\n\ncorrelation_study_score = statistics.correlation(study_hours, exam_scores)\nprint(f\"Correlation between Study Hours and Exam Score: {correlation_study_score:.3f}\")\n\nprint(\"Relationship Description:\")\nprint(\"- Direction: Positive (as study hours increase, exam scores tend to increase).\")\nprint(\"- Form: Appears to be roughly linear.\")\nprint(\"- Strength: Quite strong, as the points cluster fairly closely around an upward trend.\")\nprint(f\"The correlation coefficient of {correlation_study_score:.3f} supports a strong positive linear relationship.\")\n\n1. Variable Types:\n- Name: Categorical (Nominal)\n- Major: Categorical (Nominal)\n- StudyHoursPerWeek: Quantitative (Discrete or Continuous depending on measurement precision)\n- ExamScore: Quantitative (Discrete or Continuous)\n- ProjectsCompleted: Quantitative (Discrete)\n------------------------------\n\n2. Analysis of 'Major':\nFrequency Table for Major:\n- CompSci: 3\n- Biology: 2\n- English: 2\n- Math: 1\n\n\n\n\n\n\n\n\n\n------------------------------\n\n3. Analysis of 'ExamScore':\nMean Exam Score: 86.62\nMedian Exam Score: 86.50\nStandard Deviation of Exam Scores: 8.14\nQ1 Exam Score: 79.00\nQ3 Exam Score: 94.25\nIQR of Exam Scores: 15.25\n\n\n\n\n\n\n\n\n\nHistogram Shape: The histogram appears roughly symmetric, possibly slightly left-skewed as higher scores are more frequent.\n\n\n/tmp/ipykernel_2528/3181809601.py:76: MatplotlibDeprecationWarning: vert: bool was deprecated in Matplotlib 3.11 and will be removed in 3.13. Use orientation: {'vertical', 'horizontal'} instead.\n  plt.boxplot(exam_scores, vert=True, patch_artist=True)\n\n\n\n\n\n\n\n\n\nNo potential outliers detected by the 1.5xIQR rule.\n------------------------------\n\n4. Relationship between Study Hours and Exam Score:\n\n\n\n\n\n\n\n\n\nCorrelation between Study Hours and Exam Score: 0.985\nRelationship Description:\n- Direction: Positive (as study hours increase, exam scores tend to increase).\n- Form: Appears to be roughly linear.\n- Strength: Quite strong, as the points cluster fairly closely around an upward trend.\nThe correlation coefficient of 0.985 supports a strong positive linear relationship.\n\n\n\n\n\n\n\n\n\n\n\nTipExercise\n\n\n\nInterpreting Skewness and Variability\nTwo different cities tracked their daily rainfall (in mm) for a month. * City A: Mean rainfall = 10 mm, Median rainfall = 8 mm, Standard deviation = 3 mm. * City B: Mean rainfall = 10 mm, Median rainfall = 12 mm, Standard deviation = 7 mm.\n\nFor each city, what can you infer about the likely shape (skewness) of its rainfall distribution? Explain your reasoning.\nWhich city experienced more variability in daily rainfall? Explain.\nSketch a possible histogram shape for each city that would be consistent with these statistics. (You don’t need to use Python for the sketch, just describe or draw it simply).\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\nSolution: Interpreting Skewness and Variability\n\nShape (Skewness) of Rainfall Distribution:\n\nCity A:\n\nMean (10 mm) &gt; Median (8 mm).\nWhen the mean is greater than the median, the distribution is typically right-skewed (positively skewed). This means there are likely some days with unusually high rainfall pulling the mean up, while most days have lower rainfall amounts clustering around the median.\n\nCity B:\n\nMean (10 mm) &lt; Median (12 mm).\nWhen the mean is less than the median, the distribution is typically left-skewed (negatively skewed). This suggests there might be some days with very low rainfall (or many days with moderately high rainfall and a few with very low rainfall dragging the mean down), with the bulk of the data points being on the higher side of the mean.\n\n\nVariability in Daily Rainfall:\n\nCity B experienced more variability.\nThe standard deviation is a measure of spread or variability. City B has a standard deviation of 7 mm, which is larger than City A’s standard deviation of 3 mm. This indicates that the daily rainfall amounts in City B were more spread out from their average, while in City A they were more tightly clustered around the average.\n\nSketching Possible Histogram Shapes:\n\nCity A (Right-Skewed): Imagine a histogram where the peak is on the left side (around 8 mm), and a tail extends out to the right. The bars would be taller on the left and gradually get shorter towards the right, with potentially a few small bars at higher rainfall values representing the outliers that pull the mean to 10 mm.\nFrequency\n|  ***\n|  *****\n|  *******\n|  *********\n|  *********** ______\n+---------------------&gt; Rainfall (mm)\n   ^ (Median ~8) ^(Mean ~10)\nCity B (Left-Skewed): Imagine a histogram where the peak is on the right side (around 12 mm), and a tail extends out to the left. The bars would be taller on the right and gradually get shorter towards the left. The spread would also be wider overall due to the larger standard deviation.\nFrequency\n|        ***\n|      *****\n|    *******\n|  *********\n|--*********** ______\n+---------------------&gt; Rainfall (mm)\n   ^(Mean ~10) ^ (Median ~12)\n(The spread for City B should look wider than for City A in the sketches).",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Descriptive statistics and plots</span>"
     ]
@@ -374,7 +374,7 @@
     "href": "array_computations.html#why-arrays-instead-of-lists",
     "title": "4  Array computations",
     "section": "",
-    "text": "Note\n\n\n\nPython does have a tool for repeating an action many times without writing it out by hand: the loop, which we cover later in Chapter 9. But for the whole-dataset calculations that are common in data science, the array approach shown in this chapter is usually shorter and easier to read, so we will favor it throughout the book.\n\n\n\n\n\n\n\n\nEase of expression. Element-wise arithmetic like price_array * 2 and price_array + 2 lets us say what we mean in a single short expression.\nSpeed. NumPy performs these operations in fast, pre-compiled code and stores values more compactly than a list, so computations on large arrays run faster and use less memory.\n\n\n\n\n\n\n\nTipExercise\n\n\n\nHere are three more weekly gas prices stored in a list: [3.20, 3.15, 3.18]. Turn this list into a NumPy array, then use a single expression (no loop) to calculate the prices with a three-dollar surcharge added to each (i.e., each price becomes 3 dollars higher).\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\nmore_prices = np.array([3.20, 3.15, 3.18])\n\n# Adding 3 dollars to every price at once\nmore_prices + 3\n\narray([6.2 , 6.15, 6.18])",
+    "text": "Note\n\n\n\nPython does have a tool for repeating an action many times without writing it out by hand: the loop, which we cover later in Chapter 8. But for the whole-dataset calculations that are common in data science, the array approach shown in this chapter is usually shorter and easier to read, so we will favor it throughout the book.\n\n\n\n\n\n\n\n\nEase of expression. Element-wise arithmetic like price_array * 2 and price_array + 2 lets us say what we mean in a single short expression.\nSpeed. NumPy performs these operations in fast, pre-compiled code and stores values more compactly than a list, so computations on large arrays run faster and use less memory.\n\n\n\n\n\n\n\nTipExercise\n\n\n\nHere are three more weekly gas prices stored in a list: [3.20, 3.15, 3.18]. Turn this list into a NumPy array, then use a single expression (no loop) to calculate the prices with a three-dollar surcharge added to each (i.e., each price becomes 3 dollars higher).\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\nmore_prices = np.array([3.20, 3.15, 3.18])\n\n# Adding 3 dollars to every price at once\nmore_prices + 3\n\narray([6.2 , 6.15, 6.18])",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Array computations</span>"
     ]
@@ -544,7 +544,7 @@
     "href": "data_tables.html#summarizing-by-group",
     "title": "5  Data tables",
     "section": "5.7 Summarizing by group",
-    "text": "5.7 Summarizing by group\nSuppose we are interested in calculating the average delay for each airline so that we can avoid the airlines that have the longest average delays. A convenient format for the results would be a DataFrame, where each row corresponds to one airline and there is a column that shows the average delay.\nTo create this result DataFrame, we need to split the original flights DataFrame into a separate group for each airline, compute the mean delay within each group, and collect the results into a new result DataFrame. That three-step pattern is common enough to have a name, split-apply-combine, and the .groupby() and .agg() methods perform these steps together.\n\n\n\n\n\n\n\n\n\nTo calculate results separately for each airline, we need to use the .groupby() method with the \"carrier\" column, which forms the groups for each airline. We then use the .agg() method to calculate the mean separately for each group. Inside the .agg() method we will use the syntax result_col_name = (\"input_col\", \"agg_function\") where:\n\nresult_col_name is the name of the column in the result DataFrame (e.g., mean_delay)\n\"input_col\" is the name of the column we want to apply our aggregate on (e.g., dep_delay)\n\"agg_function\" is the name of the function we want to apply, such as \"mean\", \"median\", \"min\", \"max\", \"sum\" or \"count\"\n\nUsing this syntax, we can calculate the average delay for each airline as:\n\nby_carrier = flights.groupby(\"carrier\").agg(\n    mean_delay = (\"dep_delay\", \"mean\"),\n)\n\nby_carrier.round(1)\n\n\n\n\n\n\n\n\nmean_delay\n\n\ncarrier\n\n\n\n\n\nAA\n17.4\n\n\nAS\n17.0\n\n\nB6\n17.6\n\n\nDL\n16.3\n\n\nF9\n27.1\n\n\nG4\n12.4\n\n\nHA\n18.3\n\n\nMQ\n21.0\n\n\nNK\n16.8\n\n\nOO\n15.6\n\n\nUA\n15.4\n\n\nWN\n20.6\n\n\nYX\n9.7\n\n\n\n\n\n\n\nThe airline carrier codes become the Index in the result DataFrame, which is why they sit to the left in bold. Sorting the by_carrier DataFrame by its mean_delay column gives our answer:\n\nby_carrier.sort_values(\"mean_delay\", ascending=False).round(1)\n\n\n\n\n\n\n\n\nmean_delay\n\n\ncarrier\n\n\n\n\n\nF9\n27.1\n\n\nMQ\n21.0\n\n\nWN\n20.6\n\n\nHA\n18.3\n\n\nB6\n17.6\n\n\nAA\n17.4\n\n\nAS\n17.0\n\n\nNK\n16.8\n\n\nDL\n16.3\n\n\nOO\n15.6\n\n\nUA\n15.4\n\n\nG4\n12.4\n\n\nYX\n9.7\n\n\n\n\n\n\n\nLooking at the results, we see that F9 (Frontier) is the worst, with a mean delay of about 27 minutes, and YX (Republic Airline) is the best with a mean delay of under 10 minutes.\nThe .agg() method can compute more than one statistic at a time, by naming more than one result column. Putting the median and the largest delay next to the mean shows the same right skew within each airline that we saw across the delays as a whole:\n\nflights.groupby(\"carrier\").agg(\n    mean_delay = (\"dep_delay\", \"mean\"),\n    median_delay = (\"dep_delay\", \"median\"),\n    worst_delay = (\"dep_delay\", \"max\"),\n).sort_values(\"mean_delay\", ascending=False).round(1).head()\n\n\n\n\n\n\n\n\nmean_delay\nmedian_delay\nworst_delay\n\n\ncarrier\n\n\n\n\n\n\n\nF9\n27.1\n-2.0\n1386.0\n\n\nMQ\n21.0\n-1.0\n1015.0\n\n\nWN\n20.6\n3.0\n670.0\n\n\nHA\n18.3\n5.0\n1075.0\n\n\nB6\n17.6\n-2.0\n1136.0\n\n\n\n\n\n\n\nEvery airline in this output has a median delay far below its mean, and a worst delay running into many hours, which tells us that a small number of severely delayed flights is pulling each airline’s average upward.\nBefore we read too much into the results, however, it is important to know how many values went into computing the mean delay for each airline. We can calculate the number of flights in each group by creating a second result column called num_flights where we use the count function as our aggregating function. The count function counts the values that are not missing in the named column, so counting dep_delay gives the number of flights that actually departed rather than the number that were scheduled:\n\nflights.groupby(\"carrier\").agg(\n    mean_delay = (\"dep_delay\", \"mean\"),\n    num_flights = (\"dep_delay\", \"count\")\n).sort_values(\"mean_delay\", ascending=False).round(1)\n\n\n\n\n\n\n\n\nmean_delay\nnum_flights\n\n\ncarrier\n\n\n\n\n\n\nF9\n27.1\n6696\n\n\nMQ\n21.0\n850\n\n\nWN\n20.6\n11454\n\n\nHA\n18.3\n366\n\n\nB6\n17.6\n44934\n\n\nAA\n17.4\n36441\n\n\nAS\n17.0\n6826\n\n\nNK\n16.8\n14629\n\n\nDL\n16.3\n65173\n\n\nOO\n15.6\n2635\n\n\nUA\n15.4\n74909\n\n\nG4\n12.4\n665\n\n\nYX\n9.7\n86559\n\n\n\n\n\n\n\nThe results show that Frontier’s mean delay is calculated from 6,696 flights, which is enough for the mean to be a stable estimate, but MQ (Envoy Air) sits second-worst on only 850 flights, and Hawaiian on 366 flights. If an average is computed from too few data points, then we should not believe the mean will necessarily be an accurate reflection of what the true delay might be in the future, which is a topic we will discuss more in Chapter 10. Thus, it is usually important to report the group size alongside the statistic.\n\n\n\n\n\n\nTipExercise\n\n\n\n\nGroup the flights by origin and compute the mean departure delay for each of the three airports.\nGroup by month and compute both the mean delay and the number of flights. Which month is worst, and does the answer make sense?\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n# 1. One row per airport\nflights.groupby(\"origin\").agg(mean_delay=(\"dep_delay\", \"mean\")).round(1)\n\n\n\n\n\n\n\n\nmean_delay\n\n\norigin\n\n\n\n\n\nEWR\n15.9\n\n\nJFK\n14.2\n\n\nLGA\n15.2\n\n\n\n\n\n\n\n\n# 2. Two statistics per month\nby_month = flights.groupby(\"month\").agg(\n    flights=(\"flight\", \"count\"),\n    mean_delay=(\"dep_delay\", \"mean\"),\n)\n\nby_month.round(1)\n\n\n\n\n\n\n\n\nflights\nmean_delay\n\n\nmonth\n\n\n\n\n\n\n1\n29376\n8.3\n\n\n2\n27307\n11.0\n\n\n3\n30606\n10.4\n\n\n4\n29474\n9.5\n\n\n5\n29434\n18.8\n\n\n6\n29153\n22.3\n\n\n7\n31436\n28.5\n\n\n8\n31102\n14.5\n\n\n9\n29900\n8.6\n\n\n10\n31508\n13.0\n\n\n11\n30606\n15.0\n\n\n12\n30869\n21.9\n\n\n\n\n\n\n\nThe three airports are close together, between about 14 and 16 minutes. The month-by-month pattern is much stronger: July is worst at 28.5 minutes and January best at 8.3. June and July combine the heaviest travel demand with thunderstorm season, and a plane held up by an afternoon storm is late for every leg it flies afterwards. August, at 14.5 minutes, does not fit that explanation, which is a reminder that a one-line account of a yearly pattern is a hypothesis rather than a finding.",
+    "text": "5.7 Summarizing by group\nSuppose we are interested in calculating the average delay for each airline so that we can avoid the airlines that have the longest average delays. A convenient format for the results would be a DataFrame, where each row corresponds to one airline and there is a column that shows the average delay.\nTo create this result DataFrame, we need to split the original flights DataFrame into a separate group for each airline, compute the mean delay within each group, and collect the results into a new result DataFrame. That three-step pattern is common enough to have a name, split-apply-combine, and the .groupby() and .agg() methods perform these steps together.\n\n\n\n\n\n\n\n\n\nTo calculate results separately for each airline, we need to use the .groupby() method with the \"carrier\" column, which forms the groups for each airline. We then use the .agg() method to calculate the mean separately for each group. Inside the .agg() method we will use the syntax result_col_name = (\"input_col\", \"agg_function\") where:\n\nresult_col_name is the name of the column in the result DataFrame (e.g., mean_delay)\n\"input_col\" is the name of the column we want to apply our aggregate on (e.g., dep_delay)\n\"agg_function\" is the name of the function we want to apply, such as \"mean\", \"median\", \"min\", \"max\", \"sum\" or \"count\"\n\nUsing this syntax, we can calculate the average delay for each airline as:\n\nby_carrier = flights.groupby(\"carrier\").agg(\n    mean_delay = (\"dep_delay\", \"mean\"),\n)\n\nby_carrier.round(1)\n\n\n\n\n\n\n\n\nmean_delay\n\n\ncarrier\n\n\n\n\n\nAA\n17.4\n\n\nAS\n17.0\n\n\nB6\n17.6\n\n\nDL\n16.3\n\n\nF9\n27.1\n\n\nG4\n12.4\n\n\nHA\n18.3\n\n\nMQ\n21.0\n\n\nNK\n16.8\n\n\nOO\n15.6\n\n\nUA\n15.4\n\n\nWN\n20.6\n\n\nYX\n9.7\n\n\n\n\n\n\n\nThe airline carrier codes become the Index in the result DataFrame, which is why they sit to the left in bold. Sorting the by_carrier DataFrame by its mean_delay column gives our answer:\n\nby_carrier.sort_values(\"mean_delay\", ascending=False).round(1)\n\n\n\n\n\n\n\n\nmean_delay\n\n\ncarrier\n\n\n\n\n\nF9\n27.1\n\n\nMQ\n21.0\n\n\nWN\n20.6\n\n\nHA\n18.3\n\n\nB6\n17.6\n\n\nAA\n17.4\n\n\nAS\n17.0\n\n\nNK\n16.8\n\n\nDL\n16.3\n\n\nOO\n15.6\n\n\nUA\n15.4\n\n\nG4\n12.4\n\n\nYX\n9.7\n\n\n\n\n\n\n\nLooking at the results, we see that F9 (Frontier) is the worst, with a mean delay of about 27 minutes, and YX (Republic Airline) is the best with a mean delay of under 10 minutes.\nThe .agg() method can compute more than one statistic at a time, by naming more than one result column. Putting the median and the largest delay next to the mean shows the same right skew within each airline that we saw across the delays as a whole:\n\nflights.groupby(\"carrier\").agg(\n    mean_delay = (\"dep_delay\", \"mean\"),\n    median_delay = (\"dep_delay\", \"median\"),\n    worst_delay = (\"dep_delay\", \"max\"),\n).sort_values(\"mean_delay\", ascending=False).round(1).head()\n\n\n\n\n\n\n\n\nmean_delay\nmedian_delay\nworst_delay\n\n\ncarrier\n\n\n\n\n\n\n\nF9\n27.1\n-2.0\n1386.0\n\n\nMQ\n21.0\n-1.0\n1015.0\n\n\nWN\n20.6\n3.0\n670.0\n\n\nHA\n18.3\n5.0\n1075.0\n\n\nB6\n17.6\n-2.0\n1136.0\n\n\n\n\n\n\n\nEvery airline in this output has a median delay far below its mean, and a worst delay running into many hours, which tells us that a small number of severely delayed flights is pulling each airline’s average upward.\nBefore we read too much into the results, however, it is important to know how many values went into computing the mean delay for each airline. We can calculate the number of flights in each group by creating a second result column called num_flights where we use the count function as our aggregating function. The count function counts the values that are not missing in the named column, so counting dep_delay gives the number of flights that actually departed rather than the number that were scheduled:\n\nflights.groupby(\"carrier\").agg(\n    mean_delay = (\"dep_delay\", \"mean\"),\n    num_flights = (\"dep_delay\", \"count\")\n).sort_values(\"mean_delay\", ascending=False).round(1)\n\n\n\n\n\n\n\n\nmean_delay\nnum_flights\n\n\ncarrier\n\n\n\n\n\n\nF9\n27.1\n6696\n\n\nMQ\n21.0\n850\n\n\nWN\n20.6\n11454\n\n\nHA\n18.3\n366\n\n\nB6\n17.6\n44934\n\n\nAA\n17.4\n36441\n\n\nAS\n17.0\n6826\n\n\nNK\n16.8\n14629\n\n\nDL\n16.3\n65173\n\n\nOO\n15.6\n2635\n\n\nUA\n15.4\n74909\n\n\nG4\n12.4\n665\n\n\nYX\n9.7\n86559\n\n\n\n\n\n\n\nThe results show that Frontier’s mean delay is calculated from 6,696 flights, which is enough for the mean to be a stable estimate, but MQ (Envoy Air) sits second-worst on only 850 flights, and Hawaiian on 366 flights. If an average is computed from too few data points, then we should not believe the mean will necessarily be an accurate reflection of what the true delay might be in the future, which is a topic we will discuss more in Chapter 9. Thus, it is usually important to report the group size alongside the statistic.\n\n\n\n\n\n\nTipExercise\n\n\n\n\nGroup the flights by origin and compute the mean departure delay for each of the three airports.\nGroup by month and compute both the mean delay and the number of flights. Which month is worst, and does the answer make sense?\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\n# 1. One row per airport\nflights.groupby(\"origin\").agg(mean_delay=(\"dep_delay\", \"mean\")).round(1)\n\n\n\n\n\n\n\n\nmean_delay\n\n\norigin\n\n\n\n\n\nEWR\n15.9\n\n\nJFK\n14.2\n\n\nLGA\n15.2\n\n\n\n\n\n\n\n\n# 2. Two statistics per month\nby_month = flights.groupby(\"month\").agg(\n    flights=(\"flight\", \"count\"),\n    mean_delay=(\"dep_delay\", \"mean\"),\n)\n\nby_month.round(1)\n\n\n\n\n\n\n\n\nflights\nmean_delay\n\n\nmonth\n\n\n\n\n\n\n1\n29376\n8.3\n\n\n2\n27307\n11.0\n\n\n3\n30606\n10.4\n\n\n4\n29474\n9.5\n\n\n5\n29434\n18.8\n\n\n6\n29153\n22.3\n\n\n7\n31436\n28.5\n\n\n8\n31102\n14.5\n\n\n9\n29900\n8.6\n\n\n10\n31508\n13.0\n\n\n11\n30606\n15.0\n\n\n12\n30869\n21.9\n\n\n\n\n\n\n\nThe three airports are close together, between about 14 and 16 minutes. The month-by-month pattern is much stronger: July is worst at 28.5 minutes and January best at 8.3. June and July combine the heaviest travel demand with thunderstorm season, and a plane held up by an afternoon storm is late for every leg it flies afterwards. August, at 14.5 minutes, does not fit that explanation, which is a reminder that a one-line account of a yearly pattern is a hypothesis rather than a finding.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data tables</span>"
     ]
@@ -590,593 +590,433 @@
     ]
   },
   {
-    "objectID": "interactive_visualizations.html",
-    "href": "interactive_visualizations.html",
-    "title": "7  Interactive visualizations",
+    "objectID": "data_visualization.html",
+    "href": "data_visualization.html",
+    "title": "6  Data visualization",
     "section": "",
-    "text": "7.1 Pivot tables and heatmaps\nThe plots we have made so far are static images. This chapter introduces visualizations a reader can explore: charts that respond to hovering and zooming, and animations that show change over time.",
+    "text": "6.1 Comparing groups\nEarlier chapters drew plots in the course of answering particular questions. This chapter is about the plots themselves: which kind of plot suits which kind of question, how several plots can be arranged so that they can be compared, and how a chart can be made interactive so that a reader explores it rather than only looking at it.\nThe first half of the chapter works with static images of the kind we have been drawing since Chapter 3. The second half introduces charts that respond to hovering, zooming and playing over time, which are useful while exploring a dataset even when the version that ends up in a printed report is static.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data visualization</span>"
     ]
   },
   {
-    "objectID": "interactive_visualizations.html#interactive-charts",
-    "href": "interactive_visualizations.html#interactive-charts",
-    "title": "7  Interactive visualizations",
-    "section": "7.2 Interactive charts",
-    "text": "7.2 Interactive charts",
+    "objectID": "data_visualization.html#relationships-between-two-variables",
+    "href": "data_visualization.html#relationships-between-two-variables",
+    "title": "6  Data visualization",
+    "section": "6.2 Relationships between two variables",
+    "text": "6.2 Relationships between two variables",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data visualization</span>"
     ]
   },
   {
-    "objectID": "interactive_visualizations.html#animations",
-    "href": "interactive_visualizations.html#animations",
-    "title": "7  Interactive visualizations",
-    "section": "7.3 Animations",
-    "text": "7.3 Animations",
+    "objectID": "data_visualization.html#arranging-several-plots-together",
+    "href": "data_visualization.html#arranging-several-plots-together",
+    "title": "6  Data visualization",
+    "section": "6.3 Arranging several plots together",
+    "text": "6.3 Arranging several plots together",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data visualization</span>"
     ]
   },
   {
-    "objectID": "interactive_visualizations.html#summary",
-    "href": "interactive_visualizations.html#summary",
-    "title": "7  Interactive visualizations",
-    "section": "7.4 Summary",
-    "text": "7.4 Summary",
+    "objectID": "data_visualization.html#statistical-graphics-with-seaborn",
+    "href": "data_visualization.html#statistical-graphics-with-seaborn",
+    "title": "6  Data visualization",
+    "section": "6.4 Statistical graphics with seaborn",
+    "text": "6.4 Statistical graphics with seaborn",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data visualization</span>"
     ]
   },
   {
-    "objectID": "interactive_visualizations.html#exercises",
-    "href": "interactive_visualizations.html#exercises",
-    "title": "7  Interactive visualizations",
-    "section": "7.5 Exercises",
-    "text": "7.5 Exercises",
+    "objectID": "data_visualization.html#pivot-tables-and-heatmaps",
+    "href": "data_visualization.html#pivot-tables-and-heatmaps",
+    "title": "6  Data visualization",
+    "section": "6.5 Pivot tables and heatmaps",
+    "text": "6.5 Pivot tables and heatmaps",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Interactive visualizations</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data visualization</span>"
+    ]
+  },
+  {
+    "objectID": "data_visualization.html#sec-interactive-visualizations",
+    "href": "data_visualization.html#sec-interactive-visualizations",
+    "title": "6  Data visualization",
+    "section": "6.6 Interactive charts",
+    "text": "6.6 Interactive charts",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data visualization</span>"
+    ]
+  },
+  {
+    "objectID": "data_visualization.html#animations",
+    "href": "data_visualization.html#animations",
+    "title": "6  Data visualization",
+    "section": "6.7 Animations",
+    "text": "6.7 Animations",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data visualization</span>"
+    ]
+  },
+  {
+    "objectID": "data_visualization.html#summary",
+    "href": "data_visualization.html#summary",
+    "title": "6  Data visualization",
+    "section": "6.8 Summary",
+    "text": "6.8 Summary",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data visualization</span>"
+    ]
+  },
+  {
+    "objectID": "data_visualization.html#exercises",
+    "href": "data_visualization.html#exercises",
+    "title": "6  Data visualization",
+    "section": "6.9 Exercises",
+    "text": "6.9 Exercises",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Data visualization</span>"
     ]
   },
   {
     "objectID": "maps.html",
     "href": "maps.html",
-    "title": "8  Maps",
+    "title": "7  Maps",
     "section": "",
-    "text": "8.1 Geographic data and boundaries\nSome data is fundamentally about where. This chapter puts data on maps: drawing geographic boundaries, coloring regions by a data value, and building interactive maps you can zoom and explore.",
+    "text": "7.1 Geographic data and boundaries\nSome data is fundamentally about where. This chapter puts data on maps: drawing geographic boundaries, coloring regions by a data value, and building interactive maps you can zoom and explore.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Maps</span>"
     ]
   },
   {
     "objectID": "maps.html#projections",
     "href": "maps.html#projections",
-    "title": "8  Maps",
-    "section": "8.2 Projections",
-    "text": "8.2 Projections",
+    "title": "7  Maps",
+    "section": "7.2 Projections",
+    "text": "7.2 Projections",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Maps</span>"
     ]
   },
   {
     "objectID": "maps.html#layers-and-markers",
     "href": "maps.html#layers-and-markers",
-    "title": "8  Maps",
-    "section": "8.3 Layers and markers",
-    "text": "8.3 Layers and markers",
+    "title": "7  Maps",
+    "section": "7.3 Layers and markers",
+    "text": "7.3 Layers and markers",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Maps</span>"
     ]
   },
   {
     "objectID": "maps.html#choropleth-maps",
     "href": "maps.html#choropleth-maps",
-    "title": "8  Maps",
-    "section": "8.4 Choropleth maps",
-    "text": "8.4 Choropleth maps",
+    "title": "7  Maps",
+    "section": "7.4 Choropleth maps",
+    "text": "7.4 Choropleth maps",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Maps</span>"
     ]
   },
   {
     "objectID": "maps.html#interactive-maps",
     "href": "maps.html#interactive-maps",
-    "title": "8  Maps",
-    "section": "8.5 Interactive maps",
-    "text": "8.5 Interactive maps",
+    "title": "7  Maps",
+    "section": "7.5 Interactive maps",
+    "text": "7.5 Interactive maps",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Maps</span>"
     ]
   },
   {
     "objectID": "maps.html#summary",
     "href": "maps.html#summary",
-    "title": "8  Maps",
-    "section": "8.6 Summary",
-    "text": "8.6 Summary",
+    "title": "7  Maps",
+    "section": "7.6 Summary",
+    "text": "7.6 Summary",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Maps</span>"
     ]
   },
   {
     "objectID": "maps.html#exercises",
     "href": "maps.html#exercises",
-    "title": "8  Maps",
-    "section": "8.7 Exercises",
-    "text": "8.7 Exercises",
+    "title": "7  Maps",
+    "section": "7.7 Exercises",
+    "text": "7.7 Exercises",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Maps</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Maps</span>"
     ]
   },
   {
     "objectID": "iteration_and_functions.html",
     "href": "iteration_and_functions.html",
-    "title": "9  Iteration and writing functions",
+    "title": "8  Iteration and writing functions",
     "section": "",
-    "text": "9.1 Repeating work with for loops\nSo far we have deliberately gotten quite far without two of Python’s most fundamental tools: loops, which repeat an action many times, and functions that we write ourselves to package up and reuse a piece of code. We were able to postpone them because the array and table tools introduced in the earlier chapters let us operate on whole collections of data at once, which removes the need to write a loop in many common situations.\nThere are still plenty of tasks, though, where writing a loop or your own function is the clearest — or the only — way to get the job done. This chapter introduces both.",
+    "text": "8.1 Repeating work with for loops\nSo far we have deliberately gotten quite far without two of Python’s most fundamental tools: loops, which repeat an action many times, and functions that we write ourselves to package up and reuse a piece of code. We were able to postpone them because the array and table tools introduced in the earlier chapters let us operate on whole collections of data at once, which removes the need to write a loop in many common situations.\nThere are still plenty of tasks, though, where writing a loop or your own function is the clearest — or the only — way to get the job done. This chapter introduces both.",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Iteration and writing functions</span>"
     ]
   },
   {
     "objectID": "iteration_and_functions.html#repeating-work-until-a-condition-is-met-while-loops",
     "href": "iteration_and_functions.html#repeating-work-until-a-condition-is-met-while-loops",
-    "title": "9  Iteration and writing functions",
-    "section": "9.2 Repeating work until a condition is met: while loops",
-    "text": "9.2 Repeating work until a condition is met: while loops",
+    "title": "8  Iteration and writing functions",
+    "section": "8.2 Repeating work until a condition is met: while loops",
+    "text": "8.2 Repeating work until a condition is met: while loops",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Iteration and writing functions</span>"
     ]
   },
   {
     "objectID": "iteration_and_functions.html#writing-your-own-functions",
     "href": "iteration_and_functions.html#writing-your-own-functions",
-    "title": "9  Iteration and writing functions",
-    "section": "9.3 Writing your own functions",
-    "text": "9.3 Writing your own functions",
+    "title": "8  Iteration and writing functions",
+    "section": "8.3 Writing your own functions",
+    "text": "8.3 Writing your own functions",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Iteration and writing functions</span>"
     ]
   },
   {
     "objectID": "iteration_and_functions.html#summary",
     "href": "iteration_and_functions.html#summary",
-    "title": "9  Iteration and writing functions",
-    "section": "9.4 Summary",
-    "text": "9.4 Summary",
+    "title": "8  Iteration and writing functions",
+    "section": "8.4 Summary",
+    "text": "8.4 Summary",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Iteration and writing functions</span>"
     ]
   },
   {
     "objectID": "iteration_and_functions.html#exercises",
     "href": "iteration_and_functions.html#exercises",
-    "title": "9  Iteration and writing functions",
-    "section": "9.5 Exercises",
-    "text": "9.5 Exercises",
+    "title": "8  Iteration and writing functions",
+    "section": "8.5 Exercises",
+    "text": "8.5 Exercises",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Iteration and writing functions</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Iteration and writing functions</span>"
     ]
   },
   {
     "objectID": "statistical_inference.html",
     "href": "statistical_inference.html",
-    "title": "10  Introduction to statistical inference",
+    "title": "9  Statistical inference",
     "section": "",
-    "text": "10.1 Populations and samples\nDescriptive statistics summarize the data we have. Statistical inference asks what that data can tell us about the larger population it came from. This chapter introduces the central idea: comparing an observed result to what chance alone would produce, using simulation.",
+    "text": "9.1 Populations and samples\nDescriptive statistics summarize the data we have. Statistical inference asks what that data can tell us about the larger population it came from. This chapter introduces the central idea, which is comparing an observed result against what chance alone would produce, and then applies that idea to three kinds of question: whether a single observed proportion is surprising, whether two groups really differ, and what range of values for a population quantity the data leaves plausible.\nEverything in this chapter is built by simulation rather than by formula. Each technique comes down to repeating an experiment many thousands of times and asking how often chance alone produces a result as extreme as the one we actually observed, so the loops and functions from Chapter 8 are the only machinery we need.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Statistical inference</span>"
     ]
   },
   {
     "objectID": "statistical_inference.html#sampling-distributions-through-simulation",
     "href": "statistical_inference.html#sampling-distributions-through-simulation",
-    "title": "10  Introduction to statistical inference",
-    "section": "10.2 Sampling distributions through simulation",
-    "text": "10.2 Sampling distributions through simulation",
+    "title": "9  Statistical inference",
+    "section": "9.2 Sampling distributions through simulation",
+    "text": "9.2 Sampling distributions through simulation",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Statistical inference</span>"
     ]
   },
   {
-    "objectID": "statistical_inference.html#the-logic-of-a-hypothesis-test",
-    "href": "statistical_inference.html#the-logic-of-a-hypothesis-test",
-    "title": "10  Introduction to statistical inference",
-    "section": "10.3 The logic of a hypothesis test",
-    "text": "10.3 The logic of a hypothesis test",
+    "objectID": "statistical_inference.html#sec-hypothesis-testing",
+    "href": "statistical_inference.html#sec-hypothesis-testing",
+    "title": "9  Statistical inference",
+    "section": "9.3 Hypothesis testing",
+    "text": "9.3 Hypothesis testing\n\n\n9.3.1 The logic of a hypothesis test\n\n\n\n9.3.2 A complete example: testing a single proportion\n\n\n\n9.3.3 Comparing two proportions\n\n\n\n9.3.4 Comparing two means\n\n\n\n9.3.5 Testing a correlation\n\n\n\n9.3.6 One-sided and two-sided tests",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Statistical inference</span>"
     ]
   },
   {
-    "objectID": "statistical_inference.html#a-complete-example-testing-a-single-proportion",
-    "href": "statistical_inference.html#a-complete-example-testing-a-single-proportion",
-    "title": "10  Introduction to statistical inference",
-    "section": "10.4 A complete example: testing a single proportion",
-    "text": "10.4 A complete example: testing a single proportion",
+    "objectID": "statistical_inference.html#sec-confidence-intervals",
+    "href": "statistical_inference.html#sec-confidence-intervals",
+    "title": "9  Statistical inference",
+    "section": "9.4 Confidence intervals",
+    "text": "9.4 Confidence intervals\n\n\n9.4.1 From tests to intervals\n\n\n\n9.4.2 Constructing and interpreting an interval",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Statistical inference</span>"
     ]
   },
   {
     "objectID": "statistical_inference.html#summary",
     "href": "statistical_inference.html#summary",
-    "title": "10  Introduction to statistical inference",
-    "section": "10.5 Summary",
-    "text": "10.5 Summary",
+    "title": "9  Statistical inference",
+    "section": "9.5 Summary",
+    "text": "9.5 Summary",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Statistical inference</span>"
     ]
   },
   {
     "objectID": "statistical_inference.html#exercises",
     "href": "statistical_inference.html#exercises",
-    "title": "10  Introduction to statistical inference",
-    "section": "10.6 Exercises",
-    "text": "10.6 Exercises",
+    "title": "9  Statistical inference",
+    "section": "9.6 Exercises",
+    "text": "9.6 Exercises",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Introduction to statistical inference</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Statistical inference</span>"
     ]
   },
   {
-    "objectID": "hypothesis_testing.html",
-    "href": "hypothesis_testing.html",
-    "title": "11  Hypothesis testing",
+    "objectID": "machine_learning.html",
+    "href": "machine_learning.html",
+    "title": "10  Machine learning",
     "section": "",
-    "text": "11.1 Comparing two proportions\nThe previous chapter tested a claim about a single proportion. This chapter applies the same five-step recipe to richer questions: comparing two groups, and testing whether two variables are related.",
+    "text": "10.1 Classification\nMachine learning builds models that make predictions from data. Rather than writing down a mathematical model of how the data arose, we let an algorithm search for patterns that predict well, and then check those predictions against data the algorithm never saw.\nThis chapter covers three kinds of model. The first two are supervised, meaning the algorithm learns from examples whose answers we already know: a classifier predicts which category an observation belongs to, and a regression predicts a number. The third is unsupervised, working without any answers at all and instead looking for structure that is already present in the data.",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Machine learning</span>"
     ]
   },
   {
-    "objectID": "hypothesis_testing.html#comparing-two-means",
-    "href": "hypothesis_testing.html#comparing-two-means",
-    "title": "11  Hypothesis testing",
-    "section": "11.2 Comparing two means",
-    "text": "11.2 Comparing two means",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
-    ]
-  },
-  {
-    "objectID": "hypothesis_testing.html#testing-a-correlation",
-    "href": "hypothesis_testing.html#testing-a-correlation",
-    "title": "11  Hypothesis testing",
-    "section": "11.3 Testing a correlation",
-    "text": "11.3 Testing a correlation",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
-    ]
-  },
-  {
-    "objectID": "hypothesis_testing.html#one-sided-and-two-sided-tests",
-    "href": "hypothesis_testing.html#one-sided-and-two-sided-tests",
-    "title": "11  Hypothesis testing",
-    "section": "11.4 One-sided and two-sided tests",
-    "text": "11.4 One-sided and two-sided tests",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
-    ]
-  },
-  {
-    "objectID": "hypothesis_testing.html#summary",
-    "href": "hypothesis_testing.html#summary",
-    "title": "11  Hypothesis testing",
-    "section": "11.5 Summary",
-    "text": "11.5 Summary",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
-    ]
-  },
-  {
-    "objectID": "hypothesis_testing.html#exercises",
-    "href": "hypothesis_testing.html#exercises",
-    "title": "11  Hypothesis testing",
-    "section": "11.6 Exercises",
-    "text": "11.6 Exercises",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Hypothesis testing</span>"
-    ]
-  },
-  {
-    "objectID": "confidence_intervals.html",
-    "href": "confidence_intervals.html",
-    "title": "12  Confidence intervals",
+    "objectID": "machine_learning.html#sec-classification",
+    "href": "machine_learning.html#sec-classification",
+    "title": "10  Machine learning",
     "section": "",
-    "text": "12.1 From tests to intervals\nA hypothesis test answers a yes-or-no question about the population. A confidence interval answers a different one: given the data, what range of values for the population quantity is plausible? This chapter builds confidence intervals with the same simulation tools used for hypothesis tests.",
+    "text": "10.1.1 Features and labels\n\n\n\n10.1.2 A first classifier: k-Nearest Neighbors\n\n\n\n10.1.3 How good is the classifier? Cross-validation\n\n\n\n10.1.4 Feature normalization\n\n\n\n10.1.5 Other classifiers",
     "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Confidence intervals</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Machine learning</span>"
     ]
   },
   {
-    "objectID": "confidence_intervals.html#constructing-and-interpreting-an-interval",
-    "href": "confidence_intervals.html#constructing-and-interpreting-an-interval",
-    "title": "12  Confidence intervals",
-    "section": "12.2 Constructing and interpreting an interval",
-    "text": "12.2 Constructing and interpreting an interval",
+    "objectID": "machine_learning.html#sec-linear-regression",
+    "href": "machine_learning.html#sec-linear-regression",
+    "title": "10  Machine learning",
+    "section": "10.2 Linear regression",
+    "text": "10.2 Linear regression\n\n\n10.2.1 Fitting a line to data\n\n\n\n10.2.2 Interpreting the model\n\n\n\n10.2.3 Inference on regression coefficients",
     "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Confidence intervals</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Machine learning</span>"
     ]
   },
   {
-    "objectID": "confidence_intervals.html#summary",
-    "href": "confidence_intervals.html#summary",
-    "title": "12  Confidence intervals",
-    "section": "12.3 Summary",
-    "text": "12.3 Summary",
+    "objectID": "machine_learning.html#sec-unsupervised-learning",
+    "href": "machine_learning.html#sec-unsupervised-learning",
+    "title": "10  Machine learning",
+    "section": "10.3 Unsupervised learning",
+    "text": "10.3 Unsupervised learning\n\n\n10.3.1 Clustering\n\n\n\n10.3.2 Hierarchical clustering",
     "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Confidence intervals</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Machine learning</span>"
     ]
   },
   {
-    "objectID": "confidence_intervals.html#exercises",
-    "href": "confidence_intervals.html#exercises",
-    "title": "12  Confidence intervals",
-    "section": "12.4 Exercises",
-    "text": "12.4 Exercises",
+    "objectID": "machine_learning.html#summary",
+    "href": "machine_learning.html#summary",
+    "title": "10  Machine learning",
+    "section": "10.4 Summary",
+    "text": "10.4 Summary",
     "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Confidence intervals</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Machine learning</span>"
     ]
   },
   {
-    "objectID": "classification.html",
-    "href": "classification.html",
-    "title": "13  Classification",
-    "section": "",
-    "text": "13.1 Features and labels\nMachine learning builds models that make predictions from data. This chapter introduces the supervised-learning setup, in which a model learns from examples with known answers, and builds a first classifier: a model that predicts which category an observation belongs to.",
+    "objectID": "machine_learning.html#exercises",
+    "href": "machine_learning.html#exercises",
+    "title": "10  Machine learning",
+    "section": "10.5 Exercises",
+    "text": "10.5 Exercises",
     "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
-    ]
-  },
-  {
-    "objectID": "classification.html#a-first-classifier-k-nearest-neighbors",
-    "href": "classification.html#a-first-classifier-k-nearest-neighbors",
-    "title": "13  Classification",
-    "section": "13.2 A first classifier: k-Nearest Neighbors",
-    "text": "13.2 A first classifier: k-Nearest Neighbors",
-    "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
-    ]
-  },
-  {
-    "objectID": "classification.html#how-good-is-the-classifier-cross-validation",
-    "href": "classification.html#how-good-is-the-classifier-cross-validation",
-    "title": "13  Classification",
-    "section": "13.3 How good is the classifier? Cross-validation",
-    "text": "13.3 How good is the classifier? Cross-validation",
-    "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
-    ]
-  },
-  {
-    "objectID": "classification.html#feature-normalization",
-    "href": "classification.html#feature-normalization",
-    "title": "13  Classification",
-    "section": "13.4 Feature normalization",
-    "text": "13.4 Feature normalization",
-    "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
-    ]
-  },
-  {
-    "objectID": "classification.html#other-classifiers",
-    "href": "classification.html#other-classifiers",
-    "title": "13  Classification",
-    "section": "13.5 Other classifiers",
-    "text": "13.5 Other classifiers",
-    "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
-    ]
-  },
-  {
-    "objectID": "classification.html#summary",
-    "href": "classification.html#summary",
-    "title": "13  Classification",
-    "section": "13.6 Summary",
-    "text": "13.6 Summary",
-    "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
-    ]
-  },
-  {
-    "objectID": "classification.html#exercises",
-    "href": "classification.html#exercises",
-    "title": "13  Classification",
-    "section": "13.7 Exercises",
-    "text": "13.7 Exercises",
-    "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Classification</span>"
-    ]
-  },
-  {
-    "objectID": "linear_regression.html",
-    "href": "linear_regression.html",
-    "title": "14  Linear regression",
-    "section": "",
-    "text": "14.1 Fitting a line to data\nClassification predicts a category. Regression predicts a number. This chapter fits lines to data, interprets what the fitted model says, and uses inference to ask whether an apparent relationship could be due to chance.",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
-    ]
-  },
-  {
-    "objectID": "linear_regression.html#interpreting-the-model",
-    "href": "linear_regression.html#interpreting-the-model",
-    "title": "14  Linear regression",
-    "section": "14.2 Interpreting the model",
-    "text": "14.2 Interpreting the model",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
-    ]
-  },
-  {
-    "objectID": "linear_regression.html#inference-on-regression-coefficients",
-    "href": "linear_regression.html#inference-on-regression-coefficients",
-    "title": "14  Linear regression",
-    "section": "14.3 Inference on regression coefficients",
-    "text": "14.3 Inference on regression coefficients",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
-    ]
-  },
-  {
-    "objectID": "linear_regression.html#summary",
-    "href": "linear_regression.html#summary",
-    "title": "14  Linear regression",
-    "section": "14.4 Summary",
-    "text": "14.4 Summary",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
-    ]
-  },
-  {
-    "objectID": "linear_regression.html#exercises",
-    "href": "linear_regression.html#exercises",
-    "title": "14  Linear regression",
-    "section": "14.5 Exercises",
-    "text": "14.5 Exercises",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Linear regression</span>"
-    ]
-  },
-  {
-    "objectID": "unsupervised_learning.html",
-    "href": "unsupervised_learning.html",
-    "title": "15  Unsupervised learning",
-    "section": "",
-    "text": "15.1 Clustering\nThe models in the last two chapters learned from labeled examples. Unsupervised learning works without labels: it looks for structure that is already present in the data. This chapter introduces clustering, which groups similar observations together.",
-    "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Unsupervised learning</span>"
-    ]
-  },
-  {
-    "objectID": "unsupervised_learning.html#hierarchical-clustering",
-    "href": "unsupervised_learning.html#hierarchical-clustering",
-    "title": "15  Unsupervised learning",
-    "section": "15.2 Hierarchical clustering",
-    "text": "15.2 Hierarchical clustering",
-    "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Unsupervised learning</span>"
-    ]
-  },
-  {
-    "objectID": "unsupervised_learning.html#summary",
-    "href": "unsupervised_learning.html#summary",
-    "title": "15  Unsupervised learning",
-    "section": "15.3 Summary",
-    "text": "15.3 Summary",
-    "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Unsupervised learning</span>"
-    ]
-  },
-  {
-    "objectID": "unsupervised_learning.html#exercises",
-    "href": "unsupervised_learning.html#exercises",
-    "title": "15  Unsupervised learning",
-    "section": "15.4 Exercises",
-    "text": "15.4 Exercises",
-    "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Unsupervised learning</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Machine learning</span>"
     ]
   },
   {
     "objectID": "web_data.html",
     "href": "web_data.html",
-    "title": "16  Web data",
+    "title": "11  Web data",
     "section": "",
-    "text": "16.1 How a web page is put together\nEvery dataset in this book so far arrived as a tidy file someone else prepared. This chapter is about collecting data yourself: how a web page is put together, how to extract data from one, and how to request data directly from services that provide it.",
+    "text": "11.1 How a web page is put together\nEvery dataset in this book so far arrived as a tidy file someone else prepared. This chapter is about collecting data yourself: how a web page is put together, how to extract data from one, and how to request data directly from services that provide it.",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Web data</span>"
     ]
   },
   {
     "objectID": "web_data.html#fetching-a-page",
     "href": "web_data.html#fetching-a-page",
-    "title": "16  Web data",
-    "section": "16.2 Fetching a page",
-    "text": "16.2 Fetching a page",
+    "title": "11  Web data",
+    "section": "11.2 Fetching a page",
+    "text": "11.2 Fetching a page",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Web data</span>"
     ]
   },
   {
     "objectID": "web_data.html#extracting-data-from-a-page",
     "href": "web_data.html#extracting-data-from-a-page",
-    "title": "16  Web data",
-    "section": "16.3 Extracting data from a page",
-    "text": "16.3 Extracting data from a page",
+    "title": "11  Web data",
+    "section": "11.3 Extracting data from a page",
+    "text": "11.3 Extracting data from a page",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Web data</span>"
     ]
   },
   {
     "objectID": "web_data.html#getting-data-from-an-api",
     "href": "web_data.html#getting-data-from-an-api",
-    "title": "16  Web data",
-    "section": "16.4 Getting data from an API",
-    "text": "16.4 Getting data from an API",
+    "title": "11  Web data",
+    "section": "11.4 Getting data from an API",
+    "text": "11.4 Getting data from an API",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Web data</span>"
     ]
   },
   {
     "objectID": "web_data.html#summary",
     "href": "web_data.html#summary",
-    "title": "16  Web data",
-    "section": "16.5 Summary",
-    "text": "16.5 Summary",
+    "title": "11  Web data",
+    "section": "11.5 Summary",
+    "text": "11.5 Summary",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Web data</span>"
     ]
   },
   {
     "objectID": "web_data.html#exercises",
     "href": "web_data.html#exercises",
-    "title": "16  Web data",
-    "section": "16.6 Exercises",
-    "text": "16.6 Exercises",
+    "title": "11  Web data",
+    "section": "11.6 Exercises",
+    "text": "11.6 Exercises",
     "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Web data</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Web data</span>"
     ]
   },
   {
     "objectID": "where_next.html",
     "href": "where_next.html",
-    "title": "17  Where to go next",
+    "title": "12  Where to go next",
     "section": "",
-    "text": "17.1 Large language models\nThis closing chapter looks at two directions for continuing beyond the book: using large language models as tools for working with data, and making your own work interactive and shareable.",
+    "text": "12.1 Large language models\nThis closing chapter looks at two directions for continuing beyond the book: using large language models as tools for working with data, and making your own work interactive and shareable.",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Where to go next</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Where to go next</span>"
     ]
   },
   {
     "objectID": "where_next.html#interactive-widgets",
     "href": "where_next.html#interactive-widgets",
-    "title": "17  Where to go next",
-    "section": "17.2 Interactive widgets",
-    "text": "17.2 Interactive widgets",
+    "title": "12  Where to go next",
+    "section": "12.2 Interactive widgets",
+    "text": "12.2 Interactive widgets",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Where to go next</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Where to go next</span>"
     ]
   },
   {
     "objectID": "where_next.html#sharing-your-work",
     "href": "where_next.html#sharing-your-work",
-    "title": "17  Where to go next",
-    "section": "17.3 Sharing your work",
-    "text": "17.3 Sharing your work",
+    "title": "12  Where to go next",
+    "section": "12.3 Sharing your work",
+    "text": "12.3 Sharing your work",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Where to go next</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Where to go next</span>"
     ]
   },
   {
     "objectID": "where_next.html#summary",
     "href": "where_next.html#summary",
-    "title": "17  Where to go next",
-    "section": "17.4 Summary",
-    "text": "17.4 Summary",
+    "title": "12  Where to go next",
+    "section": "12.4 Summary",
+    "text": "12.4 Summary",
     "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Where to go next</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Where to go next</span>"
     ]
   },
   {

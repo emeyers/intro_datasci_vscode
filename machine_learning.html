@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Linear regression – Introduction to Data Science</title>
+<title>10&nbsp; Machine learning – Introduction to Data Science</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./unsupervised_learning.html" rel="next">
-<link href="./classification.html" rel="prev">
+<link href="./web_data.html" rel="next">
+<link href="./statistical_inference.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -88,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear_regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./machine_learning.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Machine learning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -157,68 +157,38 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interactive_visualizations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Interactive visualizations</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Maps</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Maps</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./iteration_and_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Iteration and writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Iteration and writing functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./statistical_inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introduction to statistical inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Statistical inference</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear_regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear regression</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./unsupervised_learning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Unsupervised learning</span></span></a>
+  <a href="./machine_learning.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Machine learning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./web_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Web data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Web data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./where_next.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Where to go next</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Where to go next</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -248,11 +218,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#fitting-a-line-to-data" id="toc-fitting-a-line-to-data" class="nav-link active" data-scroll-target="#fitting-a-line-to-data"><span class="header-section-number">14.1</span> Fitting a line to data</a></li>
-  <li><a href="#interpreting-the-model" id="toc-interpreting-the-model" class="nav-link" data-scroll-target="#interpreting-the-model"><span class="header-section-number">14.2</span> Interpreting the model</a></li>
-  <li><a href="#inference-on-regression-coefficients" id="toc-inference-on-regression-coefficients" class="nav-link" data-scroll-target="#inference-on-regression-coefficients"><span class="header-section-number">14.3</span> Inference on regression coefficients</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14.4</span> Summary</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">14.5</span> Exercises</a></li>
+  <li><a href="#sec-classification" id="toc-sec-classification" class="nav-link active" data-scroll-target="#sec-classification"><span class="header-section-number">10.1</span> Classification</a>
+  <ul class="collapse">
+  <li><a href="#features-and-labels" id="toc-features-and-labels" class="nav-link" data-scroll-target="#features-and-labels"><span class="header-section-number">10.1.1</span> Features and labels</a></li>
+  <li><a href="#a-first-classifier-k-nearest-neighbors" id="toc-a-first-classifier-k-nearest-neighbors" class="nav-link" data-scroll-target="#a-first-classifier-k-nearest-neighbors"><span class="header-section-number">10.1.2</span> A first classifier: k-Nearest Neighbors</a></li>
+  <li><a href="#how-good-is-the-classifier-cross-validation" id="toc-how-good-is-the-classifier-cross-validation" class="nav-link" data-scroll-target="#how-good-is-the-classifier-cross-validation"><span class="header-section-number">10.1.3</span> How good is the classifier? Cross-validation</a></li>
+  <li><a href="#feature-normalization" id="toc-feature-normalization" class="nav-link" data-scroll-target="#feature-normalization"><span class="header-section-number">10.1.4</span> Feature normalization</a></li>
+  <li><a href="#other-classifiers" id="toc-other-classifiers" class="nav-link" data-scroll-target="#other-classifiers"><span class="header-section-number">10.1.5</span> Other classifiers</a></li>
+  </ul></li>
+  <li><a href="#sec-linear-regression" id="toc-sec-linear-regression" class="nav-link" data-scroll-target="#sec-linear-regression"><span class="header-section-number">10.2</span> Linear regression</a>
+  <ul class="collapse">
+  <li><a href="#fitting-a-line-to-data" id="toc-fitting-a-line-to-data" class="nav-link" data-scroll-target="#fitting-a-line-to-data"><span class="header-section-number">10.2.1</span> Fitting a line to data</a></li>
+  <li><a href="#interpreting-the-model" id="toc-interpreting-the-model" class="nav-link" data-scroll-target="#interpreting-the-model"><span class="header-section-number">10.2.2</span> Interpreting the model</a></li>
+  <li><a href="#inference-on-regression-coefficients" id="toc-inference-on-regression-coefficients" class="nav-link" data-scroll-target="#inference-on-regression-coefficients"><span class="header-section-number">10.2.3</span> Inference on regression coefficients</a></li>
+  </ul></li>
+  <li><a href="#sec-unsupervised-learning" id="toc-sec-unsupervised-learning" class="nav-link" data-scroll-target="#sec-unsupervised-learning"><span class="header-section-number">10.3</span> Unsupervised learning</a>
+  <ul class="collapse">
+  <li><a href="#clustering" id="toc-clustering" class="nav-link" data-scroll-target="#clustering"><span class="header-section-number">10.3.1</span> Clustering</a></li>
+  <li><a href="#hierarchical-clustering" id="toc-hierarchical-clustering" class="nav-link" data-scroll-target="#hierarchical-clustering"><span class="header-section-number">10.3.2</span> Hierarchical clustering</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.4</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">10.5</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -261,7 +247,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-linear-regression" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear regression</span></span></h1>
+<h1 class="title"><span id="sec-machine-learning" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Machine learning</span></span></h1>
 </div>
 
 
@@ -278,21 +264,91 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Classification predicts a category. Regression predicts a number. This chapter fits lines to data, interprets what the fitted model says, and uses inference to ask whether an apparent relationship could be due to chance.</p>
+<p>Machine learning builds models that make predictions from data. Rather than writing down a mathematical model of how the data arose, we let an algorithm search for patterns that predict well, and then check those predictions against data the algorithm never saw.</p>
+<p>This chapter covers three kinds of model. The first two are <strong>supervised</strong>, meaning the algorithm learns from examples whose answers we already know: a classifier predicts which category an observation belongs to, and a regression predicts a number. The third is <strong>unsupervised</strong>, working without any answers at all and instead looking for structure that is already present in the data.</p>
 <!--
 CHAPTER OUTLINE (stub) — to be drafted.
 
-Source material: classes 24–25 of the Fall-2025 course
-(extras/material_from_2025f/class_code/class_24.ipynb, class_25.ipynb and the
-matching slides): the regression model equation and inference on regression
-coefficients.
+This chapter merges what were three separate stub chapters: classification,
+linear regression, and unsupervised learning. The labels #sec-classification,
+#sec-linear-regression and #sec-unsupervised-learning are kept on the sections
+below so that cross-references written elsewhere in the book still resolve.
+
+Source material: classes 22–25 of the Fall-2025 course
+(extras/material_from_2025f/class_code/class_22.ipynb through class_25.ipynb
+and the matching slides): features (X) and labels (y), the k-Nearest Neighbors
+classifier, cross-validation (including k-fold), building a KNN classifier by
+hand, feature normalization, a look at other classifiers, the regression model
+equation, inference on regression coefficients, clustering, and hierarchical
+clustering.
+
+The regression section depends on @sec-statistical-inference, since asking
+whether a slope could have arisen by chance reuses the hypothesis-testing
+machinery from that chapter.
+
+Because the chapter is now long, consider whether the classification section
+wants to be split across two class sessions when it is drafted.
 
 Keep the book's conventions: executable blocks use the ```{python}``` fence;
 show the data before computing on it; end most sections with an exercise; only
 use tools introduced in this chapter or earlier ones.
 -->
-<section id="fitting-a-line-to-data" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="fitting-a-line-to-data"><span class="header-section-number">14.1</span> Fitting a line to data</h2>
+<section id="sec-classification" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="sec-classification"><span class="header-section-number">10.1</span> Classification</h2>
+<!--
+Formerly a chapter of its own. Introduces the supervised-learning setup as
+well as the first classifier, so it comes before the regression section.
+-->
+<section id="features-and-labels" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="features-and-labels"><span class="header-section-number">10.1.1</span> Features and labels</h3>
+<!--
+- The supervised setup: a table of features X and a column of labels y.
+- Training data vs. new observations we want to predict.
+- Exercise.
+-->
+</section>
+<section id="a-first-classifier-k-nearest-neighbors" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="a-first-classifier-k-nearest-neighbors"><span class="header-section-number">10.1.2</span> A first classifier: k-Nearest Neighbors</h3>
+<!--
+- The idea: predict the label of the closest known examples.
+- Fit and predict with scikit-learn; the role of k.
+- Building the classifier by hand to demystify it (class 23).
+- Exercise.
+-->
+</section>
+<section id="how-good-is-the-classifier-cross-validation" class="level3" data-number="10.1.3">
+<h3 data-number="10.1.3" class="anchored" data-anchor-id="how-good-is-the-classifier-cross-validation"><span class="header-section-number">10.1.3</span> How good is the classifier? Cross-validation</h3>
+<!--
+- Why testing on the training data is cheating.
+- Train/test splits; k-fold cross-validation (class 22/23).
+- Exercise.
+-->
+</section>
+<section id="feature-normalization" class="level3" data-number="10.1.4">
+<h3 data-number="10.1.4" class="anchored" data-anchor-id="feature-normalization"><span class="header-section-number">10.1.4</span> Feature normalization</h3>
+<!--
+- Why features on different scales break distance-based classifiers.
+- Standardizing features before fitting (class 23/24).
+- Exercise.
+-->
+</section>
+<section id="other-classifiers" class="level3" data-number="10.1.5">
+<h3 data-number="10.1.5" class="anchored" data-anchor-id="other-classifiers"><span class="header-section-number">10.1.5</span> Other classifiers</h3>
+<!--
+- A brief look at swapping in other scikit-learn classifiers with the same
+  fit/predict interface (class 22/23).
+- Exercise.
+-->
+</section>
+</section>
+<section id="sec-linear-regression" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="sec-linear-regression"><span class="header-section-number">10.2</span> Linear regression</h2>
+<!--
+Formerly a chapter of its own. Classification predicts a category; regression
+predicts a number.
+-->
+<section id="fitting-a-line-to-data" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="fitting-a-line-to-data"><span class="header-section-number">10.2.1</span> Fitting a line to data</h3>
 <!--
 - Scatter plot first; when a line is a reasonable summary.
 - The regression model equation: intercept and slope (class 24).
@@ -300,27 +356,54 @@ use tools introduced in this chapter or earlier ones.
 - Exercise.
 -->
 </section>
-<section id="interpreting-the-model" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="interpreting-the-model"><span class="header-section-number">14.2</span> Interpreting the model</h2>
+<section id="interpreting-the-model" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="interpreting-the-model"><span class="header-section-number">10.2.2</span> Interpreting the model</h3>
 <!--
 - What the slope and intercept mean in the units of the data.
 - Predictions from the fitted line; the danger of extrapolating.
 - Exercise.
 -->
 </section>
-<section id="inference-on-regression-coefficients" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="inference-on-regression-coefficients"><span class="header-section-number">14.3</span> Inference on regression coefficients</h2>
+<section id="inference-on-regression-coefficients" class="level3" data-number="10.2.3">
+<h3 data-number="10.2.3" class="anchored" data-anchor-id="inference-on-regression-coefficients"><span class="header-section-number">10.2.3</span> Inference on regression coefficients</h3>
 <!--
-- Could a slope this large arise by chance? Connecting back to the
-  hypothesis-testing chapters (class 24/25).
+- Could a slope this large arise by chance? Connecting back to
+  @sec-hypothesis-testing (class 24/25).
 - Exercise.
 -->
 </section>
-<section id="summary" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">14.4</span> Summary</h2>
 </section>
-<section id="exercises" class="level2" data-number="14.5">
-<h2 data-number="14.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">14.5</span> Exercises</h2>
+<section id="sec-unsupervised-learning" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="sec-unsupervised-learning"><span class="header-section-number">10.3</span> Unsupervised learning</h2>
+<!--
+Formerly a chapter of its own. The models in the two sections above learned
+from labeled examples; unsupervised learning works without labels, looking for
+structure that is already present in the data.
+-->
+<section id="clustering" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="clustering"><span class="header-section-number">10.3.1</span> Clustering</h3>
+<!--
+- The goal: group observations so that points within a group are similar.
+- k-means clustering (class 24/25): the algorithm's idea, choosing k,
+  visualizing the clusters on a scatter plot.
+- No labels means no single right answer; judging whether clusters are useful.
+- Exercise.
+-->
+</section>
+<section id="hierarchical-clustering" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="hierarchical-clustering"><span class="header-section-number">10.3.2</span> Hierarchical clustering</h3>
+<!--
+- Building clusters by repeatedly merging the closest groups (class 24/25).
+- Reading a dendrogram; cutting it at a height to get clusters.
+- Exercise.
+-->
+</section>
+</section>
+<section id="summary" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.4</span> Summary</h2>
+</section>
+<section id="exercises" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">10.5</span> Exercises</h2>
 
 
 </section>
@@ -728,13 +811,13 @@ use tools introduced in this chapter or earlier ones.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./classification.html" class="pagination-link" aria-label="Classification">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span>
+      <a href="./statistical_inference.html" class="pagination-link" aria-label="Statistical inference">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Statistical inference</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./unsupervised_learning.html" class="pagination-link" aria-label="Unsupervised learning">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Unsupervised learning</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./web_data.html" class="pagination-link" aria-label="Web data">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Web data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

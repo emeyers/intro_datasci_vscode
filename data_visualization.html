@@ -36,7 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./interactive_visualizations.html" rel="next">
+<link href="./maps.html" rel="next">
 <link href="./data_tables.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -157,68 +157,38 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interactive_visualizations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Interactive visualizations</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./maps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Maps</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Maps</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./iteration_and_functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Iteration and writing functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Iteration and writing functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./statistical_inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introduction to statistical inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Statistical inference</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hypothesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear regression</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./unsupervised_learning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Unsupervised learning</span></span></a>
+  <a href="./machine_learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Machine learning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./web_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Web data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Web data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./where_next.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Where to go next</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Where to go next</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -243,8 +213,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#comparing-groups" id="toc-comparing-groups" class="nav-link active" data-scroll-target="#comparing-groups"><span class="header-section-number">6.1</span> Comparing groups</a></li>
+  <li><a href="#relationships-between-two-variables" id="toc-relationships-between-two-variables" class="nav-link" data-scroll-target="#relationships-between-two-variables"><span class="header-section-number">6.2</span> Relationships between two variables</a></li>
+  <li><a href="#arranging-several-plots-together" id="toc-arranging-several-plots-together" class="nav-link" data-scroll-target="#arranging-several-plots-together"><span class="header-section-number">6.3</span> Arranging several plots together</a></li>
+  <li><a href="#statistical-graphics-with-seaborn" id="toc-statistical-graphics-with-seaborn" class="nav-link" data-scroll-target="#statistical-graphics-with-seaborn"><span class="header-section-number">6.4</span> Statistical graphics with seaborn</a></li>
+  <li><a href="#pivot-tables-and-heatmaps" id="toc-pivot-tables-and-heatmaps" class="nav-link" data-scroll-target="#pivot-tables-and-heatmaps"><span class="header-section-number">6.5</span> Pivot tables and heatmaps</a></li>
+  <li><a href="#sec-interactive-visualizations" id="toc-sec-interactive-visualizations" class="nav-link" data-scroll-target="#sec-interactive-visualizations"><span class="header-section-number">6.6</span> Interactive charts</a></li>
+  <li><a href="#animations" id="toc-animations" class="nav-link" data-scroll-target="#animations"><span class="header-section-number">6.7</span> Animations</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.8</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">6.9</span> Exercises</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -268,8 +252,106 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Earlier chapters drew plots in the course of answering particular questions. This chapter is about the plots themselves: which kind of plot suits which kind of question, how several plots can be arranged so that they can be compared, and how a chart can be made interactive so that a reader explores it rather than only looking at it.</p>
+<p>The first half of the chapter works with static images of the kind we have been drawing since <a href="descriptive_stats_and_plots.html" class="quarto-xref"><span>Chapter 3</span></a>. The second half introduces charts that respond to hovering, zooming and playing over time, which are useful while exploring a dataset even when the version that ends up in a printed report is static.</p>
+<!--
+CHAPTER OUTLINE (stub) — to be drafted.
+
+This chapter merges what was a separate stub chapter on interactive
+visualizations. The label #sec-interactive-visualizations is kept on the
+section below so that cross-references written elsewhere in the book still
+resolve.
+
+Source material: classes 10–11 of the Fall-2025 course for the static half
+(extras/material_from_2025f/class_code/class_10.ipynb, class_11.ipynb and the
+matching slides): boxplots and overlapping histograms for comparing groups,
+scatter plots, subplots, matplotlib as a general drawing canvas, and seaborn
+(relationships between two quantitative variables, a single quantitative
+variable, a quantitative variable split by a categorical one, and pairs
+plots). Class 12 is a review session with no new material.
+
+Source material for the interactive half: class 14 and the start of class 15
+(class_14.ipynb, class_15.ipynb and the matching slides): plotly (line plots,
+scatter plots, animations) and pivot tables with heatmaps. The geographic
+material from those same sessions lives in its own chapter, maps.qmd.
+
+This chapter uses DataFrames throughout, so it depends on @sec-data-tables.
+
+Keep the book's conventions: executable blocks use the ```{python}``` fence;
+show the data before computing on it; end most sections with an exercise; only
+use tools introduced in this chapter or earlier ones.
+-->
+<section id="comparing-groups" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="comparing-groups"><span class="header-section-number">6.1</span> Comparing groups</h2>
+<!--
+- Boxplots for comparing a quantitative variable across categories.
+- Overlapping histograms as an alternative, and what each one shows that the
+  other hides (class 10/11, the Bechdel movie data).
+- Exercise.
+-->
+</section>
+<section id="relationships-between-two-variables" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="relationships-between-two-variables"><span class="header-section-number">6.2</span> Relationships between two variables</h2>
+<!--
+- Scatter plots: revenue as a function of year (class 10/11).
+- Reading a scatter plot: direction, strength, outliers.
+- Exercise.
+-->
+</section>
+<section id="arranging-several-plots-together" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="arranging-several-plots-together"><span class="header-section-number">6.3</span> Arranging several plots together</h2>
+<!--
+- Subplots: several panels sharing a figure, and why a shared axis range
+  matters when panels are meant to be compared (class 10/11).
+- Using matplotlib as a general canvas: titles, annotations, reference lines.
+- Exercise.
+-->
+</section>
+<section id="statistical-graphics-with-seaborn" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="statistical-graphics-with-seaborn"><span class="header-section-number">6.4</span> Statistical graphics with seaborn</h2>
+<!--
+- Seaborn as a layer over matplotlib that takes a DataFrame directly.
+- Relationships between two quantitative variables; a single quantitative
+  variable; a quantitative variable split by a categorical one; pairs plots
+  (class 11, the penguins data).
+- Exercise.
+-->
+</section>
+<section id="pivot-tables-and-heatmaps" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="pivot-tables-and-heatmaps"><span class="header-section-number">6.5</span> Pivot tables and heatmaps</h2>
+<!--
+- Reshaping a table so rows and columns each carry a variable (pivot).
+- Displaying a pivot table as a heatmap; reading color as magnitude.
+- Exercise.
+-->
+</section>
+<section id="sec-interactive-visualizations" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="sec-interactive-visualizations"><span class="header-section-number">6.6</span> Interactive charts</h2>
+<!--
+Formerly the opening of a chapter of its own.
+
+- plotly express: the same line and scatter plots as before, now with hover,
+  zoom, and pan.
+- When interactivity helps (exploration) vs. when a static plot is better
+  (print, papers).
+- Exercise.
+-->
+</section>
+<section id="animations" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="animations"><span class="header-section-number">6.7</span> Animations</h2>
+<!--
+- A scatter plot that plays over time (class 14 example).
+- Exercise.
+-->
+</section>
+<section id="summary" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.8</span> Summary</h2>
+</section>
+<section id="exercises" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6.9</span> Exercises</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -679,8 +761,8 @@ ul.task-list li input[type="checkbox"] {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./interactive_visualizations.html" class="pagination-link" aria-label="Interactive visualizations">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Interactive visualizations</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./maps.html" class="pagination-link" aria-label="Maps">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Maps</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
