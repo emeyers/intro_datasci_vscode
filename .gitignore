@@ -25,5 +25,10 @@ data/*
 !data/nycflights/
 
 .env
-# quarto leaves both `foo.quarto_ipynb` and numbered `foo.quarto_ipynb_1` copies
+# Quarto leaves both `foo.quarto_ipynb` and numbered `foo.quarto_ipynb_1` copies.
+# The second pattern covers both, so the first looks redundant — keep it anyway.
+# On every render Quarto checks this file for the first pattern *verbatim* and
+# appends it if it is missing, which dirties the working tree each time. Leaving
+# the exact line here is what stops that.
+**/*.quarto_ipynb
 **/*.quarto_ipynb*
